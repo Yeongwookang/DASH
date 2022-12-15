@@ -1,2 +1,6 @@
 /target/
 /pom.xml
+.project
+.classpath
+jdbc.properties
+root-context.xml
