@@ -5,6 +5,7 @@
 
 <div class="container body-container">
 	<div class="inner-page">
-		메인 화면 입니다.
+		메인 화면 입니다. 쓰레기 똥겜..
+		
     </div>
 </div>
