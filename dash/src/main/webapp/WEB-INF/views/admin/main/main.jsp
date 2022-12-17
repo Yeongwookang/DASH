@@ -5,6 +5,6 @@
 
 <div class="body-container">
     <div class="body-main">
-    	<p> 관리자 페이지 입니다. </p>
+    	<p> 관리자 페이지 입니다. 2 </p>
 	</div>
 </div>
