@@ -1,4 +1,4 @@
-﻿<%@ page contentType="text/html; charset=UTF-8" %>
+﻿﻿<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -16,13 +16,6 @@ header {
 	top: 0px;
 	background: #343A40;  
 }
- 
-.dash {
-	width: 180px;
-	height: 50px;
-	margin-left: 10px;
-}    
-
 .icon {
 	color: #FF5375;
 } 
@@ -89,6 +82,15 @@ header {
 html {
 	 background: #E9ECEF;
 }
+
+.dash {
+	width: 100%;
+	height: 50px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/logo.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 <script type="text/javascript">
@@ -145,9 +147,9 @@ $(function(){
 
 <nav class="vertical_nav">
 	<ul id="js-menu" class="menu">
-		<li class="menu--item"> 
-			<a href="${pageContext.request.contextPath}/"><img src="${pageContext.request.contextPath}/resources/images/logo.png" class="dash"></a>
-		</li>   
+		<li class="menu--item">
+			<div class="dash"></div>
+		</li>
 		<li class="menu--item">
 			<a href="${pageContext.request.contextPath}/admin" class="menu--link" title="Home">
 				<span class="menu--label">Home</span>
