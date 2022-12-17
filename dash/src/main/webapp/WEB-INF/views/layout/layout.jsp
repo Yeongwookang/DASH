@@ -17,23 +17,27 @@
 </head>
 <body>
 <div class="flex-container">
-	<div class="row">
-		<div class="col-2">
-			<tiles:insertAttribute name="sidebar"/>
-		</div>
-		<div class="col-10">
-			<div class="row">
-				<tiles:insertAttribute name="header"/>
+	<div class="p-4">
+		<div class="row border" style="border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;">
+			<div class="col-2" style="min-height: 100vh">
+				<tiles:insertAttribute name="sidebar"/>
 			</div>
-			<div class="row">
-				<tiles:insertAttribute name="body"/>
+			<div class="col-10">
+				<div class="row">
+					<tiles:insertAttribute name="header"/>
+				</div>
+				<div class="row">
+					<tiles:insertAttribute name="body"/>
+				</div>
 			</div>
+			
+			<footer>
+				<tiles:insertAttribute name="footer"/>
+			</footer>
 		</div>
 	</div>
 </div>
-	<footer>
-	<tiles:insertAttribute name="footer"/>
-	</footer>
+	
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
