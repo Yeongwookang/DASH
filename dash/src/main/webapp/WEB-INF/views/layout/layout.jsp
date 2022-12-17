@@ -16,24 +16,20 @@
 	
 </head>
 <body>
-<div class="flex-container">
-	<div class="p-4">
+<div class="flex-container text-center">
+	<div style="padding: 3rem">
 		<div class="row border" style="border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;">
-			<div class="col-2" style="min-height: 100vh">
+			<div class="col-2 border-end" style="height: 92vh">
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
 			<div class="col-10">
-				<div class="row">
+				<div class="row border-bottom" style="height: 5vh">
 					<tiles:insertAttribute name="header"/>
 				</div>
-				<div class="row">
+				<div class="row" style="height: 87vh">
 					<tiles:insertAttribute name="body"/>
 				</div>
 			</div>
-			
-			<footer>
-				<tiles:insertAttribute name="footer"/>
-			</footer>
 		</div>
 	</div>
 </div>
