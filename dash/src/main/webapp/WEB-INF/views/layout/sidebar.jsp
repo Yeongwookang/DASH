@@ -4,9 +4,25 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <div class="row d-flex justify-content-center">
 	<div class="row mt-5">
-		<img src="${pageContext.request.contextPath}/resources/images/mainLogo.png" style="object-fit:contain">
+		<img src="${pageContext.request.contextPath}/resources/images/mainLogo.png" class="logo" style="object-fit:contain;">
 	</div>
 	<div class="row border-top mt-4 w-75">
-		
+			<ul style="list-style: none" class="nav text-start mt-4 flex-column " >
+				<li class="nav-item">
+					<a class="nav-box" href="#"><i class="fa-solid fa-grip-vertical"></i><span> 관리 목록</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-box" href="${pageContext.request.contextPath}/approval/main"><i class="fa-regular fa-folder"></i><span> 결재</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-box" href="#"><i class="fa-regular fa-note-sticky"></i><span> 공지</span></a>
+				</li>
+			</ul>
 	</div>
 </div>
+
+	<script type="text/javascript">
+		$(".logo").click(function(){
+			location.href="${pageContext.request.contextPath}/";
+		});
+	</script>

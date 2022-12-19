@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+.nav-box{
+	text-overflow: ellipsis;
+	color:white;
+	font-size: 1.2rem;
+	text-decoration: none;
+	font-weight: 500;
+}
+a:hover{
+	color:#e1f86a;
+}
+.nav-item{
+	margin-top: 1rem;
+}
+.bg-main{
+	background-color: #816af8;
+}
