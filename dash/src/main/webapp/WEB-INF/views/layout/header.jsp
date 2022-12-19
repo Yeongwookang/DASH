@@ -30,8 +30,8 @@
 	font-weight: 500;
 	font-size: 14px;
 	color: #787878;
-	margin-right: 85px;
-}   
+	margin-right: 87px;
+}    
 
 @font-face {
     font-family: 'Pretendard-Regular';
@@ -45,9 +45,9 @@
 <header> 
 	<div>
 		<span class="font">
-			즐거운 금요일입니다.
+			즐거운 ${dayOfWeek}요일입니다.
 			<br>
-			<span class="cal">2022.12.15(목)</span>
+			<span class="cal">${msg}</span>
 		</span>
 		<div class="header-right">
 			<a class="icon"><i class="fa-regular fa-bell"></i></a> 
