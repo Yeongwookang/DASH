@@ -23,8 +23,8 @@
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
 			<div class="col-10">
-				<div class="row border-bottom" style="height: 5vh">
-					<tiles:insertAttribute name="header"/>
+				<div class="row" style="height: 10vh">
+					<tiles:insertAttribute name="header"/>   
 				</div>
 				<div class="row" style="height: 87vh">
 					<tiles:insertAttribute name="body"/>
