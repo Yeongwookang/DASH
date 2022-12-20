@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="employee">
+	<select id="readMain" parameterType="String" resultType="com.sp.app.employee.Employee">
+		SELECT m.memberIdx, membership, m1.userId, userName, userPwd, enabled,
+			register_date, modify_date, last_login,
+			TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, 
+			zip, addr1, addr2
+		FROM member m 
+		JOIN member1 m1 ON m.memberIdx = m1.memberIdx 
+		LEFT OUTER JOIN member2 m2 ON m1.userId = m2.userId
+		WHERE m1.userId = #{userId}
+	</select>
+
+	
+	
+</mapper>
