@@ -4,7 +4,16 @@
 	color: black;
 	margin-left: 30px; 
 }
+
+.down {
+	color: black;
+}
+
 .icon:hover {
+	color: #FF5375;
+}
+
+.down:hover {
 	color: #FF5375;
 }
 
@@ -21,6 +30,20 @@
 	font-size: 14px;
 	color: #787878;
 	margin-right: 83px;
-}      
+}  
+
+.profile {
+	border: 1px solid #ccc;
+    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+} 
+
+.dep {
+	text-decoration: none;
+	margin-left: 5px; 
+}
+	
+
 
 
