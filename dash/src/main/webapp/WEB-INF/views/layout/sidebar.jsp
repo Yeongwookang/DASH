@@ -20,6 +20,15 @@
 				<li class="nav-item">
 					<a class="nav-box" href="#"><i class="bi bi-person-rolodex"></i><span> 인사</span></a>
 				</li>
+				<li class="nav-item">
+					<a class="nav-box" href="#"><i class="fa-regular fa-square-plus"></i><span> 신규 등록</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-box" href="#"><i class="fa-solid fa-charging-station"></i><span> 대여소·충전소 관리</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-box" href="#"><i class="bi bi-speedometer"></i><span> 킥보드 관리</span></a>
+				</li>
 			</ul>
 	</div>
 </div>
