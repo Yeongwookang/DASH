@@ -2,17 +2,18 @@
 
 .nav-box{
 	text-overflow: ellipsis;
-	color:white;
-	font-size: 1.2rem;
+	color: #4d4d4d;
+	font-size: 1.3rem;
 	text-decoration: none;
-	font-weight: 500;
+	font-weight: bold;
+	
 }
 a:hover{
 	color:#e1f86a;
 }
 .nav-item{
-	margin-top: 1rem;
+	margin-top: 2rem;
 }
 .bg-main{
-	background-color: #816af8;
+	background-color: #FF9E9E;
 }
