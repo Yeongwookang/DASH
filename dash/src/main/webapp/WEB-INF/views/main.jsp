@@ -58,15 +58,15 @@
 		</div>  
 	</div>
 	<div class="col-4">
-			<div class="row " style="height:60%">
-				<div style="height:80%;">
-					<img src="${pageContext.request.contextPath}/resources/images/profile.png" class="profile">
-				</div>
-				<div style="height: 20%">
+			<div class="row border profileMain" style="height:50%"> 
+				<div class="box" style="height: 50%;">
+					<img src="${pageContext.request.contextPath}/resources/images/profile2.png" class="profile">
+				</div> 
+				<div class="info" style="height: 30%">
 					<span>분석/통계부서</span>
-				</div>
+				</div> 
 			</div>
-			<div class="row" style="height:40%">
+			<div class="row" style="height:50%">
 				<span>진행중인 결재</span>
 			</div>
 	</div>
