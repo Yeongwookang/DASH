@@ -18,7 +18,8 @@
 					<a class="nav-box" href="#"><i class="fa-regular fa-note-sticky"></i><span> 공지</span></a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-box" href="#"><i class="bi bi-person-rolodex"></i><span> 인사</span></a>
+					<a class="nav-box" href="${pageContext.request.contextPath}/insa/member"><i class="bi bi-person-rolodex"></i><span> 인사</span></a>
+		
 				</li>
 				<li class="nav-item">
 					<a class="nav-box" href="#"><i class="fa-regular fa-square-plus"></i><span> 신규 등록</span></a>
