@@ -10,8 +10,8 @@
 		<div class="pe-3">
 			<a class="icon" ><i class="fa-regular fa-bell"></i></a>
 			<a class="icon"><img class="rounded-circle" style="width:2rem; height: 2rem;" src="${pageContext.request.contextPath}/resources/images/profile2.png" ></a>
-			<span>경영지원</span> 
-			<a class="icon"><i class="fa-solid fa-angle-down"></i></a>
+			<span class="dep">경영지원</span> 
+			<a class="icon down"><i class="fa-solid fa-angle-down"></i></a>
 			<a class="icon" href="${pageContext.request.contextPath}/member/logout" title="로그아웃" ><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 		</div>
 	</div>
