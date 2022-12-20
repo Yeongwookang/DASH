@@ -2,10 +2,34 @@ package com.sp.app.employee;
 
 // 세션에 저장할 정보(아이디, 이름, 권한 등)
 public class SessionInfo {
-	private long memberIdx;
 	private String empNo;
 	private String name;
-	private int membership;
+	private int posNo;
+	private int depNo;
 	
+	public String getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(String empNo) {
+		this.empNo = empNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPosNo() {
+		return posNo;
+	}
+	public void setPosNo(int posNo) {
+		this.posNo = posNo;
+	}
+	public int getDepNo() {
+		return depNo;
+	}
+	public void setDepNo(int depNo) {
+		this.depNo = depNo;
+	}
 	
 }

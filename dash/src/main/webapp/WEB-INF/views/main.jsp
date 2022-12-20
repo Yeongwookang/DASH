@@ -3,8 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
-.statistic {
-	
+.statistic {	
 	padding: 10px;
 } 
 </style>
@@ -59,12 +58,12 @@
 		</div>  
 	</div>
 	<div class="col-4">
-			<div class="row" style="height:60%">
+			<div class="row " style="height:60%">
 				<div style="height:80%;">
-				<img src="${pageContext.request.contextPath}/resources/images/profile.png" style="width:100%; height:100%; object-fit:contain">
+					<img src="${pageContext.request.contextPath}/resources/images/profile.png" class="profile">
 				</div>
 				<div style="height: 20%">
-				<span>분석/통계부서</span>
+					<span>분석/통계부서</span>
 				</div>
 			</div>
 			<div class="row" style="height:40%">
