@@ -13,6 +13,8 @@ public class Employee {
 	private String modify_date;
 	private int failure_cnt;
 	
+	private String depName;
+	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -78,6 +80,12 @@ public class Employee {
 	}
 	public void setFailure_cnt(int failure_cnt) {
 		this.failure_cnt = failure_cnt;
+	}
+	public String getDepName() {
+		return depName;
+	}
+	public void setDepName(String depName) {
+		this.depName = depName;
 	}
 
 	

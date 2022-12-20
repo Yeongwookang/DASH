@@ -13,16 +13,16 @@
 		<div class="row" style="height:50%">
 			<span>타임라인</span>
 		</div>
-		<div class="row">
+		<div class="row d-flex">
 			<div class="col-4">
 				<select name="category" class="form-select">
 					<option value="일">일</option>
 					<option value="월">월</option>
 					<option value="년">년</option>
 				</select>
-			</div>
-			<div class="col-4">
-				<select name="category1" class="form-select" style="width: 50%; float: left; margin-right: 10px;">
+			</div> 
+			<div class="col-4 d-flex"> 
+				<select name="category1" class="form-select" style="width: 75%; margin-right: 10px;">
 					<option value="1">홍대입구역9번출구대여소</option>
 					<option value="2">강남역12번출구대여소</option> 
 					<option value="3">서울숲역2번출구대여소</option>
@@ -32,9 +32,9 @@
 					<option value="7">신논현8번출구대여소</option>
 					<option value="8">뚝섬역7번출구대여소</option>
 					<option value="9">노량진역3번출구대여소</option>
-					<option value="10">고속버스터미널역8번출구대여소</option>
+					<option value="10">고속버스터미널역8번출구대여소</option>  
 				</select>
-				<select name="category2" class="form-select" style="width: 45%">
+				<select name="category2" class="form-select" style="width: 25%">
 					<option value="일">일</option>
 					<option value="월">월</option> 
 					<option value="년">년</option>   

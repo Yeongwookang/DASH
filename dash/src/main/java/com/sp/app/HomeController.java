@@ -46,7 +46,7 @@ public class HomeController {
 		}
 		
 		String msg = year + "." + month + "." + day + "(" + korDayOfWeek + ")";
-		String s = "즐거운" + korDayOfWeek + "요일입니다.";
+		String s = "즐거운 " + korDayOfWeek + "요일입니다.";
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("dayOfWeek", s);
