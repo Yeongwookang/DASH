@@ -34,7 +34,7 @@
 	</style>
 </head>
 <body>
-<div class="flex-container text-center" style="background-color:#f5f5f5;">
+<div class="flex-container text-center" style="background-color:#f5f5f5; min-width:1920px;">
 	<div style="padding-top: 3rem; padding-bottom: 3rem; padding-left: 7rem; padding-right: 7rem;">
 		<div class="row border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem;">
 			<div class="col-2 " style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
