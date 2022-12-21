@@ -3,14 +3,6 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-</head>
-<body>
-
-</body>
-</html>
+	<div class="text-start fs-4 mb-4">
+		<span>| 인사관리</span>
+	</div>
