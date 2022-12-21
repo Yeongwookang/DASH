@@ -1,5 +1,7 @@
 package com.sp.app;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -60,6 +62,32 @@ public class AnalysisServiceImpl implements AnalysisService {
 		}
 		
 		return result;
+	}
+
+	@Override
+	public int damageCount() {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("analysis.damageCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Analysis> usageRankList() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.usageRankList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.sp.app;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,12 @@ public class HomeController {
 		int rentalCount = service.rentalCount();
 		int newCustomerCount = service.newCustomerCount();
 		int repairCount = service.repairCount();
+		int damageCount = service.damageCount();
+		
+		List<Analysis> usageRankList = service.usageRankList();
+		for(Analysis dto : usageRankList) {
+		
+		}
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("dayOfWeek", s);
@@ -62,6 +69,8 @@ public class HomeController {
 		model.addAttribute("rentalCount", rentalCount);
 		model.addAttribute("newCustomerCount", newCustomerCount);
 		model.addAttribute("repairCount", repairCount);
+		model.addAttribute("damageCount", damageCount);
+		model.addAttribute("usageRankList", usageRankList);
 		
 		return ".mainLayout";
 	}

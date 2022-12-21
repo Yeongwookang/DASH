@@ -24,8 +24,22 @@
 	<select id="rentalCount" resultType="Integer">
 		SELECT COUNT(*) rentalCount
 		FROM usageRecord u
-		JOIN rental r ON u.recordNum = r.recordNum
-		WHERE TO_CHAR(rental_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="damageCount" resultType="Integer">
+		SELECT COUNT(*) damageCount
+		FROM damage 
+		WHERE TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</select>
+	
+	<select id="usageRankList" resultType="com.sp.app.Analysis">
+		SELECT RANK() OVER (ORDER BY COUNT(*) DESC) AS usageRank, COUNT(*) usageCount, name
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		JOIN station s ON r.stNum = s.stNum
+		GROUP BY s.name
 	</select>
 	
 	
