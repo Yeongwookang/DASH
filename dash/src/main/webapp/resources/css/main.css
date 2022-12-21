@@ -12,8 +12,15 @@
  
 .box {
 	border-radius: 1rem 1rem 1rem 1rem / 1rem 1rem 1rem 1rem;
-	height: 100%;
-	margin-right: 20px;
-	margin-left: 20px; 
-	  
+	height: 140px;
+	width: 15%; 
+} 
+
+.data {
+	font-size: 25px;
+	font-weight: 700;
+}
+
+.salesicon {
+	color: #FF5375;
 }
