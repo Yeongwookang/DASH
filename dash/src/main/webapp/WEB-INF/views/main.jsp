@@ -56,7 +56,7 @@
 							<th>이용건수</th> 
 						</tr>
 					</thead>
-						<c:forEach var="dto" items="${usageRankList}" end="4">
+						<c:forEach var="dto" items="${usageRankList}" end="3">
 							<tr>
 								<td>${dto.usageRank}</td>
 								<td>${dto.name}</td> 
