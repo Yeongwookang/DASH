@@ -15,10 +15,13 @@
 	background-color: #FF9E9E; 
 }
 .bg-sub{
-	background-color: #FFCAC8;
+	background-color: #FFE1E1;
 }
 .round-box{
 	height: 100%; 
+	border-radius: 1rem 1rem 1rem 1rem / 1rem 1rem 1rem 1rem;
+}
+.rad-box{
 	border-radius: 1rem 1rem 1rem 1rem / 1rem 1rem 1rem 1rem;
 }
 a:hover{
