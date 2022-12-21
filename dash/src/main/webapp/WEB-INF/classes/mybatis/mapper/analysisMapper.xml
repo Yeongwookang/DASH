@@ -2,26 +2,26 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="analysis">
-	<select id="totalSales" parameterType="String" resultType="com.sp.app.analysis.Analysis">
+	<select id="totalSales" parameterType="String" resultType="com.sp.app.Analysis">
 		SELECT TO_CHAR(SYSDATE, 'YYYY-MM-DD') today, TO_CHAR(NVL(SUM(price), 0), '999,999,999') total_sales
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD');
 	</select>
 	
-	<select id="newCustomerCount" parameterType="Integer" resultType="com.sp.app.analysis.Analysis">
+	<select id="newCustomerCount" parameterType="Integer" resultType="com.sp.app.Analysis">
 		SELECT COUNT(*) newCustomerCount
 		FROM customer 
 		WHERE TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD');
 	</select>
 	
-	<select id="repairCount" parameterType="Integer" resultType="com.sp.app.analysis.Analysis">
+	<select id="repairCount" parameterType="Integer" resultType="com.sp.app.Analysis">
 		SELECT COUNT(*) repairCount
 		FROM repair 
 		WHERE state = '수리대기' OR state = '입고';
 	</select>
 	
-	<select id="rentalCount" parameterType="Integer" resultType="com.sp.app.analysis.Analysis">
+	<select id="rentalCount" parameterType="Integer" resultType="com.sp.app.Analysis">
 		SELECT COUNT(*) rentalCount
 		FROM usageRecord u
 		JOIN rental r ON u.recordNum = r.recordNum
