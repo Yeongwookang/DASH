@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 	
-<div class="row" style="width: 90%">
+<div class="row">
 	<div class="row" style="height: 30%">
 		<div class="col-8"> 
 			<div class="card h-100"> 
