@@ -1,10 +1,8 @@
 package com.sp.app;
 
-import java.util.Map;
-
 public interface AnalysisService {
-	public long totalSales(Map<String, Object> map);
-	public int newCustomerCount(Map<String, Object> map);
-	public int repairCount(Map<String, Object> map);
-	public int rentalCount(Map<String, Object> map);
+	public long totalSales();
+	public int newCustomerCount();
+	public int repairCount();
+	public int rentalCount();
 }

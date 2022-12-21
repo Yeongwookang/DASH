@@ -1,7 +1,5 @@
 package com.sp.app;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +11,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	private CommonDAO dao;
 
 	@Override
-	public long totalSales(Map<String, Object> map) {
+	public long totalSales() {
 		long result = 0;
 		
 		try {
-			result = dao.selectOne("analysis.totalSales", map);
+			result = dao.selectOne("analysis.totalSales");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -26,11 +24,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public int newCustomerCount(Map<String, Object> map) {
+	public int newCustomerCount() {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("analysis.newCustomerCount", map);
+			result = dao.selectOne("analysis.newCustomerCount");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -39,11 +37,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public int repairCount(Map<String, Object> map) {
+	public int repairCount() {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("analysis.repairCount", map);
+			result = dao.selectOne("analysis.repairCount");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -52,11 +50,11 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public int rentalCount(Map<String, Object> map) {
+	public int rentalCount() {
 		int result = 0;
 		
 		try {
-			result = dao.selectOne("analysis.rentalCount", map);
+			result = dao.selectOne("analysis.rentalCount");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
