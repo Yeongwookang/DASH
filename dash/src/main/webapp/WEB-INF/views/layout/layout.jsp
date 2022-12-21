@@ -34,24 +34,20 @@
 	</style>
 </head>
 <body>
-<div class="container-fluid d-flex justify-content-center align-content-center text-center" style="background-color:#f5f5f5;">
-	<div style="padding-top: 3rem; padding-bottom: 3rem;">
-		<div class="row border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem; width:1600px; ">
-			<div class="col-2 " style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
+<div class="container-fluid d-flex justify-content-center align-content-center text-center" style="background-color:#f5f5f5; height: 100vh;">
+		<div class="border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem; width:80vw; height: 80vh; margin-top: 10vh">
+		<div class="row">
+			<div class="col-2" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
-			<div class="col-10" >
-				<div class="border main-box">
-				<div class="row d-flex justify-content-center p-0 m-0" style="height: 10vh;">
+			<div class="col-10" style="height: 80vh">
+				<div class="border main-box m-4" style="height: 95%">
 					<tiles:insertAttribute name="header"/>   
-				</div>
-				<div class="row d-flex justify-content-center p-0 m-0" style="height: 80vh;">
 					<tiles:insertAttribute name="body"/>
 				</div>
 			</div>
-			</div>
 		</div>
-	</div>
+		</div>
 	</div>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,8 @@
 @charset "UTF-8";
 
+.elipsis{
+	text-overflow:ellipsis; overflow: hidden; white-space: nowrap;
+}
 .nav-box{
 	text-overflow: ellipsis;
 	color: white;
@@ -14,8 +17,6 @@
 .main-box{
 	background-color: #ffffff;
 	border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;
-	margin-top: 0.7rem;
-	margin-bottom: 0.7rem;
 }
 .sidenav-item{
 	margin-top: 0.5rem;
