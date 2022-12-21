@@ -6,7 +6,7 @@
 	<div class="text-start fs-4 mb-4">
 		<span>| 결재</span>
 	</div>
-	<div class="form-control">
+	<div>
 	<form name="approval-search"  method="post">
 		<div class="d-flex justify-content-center align-items-center">
 				<input class="form-control" type="date"> 
@@ -16,7 +16,6 @@
 		</div>
 	</form>
 	</div>
-	<div class="form-control mt-4">
 	<div class="mt-4">
 		<div class="card">
 			<div class="card-header bg-sub text-start">결재 대기 목록</div>
@@ -43,7 +42,6 @@
 		<div>
 			<button class="btn bg-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#newApproval">신규 결재</button>
 		</div>
-	</div>
 	</div>
 </div>
 
@@ -87,7 +85,7 @@
         					<td>개발부</td>
         					<td>부장</td>
         					<td>머시기저시기</td>
-        					<td>강모씨</td>
+        					<td>김시연</td>
         				</tr>
         				<tr>
         					<th scope="row">2</th>
@@ -105,6 +103,19 @@
         				</tr>
         			</tbody>
         		</table>
+        		<div class="d-flex justify-content-center">
+        		<nav aria-label="...">
+				  <ul class="pagination">
+				    <li class="page-item">
+				      <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&lt;</a>
+				    </li>
+				    <li class="page-item disabled"><span class="page-link">-</span></li>
+				    <li class="page-item">
+				      <a class="page-link" href="#">&gt;</a>
+				    </li>
+				  </ul>
+				</nav>
+				</div>
         	</div>
         </form>
         <div class="form-control mt-4">

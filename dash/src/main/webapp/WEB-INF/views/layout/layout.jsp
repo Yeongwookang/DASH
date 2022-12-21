@@ -11,10 +11,14 @@
 	<title><tiles:insertAttribute name="title"/></title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/bootstrap5/icon/bootstrap-icons.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css" type="text/css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/kyw.css" type="text/css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+	
+	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/kyw.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css" type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css" type="text/css">
+	
+	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
 	<style type="text/css">
 		@font-face {
@@ -24,29 +28,31 @@
 	    font-style: normal;
 		}
 	
-	body{
-	font-family: 'Pretendard-Regular';
-	}
+		body{
+		font-family: 'Pretendard-Regular';
+		}
 	</style>
 </head>
 <body>
-<div class="flex-container text-center" style="background-color:#f5f5f5">
-	<div style="padding: 3rem;">
-		<div class="row border shadow" style="background-color: #ffffff; border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;">
-			<div class="col-2 border-end bg-main bg-gradient" style="height: 92vh; border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
+<div class="flex-container text-center" style="background-color:#f5f5f5;">
+	<div style="padding-top: 3rem; padding-bottom: 3rem; padding-left: 7rem; padding-right: 7rem;">
+		<div class="row border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem;">
+			<div class="col-2 " style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
-			<div class="col-10">
-				<div class="row d-flex justify-content-center" style="height: 10vh;">
+			<div class="col-10" >
+				<div class="border main-box">
+				<div class="row d-flex justify-content-center p-0 m-0" style="height: 10vh;">
 					<tiles:insertAttribute name="header"/>   
 				</div>
-				<div class="row d-flex justify-content-center" style="height: 82vh;">
+				<div class="row d-flex justify-content-center p-0 m-0" style="height: 80vh;">
 					<tiles:insertAttribute name="body"/>
 				</div>
 			</div>
+			</div>
 		</div>
 	</div>
-</div>
+	</div>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
