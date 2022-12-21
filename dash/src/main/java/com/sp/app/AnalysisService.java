@@ -1,4 +1,4 @@
-package com.sp.app.analysis;
+package com.sp.app;
 
 import java.util.Map;
 

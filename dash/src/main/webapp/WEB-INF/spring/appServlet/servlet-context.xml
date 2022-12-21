@@ -40,7 +40,7 @@
 		</beans:property>
 	</beans:bean>
 	
-	     <!-- 뷰 -->
+	<!-- 뷰 -->
 	<beans:bean class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<beans:property name="order" value="1" />
 		<beans:property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
