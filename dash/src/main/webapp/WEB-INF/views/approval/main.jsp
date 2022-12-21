@@ -7,17 +7,11 @@
 		<span>| 결재</span>
 	</div>
 	<form name="approval-search p-0"  method="post">
-		<div class="d-flex justify-content-center align-items-center">
-			<div class="form-control">
+		<div class="d-flex justify-content-center align-items-center form-control">
 				<input class="form-control" type="date"> 
-			</div>
-			<span>&nbsp;~&nbsp;</span>
-			<div class="form-control">
+			<span class="ms-2 me-2">~</span>
 				<input class="form-control" type="date"> 
-			</div>
-			<div>
-				<button class="btn"><i class="fa-solid fa-magnifying-glass"></i></button>
-			</div>	
+			<button class="btn bg-main bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 	</form>
 	<div class="mt-4">

@@ -31,16 +31,16 @@
 </head>
 <body>
 <div class="flex-container text-center" style="background-color:#f5f5f5">
-	<div style="padding: 3rem; ">
-		<div class="row border shadow" style="background-color: #ffffff ; border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem">
-			<div class="col-2 border-end bg-main bg-gradient" style="height: 93vh; border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
+	<div style="padding: 3rem;">
+		<div class="row border shadow" style="background-color: #ffffff; border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;">
+			<div class="col-2 border-end bg-main bg-gradient" style="height: 92vh; border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
 			<div class="col-10">
-				<div class="row d-flex justify-content-center" style="height: 10vh">
+				<div class="row d-flex justify-content-center" style="height: 10vh;">
 					<tiles:insertAttribute name="header"/>   
 				</div>
-				<div class="row d-flex justify-content-center" style="height: 83vh">
+				<div class="row d-flex justify-content-center" style="height: 82vh;">
 					<tiles:insertAttribute name="body"/>
 				</div>
 			</div>
