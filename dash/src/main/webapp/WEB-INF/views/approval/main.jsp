@@ -57,17 +57,21 @@
       </div>
       <div class="modal-body">
         <div class="flex-container">
+        <div class="alert bg-sub  text-center" role="alert">
+        	<div>결재 문서의 참조자를 설정해주세요.</div><div> 참조자는 최대 3명까지 가능합니다.</div>
+        </div>
         <form class="form-control">
         <div class="d-flex mt-2">
         	<select class="form-select">
         		<option>부서</option>
+        		<option>직책</option>
         		<option>이름</option>
         	</select>
         	<input type="text" class="form-control ms-2">
         	<button type="button" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
         	<div>
-        		<table class="table mt-2">
+        		<table class="table table-hover mt-2">
         			<thead>
 	        			<tr>
 	        				<th scope="col">#</th>
@@ -85,15 +89,41 @@
         					<td>머시기저시기</td>
         					<td>강모씨</td>
         				</tr>
+        				<tr>
+        					<th scope="row">2</th>
+        					<td>개발부</td>
+        					<td>과장</td>
+        					<td>머시기저시기</td>
+        					<td>강모씨</td>
+        				</tr>
+        				<tr>
+        					<th scope="row">3</th>
+        					<td>개발부</td>
+        					<td>팀장</td>
+        					<td>머시기저시기</td>
+        					<td>강모씨</td>
+        				</tr>
         			</tbody>
         		</table>
         	</div>
-        
         </form>
+        <div class="form-control mt-4">
+        	<table class="table table-hover mt-2">
+        		<thead>
+	       			<tr>
+	       				<th scope="col">#</th>
+	       				<th scope="col">부서</th>
+	       				<th scope="col">직급</th>
+	       				<th scope="col">직책</th>
+	       				<th scope="col">이름</th>
+	       			</tr>
+     			</thead>
+        	</table>
+        </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">닫기</button>
         <button type="button" class="btn bg-sub">글쓰기</button>
       </div>
     </div>
