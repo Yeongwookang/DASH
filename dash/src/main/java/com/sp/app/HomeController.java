@@ -1,14 +1,17 @@
 package com.sp.app;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HomeController {
@@ -59,9 +62,6 @@ public class HomeController {
 		int damageCount = service.damageCount();
 		
 		List<Analysis> usageRankList = service.usageRankList();
-		for(Analysis dto : usageRankList) {
-		
-		}
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("dayOfWeek", s);
@@ -73,6 +73,19 @@ public class HomeController {
 		model.addAttribute("usageRankList", usageRankList);
 		
 		return ".mainLayout";
+	}
+	
+	@RequestMapping("zoonSalesAnalysis")
+	@ResponseBody
+	public Map<String, Object> salesRankList() throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		// 연령대별 인원수
+		List<Analysis> salesRankList = service.salesRankList();
+
+		model.put("salesRankList", salesRankList);
+
+		return model;
 	}
 	
 }

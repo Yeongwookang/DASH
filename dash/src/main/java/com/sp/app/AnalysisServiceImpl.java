@@ -90,4 +90,17 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return list;
 	}
 
+	@Override
+	public List<Analysis> salesRankList() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.salesRankList");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
 }

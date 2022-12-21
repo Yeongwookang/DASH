@@ -9,4 +9,5 @@ public interface AnalysisService {
 	public int rentalCount();
 	public int damageCount();
 	public List<Analysis> usageRankList();
+	public List<Analysis> salesRankList();
 }
