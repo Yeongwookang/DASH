@@ -80,10 +80,22 @@ public class HomeController {
 	public Map<String, Object> salesRankList() throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		// 연령대별 인원수
 		List<Analysis> salesRankList = service.salesRankList();
 
 		model.put("salesRankList", salesRankList);
+
+		return model;
+	}
+	
+	@RequestMapping("zoonUsageCountAnalysis")
+	@ResponseBody
+	public Map<String, Object> lastDayUsageCount() throws Exception {
+		Map<String, Object> model = new HashMap<String, Object>();
+
+		// 연령대별 인원수
+		Analysis lastDayUsageCount = service.lastDayUsageCount();
+
+		model.put("lastDayUsageCount", lastDayUsageCount);
 
 		return model;
 	}

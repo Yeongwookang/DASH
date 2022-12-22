@@ -103,4 +103,17 @@ public class AnalysisServiceImpl implements AnalysisService {
 		return list;
 	}
 
+	@Override
+	public Analysis lastDayUsageCount() {
+		Analysis dto = null;
+		
+		try {
+			dto = dao.selectOne("analysis.lastDayUsageCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+
 }

@@ -10,4 +10,5 @@ public interface AnalysisService {
 	public int damageCount();
 	public List<Analysis> usageRankList();
 	public List<Analysis> salesRankList();
+	public Analysis lastDayUsageCount();
 }
