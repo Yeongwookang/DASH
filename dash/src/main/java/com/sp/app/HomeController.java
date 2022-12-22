@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.app.analysis.Analysis;
+import com.sp.app.analysis.AnalysisService;
+
 @Controller
 public class HomeController {
 	@Autowired

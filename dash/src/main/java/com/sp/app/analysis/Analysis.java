@@ -1,4 +1,4 @@
-package com.sp.app;
+package com.sp.app.analysis;
 
 public class Analysis {
 	private int usageRank;

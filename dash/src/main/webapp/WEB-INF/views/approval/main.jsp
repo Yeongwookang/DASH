@@ -18,7 +18,7 @@
 	</div>
 	<div class="mt-4">
 		<div class="card">
-			<div class="card-header bg-sub text-start">결재 대기 목록</div>
+			<div class="card-header bg-sub bg-gradient text-start">결재 대기 목록</div>
 			<div class="card-body">
 				<blockquote class="blockquote mb-0">
 			      <p>A well-known quote, contained in a blockquote element.</p>
@@ -29,7 +29,7 @@
 	</div>
 	<div class="mt-4">
 		<div class="card">
-			<div class="card-header bg-sub text-start">? 의 결재</div>
+			<div class="card-header bg-sub bg-gradient text-start">? 의 결재</div>
 			<div class="card-body">
 				<blockquote class="blockquote mb-0">
 			      <p>A well-known quote, contained in a blockquote element.</p>

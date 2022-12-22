@@ -1,5 +1,11 @@
 @charset "UTF-8";
 
+.bg-main{
+	background-color: #FFC668; 
+}
+.bg-sub{
+	background-color: #FFE1E1;
+}
 .elipsis{
 	text-overflow:ellipsis; overflow: hidden; white-space: nowrap;
 }
@@ -23,12 +29,7 @@
 }
 .nav-item{
 	margin-top: 1.5rem;
-}
-.bg-main{
-	background-color: #FF9E9E; 
-}
-.bg-sub{
-	background-color: #FFE1E1;
+	padding-left: 2rem;
 }
 .round-box{
 	height: 100%; 

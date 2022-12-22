@@ -35,12 +35,12 @@
 </head>
 <body>
 <div class="container-fluid d-flex justify-content-center align-content-center text-center" style="background-color:#f5f5f5; height: 100vh;">
-		<div class="border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem; width:80vw; height: 80vh; margin-top: 10vh">
+		<div class="border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem; width:80vw; height: 90vh; margin-top: 5vh">
 		<div class="row">
 			<div class="col-2" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
-			<div class="col-10" style="height: 80vh">
+			<div class="col-10" style="height: 90vh">
 				<div class="border main-box m-4" style="height: 95%">
 					<tiles:insertAttribute name="header"/>   
 					<tiles:insertAttribute name="body"/>

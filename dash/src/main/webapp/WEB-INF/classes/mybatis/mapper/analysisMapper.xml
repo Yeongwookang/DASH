@@ -34,7 +34,7 @@
 		WHERE TO_CHAR(reg_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
 	</select>
 	
-	<select id="usageRankList" resultType="com.sp.app.Analysis">
+	<select id="usageRankList" resultType="com.sp.app.analysis.Analysis">
 		SELECT RANK() OVER (ORDER BY COUNT(*) DESC) AS usageRank, COUNT(*) usageCount, name
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
@@ -42,7 +42,7 @@
 		GROUP BY name
 	</select>
 	
-	<select id="salesRankList" resultType="com.sp.app.Analysis">
+	<select id="salesRankList" resultType="com.sp.app.analysis.Analysis">
 		SELECT * FROM (
 		    SELECT RANK() OVER (ORDER BY SUM(price) DESC) AS salesRank, SUM(price) price, zoonName
 		    FROM usageRecord u
@@ -53,7 +53,7 @@
 		WHERE salesRank &lt;= 5
 	</select>
 	
-	<select id="lastDayUsageCount" resultType="com.sp.app.Analysis">
+	<select id="lastDayUsageCount" resultType="com.sp.app.analysis.Analysis">
 		SELECT COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 1, 1, 2, 1, 3, 1)) t0,
 		  COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 4, 1, 5, 1, 6, 1)) t3,
 		  COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 7, 1, 8, 1, 9, 1)) t6,
