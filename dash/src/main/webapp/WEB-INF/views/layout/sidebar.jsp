@@ -36,6 +36,10 @@
 				</ul>
 				</div>
 				</li>
+				<li class="nav-item">
+					<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/develop/main'"><i class="bi bi-gear-fill"></i><span class="ms-3">관리</span></button>
+				</li>
+				
 			</ul>
 	</div>
 </div>

@@ -3,14 +3,19 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<script type="text/javascript">
-	
-</script>
 
 
 <div class="text-start fs-4 ml-2">
-	<span>| 인사관리</span>
+	<span>| 사원관리</span>
 </div>
+
+
+<div class="d-flex justify-content-sm-end">
+	<button type="button" class="btn col-1 bg-sub">등록</button>
+	<button type="button" class="btn col-1 bg-sub">저장</button>
+	<button type="button" class="btn col-1 bg-sub">삭제</button>
+</div>
+
 
 <div class="d-flex justify-content-evenly">
 
@@ -18,6 +23,27 @@
 		<div class="card">
 			<div class="card-header bg-sub text-start">전체 사원 목록</div>
 			<div class="card-body">
+				<form class="row g-3">
+					<div class="col-auto">
+						<select class="form-select" aria-label="Default select example">
+							<option selected>찾기</option>
+							<option value="1">사번</option>
+							<option value="2">이름</option>
+							<option value="3">부서</option>
+							<option value="4">직급</option>
+						</select>
+					</div>
+					<div class="col-auto">
+						<input type="search" class="form-control" id="search">
+					</div>
+					<div class="col-auto">
+						<button type="submit" class="btn bg-main mb-3">
+							<i class="bi bi-search"></i>검색
+						</button>
+					</div>
+				</form>
+
+
 				<table class="table table-hover">
 					<thead>
 						<tr>
@@ -33,8 +59,8 @@
 							<th scope="row">1</th>
 							<td>980618</td>
 							<td>조똥개</td>
-							<td>영업</td> 
-							<td>사원</td> 
+							<td>영업</td>
+							<td>사원</td>
 						</tr>
 						<tr>
 							<th scope="row">2</th>
@@ -198,32 +224,7 @@
 				</div>
 
 
-				<!-- Button trigger modal -->
-				<button type="button" class="btn bg-sub bg-gradient mt-3 sm-2"
-					data-bs-toggle="modal" data-bs-target="#exampleModal">등록</button>
-
-				<!-- Modal -->
-
-				<div class="modal fade" id="exampleModal" tabindex="-1"
-					aria-labelledby="exampleModalLabel" aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">
-									<i class="bi bi-person-check-fill"></i>
-								</h5>
-								<button type="button" class="btn-close" data-bs-dismiss="modal"
-									aria-label="Close"></button>
-							</div>
-							<div class="modal-body">등록 완료 하시겠습니까?</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-bs-dismiss="modal">취소</button>
-								<button type="button" class="btn bg-main">닫기</button>
-							</div>
-						</div>
-					</div>
-				</div>
+				
 			</div>
 		</div>
 	</div>
