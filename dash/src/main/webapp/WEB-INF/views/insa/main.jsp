@@ -3,27 +3,31 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<style>
+#btn1 {
+	margin: 3px;
+}
+</style>
 
-
-<div class="text-start fs-4 ml-2">
-	<span>| 사원관리</span>
-</div>
-
-
-<div class="d-flex justify-content-sm-end">
-	<button type="button" class="btn col-1 bg-sub">등록</button>
-	<button type="button" class="btn col-1 bg-sub">저장</button>
-	<button type="button" class="btn col-1 bg-sub">삭제</button>
+<div class="row text-start fs-4 ml-2">
+	<div class ="justify-content-start">
+		<span>| 사원관리</span>
+	</div>
+	<div class="justify-content-sm-end mt-2">
+		<button type="button" class="btn btn1 bg-sub">등록</button>
+		<button type="button" class="btn btn1 bg-sub">저장</button>
+		<button type="button" class="btn btn1 bg-sub">삭제</button>
+	</div>
 </div>
 
 
 <div class="d-flex justify-content-evenly">
 
-	<div class="mt-3 p-2" style="width: 38%">
+	<div class="mt-2 p-2" style="width: 38%">
 		<div class="card">
 			<div class="card-header bg-sub text-start">전체 사원 목록</div>
 			<div class="card-body">
-				<form class="row g-3">
+				<div class="row g-3">
 					<div class="col-auto">
 						<select class="form-select" aria-label="Default select example">
 							<option selected>찾기</option>
@@ -37,12 +41,16 @@
 						<input type="search" class="form-control" id="search">
 					</div>
 					<div class="col-auto">
-						<button type="submit" class="btn bg-main mb-3">
+						<button type="submit" class="btn bg-sub">
 							<i class="bi bi-search"></i>검색
 						</button>
 					</div>
-				</form>
 
+					<div class="col-auto mt-4">
+						<input type="checkbox" value="" id="flexCheckDefault"> <label
+							class="form-check-label" for="flexCheckDefault"> 퇴사자 제외 </label>
+					</div>
+				</div>
 
 				<table class="table table-hover">
 					<thead>
@@ -89,7 +97,7 @@
 		</div>
 	</div>
 
-	<div class="mt-3 p-2" style="width: 56%">
+	<div class="mt-2 p-2" style="width: 56%">
 		<div class="card">
 			<div class="card-header bg-sub text-start">기본정보</div>
 			<div class="card-body">
@@ -154,11 +162,13 @@
 					</div>
 
 					<div class="mt-3" style="width: 40%">
-						<a><img class="img-thumbnail"
-							src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
-
-						<input type="file" id="exampleInputFile">
-
+						<div class="d-flex justify-content-center">
+							<a><img class="img-thumbnail"
+								src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
+						</div>
+						<div>
+							<input class="col-auto" type="file" id="exampleInputFile">
+						</div>
 					</div>
 
 				</div>
@@ -224,7 +234,7 @@
 				</div>
 
 
-				
+
 			</div>
 		</div>
 	</div>
