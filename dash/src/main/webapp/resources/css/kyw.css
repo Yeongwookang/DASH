@@ -1,5 +1,5 @@
 @charset "UTF-8";
-*{padding:0;margin:0;}
+*{padding:0; margin:0;}
 .bg-main{
 	background-color: #FF9E9E; 
 }
@@ -51,4 +51,19 @@ a:hover{
 .nav-item>.btn:active{
 	border: none;
 	color: white;
+}
+
+body{
+ -ms-overflow-style: none;
+ }
+ 
+::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll{
+   -ms-overflow-style: none;
+}
+.scroll::-webkit-scrollbar{
+  display:none;
 }

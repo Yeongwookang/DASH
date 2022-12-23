@@ -154,9 +154,8 @@ $(function(){
 });
 
 </script>
-	<div class="m-auto" style="width: 90%; height: 90%">
-	<div class="d-flex flex-column justify-content-between h-100" >
-		<div class="d-flex justify-content-between">
+	<div class="scroll m-auto" style="width: 90%; height: 85%; overflow-y:scroll;">
+		<div class="d-flex justify-content-between mb-3">
 		<div class="card" style="width: 49%;"> 
 			<div class="text-start sales ms-3 mt-3">| 현황</div>
 			<div class="d-flex justify-content-evenly mb-4 mt-2"> 
@@ -202,7 +201,7 @@ $(function(){
 	
 		</div>
 		</div>
-		<div class="d-flex justify-content-between">
+		<div class="d-flex justify-content-between mb-3">
 			<div class="card " style="width: 66%;">
 				<div class="text-start sales ms-3 mt-3">| 대여소별 이용건수</div>
 				<table class="table table-hover h-100 board-list">
@@ -306,4 +305,3 @@ $(function(){
 		</div>
 		</div> 
 		</div>
-	</div>
