@@ -52,14 +52,14 @@ $(function(){
 			        show: false
 			      },
 			      data: [
-			        { value: data.lastDayUsageCount.t0, name: '00시 ~ 03시' },
-			        { value: data.lastDayUsageCount.t3, name: '03시 ~ 06시' },
-			        { value: data.lastDayUsageCount.t6, name: '06시 ~ 09시' },
-			        { value: data.lastDayUsageCount.t9, name: '9시 ~ 12시' },
-			        { value: data.lastDayUsageCount.t12, name: '12시 ~ 15시' },
-			        { value: data.lastDayUsageCount.t15, name: '15시 ~ 18시' },
-			        { value: data.lastDayUsageCount.t18, name: '18시 ~ 21시' },
-			        { value: data.lastDayUsageCount.t21, name: '21시 ~ 24시' }
+			        { value: data.lastDayUsageCount.t0, name: '00 ~ 03' },
+			        { value: data.lastDayUsageCount.t3, name: '03 ~ 06' },
+			        { value: data.lastDayUsageCount.t6, name: '06 ~ 09' },
+			        { value: data.lastDayUsageCount.t9, name: '9 ~ 12' },
+			        { value: data.lastDayUsageCount.t12, name: '12 ~ 15' },
+			        { value: data.lastDayUsageCount.t15, name: '15 ~ 18' },
+			        { value: data.lastDayUsageCount.t18, name: '18 ~ 21' },
+			        { value: data.lastDayUsageCount.t21, name: '21 ~ 24' }
 			      ]
 			    }
 			  ]
@@ -154,40 +154,41 @@ $(function(){
 });
 
 </script>
-
-	<div class="d-flex ps-4 pe-4 justify-content-between flex-wrap align-content-between elipsis" style="height: 90%">
-		<div class="card" style="width: 66%;  height: 32%"> 
-			<div class="text-start sales ms-3 mt-3">| 오늘의 매출</div>
-			<div class="d-flex justify-content-evenly h-100 p-4"> 
-				<div class="border d-flex box bg-sub text-start p-4">
+	<div class="m-auto" style="width: 90%; height: 90%">
+	<div class="d-flex flex-column justify-content-between h-100" >
+		<div class="d-flex justify-content-between">
+		<div class="card" style="width: 49%;"> 
+			<div class="text-start sales ms-3 mt-3">| 현황</div>
+			<div class="d-flex justify-content-evenly mb-4 mt-2"> 
+				<div class="border d-flex box bg-sub text-start p-2">
 					<div>   
 					<div class="salesicon"><i class="fa-solid fa-sack-dollar fa-2x"></i></div>
 					<div class="data">${totalSales}</div>
 					<div>총 매출액</div>
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-4"> 
+				<div class="border d-flex box bg-sub text-start p-2"> 
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-road fa-2x"></i></div>
 					<div class="data">${rentalCount}</div>	
 					<div>이용건수</div> 
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-4">
+				<div class="border d-flex box bg-sub text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-regular fa-user fa-2x"></i></div>
 					<div class="data">${newCustomerCount}</div>	
 					<div>신규 고객</div>
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-4">
+				<div class="border d-flex box bg-sub text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-hammer fa-2x"></i></div>
 					<div class="data">${repairCount}&nbsp;<span class="repair border">수리 중</span></div>	
 					<div>수리현황</div>
 					</div> 
 				</div>
-				<div class="border d-flex box bg-sub text-start p-4">
+				<div class="border d-flex box bg-sub text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-triangle-exclamation fa-2x"></i></div>
 					<div class="data">${damageCount}</div>	 
@@ -197,10 +198,12 @@ $(function(){
 			</div> 
 		</div>
 		
-		<div class="card"  style="width: 32%">
+		<div class="card"  style="width: 49%">
 	
 		</div>
-			<div class="card " style="width: 66%; height: 32%">
+		</div>
+		<div class="d-flex  justify-content-between ">
+			<div class="card " style="width: 66%;">
 				<div class="text-start sales ms-3 mt-3">| 대여소별 이용건수</div>
 				<table class="table table-hover h-100 board-list">
 					<thead>  
@@ -247,15 +250,61 @@ $(function(){
 			</div>
 		
 		<div class="card"  style="width: 32%">
-			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
-			<div id="chart-container1" class="ms-2 h-100 w-100"></div>
-		</div>
-		
-		<div class="card "  style="width: 32%;  height: 32%">
 			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
 			<div id="chart-container2" class="ms-2 h-100 w-100"></div>
 		</div>
+		</div>
+		<div class="d-flex justify-content-between">
+		<div class="card " style="width: 32%;">
+			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
+			<div id="chart-container1" class="ms-2 h-100 w-100"></div>
+		</div>
 		<div class="card " style="width: 66%">
+			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
+				<table class="table table-hover h-100 board-list">
+					<thead>  
+						<tr>
+							<th>#</th>
+							<th>대여소명</th>
+							<th>인기도</th> 
+							<th>이용건수</th> 
+						</tr>
+					</thead>
+						<c:forEach var="dto" items="${usageRankList}" end="3">
+							<tr>
+								<td>0${dto.usageRank}</td> 
+								<td>${dto.name}</td> 
+								<td>
+									<c:if test="${dto.usageRank == 1}">
+										<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</c:if>
+									<c:if test="${dto.usageRank == 2}"> 
+										<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</c:if>
+									<c:if test="${dto.usageRank == 3}">
+										<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+									</c:if>
+									<c:if test="${dto.usageRank == 4}">
+										<div class="progress">
+										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+										</div> 
+									</c:if>
+								</td>
+								<td>${dto.usageCount}건</td>
+							</tr>
+						</c:forEach> 
+					<tbody>
+						
+					</tbody>
+			</table>
 			
 		</div>
 		</div> 
+		</div>
+	</div>

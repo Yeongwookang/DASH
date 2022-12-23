@@ -1,13 +1,13 @@
 @charset "UTF-8";
-
+*{padding:0;margin:0;}
 .bg-main{
-	background-color: #FFC668; 
+	background-color: #FF9E9E; 
 }
 .bg-sub{
 	background-color: #FFE1E1;
 }
 .elipsis{
-	text-overflow:ellipsis; overflow: hidden; white-space: nowrap;
+	text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
 }
 .nav-box{
 	text-overflow: ellipsis;
