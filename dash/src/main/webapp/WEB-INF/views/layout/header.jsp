@@ -2,7 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-	<div class="d-flex justify-content-between align-items-center p-2">
+	<div class="d-flex justify-content-between align-items-center p-4">
 		<div class="ps-5 align-middle">
 			<p class="m-0" style="font-weight: 700; font-size: 21px">${dayOfWeek}</p>
 			<p class="m-0 text-start" style="font-weight: 500; font-size: 14px; color: #787878">${msg}</p>

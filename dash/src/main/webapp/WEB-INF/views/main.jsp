@@ -160,35 +160,35 @@ $(function(){
 		<div class="card" style="width: 49%;"> 
 			<div class="text-start sales ms-3 mt-3">| 현황</div>
 			<div class="d-flex justify-content-evenly mb-4 mt-2"> 
-				<div class="border d-flex box bg-sub text-start p-2">
+				<div class="d-flex box text-start p-2">
 					<div>   
 					<div class="salesicon"><i class="fa-solid fa-sack-dollar fa-2x"></i></div>
 					<div class="data">${totalSales}</div>
 					<div>총 매출액</div>
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-2"> 
+				<div class="d-flex box text-start p-2"> 
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-road fa-2x"></i></div>
 					<div class="data">${rentalCount}</div>	
 					<div>이용건수</div> 
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-2">
+				<div class="d-flex box text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-regular fa-user fa-2x"></i></div>
 					<div class="data">${newCustomerCount}</div>	
 					<div>신규 고객</div>
 					</div>
 				</div>
-				<div class="border d-flex box bg-sub text-start p-2">
+				<div class="d-flex box text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-hammer fa-2x"></i></div>
 					<div class="data">${repairCount}&nbsp;<span class="repair border">수리 중</span></div>	
 					<div>수리현황</div>
 					</div> 
 				</div>
-				<div class="border d-flex box bg-sub text-start p-2">
+				<div class="d-flex box text-start p-2">
 					<div>
 					<div class="salesicon"><i class="fa-solid fa-triangle-exclamation fa-2x"></i></div>
 					<div class="data">${damageCount}</div>	 
@@ -202,7 +202,7 @@ $(function(){
 	
 		</div>
 		</div>
-		<div class="d-flex  justify-content-between ">
+		<div class="d-flex justify-content-between">
 			<div class="card " style="width: 66%;">
 				<div class="text-start sales ms-3 mt-3">| 대여소별 이용건수</div>
 				<table class="table table-hover h-100 board-list">
@@ -248,16 +248,15 @@ $(function(){
 					</tbody>
 			</table>
 			</div>
-		
-		<div class="card"  style="width: 32%">
-			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
-			<div id="chart-container2" class="ms-2 h-100 w-100"></div>
-		</div>
-		</div>
-		<div class="d-flex justify-content-between">
 		<div class="card " style="width: 32%;">
 			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
 			<div id="chart-container1" class="ms-2 h-100 w-100"></div>
+		</div>		
+		</div>
+		<div class="d-flex justify-content-between">
+		<div class="card"  style="width: 32%">
+			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
+			<div id="chart-container2" class="ms-2 h-100 w-100"></div>
 		</div>
 		<div class="card " style="width: 66%">
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>

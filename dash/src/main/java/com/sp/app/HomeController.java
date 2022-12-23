@@ -95,7 +95,6 @@ public class HomeController {
 	public Map<String, Object> lastDayUsageCount() throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 
-		// 연령대별 인원수
 		Analysis lastDayUsageCount = service.lastDayUsageCount();
 
 		model.put("lastDayUsageCount", lastDayUsageCount);
