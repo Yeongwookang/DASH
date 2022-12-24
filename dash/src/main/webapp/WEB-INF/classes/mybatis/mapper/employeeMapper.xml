@@ -35,10 +35,11 @@
     
     <!-- 사원정보 조회 -->
     <select id="readEmployee" parameterType="String" resultType="com.sp.app.employee.Employee">
-		SELECT empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
-			failure_cnt, register_date, modify_date, last_login
-		FROM employee
-		WHERE empNo = #{empNo}
+		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+			failure_cnt, register_date, modify_date, last_login, posNo, depNo
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		WHERE e.empNo = #{empNo} AND pr.state = 1
 	</select>
 	
 	<!-- 사원정보 수정  --> 
@@ -82,7 +83,7 @@
     	WHERE empNo=#{empNo}
     </update>
     
-    <!-- 회원 상태 -->
+    <!-- 사원 상태 -->
     <insert id="insertEmployeeState" parameterType="com.sp.app.employee.Employee">
     	INSERT INTO employeeState(num, empNo, stateCode, memo, registerEmpNo, reg_date)
     		VALUES(employeeState_seq.NEXTVAL, #{empNo}, #{stateCode}, 
@@ -90,7 +91,7 @@
     </insert>
 	
 	
-	
+	<!-- 헤더 -->
 	<select id="readMain" parameterType="String" resultType="com.sp.app.employee.Employee">
 		SELECT e.empNo, e.name, e.email, p.depName
 		FROM employee e

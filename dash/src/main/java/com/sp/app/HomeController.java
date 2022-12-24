@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,14 +17,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
+import com.sp.app.employee.Employee;
+import com.sp.app.employee.EmployeeService;
+import com.sp.app.employee.SessionInfo;
 
 @Controller
 public class HomeController {
+	
 	@Autowired
 	private AnalysisService service;
+	
+	@Autowired
+	private EmployeeService service2;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
+	public String home(Locale locale, HttpSession session, Model model) throws Exception {
 		Calendar cal = Calendar.getInstance();
 		
 		int year = cal.get(Calendar.YEAR);
@@ -66,6 +75,9 @@ public class HomeController {
 		
 		List<Analysis> usageRankList = service.usageRankList();
 		
+		SessionInfo info = (SessionInfo)session.getAttribute("employee");
+		Employee dto = service2.readMain(info.getEmpNo());
+		
 		model.addAttribute("msg", msg);
 		model.addAttribute("dayOfWeek", s);
 		model.addAttribute("totalSales", totalSales);
@@ -74,6 +86,8 @@ public class HomeController {
 		model.addAttribute("repairCount", repairCount);
 		model.addAttribute("damageCount", damageCount);
 		model.addAttribute("usageRankList", usageRankList);
+		
+		model.addAttribute("dto", dto);
 		
 		return ".mainLayout";
 	}

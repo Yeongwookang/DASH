@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 .sales {
-	font-size: 20px;
+	font-size: 18px;
 	font-weight: 600;
 }
 
@@ -16,7 +16,7 @@
 } 
 
 .data {
-	font-size: 30px;
+	font-size: 25px;
 	font-weight: 700;
 }
 
@@ -33,6 +33,6 @@
 }
 
 .subject {
-	font-size: 20px;
+	font-size: 18px;
 	
 }

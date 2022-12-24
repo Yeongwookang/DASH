@@ -16,6 +16,8 @@ public interface EmployeeService {
 	
 	public void generatePwd(Employee dto) throws Exception;
 	
+	public Employee readMain(String empNo) throws Exception;
+	
 	// 패스워드 실패 횟수 제한
 	public boolean isPasswordCheck(String empNo, String pwd);
 	public void updatePwd(Employee dto) throws Exception;

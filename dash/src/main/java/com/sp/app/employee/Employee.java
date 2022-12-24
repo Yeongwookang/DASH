@@ -21,6 +21,7 @@ public class Employee {
 	
 	private int posNo;
 	private int depNo;
+	private String depName;
 	
 	private String authority;
 	private int num;
@@ -143,6 +144,12 @@ public class Employee {
 	public void setDepNo(int depNo) {
 		this.depNo = depNo;
 	}
+	public String getDepName() {
+		return depName;
+	}
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
 	public String getAuthority() {
 		return authority;
 	}
@@ -179,6 +186,8 @@ public class Employee {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+	
+	
 	
 	
 }

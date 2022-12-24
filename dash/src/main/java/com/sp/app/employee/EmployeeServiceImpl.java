@@ -86,6 +86,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	@Override
+	public Employee readMain(String empNo) throws Exception {
+		Employee dto = null;
+		
+		try {
+			dto = dao.selectOne("employee.readMain", empNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
 
 	@Override
 	public void generatePwd(Employee dto) throws Exception {
@@ -177,6 +190,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw e;
 		}
 	}
+
 
 	
 	
