@@ -27,14 +27,4 @@ public class InsaController {
 	      
 	      return ".insa.main";
 	   }
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "main")
-	public String main() {
-		return ".insa.main";
-	}
 }
