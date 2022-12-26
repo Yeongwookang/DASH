@@ -13,7 +13,10 @@
 					<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/approval/main';"><i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span></button>
 				</li>
 				<li class="nav-item">
-					<button class="btn nav-box" onclick="#"><i class="fa-lg fa-regular fa-note-sticky"></i><span class="ms-3"> 공지</span></button>
+					<button class="btn nav-box" onclick="#"><i class="fa-lg fa-regular fa-note-sticky"></i><span class="ms-3"> 공지</span></button> 
+				</li>
+				<li class="nav-item">
+					<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/analysis/main';"><i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3"> 통계</span></button>
 				</li>
 				<c:if test="${sessionScope.employee.depNo==1}">
 					<li class="nav-item">

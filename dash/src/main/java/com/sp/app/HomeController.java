@@ -67,7 +67,7 @@ public class HomeController {
 		String msg = year + "." + month + "." + day + "(" + korDayOfWeek + ")";
 		String s = "즐거운 " + korDayOfWeek + "요일입니다.";
 		
-		long totalSales = service.totalSales();
+		String totalSales = service.totalSales();
 		int rentalCount = service.rentalCount();
 		int newCustomerCount = service.newCustomerCount();
 		int repairCount = service.repairCount();

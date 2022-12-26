@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="analysis">
-	<select id="totalSales" resultType="Integer">
+	<select id="totalSales" resultType="String">
 		SELECT TO_CHAR(NVL(SUM(price), 0), '999,999,999') total_sales
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
@@ -67,6 +67,92 @@
 		WHERE TO_CHAR(rental_date, 'YYYY-MM-DD') = TO_CHAR(SYSDATE-1, 'YYYY-MM-DD')
 	</select>
 	
+	
+	
+	<select id="monthTotalMoney"  parameterType="String" resultType="map">
+	SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -11), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -11), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -10), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -10), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -9), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -9), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -8), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -8), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -7), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -7), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -6), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -6), 'YYYYMM')
+            UNION ALL
+        
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -5), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -5), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -4), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -4), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -3), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -3), 'YYYYMM')
+            UNION ALL
+            
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -2), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -2), 'YYYYMM')
+            UNION ALL
+        
+        SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -1), 'YYYYMM') orderDate,
+                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -1), 'YYYYMM')
+            UNION ALL
+        
+        SELECT #{month} orderDate, 
+				 TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = #{month};
+		</select>
 
 	
 	

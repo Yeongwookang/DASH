@@ -1,6 +1,7 @@
 package com.sp.app.analysis;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,8 +14,8 @@ public class AnalysisServiceImpl implements AnalysisService {
 	private CommonDAO dao;
 
 	@Override
-	public long totalSales() {
-		long result = 0;
+	public String totalSales() {
+		String result = "";
 		
 		try {
 			result = dao.selectOne("analysis.totalSales");
@@ -114,6 +115,19 @@ public class AnalysisServiceImpl implements AnalysisService {
 		}
 		
 		return dto;
+	}
+
+	@Override
+	public List<Map<String, Object>> monthTotalMoney(String month) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.monthTotalMoney", month);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
 	}
 
 }
