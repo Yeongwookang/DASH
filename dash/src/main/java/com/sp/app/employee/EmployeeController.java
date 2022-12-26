@@ -20,7 +20,7 @@ public class EmployeeController {
 	
 	@RequestMapping(value = "login")
 	public String loginForm() {
-		return ".employee.login";
+		return "employee/login";
 	}
 	
 	@RequestMapping(value = "noAuthorized")

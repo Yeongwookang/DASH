@@ -27,15 +27,14 @@
 	
 		body{
 			font-family: 'Pretendard-Regular';
-			background: #FF5375;
 		} 
 		
 		img{
 		  width: 100%;
 		}
 		.login {
-		    height: 1000px;
-		    width: 100%;
+		    height: 100vh;
+		    width: 100vw;
 		} 
 		.login_box {
 		    width: 1050px;
