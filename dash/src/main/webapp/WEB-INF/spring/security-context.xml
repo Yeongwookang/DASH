@@ -38,7 +38,7 @@
 		<intercept-url pattern="/resources/**" access="permitAll"/>
 		
 		<!-- 모든 페이지 -->
-		<intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_USER')"/>
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ADMIN', 'ROLE_USER')"/>
 		
 		<!-- 로그인 폼 -->
 		<form-login login-page="/employee/login"
