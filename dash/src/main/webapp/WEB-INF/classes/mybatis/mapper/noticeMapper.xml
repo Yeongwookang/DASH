@@ -48,15 +48,71 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM notice n
 		JOIN employee e ON n.empNo = e.empNo
-		<where>
-			<if test="keyword != null and keyword != '' ">
-				<include refid="where-list"></include>
-			</if>
-		</where>
 	</select>
 	
 	<select id="listNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
-		SELECT n.num, 
+		SELECT n.num, notice, n.empNo, name, subject, hitCount,
+			reg_date, NVL(fileCount, 0) fileCount
+		FROM notice n
+		JOIN employee e ON n.empNo = e.empNo
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM noticeFile
+			GROUP BY num
+		) f ON n.num = f.num
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY 
 	</select>
+	
+	<select id="readNotice" parameterType="Long" resultType="com.sp.app.notice.Notice">
+		SELECT num, n.empNo, name, subject, content, reg_date, hitCount, notice
+		FROM notice n
+		JOIN employee e ON n.empNo = e.empNo
+		WHERE num = #{num}
+	</select>
+	
+	<update id="updateHitCount" parameterType="Long">
+		UPDATE notice SET hitCount = hitCount + 1 WHERE num = #{num}
+	</update>
+	
+	<select id="preReadNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN employee e ON n.empNo = e.empNo
+		ORDER BY num ASC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<select id="nextReadNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
+		SELECT num, subject
+		FROM notice n
+		JOIN employee e ON n.empNo = e.empNo
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<update id="updateNotice" parameterType="com.sp.app.notice.Notice">
+		UPDATE notice SET subject = #{subject},
+			content = #{content}, notice = #{notice}
+		WHERE num = #{num}
+	</update>
+	
+	<delete id="deleteNotice" parameterType="Long">
+		DELETE FROM notice WHERE num = #{num}
+	</delete>
+	
+	<insert id="insertFile" parameterType="com.sp.app.notice.Notice">
+		INSERT INTO noticeFile(fileNum, num, saveFilename, originalFilename, fileSize)
+		VALUES(noticeFile_seq.NEXTVAL, #{num}, #{saveFilename}, #{originalFilename}, #{fileSize})
+	</insert>
+	
+	<select id="listFile" parameterType="Long" resultType="com.sp.app.notice.Notice">
+		SELECT fileNum, num, saveFilename, originalFilename, fileSize
+		FROM noticeFile
+			WHERE fileNum = #{fileNum}
+	</select>
+	
+	<delete id="deleteFile">
+		DELETE FROM noticeFile WHERE ${field} = #{num}
+	</delete>
 	
 </mapper>

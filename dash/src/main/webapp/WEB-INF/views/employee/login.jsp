@@ -67,8 +67,8 @@
 		.left .top_link{
 		  height: 20px
 		}
-		.left .contact{
-		  display: flex;
+		.left .contact{ 
+			padding-top: 120px;
 		    align-items: center;
 		    justify-content: center;
 		    align-self: center;
@@ -113,11 +113,12 @@
 		
 		
 		.right {
-		  background: linear-gradient(212.38deg, rgba(242, 57, 127, 0.7) 0%, rgba(175, 70, 189, 0.71) 100%),url("${pageContext.request.contextPath}/resources/images/loginBackground.gif");
+		  background: url("${pageContext.request.contextPath}/resources/images/loginBackground.gif");
 		  background-repeat: no-repeat;
-		  color: #fff;
+		  color: #fff; 
 		  background-size: 100% 100%;
-		}  
+		  opacity: 0.7;
+		}   
 		
 		.right .right-text{
 		  height: 100%;
@@ -157,9 +158,8 @@
 		
 		#bg-point {
 			background: #FF5375;
-			width: 300px; 
-		}
-	 
+		}         
+	  
 	</style>
 </head>
 <body>
@@ -189,26 +189,25 @@ function sendLogin() {
   <section class="login bg-main">    
     <div class="login_box">
       <div class="left"> 
-        <div class="contact">
-          <form name="loginForm" action="" method="post">
-            <h3>SIGN IN</h3>
-            <input type="text" name="empNo" placeholder="empNo">
-            <input type="password" name="pwd" placeholder="pwd">
-            <button type="button" class="btn text-white" id="bg-point" onclick="sendLogin();">&nbsp;Login&nbsp;</button> 
-          </form>   
+        <div class="contact"> 
+          <form name="loginForm" action="" method="post">       
+            <div class="w-75 m-auto mb-4"><img class="m-auto" src="${pageContext.request.contextPath}/resources/images/mainLogo.png" alt="img"/></div>
+            <input type="text" name="empNo" placeholder="사원번호"> 
+            <input type="password" name="pwd" placeholder="패스워드"> 
+            <div class="text-center"><button type="button" class="btn text-white mt-4 w-75 m-auto" id="bg-point" onclick="sendLogin();">&nbsp;Login&nbsp;</button></div>
+          </form>  
+          <div> 
+			<p class="form-control-plaintext text-center text-danger mt-2">${message}</p>
+          </div>  
         </div>
       </div>
       <div class="right">
-        <div class="right-text"> 
-          <h2>DASH</h2>
-          <h5>Operation Solution Program</h5>
-        </div> 
         <div class="right-inductor"></div> 
       </div>
     </div>
   </section>
 
-	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
 </body>
 </html>

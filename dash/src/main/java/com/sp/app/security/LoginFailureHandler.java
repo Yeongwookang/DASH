@@ -60,7 +60,8 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 				// 존재하지 않는 아이디
 			} else if(exception instanceof DisabledException) {
 				// 인증 거부 : enabled=0
-				s = "계정이 비활성화 되었습니다. 관리자에게 문의하세요.";
+				s = "계정이 비활성화 되었습니다.";
+				s += "<br>관리자에게 문의하세요."; 
 			}
 		} catch (Exception e) {
 		}
