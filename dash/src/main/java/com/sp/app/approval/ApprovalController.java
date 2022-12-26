@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller("approval.approvalController")
 @RequestMapping(value = "/approval/*")
-public class approvalController {
+public class ApprovalController {
 	@RequestMapping(value = "main")
 	public String main() {
 		return ".approval.main";
