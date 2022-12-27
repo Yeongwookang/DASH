@@ -1,14 +1,17 @@
 package com.sp.app.notice;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
 
+@Service("notice.noticeService")
 public class NoticeServiceImpl implements NoticeService {
 	
 	@Autowired
@@ -56,7 +59,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			result = dao.selectOne("notice.dataCount", map);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		
 		return result;
@@ -69,74 +72,164 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			list = dao.selectList("notice.listNotice", map);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return list;
 	}
 
 	@Override
 	public List<Notice> listNoticeTop() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> list = null;
+		
+		try {
+			list = dao.selectList("notice.listNoticeTop");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	@Override
 	public void updateHitCount(long num) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("notice.updateHitCount", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public Notice readNotice(long num) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto = null;
+		
+		try {
+			dto = dao.selectOne("notice.readNotice", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public Notice preReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto = null;
+		
+		try {
+			dto = dao.selectOne("notice.preReadNotice", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public Notice nextReadNotice(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto = null;
+		
+		try {
+			dto = dao.selectOne("notice.nextReadNotice", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;	
 	}
 
 	@Override
 	public void updateNotice(Notice dto, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.updateData("notice.updateNotice", dto);
+			
+			if(! dto.getSelectFile().isEmpty()) {
+				for(MultipartFile mf : dto.getSelectFile()) {
+					String saveFilename = fileManager.doFileUpload(mf, pathname);
+					if(saveFilename == null) {
+						continue;
+					}
+					
+					String originalFilename = mf.getOriginalFilename();
+					long fileSize = mf.getSize();
+					
+					dto.setOriginalFilename(originalFilename);
+					dto.setFileSize(fileSize);
+					dto.setSaveFilename(saveFilename);
+					
+					dao.insertData("notice.insertFile", dto);
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public void deleteNotice(long num, String pathname) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			List<Notice> listFile = listFile(num);
+			if(listFile != null) {
+				for(Notice dto : listFile) {
+					fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+				}
+			}
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("field", "num");
+			map.put("num", num);
+			deleteFile(map);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public void insertFile(Notice dto) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.insertData("notice.insertFile", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 
 	@Override
 	public List<Notice> listFile(long num) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Notice> listFile = null;
+		
+		try {
+			listFile = dao.selectList("notice.listFile", num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listFile;
 	}
 
 	@Override
 	public Notice readFile(long fileNum) {
-		// TODO Auto-generated method stub
-		return null;
+		Notice dto = null;
+		
+		try {
+			dto = dao.selectOne("notice.readFile", fileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 
 	@Override
 	public void deleteFile(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
+		try {
+			dao.deleteData("notice.deleteFile", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 		
 	}
 

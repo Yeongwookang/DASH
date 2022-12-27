@@ -81,7 +81,7 @@ public class HomeController {
          return "redirect:/employee/login";
       }    
       
-      Employee dto = service2.readMain(info.getEmpNo());
+      Employee header = service2.readMain(info.getEmpNo());
       
       model.addAttribute("msg", msg);
       model.addAttribute("dayOfWeek", s);
@@ -92,7 +92,7 @@ public class HomeController {
       model.addAttribute("damageCount", damageCount);
       model.addAttribute("usageRankList", usageRankList);
       
-      model.addAttribute("dto", dto);
+      model.addAttribute("header", header);
       
       return ".mainLayout";
    }
