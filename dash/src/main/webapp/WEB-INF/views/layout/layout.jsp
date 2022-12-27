@@ -34,21 +34,17 @@
 	</style>
 </head>
 <body>
-<div class="container-fluid d-flex justify-content-center align-content-center text-center" style="background-color:#f5f5f5; height: 100vh;">
-		<div class="border shadow bg-main bg-gradient" style="border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem; width:80vw; height: 90vh; margin-top: 5vh">
-		<div class="row">
-			<div class="col-2" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem;" >
+<div style="background-color: #f5f5f5; width: 100vw; height: 100vh; min-width: 1600px; min-height:900px;">
+	<div class="border shadow bg-main bg-gradient box-main d-flex justify-content-between">
+			<div class="d-flex align-items-center" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem; width: 20%;">
 				<tiles:insertAttribute name="sidebar"/>
 			</div>
-			<div class="col-10" style="height: 90vh">
-				<div class="border main-box m-4" style="height: 95%">
-					<tiles:insertAttribute name="header"/>   
-					<tiles:insertAttribute name="body"/>
-				</div>
+			<div class="border main-box me-4 mt-4 mb-4" style="width:80%;">
+				<tiles:insertAttribute name="header"/>   
+				<tiles:insertAttribute name="body"/>
 			</div>
-		</div>
-		</div>
 	</div>
+</div>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	

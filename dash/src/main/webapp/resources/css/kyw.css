@@ -16,6 +16,19 @@
 	text-decoration: none;
 	font-weight: bold;
 }
+
+.box-main{
+	width: 1600px;
+	height: 900px;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem;
+    transform: translate(-50%,-50%);
+    display: flex;
+	overflow: hidden;
+}
+
 .logo{
 	width: 100%;
 	object-fit:contain;
