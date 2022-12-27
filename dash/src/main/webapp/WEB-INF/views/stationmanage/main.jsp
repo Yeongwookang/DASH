@@ -75,6 +75,8 @@
 
 	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+	
+	
 	var url = "${pageContext.request.contextPath}/stationmanage/regions";
 	var query = null;
 	var fn = function(data) {
@@ -102,12 +104,19 @@
 			positions.push(mobj);
 
 		});
+		
+		var imageSrc =  "${pageContext.request.contextPath}/resources/images/marker.png";
+	    imageSize = new kakao.maps.Size(85, 85);
 
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+	    
+	    
 		for (var i = 0; i < positions.length; i++) {
 
 			var marker = new kakao.maps.Marker({
 				map : map,
-				position : positions[i].latlng
+				position : positions[i].latlng,
+				image: markerImage
 			});
 
 			var infowindow = new kakao.maps.InfoWindow({
