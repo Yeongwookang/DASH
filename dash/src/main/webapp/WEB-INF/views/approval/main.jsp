@@ -57,7 +57,7 @@
       </div>
       <div class="modal-body">
         <div class="flex-container">
-        <div class="alert bg-sub  text-center" role="alert">
+        <div class="alert bg-sub text-center" role="alert">
         	<div>결재 문서의 참조자를 설정해주세요.</div><div> 참조자는 최대 3명까지 가능합니다.</div>
         </div>
         <form class="form-control">
@@ -147,6 +147,7 @@
     </div>
   </div>
 </div>
+
 <script type="text/javascript">
 	var i = 1;
 	$(".sendList").children().click(function(){

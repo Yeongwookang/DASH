@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="approval">
+	<sql id="where-list">
+		<if test="condition=='dep'">
+			INSTR(depName, #{keyword}) &gt;= 1
+		</if>
+		<if test="condition=='position'">
+			INSTR(posName, #{keyword}) &gt;= 1
+		</if>
+	</sql>
+
+	<insert id ="insertApproval" parameterType="com.sp.app.approval.Approval">
+		INSERT ALL 
+			INTO e_document (signNum, title, content, formNum, empNo) 
+			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{formNum}, #{empNo})
+			
+			<if test="ref1 !=null">
+				INTO f_approval (signNum, state, empNo) 
+				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref1})
+			</if>
+			
+			<if test="ref2 !=null">
+				INTO s_approval (signNum, state, empNo)
+				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref2})
+			</if>
+			
+			<if test="ref3 !=null">
+				INTO t_approval (signNum, state, empNo)
+				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref3})
+			</if>
+			
+		SELECT * FROM dual;
+	</insert>
+</mapper>

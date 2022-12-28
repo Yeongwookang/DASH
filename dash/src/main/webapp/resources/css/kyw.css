@@ -18,15 +18,12 @@
 }
 
 .box-main{
-	width: 1600px;
-	height: 900px;
-	position: absolute;
-    top: 50%;
-    left: 50%;
     border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem;
-    transform: translate(-50%,-50%);
-    display: flex;
+    width: 80vw;
+    height: 80vh;
 	overflow: hidden;
+	margin: auto;
+	margin-top: 5rem;
 }
 
 .logo{
