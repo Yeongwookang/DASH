@@ -36,9 +36,10 @@
     <!-- 사원정보 조회 -->
     <select id="readEmployee" parameterType="String" resultType="com.sp.app.employee.Employee">
 		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
-			failure_cnt, register_date, modify_date, last_login, posNo, depNo
+			failure_cnt, register_date, modify_date, last_login, posNo, pr.depNo, depName
 		FROM employee e
 		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
 		WHERE e.empNo = #{empNo} AND pr.state = 1
 	</select>
 	

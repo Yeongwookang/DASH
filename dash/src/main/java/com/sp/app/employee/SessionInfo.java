@@ -6,6 +6,7 @@ public class SessionInfo {
 	private String name;
 	private int posNo;
 	private int depNo;
+	private String depName;
 	
 	public String getEmpNo() {
 		return empNo;
@@ -30,6 +31,12 @@ public class SessionInfo {
 	}
 	public void setDepNo(int depNo) {
 		this.depNo = depNo;
+	}
+	public String getDepName() {
+		return depName;
+	}
+	public void setDepName(String depName) {
+		this.depName = depName;
 	}
 	
 }

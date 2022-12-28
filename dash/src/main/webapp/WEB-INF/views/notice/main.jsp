@@ -11,7 +11,7 @@
 	<div class="mt-4"> 
 		<table class="table table-hover board-list">
 			<thead class="bg-sub"> 
-					<tr>
+					<tr class="text-center">
 						<th style="width: 10%">순번</th>
 						<th class="text-start ps-5" style="width: 50%">제목</th> 
 						<th style="width: 15%">작성자</th> 
@@ -22,33 +22,27 @@
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${noticeList}">
-					<tr> 
+					<tr class="text-center"> 
 						<td><span class="badge bg-danger">공지</span></td>
-						<td class="left text-start">
-							<a href="${articleUrl}&num=${dto.num}" class="text-reset">${dto.subject}</a>
+						<td class="subject ps-5 align-middle text-start">
+							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
 						</td>
-						<c:if test="${sessionScope.employee.depNo == 1}"><td class="align-middle">경영지원팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 2}"><td class="align-middle">운영팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 3}"><td class="align-middle">기획팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 4}"><td class="align-middle">개발팀 ${dto.name}</td></c:if>
+						<td class="align-middle">${dto.depName}팀&nbsp;${dto.name}</td>
 						<td class="align-middle">${dto.hitCount}</td>
 						<td class="align-middle date">${dto.reg_date}</td>
 						<td class="align-middle">
-							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 18px;"></a>
+							<a href="${articleUrl}&num=${dto.num}" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 10px;"></a>
 						</td>
 					</tr>
 				</c:forEach>
 					
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr>  
+					<tr class="text-center">  
 						<td class="align-middle">${dataCount - (page-1) * size - status.index}</td>
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if>
 						</td>
-						<c:if test="${sessionScope.employee.depNo == 1}"><td class="align-middle">경영지원팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 2}"><td class="align-middle">운영팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 3}"><td class="align-middle">기획팀 ${dto.name}</td></c:if>
-						<c:if test="${sessionScope.employee.depNo == 4}"><td class="align-middle">개발팀 ${dto.name}</td></c:if>
+						<td class="align-middle">${dto.depName}팀&nbsp;${dto.name}</td>
 						<td class="align-middle">${dto.hitCount}</td>
 						<td class="align-middle date">${dto.reg_date}</td>
 						<td class="align-middle">
@@ -59,7 +53,7 @@
 			</tbody>
 		</table>  
 	
-		<div class="page-navigation paging mt-5">
+		<div class="page-navigation paging mt-5 text-center">
 			${dataCount == 0 ? "등록된 공지사항이 없습니다." : paging}
 		</div> 
 	
@@ -87,9 +81,11 @@
 			<div class="me-3">  
 				<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/main';">새로고침</button>
 			</div>
-			<div> 
-				<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">공지작성</button>
-			</div>
+			<c:if test="${sessionScope.employee.empNo == '8801001'}">
+				<div> 
+					<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">공지작성</button>
+				</div>
+			</c:if>
 		</div>
 	</div>
 </div>

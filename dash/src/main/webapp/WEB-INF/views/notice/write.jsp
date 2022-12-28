@@ -52,10 +52,10 @@ function sendOk() {
 					<input type="text" name="subject" class="form-control" value="${dto.subject}">
 				</td>
 			</tr>
-			<tr>
-				<td class="table-light col-sm-2" scope="row">중요 여부</td>
+			<tr> 
+				<td class="table-light col-sm-2 text-center" scope="row">중요 여부</td>
 				<td class="py-3 text-start">
-					<input type="checkbox" name="notice" id="notice" class="form-check-input" value="1" ${dto.notice==1 ? "checked='checked' ":"" } >
+					<input type="checkbox" name="notice" id="notice" class="form-check-input" value="1" ${dto.notice== 1 ? "checked='checked' ":"" } >
 					<label class="form-check-label" for="notice">&nbsp;중요</label>
 				</td> 
 			</tr> 
@@ -87,9 +87,9 @@ function sendOk() {
 					<td>  
 						<p class="form-control-plaintext">
 							<c:if test="${not empty dto.saveFilename}">
-								<a href="javascript:deleteFile('${dto.noticeNum}');"> <i class="fa-solid fa-trash fa-lg"></i> </a>
+								<a href="javascript:deleteFile('${dto.num}');"> <i class="fa-solid fa-trash fa-lg"></i> </a>
 								${dto.originalFilename}
-							</c:if>
+							</c:if> 
 							&nbsp;
 						</p>
 					</td>

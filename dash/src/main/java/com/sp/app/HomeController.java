@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
-import com.sp.app.employee.Employee;
-import com.sp.app.employee.EmployeeService;
 import com.sp.app.employee.SessionInfo;
 
 @Controller
@@ -26,9 +24,6 @@ public class HomeController {
    
    @Autowired
    private AnalysisService service;
-   
-   @Autowired
-   private EmployeeService service2;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpSession session, Model model) throws Exception {
@@ -80,9 +75,7 @@ public class HomeController {
       if(info == null) {
          return "redirect:/employee/login";
       }    
-      
-      Employee header = service2.readMain(info.getEmpNo());
-      
+     
       model.addAttribute("msg", msg);
       model.addAttribute("dayOfWeek", s);
       model.addAttribute("totalSales", totalSales);
@@ -91,8 +84,6 @@ public class HomeController {
       model.addAttribute("repairCount", repairCount);
       model.addAttribute("damageCount", damageCount);
       model.addAttribute("usageRankList", usageRankList);
-      
-      model.addAttribute("header", header);
       
       return ".mainLayout";
    }

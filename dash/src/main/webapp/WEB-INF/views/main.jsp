@@ -22,13 +22,9 @@ $(function(){
 			  tooltip: {
 			    trigger: 'item'
 			  },
-			  legend: {
-			    top: '5%',
-			    left: 'center'
-			  },
 			  series: [
-			    {
-			      name: 'Access From',
+			    { 
+			      name: '전일 시간대별 인원수',
 			      type: 'pie',
 			      radius: ['40%', '70%'],
 			      avoidLabelOverlap: false,
@@ -102,7 +98,7 @@ $(function(){
 			for(let i=0; i<data.salesRankList.length; i++) {
 				item = data.salesRankList[i];
 				if (i == 0){
-					obj = {value : item.price, itemStyle:{color: '#a90000'}}
+					obj = {value : item.price, itemStyle:{color: '#FF5375'}}
 					price.push(obj);
 				} else {
 				    price.push(item.price);
@@ -157,7 +153,7 @@ $(function(){
 	<div class="scroll m-auto" style="width: 90%; height: 85%; overflow-y:scroll;">
 		<div class="d-flex justify-content-between mb-3">
 		<div class="card" style="width: 49%;"> 
-			<div class="text-start sales ms-3 mt-3">| 현황</div>
+			<div class="text-start sales ms-3 mt-3">| 오늘의 현황</div>
 			<div class="d-flex justify-content-evenly mb-4 mt-2"> 
 				<div class="d-flex box text-start p-2">
 					<div>   
@@ -206,44 +202,43 @@ $(function(){
 				<div class="text-start sales ms-3 mt-3">| 대여소별 이용건수</div>
 				<table class="table table-hover h-100 board-list">
 					<thead>  
-						<tr>
-							<th>#</th>
-							<th>대여소명</th>
-							<th>인기도</th> 
-							<th>이용건수</th> 
+						<tr class="text-center">
+							<th style="width: 10%">#</th> 
+							<th style="width: 40%">대여소명</th>
+							<th style="width: 30%">인기도</th> 
+							<th style="width: 20%">이용건수</th>  
 						</tr>
-					</thead>
+					</thead> 
+					<tbody>
 						<c:forEach var="dto" items="${usageRankList}" end="3">
-							<tr>
+							<tr class="text-center"> 
 								<td>0${dto.usageRank}</td> 
 								<td>${dto.name}</td> 
 								<td>
 									<c:if test="${dto.usageRank == 1}">
 										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+										  <div class="progress-bar bg-point" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</c:if>
 									<c:if test="${dto.usageRank == 2}"> 
 										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+										  <div class="progress-bar bg-point" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</c:if>
 									<c:if test="${dto.usageRank == 3}">
 										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+										  <div class="progress-bar bg-point" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 										</div>
 									</c:if>
 									<c:if test="${dto.usageRank == 4}">
 										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+										  <div class="progress-bar bg-point" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
 										</div> 
 									</c:if>
 								</td>
 								<td>${dto.usageCount}건</td>
 							</tr>
 						</c:forEach> 
-					<tbody>
-						
 					</tbody>
 			</table>
 			</div>
@@ -261,7 +256,7 @@ $(function(){
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
 				<table class="table table-hover h-100 board-list">
 					<thead>  
-						<tr>
+						<tr class="text-center"> 
 							<th>#</th>
 							<th>대여소명</th>
 							<th>인기도</th> 

@@ -122,7 +122,12 @@ public class NoticeController {
 	}
 	
 	@GetMapping(value = "write")
-	public String writeForm(Model model) throws Exception {
+	public String writeForm(HttpSession session, Model model) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("employee");
+		if (info.getEmpNo() != "8801001") {
+			return "redirect:/notice/main";
+		}
+		
 		model.addAttribute("mode", "write");
 		
 		return ".notice.write";
@@ -131,7 +136,10 @@ public class NoticeController {
 	@PostMapping(value = "write")
 	public String writeSubmit(Notice dto, HttpSession session) throws Exception {
 		
-		SessionInfo info = (SessionInfo)session.getAttribute("employee");
+		SessionInfo info = (SessionInfo) session.getAttribute("employee");
+		if (info.getEmpNo() != "8801001") {
+			return "redirect:/notice/main";
+		}
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
@@ -217,18 +225,20 @@ public class NoticeController {
 			@RequestParam String page,
 			HttpSession session) throws Exception {
 		
-		SessionInfo info = (SessionInfo)session.getAttribute("employee");
+		SessionInfo info = (SessionInfo) session.getAttribute("employee");
+		if (info.getEmpNo() != "8801001") {
+			return "redirect:/notice/main?page=" + page;
+		}
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + File.separator + "uploads" + File.separator + "notice";
-			
+
 			dto.setEmpNo(info.getEmpNo());
 			service.updateNotice(dto, pathname);
-		
 		} catch (Exception e) {
 		}
-		
+
 		return "redirect:/notice/main?page=" + page;
 	}
 	
@@ -238,12 +248,17 @@ public class NoticeController {
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
+		SessionInfo info = (SessionInfo) session.getAttribute("employee");
 
 		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
 		if(keyword.length() != 0) {
 			query = "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+		}
+		
+		if (info.getEmpNo() == "8801001") {
+			return "redirect:/notice/main?" + query;
 		}
 		
 		try {

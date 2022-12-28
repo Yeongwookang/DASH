@@ -14,6 +14,8 @@ public class Notice {
 	private int hitCount;
 	private int notice;
 	
+	private String depName;
+	
 	private long fileNum;
 	private String originalFilename;
 	private String saveFilename;
@@ -112,6 +114,12 @@ public class Notice {
 	}
 	public void setGap(long gap) {
 		this.gap = gap;
+	}
+	public String getDepName() {
+		return depName;
+	}
+	public void setDepName(String depName) {
+		this.depName = depName;
 	}
 	
 }
