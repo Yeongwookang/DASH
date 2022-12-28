@@ -122,11 +122,7 @@ public class NoticeController {
 	}
 	
 	@GetMapping(value = "write")
-	public String writeForm(HttpSession session, Model model) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("employee");
-		if (info.getEmpNo() != "8801001") {
-			return "redirect:/notice/main";
-		}
+	public String writeForm(Model model) throws Exception {
 		
 		model.addAttribute("mode", "write");
 		
@@ -137,10 +133,7 @@ public class NoticeController {
 	public String writeSubmit(Notice dto, HttpSession session) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("employee");
-		if (info.getEmpNo() != "8801001") {
-			return "redirect:/notice/main";
-		}
-		
+
 		try {
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + "uploads" + File.separator + "notice";
@@ -183,13 +176,13 @@ public class NoticeController {
 		map.put("num", num);
 		
 		Notice preReadDto = service.preReadNotice(map);
-		Notice nextReadNotice = service.nextReadNotice(map);
+		Notice nextReadDto = service.nextReadNotice(map);
 		
 		List<Notice> listFile = service.listFile(num);
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("preReadDto", preReadDto);
-		model.addAttribute("nextReadNotice", nextReadNotice);
+		model.addAttribute("nextReadDto", nextReadDto);
 		model.addAttribute("listFile", listFile);
 		model.addAttribute("page", page);
 		model.addAttribute("query", query);
@@ -226,9 +219,6 @@ public class NoticeController {
 			HttpSession session) throws Exception {
 		
 		SessionInfo info = (SessionInfo) session.getAttribute("employee");
-		if (info.getEmpNo() != "8801001") {
-			return "redirect:/notice/main?page=" + page;
-		}
 		
 		try {
 			String root = session.getServletContext().getRealPath("/");
@@ -248,26 +238,20 @@ public class NoticeController {
 			@RequestParam(defaultValue = "all") String condition,
 			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session) throws Exception {
-		SessionInfo info = (SessionInfo) session.getAttribute("employee");
 
 		keyword = URLDecoder.decode(keyword, "utf-8");
-		
 		String query = "page=" + page;
-		if(keyword.length() != 0) {
-			query = "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+		if (keyword.length() != 0) {
+			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
 		}
-		
-		if (info.getEmpNo() == "8801001") {
-			return "redirect:/notice/main?" + query;
-		}
-		
+
 		try {
 			String root = session.getServletContext().getRealPath("/");
-			String pathname = root + File.separator + "uploads" + File.separator + "notice";
+			String pathname = root + "uploads" + File.separator + "notice";
 			service.deleteNotice(num, pathname);
 		} catch (Exception e) {
 		}
-		
+
 		return "redirect:/notice/main?" + query;
 	}
 	

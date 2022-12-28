@@ -180,6 +180,7 @@ public class NoticeServiceImpl implements NoticeService {
 			map.put("num", num);
 			deleteFile(map);
 			
+			dao.deleteData("notice.deleteNotice", num);	
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;

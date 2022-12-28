@@ -33,3 +33,28 @@
 .bg-point-font {
 	color: #FF5375;
 }
+
+.preNext {
+	color: black;
+	text-decoration: none;
+}
+
+.preNext:hover {
+	color: #FF5375;
+}
+
+.button-main {
+	background-color: #FFE1E1;
+}
+
+.button-main:hover {
+	background-color: #FFEBEB;
+}
+
+.button-point {
+	background: #FF5375;
+}
+
+.button-point:hover {
+	background: #FF7193;
+}

@@ -13,10 +13,11 @@
 			<thead class="bg-sub"> 
 					<tr class="text-center">
 						<th style="width: 10%">순번</th>
-						<th class="text-start ps-5" style="width: 50%">제목</th> 
+						<th class="text-start ps-5" style="width: 40%">제목</th> 
 						<th style="width: 15%">작성자</th> 
 						<th style="width: 10%">조회수</th> 
 						<th style="width: 10%">작성일</th>
+						<th style="width: 5%">파일</th>
 						<th style="width: 5%"></th>
 					</tr>
 			</thead>
@@ -27,9 +28,14 @@
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
 						</td>
-						<td class="align-middle">${dto.depName}팀&nbsp;${dto.name}</td>
+						<td class="align-middle">${dto.depName}&nbsp;${dto.name}</td>
 						<td class="align-middle">${dto.hitCount}</td>
 						<td class="align-middle date">${dto.reg_date}</td>
+						<td class="align-middle">
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="text-reset"><i class="bi bi-download"></i></a>
+							</c:if>
+						</td>
 						<td class="align-middle">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 10px;"></a>
 						</td>
@@ -42,9 +48,14 @@
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if>
 						</td>
-						<td class="align-middle">${dto.depName}팀&nbsp;${dto.name}</td>
+						<td class="align-middle">${dto.depName}&nbsp;${dto.name}</td>
 						<td class="align-middle">${dto.hitCount}</td>
 						<td class="align-middle date">${dto.reg_date}</td>
+						<td class="align-middle">
+							<c:if test="${dto.fileCount != 0}">
+								<a href="${pageContext.request.contextPath}/notice/zipdownload?num=${dto.num}" class="text-reset"><i class="bi bi-download"></i></a>
+							</c:if>
+						</td>
 						<td class="align-middle">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 10px;"></a>
 						</td>
@@ -78,13 +89,10 @@
 		</form>
 
 		<div class="mt-4 mb-4 d-flex justify-content-end">
-			<div class="me-3">  
-				<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/main';">새로고침</button>
-			</div>
-			<c:if test="${sessionScope.employee.empNo == '8801001'}">
+			<c:if test="${sessionScope.employee.empNo == '8801001'}"> 
 				<div> 
-					<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">공지작성</button>
-				</div>
+					<button class="btn button-main bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">작성</button>
+				</div> 
 			</c:if>
 		</div>
 	</div>

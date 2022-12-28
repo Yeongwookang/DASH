@@ -33,7 +33,7 @@
 	
 	<select id="listNoticeTop" resultType="com.sp.app.notice.Notice">
 		SELECT n.num, notice, n.empNo, name, subject, hitCount,
-			TO_CHAR(reg_date, 'YYYY-MM-DD') reg_date, d.depName
+			TO_CHAR(n.reg_date, 'YYYY-MM-DD') reg_date, d.depName
 		FROM notice n
 		JOIN employee e ON n.empNo = e.empNo
 		JOIN person_record pr ON e.empNo = pr.empNo
@@ -55,8 +55,12 @@
 	
 	<select id="listNotice" parameterType="map" resultType="com.sp.app.notice.Notice">
 		SELECT n.num, notice, n.empNo, name, subject, hitCount,
-			n.reg_date, d.depName
+			n.reg_date, NVL(fileCount, 0) fileCount, d.depName
 		FROM notice n
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) fileCount FROM noticeFile
+			GROUP BY num
+		) f ON n.num=f.num
 		JOIN employee e ON n.empNo = e.empNo
         JOIN person_record pr ON e.empNo = pr.empNo
         JOIN department d ON d.depNo = pr.depNo
@@ -71,12 +75,12 @@
 	</select>
 	
 	<select id="readNotice" parameterType="Long" resultType="com.sp.app.notice.Notice">
-		SELECT num, n.empNo, name, subject, content, n.reg_date, hitCount, notice, d.depName
+		SELECT n.num, n.empNo, e.name, subject, content, n.reg_date, hitCount, notice, d.depNo
 		FROM notice n
 		JOIN employee e ON n.empNo = e.empNo
 		JOIN person_record pr ON e.empNo = pr.empNo
-        JOIN department d ON d.depNo = pr.depNo
-		WHERE num = #{num} AND state = 1
+		JOIN department d ON d.depNo = pr.depNo
+		WHERE n.num = #{num} AND state = 1
 	</select>
 	
 	<update id="updateHitCount" parameterType="Long">
@@ -91,7 +95,7 @@
 			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
-			AND (num &gt; #{num})
+			AND (num &lt; #{num})
 		</where>
 		ORDER BY num ASC
 		FETCH FIRST 1 ROWS ONLY
@@ -105,7 +109,7 @@
 			<if test="keyword != null and keyword != '' ">
 				<include refid="where-list"/>
 			</if>
-			AND (num &lt; #{num})
+			AND (num &gt; #{num})
 		</where>
 		ORDER BY num DESC
 		FETCH FIRST 1 ROWS ONLY
