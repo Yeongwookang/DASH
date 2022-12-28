@@ -6,12 +6,44 @@
 		<if test="condition=='dep'">
 			INSTR(depName, #{keyword}) &gt;= 1
 		</if>
-		<if test="condition=='position'">
+		<if test="condition=='pos'">
 			INSTR(posName, #{keyword}) &gt;= 1
 		</if>
+		<if test="condition=='name'">
+			INSTR(name, #{keyword}) &gt;= 1
+		</if>
 	</sql>
+	
+	<select id="empList" parameterType="map" resultType="com.sp.app.employee.Employee">
+		SELECT e.EMPNO, name, state, reg_date, depName, posName FROM PERSON_RECORD pr 
+		LEFT OUTER JOIN employee e ON pr.empNo=e.empNo
+		LEFT OUTER JOIN DEPARTMENT d ON d.DEPNO = pr.DEPNO
+		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
+		<where>
+			state = 1
+			<if test="keyword != null and keyword != '' ">
+				AND <include refid="where-list"/>
+			</if>
+		</where> 
+		
+		ORDER BY empNo DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
 
-	<insert id ="insertApproval" parameterType="com.sp.app.approval.Approval">
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM PERSON_RECORD pr 
+		LEFT OUTER JOIN employee e ON pr.empNo=e.empNo
+		LEFT OUTER JOIN DEPARTMENT d ON d.DEPNO = pr.DEPNO
+		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
+		<where>
+			state = 1 
+			<if test="keyword !=null and keyword !=''">
+				AND	<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
+	
+	<insert id ="insertApproval" parameterType="approval">
 		INSERT ALL 
 			INTO e_document (signNum, title, content, formNum, empNo) 
 			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{formNum}, #{empNo})
@@ -33,4 +65,22 @@
 			
 		SELECT * FROM dual;
 	</insert>
+	
+	<select id="approvalList" parameterType="map" resultType="approval">
+		SELECT e.signNum, title, content, form.name, e.empNo, f.state, s.state, t.state  From e_document e 
+		LEFT OUTER JOIN form ON form.formNum = e.formNum
+		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
+		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
+		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
+		WHERE e.empNo = {#empNo} OR f.empNo = {#empNo} OR s.empNo = {#empNo} OR t.empNo = {#empNo}
+	</select>
+	
+	<select id="countApprovalList" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)  From e_document e 
+		LEFT OUTER JOIN form ON form.formNum = e.formNum
+		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
+		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
+		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
+		WHERE e.empNo = {#empNo} OR f.empNo = {#empNo} OR s.empNo = {#empNo} OR t.empNo = {#empNo}
+	</select>
 </mapper>

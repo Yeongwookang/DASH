@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sp.app.common.dao.CommonDAO;
+import com.sp.app.employee.Employee;
 
+@Service("approval.approvalService")
 public class ApprovalServiceImpl implements ApprovalService {
 	@Autowired
 	private CommonDAO dao;
@@ -59,14 +62,52 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 	@Override
 	public int dataCount(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return 0;
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("approval.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 
 	@Override
-	public List<Approval> ListApproval(Map<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Approval> approvalList(Map<String, Object> map) {
+		List<Approval> list = null;
+		
+		try {
+			list = dao.selectList("approval.approvalList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Employee> empList(Map<String, Object> map) {
+		
+		List<Employee> empList = null;
+		
+		try {
+			empList = dao.selectList("approval.empList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return empList;
+	}
+
+	@Override
+	public List<Approval> myApprovalList(Map<String, Object> map) {
+		List<Approval> list = null;
+		
+		try {
+			list = dao.selectList("approval.myApprovalList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 }

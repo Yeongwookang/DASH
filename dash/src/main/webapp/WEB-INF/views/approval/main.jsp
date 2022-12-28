@@ -60,17 +60,18 @@
         <div class="alert bg-sub text-center" role="alert">
         	<div>결재 문서의 참조자를 설정해주세요.</div><div> 참조자는 최대 3명까지 가능합니다.</div>
         </div>
-        <form class="form-control">
-        <div class="d-flex mt-2">
-        	<select class="form-select">
-        		<option>부서</option>
-        		<option>직책</option>
-        		<option>이름</option>
-        	</select>
-        	<input type="text" class="form-control ms-2">
-        	<button type="button" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-        </div>
-        	<div>
+        <form class="form-control" name ="searchEmp" method="POST" action="${pageContext.request.contextPath}/approval/main">
+	      	<div class="d-flex mt-2">
+		      	<select class="form-select" name="condition">
+		      		<option value="dep">부서</option>
+		      		<option value="pos">직책</option>
+		      		<option value="name">이름</option>
+		      	</select>
+		      	<input type="text" name="keyword" class="form-control ms-2">
+		      	<button type="submit" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+	      	</div>
+	    </form>
+        	<div class="form-control mt-4">
         		<table class="table table-hover mt-2">
         			<thead>
 	        			<tr>
@@ -82,30 +83,16 @@
 	        			</tr>
         			</thead>
         			<tbody class="sendList">
+        			<c:forEach items="${empList}" var="emp" varStatus="status">
         				<tr>
-        					<th scope="row">1</th>
-        					<td class="part">개발부</td>
-        					<td class="rank">부장</td>
-        					<td class="pos">떡잎마을방범대</td>
-        					<td class="name">신짱구</td>
-        					<td class="empNo" style="display:none;">10001</td>
+        					<th scope="row">${status.count}</th>
+        					<td class="dep">${emp.depName}</td>
+        					<td class="pos">${emp.posName}</td>
+        					<td class="position">떡잎마을방범대</td>
+        					<td class="name">${emp.name}</td>
+        					<td class="empNo" style="display:none;">${emp.empNo}</td>
         				</tr>
-        				<tr>
-        					<th scope="row">2</th>
-        					<td class="part">개발부</td>
-        					<td class="rank">과장</td>
-        					<td class="pos">떡잎마을방범대</td>
-        					<td class="name">김철수</td>
-        					<td class="empNo" style="display:none;">10002</td>
-        				</tr>
-        				<tr>
-        					<th scope="row">3</th>
-        					<td class="part">개발부</td>
-        					<td class="rank">팀장</td>
-        					<td class="pos">떡잎마을방범대</td>
-        					<td class="name">맹구</td>
-        					<td class="empNo" style="display:none;">10003</td>
-        				</tr>
+        			</c:forEach>
         			</tbody>
         		</table>
         		<div class="d-flex justify-content-center">
@@ -122,7 +109,7 @@
 				</nav>
 				</div>
         	</div>
-        </form>
+
         <div class="form-control mt-4">
         	<table class="table table-hover mt-2">
         		<thead>
@@ -148,7 +135,7 @@
   </div>
 </div>
 
-<script type="text/javascript">
+<script type="text/javascript">	
 	var i = 1;
 	$(".sendList").children().click(function(){
 		
@@ -157,9 +144,9 @@
 			return;
 		}
 		
-		let rank = this.querySelector(".rank").textContent;
-		let part = this.querySelector(".part").textContent;
 		let pos = this.querySelector(".pos").textContent;
+		let dep = this.querySelector(".dep").textContent;
+		let position = this.querySelector(".position").textContent;
 		let name = this.querySelector(".name").textContent;
 		let empNo = this.querySelector(".empNo").textContent;
 		
@@ -170,9 +157,9 @@
 		}
 		
 		let out = "<tr>";
-		out += "<td class='part'>"+ part + "</td>";
-		out += "<td class='rank'>"+ rank + "</td>";
-		out += "<td class='pos'>"+ pos + "</td>";
+		out += "<td class='dep'>"+ part + "</td>";
+		out += "<td class='pos'>"+ rank + "</td>";
+		out += "<td class='position'>"+ pos + "</td>";
 		out += "<td class='name'>"+ name + "</td>";
 		out += "<td class=empNo style='display:none;'>"+empNo+"</td>"
 		out += "</tr>";

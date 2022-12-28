@@ -34,15 +34,17 @@
 	</style>
 </head>
 <body>
-<div class="flex-container" style="background-color: #f5f5f5;">
-	<div class="border shadow bg-main bg-gradient box-main d-flex justify-content-between">
-			<div class="d-flex align-items-center" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem; width: 20%;">
-				<tiles:insertAttribute name="sidebar"/>
-			</div>
-			<div class="border main-box me-4 mt-4 mb-4" style="width:80%;">
-				<tiles:insertAttribute name="header"/>
-				<tiles:insertAttribute name="body"/>
-			</div>
+<div class="flex-container">
+	<div class="d-flex justify-content-center align-items-center" style="background-color: #f5f5f5; height: 100vh;">
+		<div class="m-auto border shadow bg-main bg-gradient box-main d-flex justify-content-between">
+				<div class="d-flex align-items-center" style="border-radius: 2rem 0 0 2rem / 2rem 0 0 2rem; width: 20%;">
+					<tiles:insertAttribute name="sidebar"/>
+				</div>
+				<div class="border main-box me-4 mt-4 mb-4" style="width:80%;">
+					<tiles:insertAttribute name="header"/>
+					<tiles:insertAttribute name="body"/>
+				</div>
+		</div>
 	</div>
 </div>
 	

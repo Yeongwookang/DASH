@@ -22,6 +22,7 @@ public class Employee {
 	private int posNo;
 	private int depNo;
 	private String depName;
+	private String posName;
 	
 	private String authority;
 	private int num;
@@ -185,6 +186,12 @@ public class Employee {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
+	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
 	}
 	
 	
