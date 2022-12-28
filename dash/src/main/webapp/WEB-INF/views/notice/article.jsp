@@ -30,7 +30,7 @@ function deleteOk() {
 		<tbody>
 			<tr>
 				<td align="left" class="ps-3"> 
-					<span class="name">${dto.depName}팀 ${dto.name}</span> 
+					<span class="name">${dto.depName}&nbsp;${dto.name}</span> 
 				</td>
 				<td align="right">
 					<span class="date pe-1">${dto.reg_date} | 조회수 ${dto.hitCount}</span> 

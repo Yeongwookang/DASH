@@ -75,7 +75,7 @@
 	</select>
 	
 	<select id="readNotice" parameterType="Long" resultType="com.sp.app.notice.Notice">
-		SELECT n.num, n.empNo, e.name, subject, content, n.reg_date, hitCount, notice, d.depNo
+		SELECT n.num, n.empNo, e.name, subject, content, n.reg_date, hitCount, notice, d.depNo, d.depName
 		FROM notice n
 		JOIN employee e ON n.empNo = e.empNo
 		JOIN person_record pr ON e.empNo = pr.empNo
