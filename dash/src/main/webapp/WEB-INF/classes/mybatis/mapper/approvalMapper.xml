@@ -12,22 +12,27 @@
 		<if test="condition=='name'">
 			INSTR(name, #{keyword}) &gt;= 1
 		</if>
+		<if test="condition=='rank'">
+			INSTR(rankName, #{keyword}) &gt;= 1
+		</if>
+		<if test="condition=='team'">
+			INSTR(teamName, #{keyword}) &gt;= 1
+		</if>
 	</sql>
 	
 	<select id="empList" parameterType="map" resultType="com.sp.app.employee.Employee">
-		SELECT e.EMPNO, name, state, reg_date, depName, posName FROM PERSON_RECORD pr 
-		LEFT OUTER JOIN employee e ON pr.empNo=e.empNo
+		SELECT e.EMPNO, name, state, reg_date, depName, posName, rankName, teamName FROM PERSON_RECORD pr 
+		LEFT OUTER JOIN employee e ON pr.empNo= e.empNo
 		LEFT OUTER JOIN DEPARTMENT d ON d.DEPNO = pr.DEPNO
 		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
+		LEFT OUTER JOIN team t ON t.teamNo = pr.teamNo
+		LEFT OUTER JOIN rank r on r.rankNo = pr.rankNo
 		<where>
 			state = 1
 			<if test="keyword != null and keyword != '' ">
 				AND <include refid="where-list"/>
 			</if>
 		</where> 
-		
-		ORDER BY empNo DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
@@ -37,9 +42,6 @@
 		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
 		<where>
 			state = 1 
-			<if test="todo != null">
-				AND 
-			</if>
 			<if test="keyword !=null and keyword !=''">
 				AND	<include refid="where-list"/>
 			</if>

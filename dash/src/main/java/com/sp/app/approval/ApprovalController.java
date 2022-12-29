@@ -1,20 +1,13 @@
 package com.sp.app.approval;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -39,14 +32,21 @@ public class ApprovalController {
 			
 			List<Approval> approvalList = service.approvalList(map);
 			
+			
 		      return ".approval.main";
 		}
 		   
-		@GetMapping("write")
+		@GetMapping("empSearch")
 		@ResponseBody
-		public String write(@RequestBody String[] data
+		public Map<String, Object> write(@RequestParam Map<String, Object> map
 				  ) throws Exception {
-		      return ".approval.write";
+		     List<Employee> empList=null;
+		     
+		     empList= service.empList(map);
+		     Map<String, Object> model =  new HashMap<String, Object>();
+		     model.put("empList",empList);
+		     
+		     return model;
 		}
 		
 }
