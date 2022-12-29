@@ -4,23 +4,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <script type="text/javascript">
-function sendOk() {
+function check() {
     const f = document.noticeForm;
 	let str;
 	
     str = f.subject.value.trim();
     if(!str) {
-        alert("제목을 입력하세요. ");
+        alert("공지사항 제목을 입력하세요. ");
         f.subject.focus();
         return;
     }
 
     str = f.content.value.trim();
-    if(!str) {
-        alert("내용을 입력하세요. ");
-        f.content.focus();
-        return;
-    }
+	if( !str || str === "<p><br></p>" ) {
+		alert("공지사항 내용을 입력하세요.");
+		f.content.focus();
+		return false;
+	}
 
     f.action = "${pageContext.request.contextPath}/notice/${mode}";
     f.submit();
@@ -43,8 +43,7 @@ function sendOk() {
 		<c:if test="${mode=='write'}"> 작성</c:if> 
 		</span>
 	</div>
-	<form name="noticeForm" method="post" enctype="multipart/form-data" 
-		onsubmit="return submitContents(this);">
+	<form name="noticeForm" method="post" enctype="multipart/form-data">
 		<table class="table border write-form mt-5"> 
 			<tr>
 				<td class="table-light col-sm-2 text-center align-middle" scope="row">제 목</td>
@@ -101,7 +100,7 @@ function sendOk() {
 				<td class="text-center"> 
 					<div class="mt-4 mb-4 d-flex justify-content-center">
 						<div class="me-3">  
-							<button class="btn button-point text-white" type="button" onclick="sendOk()">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
+							<button class="btn button-point text-white" type="button" onclick="submitContents(this.form);">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
 						</div> 
 						<div class="me-3"> 
 							<button class="btn button-main bg-gradient" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
@@ -123,21 +122,25 @@ function sendOk() {
 	</form>
 </div>
 	
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
 var oEditors = [];
 nhn.husky.EZCreator.createInIFrame({
 	oAppRef: oEditors,
 	elPlaceHolder: "ir1",
-	sSkinURI: "${pageContext.request.contextPath}/resources/se2/SmartEditor2Skin.html",
+	sSkinURI: "${pageContext.request.contextPath}/resources/vendor/se2/SmartEditor2Skin.html",
 	fCreator: "createSEditor2"
 });
 
 function submitContents(elClickedObj) {
 	 oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
 	 try {
-		// elClickedObj.form.submit();
-		return check();
+		if(! check()) {
+			return;
+		}
+		
+		elClickedObj.submit();
+		
 	} catch(e) {
 	}
 }

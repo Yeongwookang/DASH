@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
@@ -103,6 +104,55 @@ public class FileManager {
 		fos.write(bytes);
 		fos.close();
 
+		return saveFilename;
+	}
+
+	/**
+	 * 파일을 업로드 하기 위한 메소드
+	 * @param is				업로드할 파일정보를 가지고 있는 InputStream 객체
+	 * @param originalFilename	클라이언트가 업로드한 파일명
+	 * @param pathname			파일을 저장할 경로
+	 * @return					서버에 저장된 새로운 파일의 이름
+	 */
+	public String doFileUpload(InputStream is, String originalFilename, String pathname) throws Exception {
+		String saveFilename = null;
+
+		// 클라이언트가 업로드한 파일의 이름
+		if (originalFilename == null || originalFilename.length() == 0) {
+			return null;
+		}
+		
+		// 확장자
+		String fileExt = originalFilename.substring(originalFilename.lastIndexOf("."));
+		if (fileExt == null || fileExt.length() == 0) {
+			return null;
+		}
+		
+		// 서버에 저장할 새로운 파일명을 만든다.
+		saveFilename = String.format("%1$tY%1$tm%1$td%1$tH%1$tM%1$tS", 
+				         Calendar.getInstance());
+		saveFilename += System.nanoTime();
+		saveFilename += fileExt;
+		
+		// 업로드할 경로가 존재하지 않는 경우 폴더를 생성 한다.
+		File dir = new File(pathname);
+		if(! dir.exists()) {
+			dir.mkdirs();
+		}
+		
+		String fullpathname = pathname + File.separator + saveFilename;
+		
+		byte[] b=new byte[1024];
+		int size=0;
+		FileOutputStream fos = new FileOutputStream(fullpathname);
+		
+		while((size=is.read(b))!=-1) {
+			fos.write(b, 0, size);
+		}
+		
+		fos.close();
+		is.close();
+		
 		return saveFilename;
 	}
 
