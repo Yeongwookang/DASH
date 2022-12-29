@@ -5,8 +5,13 @@ public class SessionInfo {
 	private String empNo;
 	private String name;
 	private int posNo;
+	private String posName;
 	private int depNo;
 	private String depName;
+	private int rankNo;
+	private String rankName;
+	private int teamNo;
+	private String teamName;
 	
 	public String getEmpNo() {
 		return empNo;
@@ -26,6 +31,12 @@ public class SessionInfo {
 	public void setPosNo(int posNo) {
 		this.posNo = posNo;
 	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
 	public int getDepNo() {
 		return depNo;
 	}
@@ -38,5 +49,31 @@ public class SessionInfo {
 	public void setDepName(String depName) {
 		this.depName = depName;
 	}
+	public int getRankNo() {
+		return rankNo;
+	}
+	public void setRankNo(int rankNo) {
+		this.rankNo = rankNo;
+	}
+	public String getRankName() {
+		return rankName;
+	}
+	public void setRankName(String rankName) {
+		this.rankName = rankName;
+	}
+	public int getTeamNo() {
+		return teamNo;
+	}
+	public void setTeamNo(int teamNo) {
+		this.teamNo = teamNo;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
+	}
+	
+	
 	
 }

@@ -20,9 +20,13 @@ public class Employee {
 	private String last_login;
 	
 	private int posNo;
+	private String posName;
 	private int depNo;
 	private String depName;
-	private String posName;
+	private int rankNo;
+	private String rankName;
+	private int teamNo;
+	private String teamName;
 	
 	private String authority;
 	private int num;
@@ -30,7 +34,6 @@ public class Employee {
 	private String memo;
 	private String registerEmpNo;
 	private String reg_date;
-	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -139,6 +142,12 @@ public class Employee {
 	public void setPosNo(int posNo) {
 		this.posNo = posNo;
 	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
 	public int getDepNo() {
 		return depNo;
 	}
@@ -150,6 +159,30 @@ public class Employee {
 	}
 	public void setDepName(String depName) {
 		this.depName = depName;
+	}
+	public int getRankNo() {
+		return rankNo;
+	}
+	public void setRankNo(int rankNo) {
+		this.rankNo = rankNo;
+	}
+	public String getRankName() {
+		return rankName;
+	}
+	public void setRankName(String rankName) {
+		this.rankName = rankName;
+	}
+	public int getTeamNo() {
+		return teamNo;
+	}
+	public void setTeamNo(int teamNo) {
+		this.teamNo = teamNo;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 	public String getAuthority() {
 		return authority;
@@ -187,13 +220,6 @@ public class Employee {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public String getPosName() {
-		return posName;
-	}
-	public void setPosName(String posName) {
-		this.posName = posName;
-	}
-	
 	
 	
 	

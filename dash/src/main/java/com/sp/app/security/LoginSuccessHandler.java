@@ -47,8 +47,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		info.setEmpNo(employee.getEmpNo());
 		info.setName(employee.getName());
 		info.setPosNo(employee.getPosNo());
+		info.setPosName(employee.getPosName());
 		info.setDepNo(employee.getDepNo());
-		info.setDepName(employee.getDepName()); 
+		info.setDepName(employee.getDepName());
+		info.setRankNo(employee.getRankNo());
+		info.setRankName(employee.getRankName());
 		
 		session.setAttribute("employee", info);
 		
