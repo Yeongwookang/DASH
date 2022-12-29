@@ -32,8 +32,8 @@ $(function(){
 	
     $("button[role='tab']").on("click", function(e){
 		const tab = $(this).attr("aria-controls");
-    	if(tab === "nav-profile") {
-    		var url = "${pageContext.request.contextPath}/chargestation/main";
+    	if(tab === "nav-home") {
+    		var url = "${pageContext.request.contextPath}/stationmanage/main";
     		location.href=url;
     	}
     });
@@ -56,11 +56,10 @@ $(function(){
 		</div>
 	</nav>
 	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+		<div class="tab-pane fade" id="nav-home" role="tabpanel"
 			aria-labelledby="nav-home-tab" tabindex="0">
-			<div id="map" class="map" style="width: 100%; height: 500px;"></div>
 		</div>
-		<div class="tab-pane fade" id="nav-profile" role="tabpanel"
+		<div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
 			aria-labelledby="nav-profile-tab" tabindex="0">
 			<div id="maps" class="maps" style="width: 100%; height: 500px;"></div>
 		</div>
@@ -95,141 +94,141 @@ $(function(){
 </script>
 
 <script type="text/javascript">
-		
+var mapContainer = document.getElementById('maps'), // 지도를 표시할 div 
+mapOption = {
+	center : new kakao.maps.LatLng(37.555399, 126.970898), // 지도의 중심좌표
+	level : 8
+// 지도의 확대 레벨
+};
 
-	var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-	mapOption = {
-		center : new kakao.maps.LatLng(37.555399, 126.970898), // 지도의 중심좌표
-		level : 8
-	// 지도의 확대 레벨
-	};
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
-	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
+
+var url = "${pageContext.request.contextPath}/chargestation/regions";
+var query = null;
+var fn = function(data) {
+	createMarker(data);
+	console.log(data);
+}
+ajaxFun(url, "get", query, "json", fn);
+
+var overlayArray = [];
+function createMarker(data) {
+	var positions = [];
+	overlayArray.length = 0;
+
+	$(data.list).each(function(index, item) {
+	    console.log(item);
+	    
+		let mobj = {
+			content : "<div class='marker-info'>" + item.name + "</div>",
+			latlng : new kakao.maps.LatLng(item.x_pos, item.y_pos),
+			num : item.cStNum,
+			addr : item.addr,
+			name : item.name,
+			leftQty : item.leftQty
+
+		};
+		positions.push(mobj);
+
+	});
 	
 	
-	var url = "${pageContext.request.contextPath}/stationmanage/regions";
-	var query = null;
-	var fn = function(data) {
-		createMarker(data);
-		;
-	}
-	ajaxFun(url, "get", query, "json", fn);
+	var imageSrc =  "${pageContext.request.contextPath}/resources/images/marker.png";
+    imageSize = new kakao.maps.Size(85, 85);
 
-	var overlayArray = [];
-	function createMarker(data) {
-		var positions = [];
-		overlayArray.length = 0;
+    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
+    
+   
+	for (var i = 0; i < positions.length; i++) {
 
-		$(data.list).each(function(index, item) {
-			let mobj = {
-				content : "<div class='marker-info'>" + item.name + "</div>",
-				latlng : new kakao.maps.LatLng(item.y_pos, item.x_pos),
-				num : item.stNum,
-				title : item.zoonname,
-				addr : item.addr,
-				name : item.name,
-				maxQty : item.maxQty
-
-			};
-			positions.push(mobj);
-
+		var marker = new kakao.maps.Marker({
+			map : map,
+			position : positions[i].latlng,
+			image: markerImage
 		});
 		
-		var imageSrc =  "${pageContext.request.contextPath}/resources/images/marker.png";
-	    imageSize = new kakao.maps.Size(85, 85);
+		var infowindow = new kakao.maps.InfoWindow({
+			content : positions[i].content
+		// 인포윈도우에 표시할 내용
+		});
+		
+		var imgSrc = "${pageContext.request.contextPath}/resources/images/x_station.png";
+		var content = "<div class='overlaybox'>"
+				+ "    <div class='overlay-info'>"
+				+ "        <div class='overlay-title'>"
+				+ positions[i].num + ".\n"+ positions[i].name
+				+ "            <div class='close' title='닫기' onclick='closeOverlay("
+				+ i
+				+ ")'></div>"
+				+ "        </div>"
+				+ "        <div class='overlay-body'>"
+				+ "            <div class='img'><img src='"+imgSrc+"' width='73' height='70'></div>"
+				+ "            <div class='desc'>"
+				+ "                <div class='ellipsis'>"
+				+ positions[i].addr + "</div>"
+				+ "                <div>킥보드 최대 수용수량 : "
+				+ positions[i].leftQty + "</div>" + "            </div>"
+				+ "         </div>" + "    </div>" + "</div>";
+	
 
-	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
-	    
-	    
-		for (var i = 0; i < positions.length; i++) {
+		
+		var overlay = new kakao.maps.CustomOverlay({
+			content : content,
+			map : map,
+			position : positions[i].latlng
+		});
+		overlay.setMap(null);
+		overlayArray.push(overlay);
 
-			var marker = new kakao.maps.Marker({
-				map : map,
-				position : positions[i].latlng,
-				image: markerImage
-			});
+		// 마커에 click 이벤트를 등록
+		kakao.maps.event.addListener(marker, 'click', makeClickListener(
+				map, marker, overlay));
 
-			var infowindow = new kakao.maps.InfoWindow({
-				content : positions[i].content
-			// 인포윈도우에 표시할 내용
-			});
-
-			var imgSrc = "${pageContext.request.contextPath}/resources/images/x_station.png";
-			var content = "<div class='overlaybox'>"
-					+ "    <div class='overlay-info'>"
-					+ "        <div class='overlay-title'>"
-					+ positions[i].num + ".\n"+ positions[i].name
-					+ "            <div class='close' title='닫기' onclick='closeOverlay("
-					+ i
-					+ ")'></div>"
-					+ "        </div>"
-					+ "        <div class='overlay-body'>"
-					+ "            <div class='img'><img src='"+imgSrc+"' width='73' height='70'></div>"
-					+ "            <div class='desc'>"
-					+ "                <div class='ellipsis'>"
-					+ positions[i].addr + "</div>"
-					+ "                <div>킥보드 최대 수용수량 : "
-					+ positions[i].maxQty + "</div>" + "            </div>"
-					+ "         </div>" + "    </div>" + "</div>";
-
-			var overlay = new kakao.maps.CustomOverlay({
-				content : content,
-				map : map,
-				position : positions[i].latlng
-			});
-			overlay.setMap(null);
-			overlayArray.push(overlay);
-
-			// 마커에 click 이벤트를 등록
-			kakao.maps.event.addListener(marker, 'click', makeClickListener(
-					map, marker, overlay));
-
-			// 마커에 mouseover/mouseout 이벤트 등록
-			kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(
-					map, marker, infowindow));
-			kakao.maps.event.addListener(marker, 'mouseout',
-					makeOutListener(infowindow));
-		}
-
-		// click시 오버레이 표시
-		function makeClickListener(map, marker, overlay) {
-			return function() {
-				closeAllOverlay();
-
-				overlay.setMap(map);
-			};
-		}
-
-		// 모든 overlay 닫기
-		function closeAllOverlay() {
-			for (var idx = 0; idx < overlayArray.length; idx++) {
-				overlayArray[idx].setMap(null);
-			}
-		}
-
-		// mouseover시 인포 윈도우를 표시
-		function makeOverListener(map, marker, infowindow) {
-			return function() {
-				infowindow.open(map, marker);
-			};
-		}
-		// mouseout시 인포 윈도우를 닫기
-		function makeOutListener(infowindow) {
-			return function() {
-				infowindow.close();
-			};
-		}
+		// 마커에 mouseover/mouseout 이벤트 등록
+		kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(
+				map, marker, infowindow));
+		kakao.maps.event.addListener(marker, 'mouseout',
+				makeOutListener(infowindow));
 	}
 
-	function closeOverlay(idx) {
-		try {
+	// click시 오버레이 표시
+	function makeClickListener(map, marker, overlay) {
+		return function() {
+			closeAllOverlay();
+
+			overlay.setMap(map);
+		};
+	}
+
+	// 모든 overlay 닫기
+	function closeAllOverlay() {
+		for (var idx = 0; idx < overlayArray.length; idx++) {
 			overlayArray[idx].setMap(null);
-		} catch (e) {
 		}
 	}
-	
-	
+
+	// mouseover시 인포 윈도우를 표시
+	function makeOverListener(map, marker, infowindow) {
+		return function() {
+			infowindow.open(map, marker);
+		};
+	}
+	// mouseout시 인포 윈도우를 닫기
+	function makeOutListener(infowindow) {
+		return function() {
+			infowindow.close();
+		};
+	}
+}
+
+function closeOverlay(idx) {
+	try {
+		overlayArray[idx].setMap(null);
+	} catch (e) {
+	}
+}
 
 	
 	
