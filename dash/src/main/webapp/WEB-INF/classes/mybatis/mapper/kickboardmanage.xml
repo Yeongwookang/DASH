@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kickboardmanage">
+	 <select id="listKickboard" resultType="com.sp.app.kickmanage.Kickmanage">
+	    SELECT kNum, name, state FROM kickboard
+	 </select>
+	 
+	 <select id="repairOrReturn" resultType="com.sp.app.kickmanage.Kickmanage">
+	((SELECT knum , '반납' as condition FROM KICKBOARD)
+	MINUS 
+	(SELECT knum, '반납' as condition FROM USAGERECORD WHERE distance is null)
+	union all
+	(SELECT knum, '대여' as condition FROM USAGERECORD WHERE distance is null))
+	order by knum
+	 </select>
+	 
+</mapper>
