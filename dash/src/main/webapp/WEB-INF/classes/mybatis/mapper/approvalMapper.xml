@@ -37,6 +37,9 @@
 		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
 		<where>
 			state = 1 
+			<if test="todo != null">
+				AND 
+			</if>
 			<if test="keyword !=null and keyword !=''">
 				AND	<include refid="where-list"/>
 			</if>
@@ -68,15 +71,7 @@
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
 		SELECT e.signNum, title, content, form.name, e.empNo, f.state, s.state, t.state  From e_document e 
-		LEFT OUTER JOIN form ON form.formNum = e.formNum
-		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
-		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
-		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
-		WHERE e.empNo = {#empNo} OR f.empNo = {#empNo} OR s.empNo = {#empNo} OR t.empNo = {#empNo}
-	</select>
-	
-	<select id="countApprovalList" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0)  From e_document e 
+		LEFT OUTER JOIN doc_record dc ON dc.signNum = e.signNum
 		LEFT OUTER JOIN form ON form.formNum = e.formNum
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum

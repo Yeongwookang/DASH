@@ -3,17 +3,16 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-
 <div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
 	<div class="text-start fs-4 mb-4">
 		<span>| 결재</span>
 	</div>
 	<div>
-	<form name="approval-search"  method="post">
+	<form name="approval-search"  method="post" action="${pageContext.request.contextPath}/approval/main">
 		<div class="d-flex justify-content-center align-items-center">
-				<input class="form-control" type="date"> 
-			<span class="ms-2 me-2">~</span>
-				<input class="form-control" type="date"> 
+			<input name="s_date" class="form-control me-2" type="date">
+			<span>~</span>
+			<input name="e_date" class="form-control ms-2 today" type="date"> 
 			<button type="button" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
 		</div>
 	</form>
@@ -199,6 +198,11 @@
 			}
 		});
 		
+	});
+	
+	$(function(){
+		let date = new Date().toISOString().substr(0, 10);
+		$(".today").val(date);
 	});
 	
 	

@@ -2,6 +2,8 @@ package com.sp.app.approval;
 
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,56 +31,13 @@ public class ApprovalController {
 		
 		@Autowired
 		private MyUtil myUtil;
-	
+		
 		@RequestMapping(value = "main")
-		public String main(@RequestParam(value = "page", defaultValue = "1") int current_page,
-				@RequestParam(defaultValue = "dep") String condition,
-				@RequestParam(defaultValue = "") String keyword,
-				HttpServletRequest req,
-				Model model) throws Exception {
+		public String main(Model model) throws Exception {
 			
-			if (req.getMethod().equalsIgnoreCase("GET")) {
-				keyword = URLDecoder.decode(keyword, "utf-8");
-			}
-
-			int size = 4;
-			int dataCount, total_page;
-
-			Map<String, Object> map = new HashMap<>();
-			map.put("condition", condition);
-			map.put("keyword", keyword);
+			Map<String, Object> map = new HashMap<String, Object>();
 			
-			dataCount = service.dataCount(map);
-			total_page = myUtil.pageCount(dataCount, size);
-			if (current_page > total_page) {
-				current_page = total_page;
-			}
-
-			int offset = (current_page - 1) * size;
-			if(offset < 0) offset = 0;
-			map.put("offset", offset);
-			map.put("size", size);
-
-			
-			List<Employee> empList = service.empList(map);
-			
-			String cp = req.getContextPath();
-			String listUrl = cp + "/approval/main";
-
-			if (keyword.length() != 0) {
-				listUrl += "?condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "UTF-8");
-			}
-
-			String paging = myUtil.paging(current_page, total_page, listUrl);
-			
-			
-			model.addAttribute("list", empList);
-			model.addAttribute("dataCount", dataCount);
-			model.addAttribute("page", current_page);
-			model.addAttribute("total_page", total_page);
-			model.addAttribute("paging", paging);
-			model.addAttribute("condition", condition);
-			model.addAttribute("keyword", keyword);
+			List<Approval> approvalList = service.approvalList(map);
 			
 		      return ".approval.main";
 		}

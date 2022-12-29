@@ -97,17 +97,5 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		return empList;
 	}
-
-	@Override
-	public List<Approval> myApprovalList(Map<String, Object> map) {
-		List<Approval> list = null;
-		
-		try {
-			list = dao.selectList("approval.myApprovalList", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
 	
 }

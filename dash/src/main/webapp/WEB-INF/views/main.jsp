@@ -112,13 +112,15 @@ $(function(){
 			
 			option = {
 					  tooltip: {
-					    trigger: 'item'
+					    trigger: 'item',
+					    axisPointer: { type: 'cross' }
 					  },
 					  xAxis: {
 					    type: 'category',
 					    data: zoonName
 					  },
 					  yAxis: {
+						show: false,
 					    type: 'value'
 					  },
 					  series: [
@@ -244,13 +246,13 @@ $(function(){
 			</div>
 		<div class="card " style="width: 32%;">
 			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
-			<div id="chart-container1" class="ms-2 h-100 w-100"></div>
+			<div id="chart-container1" class="h-100 w-100"></div>
 		</div>		
 		</div>
 		<div class="d-flex justify-content-between">
 		<div class="card"  style="width: 32%">
 			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
-			<div id="chart-container2" class="ms-2 h-100 w-100"></div>
+			<div id="chart-container2" class="h-100 w-100"></div>
 		</div>
 		<div class="card " style="width: 66%">
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>

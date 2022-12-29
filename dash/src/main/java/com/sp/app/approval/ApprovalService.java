@@ -15,10 +15,5 @@ public interface ApprovalService {
 	public Approval readApproval(long signNum);
 	public int dataCount(Map<String, Object> map);
 	public List<Approval> approvalList(Map<String, Object> map);
-	public List<Approval> myApprovalList(Map<String, Object> map);
-	
-	
-	
-	
 	
 }
