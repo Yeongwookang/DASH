@@ -7,12 +7,12 @@
 	 </select>
 	 
 	 <select id="repairOrReturn" resultType="com.sp.app.kickmanage.Kickmanage">
-	((SELECT knum , '반납' as condition FROM KICKBOARD)
+	((SELECT kNum , '반납' as condition FROM KICKBOARD)
 	MINUS 
-	(SELECT knum, '반납' as condition FROM USAGERECORD WHERE distance is null)
+	(SELECT kNum, '반납' as condition FROM USAGERECORD WHERE distance is null)
 	union all
-	(SELECT knum, '대여' as condition FROM USAGERECORD WHERE distance is null))
-	order by knum
+	(SELECT kNum, '대여' as condition FROM USAGERECORD WHERE distance is null))
+	order by kNum
 	 </select>
 	 
 </mapper>
