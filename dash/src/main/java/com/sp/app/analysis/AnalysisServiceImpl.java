@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.common.dao.CommonDAO;
+import com.sp.app.stationmanage.Stationmanage;
 
 @Service("analysis.analysisService")
 public class AnalysisServiceImpl implements AnalysisService { 
@@ -202,6 +203,66 @@ public class AnalysisServiceImpl implements AnalysisService {
 			e.printStackTrace();
 		}
 		return dto;
+	}
+
+	@Override
+	public List<Stationmanage> station() {
+		List<Stationmanage> list = null;
+		
+		try {
+			list = dao.selectList("analysis.station");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<StationData> stationAge(int stNum) {
+		List<StationData> list = null;
+		
+		try {
+			list = dao.selectList("analysis.stationAge", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<StationData> stationGender(int stNum) {
+		List<StationData> list = null;
+		
+		try {
+			list = dao.selectList("analysis.stationGender", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public StationData stationUseTime(int stNum) {
+		StationData dto = null;
+		
+		try {
+			dto = dao.selectOne("analysis.stationUseTime", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public List<Map<String, Object>> stationTotalMoney(int stNum) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.stationTotalMoney", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 
 	

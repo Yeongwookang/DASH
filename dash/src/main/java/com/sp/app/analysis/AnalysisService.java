@@ -3,6 +3,8 @@ package com.sp.app.analysis;
 import java.util.List;
 import java.util.Map;
 
+import com.sp.app.stationmanage.Stationmanage;
+
 public interface AnalysisService {
 	public String totalSales();
 	public int newCustomerCount(); 
@@ -21,5 +23,11 @@ public interface AnalysisService {
 	public List<UserData> userAge();
 	public List<UserData> userGender();
 	public UserData userUseTime();
+	
+	public List<Stationmanage> station();
+	public List<StationData> stationAge(int stNum);
+	public List<StationData> stationGender(int stNum);
+	public StationData stationUseTime(int stNum);
+	public List<Map<String, Object>> stationTotalMoney(int stNum);
 	
 }
