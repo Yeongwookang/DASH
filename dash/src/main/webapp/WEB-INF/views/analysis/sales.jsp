@@ -71,7 +71,12 @@ function getDates(){
 	
 	while(startDate <= endDate) {
 		startDate.toISOString().split('T')[0];
-		dateArray.push(startDate.getDate());
+		
+		let money = {
+				day: startDate.getDate(),
+				money: 0
+		}
+		dateArray.push(money);
 		startDate.setDate(startDate.getDate() + 1);
 	}
 	
@@ -198,20 +203,23 @@ function searchList() {
 				dayTotalMoney(data);
 				
 				function dayTotalMoney(data){
-					let dayData = [];
-					let moneyData = [];
-					
-					console.log(getDates());
-					
-					for(let item of data.days) {
-						let day = parseInt(item.USEDATE.substring(6));
-						let money = item.TOTALMONEY;
-						
-						dayData.push(day); 
-						moneyData.push(money);
+					let graph = getDates();
+					let x = [];
+					for(item of getDates()){
+						x.push(item.day);
 					}
 					
-					console.log(dayData);
+					for(item of graph){
+						for(money of data.days){
+							if(item.day == money.USEDATE.substring(6)){
+								item.money = money.TOTALMONEY;
+							}
+						}
+					}
+					let series = []; 
+					for(item of graph){
+						series.push(item.money);
+					}
 					
 					// $("#content").html("<div id='title'>년별 매출 현황 : " + monthData[0] + " ~ " + monthData[11] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 						
@@ -226,14 +234,14 @@ function searchList() {
 					  },
 					  xAxis: {
 					    type: 'category',
-					    data: getDates()
+					    data: x
 					  },
 					  yAxis: {
 					    type: 'value'
 					  },
 					  series: [
 					    {
-					      data: moneyData,
+					      data: series,
 					      type: 'line'
 					    }
 					  ]
