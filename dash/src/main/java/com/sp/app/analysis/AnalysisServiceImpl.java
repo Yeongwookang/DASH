@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.sp.app.common.dao.CommonDAO;
 
 @Service("analysis.analysisService")
-public class AnalysisServiceImpl implements AnalysisService {
+public class AnalysisServiceImpl implements AnalysisService { 
 	@Autowired
 	private CommonDAO dao;
 
@@ -116,6 +116,19 @@ public class AnalysisServiceImpl implements AnalysisService {
 		
 		return dto;
 	}
+	
+	@Override
+	public List<Map<String, Object>> yearTotalMoney(String year) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.yearTotalMoney", year);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
 
 	@Override
 	public List<Map<String, Object>> monthTotalMoney(String month) {
@@ -129,5 +142,68 @@ public class AnalysisServiceImpl implements AnalysisService {
 		
 		return list;
 	}
+
+	@Override
+	public List<Map<String, Object>> dayTotalMoney() {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.dayTotalMoney");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+	@Override
+	public String lastDay() {
+		String lastDay = "";
+		
+		try {
+			lastDay = dao.selectOne("analysis.lastDay");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return lastDay;
+	}
+
+	@Override
+	public List<UserData> userAge() {
+		List<UserData> list = null;
+		
+		try {
+			list = dao.selectList("analysis.userAge");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<UserData> userGender() {
+		List<UserData> list = null;
+		
+		try {
+			list = dao.selectList("analysis.userGender");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public UserData userUseTime() {
+		UserData dto = null;
+		
+		try {
+			dto = dao.selectOne("analysis.userUseTime");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	
 
 }

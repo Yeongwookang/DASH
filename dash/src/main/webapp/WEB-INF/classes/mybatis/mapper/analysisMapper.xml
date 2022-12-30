@@ -70,126 +70,181 @@
 	
 	<select id="yearTotalMoney"  parameterType="String" resultType="map">
 		SELECT TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-4 useDate,
-		    TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		    NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYY') = TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-4
 		    UNION ALL
 		    
 		SELECT TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-3 useDate,
-		    TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		    NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYY') = TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-3
 		    UNION ALL
 		    
 		SELECT TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-2 useDate,
-		    TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		    NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYY') = TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-2
 		    UNION ALL
 		    
 		SELECT TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-1 useDate,
-		    TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		    NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYY') = TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-1
 		    UNION ALL
 		
-		SELECT #{year} useDate,
-		    TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+		SELECT TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')-0 useDate,
+		    NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
-		WHERE TO_CHAR(return_date, 'YYYY') = #{year}
+		WHERE TO_CHAR(return_date, 'YYYY') = TO_CHAR(TO_DATE(#{year}, 'YYYY'), 'YYYY')
 	</select>
 		
 	<select id="monthTotalMoney"  parameterType="String" resultType="map">
 		SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -11), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -11), 'YYYYMM')
             UNION ALL
 	            
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -10), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -10), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -9), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -9), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -8), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -8), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -7), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -7), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -6), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -6), 'YYYYMM')
             UNION ALL
         
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -5), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -5), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -4), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -4), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -3), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -3), 'YYYYMM')
             UNION ALL
             
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -2), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+           NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -2), 'YYYYMM')
             UNION ALL
         
         SELECT TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -1), 'YYYYMM') useDate,
-                TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+            NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(ADD_MONTHS(TO_DATE(#{month}, 'YYYYMM'), -1), 'YYYYMM')
             UNION ALL
         
         SELECT #{month} useDate, 
-				 TO_CHAR(NVL(SUM(price), 0), '999,999,999') totalMoney 
+			NVL(SUM(price), 0) totalMoney 
 		FROM usageRecord u
 		JOIN return r ON u.recordNum = r.recordNum
 		WHERE TO_CHAR(return_date, 'YYYYMM') = #{month}
 	</select>
 	
-	<select id="dayTotalMoney"  parameterType="String" resultType="map">
-		
+	<select id="dayTotalMoney" resultType="map">
+		SELECT TO_CHAR(return_date, 'YYYYMMDD') useDate,
+            NVL(SUM(price), 0) totalMoney 
+        FROM usageRecord u
+		JOIN return r ON u.recordNum = r.recordNum
+		WHERE TO_CHAR(return_date, 'YYYYMM') = TO_CHAR(SYSDATE, 'YYYYMM')
+        GROUP BY TO_CHAR(return_date, 'YYYYMMDD')
+        ORDER BY useDate
+	</select>
+	
+	<select id="lastDay" resultType="String">
+		 SELECT TO_CHAR(LAST_DAY(SYSDATE), 'DD') lastDay FROM dual
+	</select>
+	
+	<select id="userAge" resultType="com.sp.app.analysis.UserData">
+		SELECT COUNT(age) value, age name FROM customer GROUP BY age ORDER BY age
+	</select>
+	
+	<select id="userGender" resultType="com.sp.app.analysis.UserData">
+		SELECT COUNT(gender) value, gender name FROM customer GROUP BY gender ORDER BY gender
+	</select>
+	
+	<select id="userUseTime" resultType="com.sp.app.analysis.UserData">
+		SELECT COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 1, 1)) t0,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 2, 1)) t1,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 3, 1)) t2,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 4, 1)) t3,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 5, 1)) t4,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 6, 1)) t5,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 7, 1)) t6,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 8, 1)) t7,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 9, 1)) t8,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 10, 1)) t9,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 11, 1)) t10,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 12, 1)) t11,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 13, 1)) t12,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 14, 1)) t13,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 15, 1)) t14,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 16, 1)) t15,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 17, 1)) t16,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 18, 1)) t17,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 19, 1)) t18,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 20, 1)) t19,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 21, 1)) t20,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 22, 1)) t21,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 23, 1)) t22,
+			COUNT(DECODE(TO_CHAR(rental_date,'HH24'), 24, 1)) t23
+		FROM usageRecord u
+		JOIN rental r ON u.recordNum = r.recordNum
+	</select>
+	
+	<select id="allStation" resultType="com.sp.app.analysis.UserData">
+		SELECT name, COUNT(s.stNum) value
+		FROM usageRecord u
+		JOIN rental r ON u.recordNum = r.recordNum
+		JOIN station s ON r.stNum = s.stNum
+		GROUP BY name
 	</select>
 </mapper>

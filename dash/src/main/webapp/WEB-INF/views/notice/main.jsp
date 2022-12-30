@@ -2,6 +2,13 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<script type="text/javascript">
+function searchList() {
+	const f = document.searchForm;
+	f.submit();
+}
+</script>
+
 <div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
 	<div class="text-start fs-4 mb-4">
 		<span>

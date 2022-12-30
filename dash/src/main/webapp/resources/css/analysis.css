@@ -1,0 +1,11 @@
+@charset "UTF-8";
+
+.none {
+	font-weight: 600;
+	font-size: 22px;
+}
+
+#title {
+	font-size: 21px;
+	font-weight: 600;
+}
