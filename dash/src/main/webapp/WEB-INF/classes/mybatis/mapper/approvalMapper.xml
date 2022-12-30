@@ -48,36 +48,58 @@
 		</where>
 	</select>
 	
-	<insert id ="insertApproval" parameterType="approval">
+	<update id ="insertApproval" parameterType="map" >
 		INSERT ALL 
-			INTO e_document (signNum, title, content, formNum, empNo) 
-			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{formNum}, #{empNo})
+			INTO e_document (signNum, title, content, empNo, formnum) 
+			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{empNo}, 1)
+			INTO doc_record (signNum, reg_date, state) VALUES(e_document_SEQ.CURRVAL, sysdate, '기안')
 			
 			<if test="ref1 !=null">
 				INTO f_approval (signNum, state, empNo) 
-				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref1})
+				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref1})
 			</if>
 			
 			<if test="ref2 !=null">
 				INTO s_approval (signNum, state, empNo)
-				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref2})
+				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref2})
 			</if>
 			
 			<if test="ref3 !=null">
 				INTO t_approval (signNum, state, empNo)
-				VALUES(LPAD(e_document_SEQ.CURRVAL, 8, '0'), "대기", #{ref3})
+				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref3})
 			</if>
 			
-		SELECT * FROM dual;
-	</insert>
+		SELECT * FROM dual
+	</update>
+	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
-		SELECT e.signNum, title, content, form.name, e.empNo, f.state, s.state, t.state  From e_document e 
-		LEFT OUTER JOIN doc_record dc ON dc.signNum = e.signNum
-		LEFT OUTER JOIN form ON form.formNum = e.formNum
+		SELECT title, rankName, teamName, depName, posName  From e_document e 
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
-		WHERE e.empNo = {#empNo} OR f.empNo = {#empNo} OR s.empNo = {#empNo} OR t.empNo = {#empNo}
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE e.empNo = #{empNo} 
+		OR (f.empNo = #{empNo} AND f.state='대기')
+		OR (s.empNo = #{empNo} AND s.state='대기')
+		OR (t.empNo = #{empNo} AND t.state='대기')
 	</select>
+	
+	<select id="myApprovalList" parameterType="map" resultType="approval">
+		SELECT title,  FROM doc_record dr
+		LEFT OUTER JOIN e_document e ON e.signNum = dr.signNum
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE empNo = #{empNo}
+	</select>
+
 </mapper>

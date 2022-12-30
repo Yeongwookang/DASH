@@ -15,9 +15,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	private CommonDAO dao;
 	
 	@Override
-	public void insertApproval(Approval dto) throws Exception {
+	public void insertApproval(Map<String,Object>map) throws Exception {
 		try {
-			dao.insertData("approval.insertApproval", dto);
+			dao.insertData("approval.insertApproval", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -26,9 +26,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void updateApproval(Approval dto) throws Exception {
+	public void updateApproval(Map<String,Object>map) throws Exception {
 		try {
-			dao.insertData("approval.updateApproval", dto);
+			dao.insertData("approval.updateApproval", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -96,6 +96,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 			e.printStackTrace();
 		}
 		return empList;
+	}
+
+	@Override
+	public List<Approval> myApprovalList(Map<String, Object> map) {
+		List<Approval> list = null;
+		
+		try {
+			list = dao.selectList("approval.myApprovalList", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 	
 }

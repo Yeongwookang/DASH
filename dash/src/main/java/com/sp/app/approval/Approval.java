@@ -9,6 +9,12 @@ public class Approval {
 	private String reg_date;
 	private String state;
 	
+	private String posName;
+	private String depName;
+	private String rankName;
+	private String teamName;
+	private String name;
+	
 	private String ref1;
 	private String ref2;
 	private String ref3;
@@ -80,6 +86,36 @@ public class Approval {
 	}
 	public void setRef3(String ref3) {
 		this.ref3 = ref3;
+	}
+	public String getPosName() {
+		return posName;
+	}
+	public void setPosName(String posName) {
+		this.posName = posName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDepName() {
+		return depName;
+	}
+	public void setDepName(String depName) {
+		this.depName = depName;
+	}
+	public String getRankName() {
+		return rankName;
+	}
+	public void setRankName(String rankName) {
+		this.rankName = rankName;
+	}
+	public String getTeamName() {
+		return teamName;
+	}
+	public void setTeamName(String teamName) {
+		this.teamName = teamName;
 	}
 	
 	
