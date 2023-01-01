@@ -1,5 +1,9 @@
 package com.sp.app.employee;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Employee {
 	private String empNo;
 	private String pwd;
@@ -34,6 +38,15 @@ public class Employee {
 	private String memo;
 	private String registerEmpNo;
 	private String reg_date;
+	
+	
+	private long categoryNum;
+	private String categoryName;
+
+	private long fileNum;
+	private String filename;
+	private List<MultipartFile> addFiles;
+	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -220,6 +233,39 @@ public class Employee {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
+	public long getCategoryNum() {
+		return categoryNum;
+	}
+	public void setCategoryNum(long categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public List<MultipartFile> getAddFiles() {
+		return addFiles;
+	}
+	public void setAddFiles(List<MultipartFile> addFiles) {
+		this.addFiles = addFiles;
+	}
+	
+	
+	
 	
 	
 	

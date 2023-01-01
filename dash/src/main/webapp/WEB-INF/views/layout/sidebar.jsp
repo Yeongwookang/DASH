@@ -40,6 +40,11 @@
 				<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/insa/main'"><i class="fa-lg bi bi-person-rolodex"></i><span class="ms-3">인사</span></button>
 			</li>
 		</c:if>
+		
+		<li class="nav-item">
+			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/insa/list'"><i class="bi bi-person-lines-fill"></i><span class="ms-3">사원현황</span></button>
+		</li>
+		
 		<c:if test="${sessionScope.employee.depNo==2}">
 			<li>
 			<div class="dropdown dropend nav-item">

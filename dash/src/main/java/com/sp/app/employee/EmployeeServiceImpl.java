@@ -31,9 +31,19 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void insertEmployee(Employee dto) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
+		try {
+			// 사원정보 저장
+			dao.insertData("employee.insertEmployee", dto);
+
+			// 권한저장
+			dto.setAuthority("ROLE_USER");
+			dao.insertData("employee.insertAuthority", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+	}	
+	
 
 	@Override
 	public void updateLastLogin(String empNo) throws Exception {
@@ -48,9 +58,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void updateEmployee(Employee dto) throws Exception {
-		// TODO Auto-generated method stub
-		
+
+		try {
+			dao.updateData("employee.updateMember", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
+		
 
 	@Override
 	public Employee readEmployee(String empNo) {
@@ -83,8 +99,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public void deleteEmployee(Map<String, Object> map) throws Exception {
-		// TODO Auto-generated method stub
-		
+		try {
+			dao.deleteData("employee.deleteMember", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
 	}
 	
 	@Override
