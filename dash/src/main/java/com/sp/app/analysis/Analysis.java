@@ -18,6 +18,12 @@ public class Analysis {
 	private int t18;
 	private int t21;
 	
+	private Double distance;
+	
+	private String startName;
+	private String endName;
+	private int usetime;
+	
 	public int getUsageRank() {
 		return usageRank;
 	}
@@ -102,5 +108,30 @@ public class Analysis {
 	public void setT21(int t21) {
 		this.t21 = t21;
 	}
+	public Double getDistance() {
+		return distance;
+	}
+	public void setDistance(Double distance) {
+		this.distance = distance;
+	}
+	public String getStartName() {
+		return startName;
+	}
+	public void setStartName(String startName) {
+		this.startName = startName;
+	}
+	public String getEndName() {
+		return endName;
+	}
+	public void setEndName(String endName) {
+		this.endName = endName;
+	}
+	public int getUsetime() {
+		return usetime;
+	}
+	public void setUsetime(int usetime) {
+		this.usetime = usetime;
+	}
+	
 	
 }

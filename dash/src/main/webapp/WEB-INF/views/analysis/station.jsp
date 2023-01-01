@@ -5,7 +5,84 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
 
 <script type="text/javascript">
+$(function(){
+	let url = "${pageContext.request.contextPath}/analysis/stationYearTotalMoney?stNum="+ stNum; 
+	
+	$.getJSON(url, function(data){ 
+		stationYearTotalMoney(data);
+		console.log(data); 
+		
+		function stationYearTotalMoney(data){
+			let yearData = [];
+			let moneyData = [];
+			
+			for(let item of data.stationYearTotalMoney) { 
+				let y = item.USEDATE + '년'; 
+		  
+				let money = item.TOTALMONEY;
+				
+				yearData.push(y);
+				moneyData.push(money); 
+			}
+			
+			var chartDom = document.getElementById('chartContainer');
+			var myChart = echarts.init(chartDom);
+			var option;
+			
+			$("#title").html(name + " : 년도별 통계");  
 
+			option = {
+			  tooltip: {
+			    trigger: 'item',
+			    axisPointer: { type: 'cross' } 
+			  },
+			  xAxis: {
+			    type: 'category',
+			    boundaryGap: false,
+			    data: yearData
+			  },
+			  yAxis: {
+			    type: 'value'
+			  },
+			  series: [
+			    {
+			      data: moneyData, 
+			      type: 'line',
+			      areaStyle: {}
+			    }
+			  ]
+			};
+
+			option && myChart.setOption(option);
+
+		}
+
+	});
+	
+});  
+
+function getDates(){
+	var dateArray = [];
+	let today = new Date();
+	let y = today.getFullYear();
+	let m = today.getMonth(); 
+	
+	let startDate = new Date(y, m, 1); 
+	let endDate = new Date(y, m+1, 0); 
+	
+	while(startDate <= endDate) {
+		startDate.toISOString().split('T')[0];
+		
+		let money = {
+				day: startDate.getDate(),
+				money: 0
+		}
+		dateArray.push(money);
+		startDate.setDate(startDate.getDate() + 1);
+	}
+	
+	return dateArray; 
+}
 
 function searchList() {
 	const f = document.stationForm; 
@@ -16,42 +93,177 @@ function searchList() {
 	var target = document.getElementById("selectStation");
 	let name = target.options[target.selectedIndex].text;
 	
-	if(value1 == "1"){
+	if(value1 == "1"){   
 		
 		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationTotalMoney?stNum="+ stNum; 
+			let url = "${pageContext.request.contextPath}/analysis/stationYearTotalMoney?stNum="+ stNum; 
 			
 			$.getJSON(url, function(data){ 
-				stationTotalMoney(data);
+				stationYearTotalMoney(data);
 				console.log(data); 
 				
-				function stationTotalMoney(data){
+				function stationYearTotalMoney(data){
+					let yearData = [];
+					let moneyData = [];
+					
+					for(let item of data.stationYearTotalMoney) { 
+						let y = item.USEDATE + '년'; 
+				  
+						let money = item.TOTALMONEY;
+						
+						yearData.push(y);
+						moneyData.push(money); 
+					}
+					
 					var chartDom = document.getElementById('chartContainer');
 					var myChart = echarts.init(chartDom);
-					var option;
+					var option; 
 					
 					$("#title").html(name + " : 년도별 통계");  
 
-					var chartDom = document.getElementById('main');
-					var myChart = echarts.init(chartDom);
-					var option;
-
 					option = {
+					  tooltip: {
+					    trigger: 'item',
+					    axisPointer: { type: 'cross' } 
+					  },
 					  xAxis: {
 					    type: 'category',
-					    data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+					    boundaryGap: false,
+					    data: yearData
 					  },
 					  yAxis: {
 					    type: 'value'
 					  },
 					  series: [
 					    {
-					      data: [150, 230, 224, 218, 135, 147, 260],
-					      type: 'line'
+					      data: moneyData, 
+					      type: 'line',
+					      areaStyle: {}
 					    }
 					  ]
 					};
 
+					option && myChart.setOption(option);
+
+				}
+
+			});
+			
+		});
+	} else if(value1 == "2"){
+		
+		$(function(){
+			let url = "${pageContext.request.contextPath}/analysis/stationMonthTotalMoney?stNum="+ stNum; 
+			
+			$.getJSON(url, function(data){ 
+				stationMonthTotalMoney(data);
+				console.log(data); 
+				
+				function stationMonthTotalMoney(data){ 
+					let monthData = [];
+					let moneyData = []; 
+					
+					for(let item of data.stationMonthTotalMoney) {
+						let m = parseInt(item.USEDATE.substring(4))+'월';
+						let msg = m;
+				  
+						let money = item.TOTALMONEY;
+						
+						monthData.push(msg);
+						moneyData.push(money); 
+					}
+					
+					var chartDom = document.getElementById('chartContainer');
+					var myChart = echarts.init(chartDom);
+					var option;
+					
+					$("#title").html(name + " : 월별 통계");  
+
+					option = {
+					  tooltip: {
+					    trigger: 'item',
+					    axisPointer: { type: 'cross' } 
+					  },
+					  xAxis: {
+					    type: 'category',
+					    boundaryGap: false,
+					    data: monthData
+					  },
+					  yAxis: {
+					    type: 'value'
+					  },
+					  series: [
+					    {
+					      data: moneyData,
+					      type: 'line',
+					      areaStyle: {}
+					    }
+					  ]
+					};
+
+					option && myChart.setOption(option);
+
+
+				}
+
+			});
+			
+		});
+	} else if(value1 == "3"){
+		
+		$(function(){
+			let url = "${pageContext.request.contextPath}/analysis/stationDayTotalMoney?stNum="+ stNum; 
+			
+			$.getJSON(url, function(data){ 
+				console.log(data); 
+				stationDayTotalMoney(data);
+				
+				function stationDayTotalMoney(data){ 
+					let graph = getDates();
+					let x = [];
+					for(item of getDates()){
+						x.push(item.day + "일");
+					}
+					
+					for(item of graph){
+						for(money of data.stationDayTotalMoney){
+							if(item.day == money.USEDATE.substring(6)){
+								item.money = money.TOTALMONEY;
+							}
+						}
+					}
+					
+					let series = []; 
+					for(item of graph){
+						series.push(item.money);
+					}
+					
+					$("#title").html(name + " : 일별 통계");  
+						
+					var chartDom = document.getElementById('chartContainer');
+					var myChart = echarts.init(chartDom);
+					var option; 
+	
+					option = {
+					  tooltip: {
+					    trigger: 'item',
+					    axisPointer: { type: 'cross' } 
+					  },
+					  xAxis: {
+					    type: 'category',
+					    data: x
+					  },
+					  yAxis: {
+					    type: 'value'
+					  },
+					  series: [
+					    {
+					      data: series,
+					      type: 'line'
+					    }
+					  ]
+					};
+	
 					option && myChart.setOption(option);
 
 				}
@@ -291,10 +503,10 @@ function searchList() {
 			<select name="selectCondition" id="selectCondition" class="form-select me-2" style="width: 10%">
 				<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>
 				<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
-				<option value="3" ${selectDate==""?"selected='selected'":""}>일</option>
-				<option value="4" ${selectDate=="3"?"selected='selected'":""}>연령대</option>
-				<option value="5" ${selectDate=="4"?"selected='selected'":""}>성별</option>
-				<option value="6" ${selectDate=="5"?"selected='selected'":""}>이용시간대</option>
+				<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
+				<option value="4" ${selectDate=="4"?"selected='selected'":""}>연령대</option>
+				<option value="5" ${selectDate=="5"?"selected='selected'":""}>성별</option>
+				<option value="6" ${selectDate=="6"?"selected='selected'":""}>이용시간대</option>
 			</select>
 			<select name="selectStation" id="selectStation" class="form-select" style="width: 20%">
 				<c:forEach var="dto" items="${list}">

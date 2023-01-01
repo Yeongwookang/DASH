@@ -206,7 +206,7 @@ function searchList() {
 					let graph = getDates();
 					let x = [];
 					for(item of getDates()){
-						x.push(item.day);
+						x.push(item.day + "일");
 					}
 					
 					for(item of graph){
@@ -221,7 +221,7 @@ function searchList() {
 						series.push(item.money);
 					}
 					
-					// $("#content").html("<div id='title'>년별 매출 현황 : " + monthData[0] + " ~ " + monthData[11] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+					$("#content").html("<div id='title'>일별 매출 현황 : " + x[0] + " ~ " + x[x.length-1] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
 						
 					var chartDom = document.getElementById('chartContainer');
 					var myChart = echarts.init(chartDom);

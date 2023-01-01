@@ -28,6 +28,15 @@ public interface AnalysisService {
 	public List<StationData> stationAge(int stNum);
 	public List<StationData> stationGender(int stNum);
 	public StationData stationUseTime(int stNum);
-	public List<Map<String, Object>> stationTotalMoney(int stNum);
+	public List<Map<String, Object>> stationYearTotalMoney(int stNum);
+	public List<Map<String, Object>> stationMonthTotalMoney(int stNum);
+	public List<Map<String, Object>> stationDayTotalMoney(int stNum);
+	
+	public List<Analysis> rankTopCount();
+	public List<Analysis> rankTopPrice();
+	public List<Analysis> rankTopDistance();
+	public List<Analysis> rankTopUseTime();
+	public List<Analysis> rankTopUseTime2();
+	public List<UserData> userAgeTime();
 	
 }

@@ -9,3 +9,21 @@
 	font-size: 19px;
 	font-weight: 600;
 } 
+
+.aTag {
+	text-decoration: none;
+	color: black;
+}
+
+.aTag:hover {
+	text-decoration: none;
+	color: #FF5375;
+}
+
+.stationName {
+	font-size: 15px;
+}
+
+.arrow {
+	color: red;
+}

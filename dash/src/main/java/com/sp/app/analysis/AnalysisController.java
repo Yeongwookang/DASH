@@ -21,6 +21,51 @@ public class AnalysisController {
 	@Autowired
 	private AnalysisService service;
 	
+	@RequestMapping(value = "main")
+	public String main(Model model) throws Exception {	
+		List<Analysis> rankTopCount = service.rankTopCount();
+		for(Analysis dto : rankTopCount) {
+			String[] s = dto.getName().split("출");
+			dto.setName(s[0]);
+		}
+		
+		List<Analysis> rankTopPrice = service.rankTopPrice();
+		for(Analysis dto : rankTopPrice) {
+			String[] s = dto.getName().split("출"); 
+			dto.setName(s[0]);
+		}
+		
+		List<Analysis> rankTopDistance = service.rankTopDistance();
+		for(Analysis dto : rankTopDistance) {
+			String[] s = dto.getName().split("출");
+			dto.setName(s[0]);
+		}
+		
+		List<Analysis> rankTopUseTime = service.rankTopUseTime();
+		List<Analysis> rankTopUseTime2 = service.rankTopUseTime2();
+		
+		model.addAttribute("rankTopCount", rankTopCount);
+		model.addAttribute("rankTopPrice", rankTopPrice);
+		model.addAttribute("rankTopDistance", rankTopDistance);
+		model.addAttribute("rankTopUseTime", rankTopUseTime);
+		model.addAttribute("rankTopUseTime2", rankTopUseTime2);
+		
+		return ".analysis.main"; 
+	}
+	
+	@RequestMapping(value = "userAgeTime")
+	@ResponseBody
+	public Map<String, Object> userAgeTime() throws Exception {
+	
+		List<UserData> userAgeTime = service.userAgeTime();
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("userAgeTime", userAgeTime);
+		
+		return model;
+	}
+	
 	@RequestMapping(value = "sales")
 	public String sales() throws Exception {
 		
@@ -129,17 +174,42 @@ public class AnalysisController {
 		return ".analysis.station";
 	}
 	
-	@RequestMapping(value = "stationTotalMoney")
+	@RequestMapping(value = "stationYearTotalMoney")
 	@ResponseBody
-	public Map<String, Object> stationTotalMoney(@RequestParam int stNum) throws Exception {
-		List<Map<String, Object>> stationTotalMoney = service.stationTotalMoney(stNum);
+	public Map<String, Object> stationYearTotalMoney(@RequestParam int stNum) throws Exception {
+		List<Map<String, Object>> stationYearTotalMoney = service.stationYearTotalMoney(stNum);
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		
-		model.put("stationTotalMoney", stationTotalMoney);
+		model.put("stationYearTotalMoney", stationYearTotalMoney);
 		
 		return model;
 	}
+	
+	@RequestMapping(value = "stationMonthTotalMoney")
+	@ResponseBody
+	public Map<String, Object> stationMonthTotalMoney(@RequestParam int stNum) throws Exception {
+		List<Map<String, Object>> stationMonthTotalMoney = service.stationMonthTotalMoney(stNum);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("stationMonthTotalMoney", stationMonthTotalMoney);
+		
+		return model;
+	}
+	
+	@RequestMapping(value = "stationDayTotalMoney")
+	@ResponseBody
+	public Map<String, Object> stationDayTotalMoney(@RequestParam int stNum) throws Exception {
+		List<Map<String, Object>> stationDayTotalMoney = service.stationDayTotalMoney(stNum);
+		 
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("stationDayTotalMoney", stationDayTotalMoney);
+		
+		return model;
+	}
+	
 	
 	@RequestMapping(value = "stationAge")
 	@ResponseBody

@@ -254,17 +254,111 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 
 	@Override
-	public List<Map<String, Object>> stationTotalMoney(int stNum) {
+	public List<Map<String, Object>> stationYearTotalMoney(int stNum) {
 		List<Map<String, Object>> list = null;
 		
 		try {
-			list = dao.selectList("analysis.stationTotalMoney", stNum);
+			list = dao.selectList("analysis.stationYearTotalMoney", stNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
+	@Override
+	public List<Map<String, Object>> stationMonthTotalMoney(int stNum) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.stationMonthTotalMoney", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Map<String, Object>> stationDayTotalMoney(int stNum) {
+		List<Map<String, Object>> list = null;
+		
+		try {
+			list = dao.selectList("analysis.stationDayTotalMoney", stNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list; 
+	}
+
+	@Override
+	public List<Analysis> rankTopCount() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.rankTopCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}  
 	
+	@Override
+	public List<Analysis> rankTopPrice() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.rankTopPrice");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}  
+	
+	@Override
+	public List<Analysis> rankTopDistance() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.rankTopDistance");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Analysis> rankTopUseTime() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.rankTopUseTime");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<Analysis> rankTopUseTime2() {
+		List<Analysis> list = null;
+		
+		try {
+			list = dao.selectList("analysis.rankTopUseTime2");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	@Override
+	public List<UserData> userAgeTime() {
+		List<UserData> list = null;
+		
+		try {
+			list = dao.selectList("analysis.userAgeTime");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 }

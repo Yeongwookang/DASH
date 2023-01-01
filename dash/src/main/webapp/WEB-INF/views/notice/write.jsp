@@ -15,7 +15,7 @@ function check() {
         return;
     }
 
-    str = f.content.value.trim();
+    str = editor.getData().trim();
 	if( !str || str === "<p><br></p>" ) {
 		alert("공지사항 내용을 입력하세요.");
 		f.content.focus();
@@ -23,7 +23,7 @@ function check() {
 	}
 
     f.action = "${pageContext.request.contextPath}/notice/${mode}";
-    f.submit();
+    f.submit(); 
 }
 
 <c:if test="${mode=='update'}">
@@ -100,7 +100,7 @@ function check() {
 				<td class="text-center"> 
 					<div class="mt-4 mb-4 d-flex justify-content-center">
 						<div class="me-3">  
-							<button class="btn button-point text-white" type="button" onclick="submitContents(this.form);">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
+							<button class="btn button-point text-white" type="button" onclick="check();">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
 						</div> 
 						<div class="me-3"> 
 							<button class="btn button-main bg-gradient" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
@@ -122,32 +122,16 @@ function check() {
 	</form>
 </div>
 	
-<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/se2/js/service/HuskyEZCreator.js" charset="utf-8"></script>
-<script type="text/javascript">
-var oEditors = [];
-nhn.husky.EZCreator.createInIFrame({
-	oAppRef: oEditors,
-	elPlaceHolder: "ir1",
-	sSkinURI: "${pageContext.request.contextPath}/resources/vendor/se2/SmartEditor2Skin.html",
-	fCreator: "createSEditor2"
-});
-
-function submitContents(elClickedObj) {
-	 oEditors.getById["ir1"].exec("UPDATE_CONTENTS_FIELD", []);
-	 try {
-		if(! check()) {
-			return;
-		}
-		
-		elClickedObj.submit();
-		
-	} catch(e) {
-	}
-}
-
-function setDefaultFont() {
-	var sDefaultFont = '돋움';
-	var nFontSize = 12;
-	oEditors.getById["ir1"].setDefaultFont(sDefaultFont, nFontSize);
-}
+<script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
+<script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/translations/ko.js"></script>
+<script>
+	var editor;
+	ClassicEditor
+	.create(document.querySelector("#ir1"),{
+	    language: "ko"
+	})
+	.then( newEditor=>{editor=newEditor;})
+	.catch(error=>{
+	    console.log(error)
+	});
 </script>
