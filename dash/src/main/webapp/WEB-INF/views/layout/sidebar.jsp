@@ -17,23 +17,8 @@
 		<li class="nav-item">
 			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/notice/main';"><i class="fa-lg fa-regular fa-note-sticky"></i><span class="ms-3"> 공지</span></button> 
 		</li>
-		<li>
-			<div class="dropdown dropend nav-item">
-					<button class="btn dropdown-toggle nav-box" type="button" id="AnalysisMenu" data-bs-toggle="dropdown" aria-expanded="false">
-						<i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span>
-					</button>	
-				<ul class="dropdown-menu" aria-labelledby="kickboardMenu">
-					<li class="dropdown-item ">
-						<a class="nav-box text-black" href="${pageContext.request.contextPath}/analysis/sales"><span> 매출 통계</span></a>
-					</li>
-					<li class="dropdown-item">
-						<a class="nav-box text-black" href="${pageContext.request.contextPath}/analysis/user"><span> 이용자 통계</span></a>
-					</li>
-					<li class="dropdown-item">
-						<a class="nav-box text-black" href="${pageContext.request.contextPath}/analysis/station"><span> 대여소 별 통계</span></a>
-					</li> 
-				</ul>
-			</div>
+		<li class="nav-item">
+			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/analysis/main';"><i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span></button> 
 		</li>
 		<c:if test="${sessionScope.employee.depNo==1}">
 			<li class="nav-item">
