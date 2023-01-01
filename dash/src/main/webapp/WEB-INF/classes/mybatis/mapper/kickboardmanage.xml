@@ -15,4 +15,28 @@
 	order by kNum
 	 </select>
 	 
+	 
+	 <select id="damagedkickboard" resultType="map">
+	 SELECT kNum, state
+	FROM kickboard 
+	WHERE state  = '파손'
+	 
+	 </select>
+	 
+	 <select id="repairedkickboard" resultType="map">
+	 SELECT k.knum, r.state
+	FROM kickboard k
+	INNER JOIN repair r ON k.kNum = r.kNum
+	WHERE r.state  = '수리중'
+	 
+	 </select>
+	 
+	 <select id="repaircomkickboard" resultType="map">
+	 SELECT k.knum, r.state
+	FROM kickboard k
+	INNER JOIN repair r ON k.kNum = r.kNum
+	WHERE r.state  = '수리완료'
+	 
+	 </select>
+	 
 </mapper>

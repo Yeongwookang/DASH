@@ -40,7 +40,7 @@ $(function(){
 });
 </script>
 
-<div class="container">
+<div class="scroll m-auto" style="width: 90%; height: 85%; overflow-y: scroll;">
 	<div class="text-start fs-4 mb-4">
 		<span>| 충전소·대여소 현황</span>
 	</div>
@@ -61,7 +61,7 @@ $(function(){
 		</div>
 		<div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
 			aria-labelledby="nav-profile-tab" tabindex="0">
-			<div id="maps" class="maps" style="width: 100%; height: 500px;"></div>
+			<div id="maps" class="maps" style="width: 100%; height: 600px;"></div>
 		</div>
 	</div>
 	
