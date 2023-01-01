@@ -162,6 +162,21 @@
 			}
 		});
 	}
+	
+	function searchList() {
+		const f = document.searchForm;
+		f.submit();
+	}
+
+	function changeList() {
+		let categoryNum = $("#changeCategory").val();
+		let productShow = $("#changeShowEmployee").val();
+		
+		const f = document.searchForm;
+		f.categoryNum.value = categoryNum;
+		f.employeeShow.value = employeeShow;
+		searchList();
+	}
 </script>
 
 
@@ -182,30 +197,38 @@
 			<div class="card">
 				<div class="card-header bg-sub text-start">전체 사원 목록</div>
 				<div class="card-body">
-					<div class="row g-3">
-						<div class="col-auto">
-							<select class="form-select" aria-label="Default select example">
-								<option selected>찾기</option>
-								<option value="1">사번</option>
-								<option value="2">이름</option>
-								<option value="3">부서</option>
-								<option value="4">직급</option>
-							</select>
-						</div>
-						<div class="col-auto">
-							<input type="search" class="form-control" id="search">
-						</div>
-						<div class="col-auto">
-							<button type="submit" class="btn bg-sub">
-								<i class="bi bi-search"></i>검색
-							</button>
-						</div>
+					<div class="row mt-1">
+						<form class="row" name="searchForm"
+							action="${pageContext.request.contextPath}/insa/main"
+							method="post">
+							<div class="col-auto">
+								<select class="form-select form-select-sm" aria-label="Default select example">
+									<option selected>찾기</option>
+									<option value="1" ${col=="empNo"?"selected='selected'":""}>사번</option>
+									<option value="2" ${col=="name"?"selected='selected'":""}>이름</option>
+									<option value="3" ${col=="depNo"?"selected='selected'":""}>부서</option>
+									<option value="4" ${col=="rankNo"?"selected='selected'":""}>직급</option>
+								</select>
+							</div>
+							<div class="col-auto">
+								<input type="text" name="kw" value="${kw}" class="form-control form-select-sm">
+								<input type="hidden" name="size" value="${size}"> <input
+									type="hidden" name="categoryNum" value="${categoryNum}">
+								<input type="hidden" name="employeeShow" value="${employeeShow}">
+							</div>
+							<div class="col-auto">
+								<button type="submit" class="btn bg-sub btn-sm" onclick="searchList()">
+									<i class="bi bi-search"></i>검색
+								</button>
+							</div>
 
-						<div class="col-auto mt-3">
-							<input type="checkbox" value="" id="flexCheckDefault"> <label
-								class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
-							</label>
-						</div>
+							<div class="col-auto mt-3">
+								<input type="checkbox" value="" id="flexCheckDefault"> <label
+									class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
+								</label>
+							</div>
+						</form>
+
 					</div>
 
 					<table class="table table-hover">
@@ -219,37 +242,21 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<th scope="row">1</th>
-								<td>980618</td>
-								<td>조똥개</td>
-								<td>영업</td>
-								<td>사원</td>
-							</tr>
-							<tr>
-								<th scope="row">2</th>
-								<td>920425</td>
-								<td>최시원</td>
-								<td>인사</td>
-								<td>과장</td>
-							</tr>
-							<tr>
-								<th scope="row">3</th>
-								<td>940214</td>
-								<td>이다희</td>
-								<td>마케팅</td>
-								<td>차장</td>
-							</tr>
-							<tr>
-								<th scope="row">4</th>
-								<td>960321</td>
-								<td>이개똥</td>
-								<td>개발</td>
-								<td>대리</td>
-							</tr>
+							<c:forEach var="dto" items="${list}" varStatus="status">
+								<tr>
+									<th>${dataCount - (page-1) * size - status.index}</th>
+									<td>${dto.empNo}</td>
+									<td>${dto.name}</td>
+									<td>${dto.deptNo}</td>
+									<td>${dto.rankNo}</td>
+								</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>
+
+				<div class="page-navigation mt-5 ">
+					${dataCount}개(${page}/${total_page} 페이지)</div>
 			</div>
 		</div>
 
@@ -264,21 +271,21 @@
 							<div class="d-flex justify-content-evenly">
 								<div style="width: 45%">
 									<div class="row g-2 mt-2">
-										<label class="col-sm-3 col-form-label" for="selectDept">부서
+										<label class="col-sm-3 col-form-label" for="depNoSelect">부서
 										</label>
 										<div class="col-sm-6">
-											<select name="selectDept" id="selectDept"
+											<select name="depNoSelect" id="depNoSelect"
 												class="form-select form-select-sm" onchange="changeDepNo()"
 												aria-label=".form-select-sm-5">
 												<option selected>부서</option>
 												<option value="1"
-													${dto.department=="인사" ? "selected='selected'" : ""}>경영지원</option>
+													${dto.depNo=="인사" ? "selected='selected'" : ""}>경영지원</option>
 												<option value="2"
-													${dto.department=="개발" ? "selected='selected'" : ""}>운영</option>
+													${dto.depNo=="개발" ? "selected='selected'" : ""}>운영</option>
 												<option value="3"
-													${dto.department=="영업" ? "selected='selected'" : ""}>기획</option>
+													${dto.depNo=="영업" ? "selected='selected'" : ""}>기획</option>
 												<option value="4"
-													${dto.department=="마케팅" ? "selected='selected'" : ""}>개발</option>
+													${dto.depNo=="마케팅" ? "selected='selected'" : ""}>개발</option>
 
 											</select>
 										</div>
@@ -293,15 +300,15 @@
 												aria-label=".form-select-sm-5">
 												<option selected>직책</option>
 												<option value="1"
-													${dto.pos=="팀장" ? "selected='selected'" : ""}>팀장</option>
+													${dto.posNo=="팀장" ? "selected='selected'" : ""}>팀장</option>
 												<option value="2"
-													${dto.pos=="실장" ? "selected='selected'" : ""}>실장</option>
+													${dto.posNo=="실장" ? "selected='selected'" : ""}>실장</option>
 												<option value="3"
-													${dto.pos=="본부장" ? "selected='selected'" : ""}>본부장</option>
+													${dto.posNo=="본부장" ? "selected='selected'" : ""}>본부장</option>
 												<option value="4"
-													${dto.pos=="파트장" ? "selected='selected'" : ""}>파트장</option>
+													${dto.posNo=="파트장" ? "selected='selected'" : ""}>파트장</option>
 												<option value="5"
-													${dto.pos=="매니저" ? "selected='selected'" : ""}>매니저</option>
+													${dto.posNo=="매니저" ? "selected='selected'" : ""}>매니저</option>
 
 											</select>
 										</div>

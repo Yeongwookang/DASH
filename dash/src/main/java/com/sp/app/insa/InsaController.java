@@ -1,18 +1,22 @@
 package com.sp.app.insa;
 
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -111,7 +115,9 @@ public class InsaController {
 		return model;
 	}
 	
-	@RequestMapping("list") 
+	
+	
+	@RequestMapping("main") 
 	public String list(@RequestParam(defaultValue = "0") long categoryNum,
 		@RequestParam(defaultValue = "-1") int employeeShow,
 		@RequestParam(defaultValue = "all") String col,
@@ -167,7 +173,34 @@ public class InsaController {
 		model.addAttribute("total_page", total_page);
 		model.addAttribute("paging", paging);
 				
-		return ".insa.list";
+		return ".insa.main";
+	}
+	
+	@GetMapping("write")
+	public String writeForm(Model model) {
+		List<Employee> listCategory = insaService.listCategory();
+		
+		model.addAttribute("mode", "write");
+		model.addAttribute("listCategory", listCategory);
+		
+		return ".insa.write";
+	}
+	
+	@PostMapping("write")
+	public String writeSubmit(Employee dto,
+			HttpSession session,
+			Model model) {
+		
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "employee";
+		
+		try {
+			insaService.insertInsa(dto, path);
+		} catch (Exception e) {
+		}
+		
+		
+		return "redirect:/insa/main";
 	}
 	
 	/*

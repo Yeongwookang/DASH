@@ -7,8 +7,8 @@ import com.sp.app.employee.Employee;
 
 
 public interface InsaService {
-	public void insertInsa(Insa dto) throws Exception;
-	public void updateInsa(Insa dto) throws Exception;
+	public void insertInsa(Employee dto, String pathname) throws Exception;
+	public void updateInsa(Employee dto, String pathname) throws Exception;
 	public void deleteInsa(Map<String, Object> map) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);

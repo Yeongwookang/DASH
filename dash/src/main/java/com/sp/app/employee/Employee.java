@@ -46,6 +46,7 @@ public class Employee {
 	private long fileNum;
 	private String filename;
 	private List<MultipartFile> addFiles;
+	private MultipartFile thumbnailFile;
 	
 	public String getEmpNo() {
 		return empNo;
@@ -263,6 +264,13 @@ public class Employee {
 	public void setAddFiles(List<MultipartFile> addFiles) {
 		this.addFiles = addFiles;
 	}
+	public MultipartFile getThumbnailFile() {
+		return thumbnailFile;
+	}
+	public void setThumbnailFile(MultipartFile thumbnailFile) {
+		this.thumbnailFile = thumbnailFile;
+	}
+	
 	
 	
 	
