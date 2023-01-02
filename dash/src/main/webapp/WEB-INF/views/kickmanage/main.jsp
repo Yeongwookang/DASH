@@ -2,7 +2,33 @@
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data: query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert("요청 처리가 실패 했습니다.");
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+</script>
 <script type="text/javascript">
 
 $(function(){
@@ -62,21 +88,20 @@ function sendModelrepair() {
 
 
 function sendModeldamage() {
-	var f = document.modeldamageForm;
-    var str;
+		let chks =[];
+    	$("input:checkbox[name='nums']:checked").each(function(){
+    		chks.push($(this).attr("value"));
+    	});
+    	
+    	
+    	$("#exampleModal2").modal('hide');
+    		$.get("${pageContext.request.contextPath}/kickmanage/damage",
+    	            {val:chks},
+    	             function(data){
+    	            	console.log(chks);
+    	            }, "json")
     
-    str = f.kNum.value;
-   
-    if(!str){
-    	f.kNum.focus();
- 
-    	return;
-    }
-    
-    f.action = "${pageContext.request.contextPath}/kickmanage/damage";
-    f.submit();
 }
-
 
 
 </script>
@@ -114,11 +139,11 @@ function sendModeldamage() {
 				</tr>
 			</thead>
 
-			<tbody>
+			<tbody class="kickboardList">
 				<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr>
 						<td class="text-center"><input type="checkbox" name="nums" value="${dto.kNum}"></td>
-						<td class="align-middle text-center">${dto.kNum}</td>
+												<td class="align-middle text-center">${dto.kNum}</td>
 						<td class="align-middle text-center">${dto.name}</td>
 						<td class="align-middle text-center">${dto.state}</td>
 						<td class="align-middle text-center">${rlist[status.index].condition}</td>

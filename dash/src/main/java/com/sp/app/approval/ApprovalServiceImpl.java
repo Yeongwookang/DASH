@@ -52,7 +52,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		Approval dto = null;
 		
 		try {
-			dto = dao.selectOne("approval.readApproval");
+			dto = dao.selectOne("approval.readApproval", signNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -108,6 +108,17 @@ public class ApprovalServiceImpl implements ApprovalService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	@Override
+	public Approval refList(long signNum) {
+		Approval refList = null;
+		try {
+			refList = dao.selectOne("approval.refList", signNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return refList;
 	}
 	
 }

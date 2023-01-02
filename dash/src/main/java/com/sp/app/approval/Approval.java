@@ -18,9 +18,22 @@ public class Approval {
 	private String ref1;
 	private String ref2;
 	private String ref3;
+	private String ref1name;
+	private String ref2name;
+	private String ref3name;
 	
 	private int formNum;
 	private String formName;
+	private String timeLine;
+	
+	
+	
+	public String getTimeLine() {
+		return timeLine;
+	}
+	public void setTimeLine(String timeLine) {
+		this.timeLine = timeLine;
+	}
 	public long getSignNum() {
 		return signNum;
 	}
@@ -116,6 +129,24 @@ public class Approval {
 	}
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+	public String getRef1name() {
+		return ref1name;
+	}
+	public void setRef1name(String ref1name) {
+		this.ref1name = ref1name;
+	}
+	public String getRef2name() {
+		return ref2name;
+	}
+	public void setRef2name(String ref2name) {
+		this.ref2name = ref2name;
+	}
+	public String getRef3name() {
+		return ref3name;
+	}
+	public void setRef3name(String ref3name) {
+		this.ref3name = ref3name;
 	}
 	
 	

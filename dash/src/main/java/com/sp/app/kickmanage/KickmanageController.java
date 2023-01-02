@@ -4,12 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.core.JsonParser;
 
 
 
@@ -81,12 +88,18 @@ public class KickmanageController {
 	
 	
 	
-	@RequestMapping(value = "damage")
-	public String damageForm(@RequestParam Map<String, Object> map) throws Exception {
+	@GetMapping(value = "damage")
+	@ResponseBody
+	public String damageForm(@RequestParam(value="val[]") List<String>kNums) throws Exception {
 		
 		try {
-			sevice.updatedamagekickBoard(map);
-			sevice.insertdamage(map);
+			for(int i=0;i<kNums.size();i++) {
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("kNum", kNums.get(i));
+				sevice.updatedamagekickBoard(map);
+				sevice.insertdamage(map);
+			}
+			
 		} catch (Exception e) {
 		 
 		}

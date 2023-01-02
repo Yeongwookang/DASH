@@ -74,7 +74,8 @@
 	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
-		SELECT title, rankName, teamName, depName, posName  From e_document e 
+		SELECT title, rankName, teamName, depName, posName, emp.name, dr.state, e.signNum  From e_document e 
+		LEFT OUTER JOIN doc_record dr ON dr.signNum = e.signNum
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
@@ -91,7 +92,7 @@
 	</select>
 	
 	<select id="myApprovalList" parameterType="map" resultType="approval">
-		SELECT e.title, depName, emp.name, dr.state, to_char(dr.reg_date,'YYYY-MM-DD') dr.reg_date  FROM doc_record dr
+		SELECT e.title, depName, emp.name, dr.state, to_char(dr.reg_date,'YYYY-MM-DD')reg_date, e.signNum  FROM doc_record dr
 		LEFT OUTER JOIN e_document e ON e.signNum = dr.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
 		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
@@ -99,7 +100,26 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE empNo = #{empNo}
+		WHERE emp.empNo = #{empNo}
 	</select>
-
+	
+	<select id="readApproval" parameterType="Long" resultType="approval">
+		SELECT title, content, e.signNum, emp.empNo, depName, emp.name FROM e_document e
+		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
+		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
+		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE e.signNum = #{signNum}
+	</select>
+	<select id="refList" parameterType="Long" resultType="approval">
+		SELECT f.empNo, s.empNo, t.empNo FROM e_document e
+		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
+		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
+		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
+		WHERE e.signNum = #{signNum}
+	</select>
 </mapper>

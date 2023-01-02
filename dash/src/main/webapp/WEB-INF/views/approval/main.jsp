@@ -45,6 +45,7 @@
         					<td class="position">${ap.depName}</td>
         					<td class="name">${ap.name}</td>
         					<td class="state">${ap.state}</td>
+        					<td class="signNum" style="display: none">${ap.signNum}</td>
         				</tr>
         			</c:forEach>
         			</tbody>
@@ -84,7 +85,7 @@
         				<tr>
         					<th>${status.count}</th>
         					<td class="title">${ap.title}</td>
-        					<td class="position">${ap.posName}</td>
+        					<td class="dep">${ap.depName}</td>
         					<td class="name">${ap.name}</td>
         					<td class="state">${ap.state}</td>
         					<td class="signNum" style="display: none">${ap.signNum}</td>
@@ -110,7 +111,8 @@
 </div>
 <script type="text/javascript">
 	$(".sendList").children().click(function(){
-		
+		let signNum = this.querySelector(".signNum").textContent;
+		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
 	});
 
 </script>
