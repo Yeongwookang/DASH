@@ -42,13 +42,11 @@ public class AnalysisController {
 		}
 		
 		List<Analysis> rankTopUseTime = service.rankTopUseTime();
-		List<Analysis> rankTopUseTime2 = service.rankTopUseTime2();
 		
 		model.addAttribute("rankTopCount", rankTopCount);
 		model.addAttribute("rankTopPrice", rankTopPrice);
 		model.addAttribute("rankTopDistance", rankTopDistance);
 		model.addAttribute("rankTopUseTime", rankTopUseTime);
-		model.addAttribute("rankTopUseTime2", rankTopUseTime2);
 		
 		return ".analysis.main"; 
 	}

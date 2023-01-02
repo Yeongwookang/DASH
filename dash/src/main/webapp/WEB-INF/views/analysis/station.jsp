@@ -5,61 +5,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
 
 <script type="text/javascript">
-$(function(){
-	let url = "${pageContext.request.contextPath}/analysis/stationYearTotalMoney?stNum="+ stNum; 
-	
-	$.getJSON(url, function(data){ 
-		stationYearTotalMoney(data);
-		console.log(data); 
-		
-		function stationYearTotalMoney(data){
-			let yearData = [];
-			let moneyData = [];
-			
-			for(let item of data.stationYearTotalMoney) { 
-				let y = item.USEDATE + '년'; 
-		  
-				let money = item.TOTALMONEY;
-				
-				yearData.push(y);
-				moneyData.push(money); 
-			}
-			
-			var chartDom = document.getElementById('chartContainer');
-			var myChart = echarts.init(chartDom);
-			var option;
-			
-			$("#title").html(name + " : 년도별 통계");  
-
-			option = {
-			  tooltip: {
-			    trigger: 'item',
-			    axisPointer: { type: 'cross' } 
-			  },
-			  xAxis: {
-			    type: 'category',
-			    boundaryGap: false,
-			    data: yearData
-			  },
-			  yAxis: {
-			    type: 'value'
-			  },
-			  series: [
-			    {
-			      data: moneyData, 
-			      type: 'line',
-			      areaStyle: {}
-			    }
-			  ]
-			};
-
-			option && myChart.setOption(option);
-
-		}
-
-	});
-	
-});  
 
 function getDates(){
 	var dateArray = [];
@@ -84,6 +29,10 @@ function getDates(){
 	return dateArray; 
 }
 
+$(function(){
+	searchList();
+});
+
 function searchList() {
 	const f = document.stationForm; 
 	
@@ -95,396 +44,426 @@ function searchList() {
 	
 	if(value1 == "1"){   
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationYearTotalMoney?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationYearTotalMoney?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			stationYearTotalMoney(data);
+			console.log(data); 
 			
-			$.getJSON(url, function(data){ 
-				stationYearTotalMoney(data);
-				console.log(data); 
+			function stationYearTotalMoney(data){
+				let yearData = [];
+				let moneyData = [];
 				
-				function stationYearTotalMoney(data){
-					let yearData = [];
-					let moneyData = [];
+				for(let item of data.stationYearTotalMoney) { 
+					let y = item.USEDATE + '년';  
+			  
+					let money = item.TOTALMONEY;
 					
-					for(let item of data.stationYearTotalMoney) { 
-						let y = item.USEDATE + '년'; 
-				  
-						let money = item.TOTALMONEY;
-						
-						yearData.push(y);
-						moneyData.push(money); 
-					}
-					
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option; 
-					
-					$("#title").html(name + " : 년도별 통계");  
-
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    boundaryGap: false,
-					    data: yearData
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: moneyData, 
-					      type: 'line',
-					      areaStyle: {}
-					    }
-					  ]
-					};
-
-					option && myChart.setOption(option);
-
+					yearData.push(y);
+					moneyData.push(money); 
 				}
+				$("#chartContainer1").show();
+				$("#chartContainer2").hide();
+				$("#chartContainer3").hide();
+				$("#chartContainer4").hide();
+				$("#chartContainer5").hide();
+				$("#chartContainer6").hide();
+				
+				var chartDom = document.getElementById('chartContainer1');
+				var myChart = echarts.init(chartDom);
+				var option; 
+				
+				$("#title").html(name + " : 년도별 통계");  
 
-			});
-			
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    boundaryGap: false,
+				    data: yearData
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: moneyData, 
+				      type: 'line',
+				      areaStyle: {}
+				    }
+				  ]
+				};
+
+				option && myChart.setOption(option);
+
+			}
+
 		});
+		
 	} else if(value1 == "2"){
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationMonthTotalMoney?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationMonthTotalMoney?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			stationMonthTotalMoney(data);
+			console.log(data); 
 			
-			$.getJSON(url, function(data){ 
-				stationMonthTotalMoney(data);
-				console.log(data); 
+			function stationMonthTotalMoney(data){ 
+				let monthData = [];
+				let moneyData = []; 
 				
-				function stationMonthTotalMoney(data){ 
-					let monthData = [];
-					let moneyData = []; 
+				for(let item of data.stationMonthTotalMoney) {
+					let m = parseInt(item.USEDATE.substring(4))+'월';
+					let msg = m;
+			  
+					let money = item.TOTALMONEY;
 					
-					for(let item of data.stationMonthTotalMoney) {
-						let m = parseInt(item.USEDATE.substring(4))+'월';
-						let msg = m;
-				  
-						let money = item.TOTALMONEY;
-						
-						monthData.push(msg);
-						moneyData.push(money); 
-					}
-					
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option;
-					
-					$("#title").html(name + " : 월별 통계");  
-
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    boundaryGap: false,
-					    data: monthData
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: moneyData,
-					      type: 'line',
-					      areaStyle: {}
-					    }
-					  ]
-					};
-
-					option && myChart.setOption(option);
-
-
+					monthData.push(msg);
+					moneyData.push(money); 
 				}
+				
+				$("#chartContainer1").hide();
+				$("#chartContainer2").show();
+				$("#chartContainer3").hide();
+				$("#chartContainer4").hide();
+				$("#chartContainer5").hide();
+				$("#chartContainer6").hide();
+				
+				var chartDom = document.getElementById('chartContainer2');
+				var myChart = echarts.init(chartDom);
+				var option;
+				
+				$("#title").html(name + " : 월별 통계");  
 
-			});
-			
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    boundaryGap: false,
+				    data: monthData
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: moneyData,
+				      type: 'line',
+				      areaStyle: {}
+				    }
+				  ]
+				};
+
+				option && myChart.setOption(option);
+
+
+			}
+
 		});
+			
 	} else if(value1 == "3"){
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationDayTotalMoney?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationDayTotalMoney?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			console.log(data); 
+			stationDayTotalMoney(data);
 			
-			$.getJSON(url, function(data){ 
-				console.log(data); 
-				stationDayTotalMoney(data);
+			function stationDayTotalMoney(data){ 
+				let graph = getDates();
+				let x = [];
+				for(item of getDates()){
+					x.push(item.day + "일");
+				}
 				
-				function stationDayTotalMoney(data){ 
-					let graph = getDates();
-					let x = [];
-					for(item of getDates()){
-						x.push(item.day + "일");
-					}
-					
-					for(item of graph){
-						for(money of data.stationDayTotalMoney){
-							if(item.day == money.USEDATE.substring(6)){
-								item.money = money.TOTALMONEY;
-							}
+				for(item of graph){
+					for(money of data.stationDayTotalMoney){
+						if(item.day == money.USEDATE.substring(6)){
+							item.money = money.TOTALMONEY;
 						}
 					}
-					
-					let series = []; 
-					for(item of graph){
-						series.push(item.money);
-					}
-					
-					$("#title").html(name + " : 일별 통계");  
-						
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option; 
-	
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    data: x
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: series,
-					      type: 'line'
-					    }
-					  ]
-					};
-	
-					option && myChart.setOption(option);
-
 				}
+				
+				let series = []; 
+				for(item of graph){
+					series.push(item.money);
+				}
+				
+				$("#title").html(name + " : 일별 통계");  
+				
+				$("#chartContainer1").hide();
+				$("#chartContainer2").hide();
+				$("#chartContainer3").show();
+				$("#chartContainer4").hide();
+				$("#chartContainer5").hide();
+				$("#chartContainer6").hide();
+				
+				var chartDom = document.getElementById('chartContainer3');
+				var myChart = echarts.init(chartDom);
+				var option; 
 
-			});
-			
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    data: x
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: series,
+				      type: 'line'
+				    }
+				  ]
+				};
+
+				option && myChart.setOption(option);
+
+			}
+
 		});
+			
 	} else if(value1 == "4"){
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationAge?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationAge?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			stationAge(data);
+			console.log(data); 
 			
-			$.getJSON(url, function(data){ 
-				stationAge(data);
-				console.log(data); 
+			function stationAge(data){
 				
-				function stationAge(data){
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option;
-					
-					$("#title").html(name + " : 이용자 연령대 통계");  
+				$("#chartContainer1").hide();
+				$("#chartContainer2").hide();
+				$("#chartContainer3").hide();
+				$("#chartContainer4").show();
+				$("#chartContainer5").hide();
+				$("#chartContainer6").hide();
+				
+				var chartDom = document.getElementById('chartContainer4');
+				var myChart = echarts.init(chartDom);
+				var option;
+				
+				$("#title").html(name + " : 이용자 연령대 통계");  
 
-					option = {
-					  tooltip: {
-					    trigger: 'item'
-					  },
-					  legend: {
-					    top: '5%',
-					    left: 'center'
-					  },
-					  series: [
-					    {
-					      name: '이용자 연령대',
-					      type: 'pie',
-					      radius: ['40%', '70%'],
-					      avoidLabelOverlap: false,
-					      itemStyle: {
-					        borderRadius: 10,
-					        borderColor: '#fff',
-					        borderWidth: 2
-					      },
-					      label: {
-					        show: false,
-					        position: 'center'
-					      },
-					      emphasis: {
-					        label: {
-					          show: true,
-					          fontSize: 40,
-					          fontWeight: 'bold'
-					        }
-					      },
-					      labelLine: {
-					        show: false
-					      },
-					      data: data.stationAge
-					    } 
-					  ]
-					};
+				option = {
+				  tooltip: {
+				    trigger: 'item'
+				  },
+				  legend: {
+				    top: '5%',
+				    left: 'center'
+				  },
+				  series: [
+				    {
+				      name: '이용자 연령대',
+				      type: 'pie',
+				      radius: ['40%', '70%'],
+				      avoidLabelOverlap: false,
+				      itemStyle: {
+				        borderRadius: 10,
+				        borderColor: '#fff',
+				        borderWidth: 2
+				      },
+				      label: {
+				        show: false,
+				        position: 'center'
+				      },
+				      emphasis: {
+				        label: {
+				          show: true,
+				          fontSize: 40,
+				          fontWeight: 'bold'
+				        }
+				      },
+				      labelLine: {
+				        show: false
+				      },
+				      data: data.stationAge
+				    } 
+				  ]
+				};
 
-					option && myChart.setOption(option);
+				option && myChart.setOption(option);
 
-	
-				}
 
-			});
-			
+			}
+
+		
 		});
 	} else if(value1 == "5"){ 
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationGender?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationGender?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			stationGender(data);
+			console.log(data); 
 			
-			$.getJSON(url, function(data){ 
-				stationGender(data);
-				console.log(data); 
+			function stationGender(data){
 				
-				function stationGender(data){
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option;
-					
-					$("#title").html(name + " : 이용자 성별 통계");  
+				$("#chartContainer1").hide();
+				$("#chartContainer2").hide();
+				$("#chartContainer3").hide();
+				$("#chartContainer4").hide();
+				$("#chartContainer5").show();
+				$("#chartContainer6").hide();
+				
+				var chartDom = document.getElementById('chartContainer5');
+				var myChart = echarts.init(chartDom);
+				var option;
+				
+				$("#title").html(name + " : 이용자 성별 통계");  
 
-					option = {
-					  tooltip: {
-					    trigger: 'item'
-					  },
-					  legend: {
-					    top: '5%',
-					    left: 'center'
-					  },
-					  series: [
-					    {
-					      name: '이용자 성별',
-					      type: 'pie',
-					      radius: ['40%', '70%'],
-					      avoidLabelOverlap: false,
-					      itemStyle: {
-					        borderRadius: 10,
-					        borderColor: '#fff',
-					        borderWidth: 2
-					      },
-					      label: {
-					        show: false,
-					        position: 'center'
-					      },
-					      emphasis: {
-					        label: {
-					          show: true,
-					          fontSize: 40,
-					          fontWeight: 'bold'
-					        }
-					      },
-					      labelLine: {
-					        show: false
-					      },
-					      data: data.stationGender
-					    } 
-					  ]
-					};
+				option = {
+				  tooltip: {
+				    trigger: 'item'
+				  },
+				  legend: {
+				    top: '5%',
+				    left: 'center'
+				  },
+				  series: [
+				    {
+				      name: '이용자 성별',
+				      type: 'pie',
+				      radius: ['40%', '70%'],
+				      avoidLabelOverlap: false,
+				      itemStyle: {
+				        borderRadius: 10,
+				        borderColor: '#fff',
+				        borderWidth: 2
+				      },
+				      label: {
+				        show: false,
+				        position: 'center'
+				      },
+				      emphasis: {
+				        label: {
+				          show: true,
+				          fontSize: 40,
+				          fontWeight: 'bold'
+				        }
+				      },
+				      labelLine: {
+				        show: false
+				      },
+				      data: data.stationGender
+				    } 
+				  ]
+				};
 
-					option && myChart.setOption(option);
+				option && myChart.setOption(option);
 
-	
-				}
 
-			});
-			
+			}
+
 		});
+			
 	} else if(value1 == "6"){ 
 		
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/stationUseTime?stNum="+ stNum; 
+		let url = "${pageContext.request.contextPath}/analysis/stationUseTime?stNum="+ stNum; 
+		
+		$.getJSON(url, function(data){ 
+			stationUseTime(data);
+			console.log(data); 
 			
-			$.getJSON(url, function(data){ 
-				stationUseTime(data);
-				console.log(data); 
+			function stationUseTime(data){
 				
-				function stationUseTime(data){
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option;
-					
-					$("#title").html(name + " : 이용시간대별 통계");  
+				$("#chartContainer1").hide();
+				$("#chartContainer2").hide();
+				$("#chartContainer3").hide();
+				$("#chartContainer4").hide();
+				$("#chartContainer5").hide();
+				$("#chartContainer6").show();
+				
+				var chartDom = document.getElementById('chartContainer6');
+				var myChart = echarts.init(chartDom);
+				var option;
+				
+				$("#title").html(name + " : 이용시간대별 통계");  
 
-					option = {
-					  tooltip: {
-					    trigger: 'item'
-					  },
-					  legend: {
-					    top: '5%',
-					    left: 'center'
-					  },
-					  series: [
-					    {
-					      name: '이용시간대',
-					      type: 'pie',
-					      radius: ['40%', '70%'],
-					      avoidLabelOverlap: false,
-					      itemStyle: {
-					        borderRadius: 10,
-					        borderColor: '#fff',
-					        borderWidth: 2
-					      },
-					      label: {
-					        show: false,
-					        position: 'center'
-					      },
-					      emphasis: {
-					        label: {
-					          show: true,
-					          fontSize: 40,
-					          fontWeight: 'bold'
-					        }
-					      },
-					      labelLine: {
-					        show: false
-					      },
-					      data: [
-						        { value: data.stationUseTime.t0, name: '00 ~ 01' },
-						        { value: data.stationUseTime.t1, name: '01 ~ 02' },
-						        { value: data.stationUseTime.t2, name: '02 ~ 03' },
-						        { value: data.stationUseTime.t3, name: '03 ~ 04' },
-						        { value: data.stationUseTime.t4, name: '04 ~ 05' },
-						        { value: data.stationUseTime.t5, name: '05 ~ 06' },
-						        { value: data.stationUseTime.t6, name: '06 ~ 07' },
-						        { value: data.stationUseTime.t7, name: '07 ~ 08' },
-						        { value: data.stationUseTime.t8, name: '08 ~ 09' },
-						        { value: data.stationUseTime.t9, name: '09 ~ 10' },
-						        { value: data.stationUseTime.t10, name: '10 ~ 11' },
-						        { value: data.stationUseTime.t11, name: '11 ~ 12' },
-						        { value: data.stationUseTime.t12, name: '12 ~ 13' },
-						        { value: data.stationUseTime.t13, name: '13 ~ 14' },
-						        { value: data.stationUseTime.t14, name: '14 ~ 15' },
-						        { value: data.stationUseTime.t15, name: '15 ~ 16' },
-						        { value: data.stationUseTime.t16, name: '16 ~ 17' },
-						        { value: data.stationUseTime.t17, name: '17 ~ 18' },
-						        { value: data.stationUseTime.t18, name: '18 ~ 19' },
-						        { value: data.stationUseTime.t19, name: '19 ~ 20' },
-						        { value: data.stationUseTime.t20, name: '20 ~ 21' },
-						        { value: data.stationUseTime.t21, name: '21 ~ 22' },
-						        { value: data.stationUseTime.t22, name: '22 ~ 23' },
-						        { value: data.stationUseTime.t23, name: '23 ~ 24' },
-						      ]
-					    } 
-					  ]
-					};
+				option = {
+				  tooltip: {
+				    trigger: 'item'
+				  },
+				  legend: {
+				    top: '5%',
+				    left: 'center'
+				  },
+				  series: [
+				    {
+				      name: '이용시간대',
+				      type: 'pie',
+				      radius: ['40%', '70%'],
+				      avoidLabelOverlap: false,
+				      itemStyle: {
+				        borderRadius: 10,
+				        borderColor: '#fff',
+				        borderWidth: 2
+				      },
+				      label: {
+				        show: false,
+				        position: 'center'
+				      },
+				      emphasis: {
+				        label: {
+				          show: true,
+				          fontSize: 40,
+				          fontWeight: 'bold'
+				        }
+				      },
+				      labelLine: {
+				        show: false
+				      },
+				      data: [
+					        { value: data.stationUseTime.t0, name: '00 ~ 01' },
+					        { value: data.stationUseTime.t1, name: '01 ~ 02' },
+					        { value: data.stationUseTime.t2, name: '02 ~ 03' },
+					        { value: data.stationUseTime.t3, name: '03 ~ 04' },
+					        { value: data.stationUseTime.t4, name: '04 ~ 05' },
+					        { value: data.stationUseTime.t5, name: '05 ~ 06' },
+					        { value: data.stationUseTime.t6, name: '06 ~ 07' },
+					        { value: data.stationUseTime.t7, name: '07 ~ 08' },
+					        { value: data.stationUseTime.t8, name: '08 ~ 09' },
+					        { value: data.stationUseTime.t9, name: '09 ~ 10' },
+					        { value: data.stationUseTime.t10, name: '10 ~ 11' },
+					        { value: data.stationUseTime.t11, name: '11 ~ 12' },
+					        { value: data.stationUseTime.t12, name: '12 ~ 13' },
+					        { value: data.stationUseTime.t13, name: '13 ~ 14' },
+					        { value: data.stationUseTime.t14, name: '14 ~ 15' },
+					        { value: data.stationUseTime.t15, name: '15 ~ 16' },
+					        { value: data.stationUseTime.t16, name: '16 ~ 17' },
+					        { value: data.stationUseTime.t17, name: '17 ~ 18' },
+					        { value: data.stationUseTime.t18, name: '18 ~ 19' },
+					        { value: data.stationUseTime.t19, name: '19 ~ 20' },
+					        { value: data.stationUseTime.t20, name: '20 ~ 21' },
+					        { value: data.stationUseTime.t21, name: '21 ~ 22' },
+					        { value: data.stationUseTime.t22, name: '22 ~ 23' },
+					        { value: data.stationUseTime.t23, name: '23 ~ 24' },
+					      ]
+				    } 
+				  ]
+				};
 
-					option && myChart.setOption(option);
+				option && myChart.setOption(option);
 
-	
-				}
 
-			});
-			
+			}
+
 		});
+			
 	}
-	
-	
 		
 }
 
@@ -520,7 +499,12 @@ function searchList() {
 	<div class="mt-4"> 
 		<div class="box-container">
 			<div id="title" class="text-center"></div>  
-	   		<div id="chartContainer" class="box" style="width: 100%; height: 600px;"></div> 
+	   		<div id="chartContainer1" class="box" style="width: 100%; height: 600px;"></div>
+	   		<div id="chartContainer2" class="box" style="width: 100%; height: 600px;"></div> 
+	   		<div id="chartContainer3" class="box" style="width: 100%; height: 600px;"></div> 
+	   		<div id="chartContainer4" class="box" style="width: 100%; height: 600px;"></div>
+	   		<div id="chartContainer5" class="box" style="width: 100%; height: 600px;"></div>  
+	   		<div id="chartContainer6" class="box" style="width: 100%; height: 600px;"></div>    
 		</div>
 	</div>
 </div> 

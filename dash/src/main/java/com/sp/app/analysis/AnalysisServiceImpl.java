@@ -338,18 +338,6 @@ public class AnalysisServiceImpl implements AnalysisService {
 	}
 	
 	@Override
-	public List<Analysis> rankTopUseTime2() {
-		List<Analysis> list = null;
-		
-		try {
-			list = dao.selectList("analysis.rankTopUseTime2");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-	
-	@Override
 	public List<UserData> userAgeTime() {
 		List<UserData> list = null;
 		

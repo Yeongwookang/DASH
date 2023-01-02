@@ -36,7 +36,6 @@ public interface AnalysisService {
 	public List<Analysis> rankTopPrice();
 	public List<Analysis> rankTopDistance();
 	public List<Analysis> rankTopUseTime();
-	public List<Analysis> rankTopUseTime2();
 	public List<UserData> userAgeTime();
 	
 }

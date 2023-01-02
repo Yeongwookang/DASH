@@ -5,60 +5,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
 
 <script type="text/javascript">
-
 $(function(){
-	let url = "${pageContext.request.contextPath}/analysis/yearTotalMoney"; 
-	
-	$.getJSON(url, function(data){
-		yearTotalMoney(data);
-		
-		function yearTotalMoney(data){
-			let yearData = [];
-			let moneyData = [];
-			
-			for(let item of data.years) {
-				let y = item.USEDATE + '년'; 
-		  
-				let money = item.TOTALMONEY;
-				
-				yearData.push(y);
-				moneyData.push(money); 
-			}
-			$("#content").html("<div id='title'>년별 매출 현황 : <br>" + yearData[0] + " ~ " + yearData[4] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-			  
-			var chartDom = document.getElementById('chartContainer');
-			var myChart = echarts.init(chartDom);
-			var option; 
-
-			option = {
-			  tooltip: {
-			    trigger: 'item',
-			    axisPointer: { type: 'cross' } 
-			  },
-			  xAxis: {
-			    type: 'category',
-			    data: yearData
-			  },
-			  yAxis: {
-			    type: 'value'
-			  },
-			  series: [
-			    {
-			      data: moneyData,
-			      type: 'line'
-			    }
-			  ] 
-			};
-
-			option && myChart.setOption(option);
-
-		}
-		
-
-	}); 
-	
+	searchList();
 });
-
 
 function getDates(){
 	var dateArray = [];
@@ -88,173 +37,173 @@ function searchList() {
 	
 	let value = f.selectDate.value;
 	if(value == "1"){  
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/yearTotalMoney"; 
+		
+		let url = "${pageContext.request.contextPath}/analysis/yearTotalMoney"; 
+		
+		$.getJSON(url, function(data){
+			yearTotalMoney(data);
 			
-			$.getJSON(url, function(data){
-				yearTotalMoney(data);
+			function yearTotalMoney(data){
+				let yearData = [];
+				let moneyData = [];
 				
-				function yearTotalMoney(data){
-					let yearData = [];
-					let moneyData = [];
+				for(let item of data.years) {
+					let y = item.USEDATE + '년'; 
+			 
+					let money = item.TOTALMONEY;
 					
-					for(let item of data.years) {
-						let y = item.USEDATE + '년'; 
-				 
-						let money = item.TOTALMONEY;
-						
-						yearData.push(y);
-						moneyData.push(money); 
-					}
-					$("#content").html("<div id='title'>년별 매출 현황 : " + yearData[0] + " ~ " + yearData[4] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-					  
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option; 
-	
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    data: yearData
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: moneyData,
-					      type: 'line'
-					    }
-					  ] 
-					};
-	
-					option && myChart.setOption(option);
-	
+					yearData.push(y);
+					moneyData.push(money); 
 				}
-				
-	
-			});
+				$("#content").html("<div id='title'>년별 매출 현황  <br><br></div>년별 매출 현황은 현재 년도를 기준으로 하여 " 
+						+ yearData[0] + "부터 " + yearData[4] + "까지의 5개년별 매출을 종합한 자료입니다. " + yearData[0] + "부터 " + yearData[2] + "까지의 매출은 존재하지 않았으나, " + yearData[3] + "에 " + moneyData[3].toLocaleString() + "원의 년 매출이 발생하였습니다.");
+				  
+				var chartDom = document.getElementById('chartContainer');
+				var myChart = echarts.init(chartDom);
+				var option; 
+
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    data: yearData
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: moneyData,
+				      type: 'line'
+				    }
+				  ] 
+				};
+
+				option && myChart.setOption(option);
+
+			}
 			
+
 		});
+			
 	} else if(value == "2"){
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/monthTotalMoney"; 
+		
+		let url = "${pageContext.request.contextPath}/analysis/monthTotalMoney"; 
+		
+		$.getJSON(url, function(data){
+			monthTotalMoney(data);
 			
-			$.getJSON(url, function(data){
-				monthTotalMoney(data);
+			function monthTotalMoney(data){
+				let monthData = [];
+				let moneyData = [];
 				
-				function monthTotalMoney(data){
-					let monthData = [];
-					let moneyData = [];
+				for(let item of data.months) {
+					let m = parseInt(item.USEDATE.substring(4))+'월';
+					let msg = m;
 					
-					for(let item of data.months) {
-						let m = parseInt(item.USEDATE.substring(4))+'월';
-						let msg = m;
-						
-						let money = item.TOTALMONEY; 
-						
-						monthData.push(msg);  
-						moneyData.push(money);
-					}
-					$("#content").html("<div id='title'>년별 매출 현황 : <br>" + monthData[0] + " ~ " + monthData[11] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+					let money = item.TOTALMONEY; 
 					
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option; 
-	
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    data: monthData
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: moneyData,
-					      type: 'line'
-					    }
-					  ]
-					};
-	
-					option && myChart.setOption(option);
-	
+					monthData.push(msg);  
+					moneyData.push(money);
+				}
+				$("#content").html("<div id='title'>월별 매출 현황  <br><br></div>월별 매출 현황은 현재 월을 기준으로 하여 " 
+						+ monthData[0] + "부터 " + monthData[11] + "까지의 12개월별 매출을 종합한 자료입니다. " + monthData[0] + "부터 " + monthData[8] + "까지의 매출은 존재하지 않았으나, " + monthData[9] + "에 " + moneyData[9].toLocaleString() + "원, " + monthData[10] + "에 " + moneyData[10].toLocaleString() + "원의 매출이 발생하였습니다.");
+				  
+				var chartDom = document.getElementById('chartContainer');
+				var myChart = echarts.init(chartDom);
+				var option; 
+
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    data: monthData
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: moneyData,
+				      type: 'line'
+				    }
+				  ]
+				};
+
+				option && myChart.setOption(option);
+
+			}
+			
+
+		});
+			
+	} else if(value == "3"){
+		
+		let url = "${pageContext.request.contextPath}/analysis/dayTotalMoney"; 
+		
+		$.getJSON(url, function(data){
+			console.log(data);
+			dayTotalMoney(data);
+			
+			function dayTotalMoney(data){
+				let graph = getDates();
+				let x = [];
+				for(item of getDates()){
+					x.push(item.day + "일");
 				}
 				
-	
-			});
-			
-		});
-	} else if(value == "3"){
-		$(function(){
-			let url = "${pageContext.request.contextPath}/analysis/dayTotalMoney"; 
-			
-			$.getJSON(url, function(data){
-				console.log(data);
-				dayTotalMoney(data);
-				
-				function dayTotalMoney(data){
-					let graph = getDates();
-					let x = [];
-					for(item of getDates()){
-						x.push(item.day + "일");
-					}
-					
-					for(item of graph){
-						for(money of data.days){
-							if(item.day == money.USEDATE.substring(6)){
-								item.money = money.TOTALMONEY;
-							}
+				for(item of graph){
+					for(money of data.days){
+						if(item.day == money.USEDATE.substring(6)){
+							item.money = money.TOTALMONEY;
 						}
 					}
-					let series = []; 
-					for(item of graph){
-						series.push(item.money);
-					}
-					
-					$("#content").html("<div id='title'>일별 매출 현황 : " + x[0] + " ~ " + x[x.length-1] + "</div>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
-						
-					var chartDom = document.getElementById('chartContainer');
-					var myChart = echarts.init(chartDom);
-					var option; 
-	
-					option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' } 
-					  },
-					  xAxis: {
-					    type: 'category',
-					    data: x
-					  },
-					  yAxis: {
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: series,
-					      type: 'line'
-					    }
-					  ]
-					};
-	
-					option && myChart.setOption(option);
-	
+				}
+				let series = []; 
+				for(item of graph){
+					series.push(item.money);
 				}
 				
-	
-			});
+				$("#content").html("<div id='title'>일별 매출 현황  <br><br></div>일별 매출 현황은 현재 월을 기준으로 하여 " 
+						+ x[0] + "부터 " + x[x.length - 1] + "까지의 " + x[x.length - 1] + "일별 매출을 종합한 자료입니다. " + x[0] + "부터 " + x[x.length - 1] + "까지의 매출이 존재하지 않았습니다.");
+				 	
+				var chartDom = document.getElementById('chartContainer');
+				var myChart = echarts.init(chartDom);
+				var option; 
+
+				option = {
+				  tooltip: {
+				    trigger: 'item',
+				    axisPointer: { type: 'cross' } 
+				  },
+				  xAxis: {
+				    type: 'category',
+				    data: x
+				  },
+				  yAxis: {
+				    type: 'value'
+				  },
+				  series: [
+				    {
+				      data: series,
+				      type: 'line'
+				    }
+				  ]
+				};
+
+				option && myChart.setOption(option);
+
+			}
 			
+
 		});
+			
 	}
 }
 

@@ -460,20 +460,20 @@
 	</select>
 	
 	<select id="rankTopUseTime" resultType="com.sp.app.analysis.Analysis">
-		SELECT RANK() OVER (ORDER BY (price - 1000) / 100 DESC) AS usageRank, name startName, (price - 1000) / 100 usetime
-	    FROM usageRecord u
-	    JOIN rental r ON u.recordNum = r.recordNum
-	    JOIN station s ON s.stNum = r.stNum
-	    WHERE price IS NOT NULL
-	</select>
-	
-	<select id="rankTopUseTime2" resultType="com.sp.app.analysis.Analysis">
-		SELECT name endName
-	    FROM usageRecord u
-	    JOIN return r ON u.recordNum = r.recordNum
-	    JOIN station s ON s.stNum = r.stNum
-	    WHERE price IS NOT NULL
-        ORDER BY RANK() OVER (ORDER BY (price - 1000) / 100 DESC)
+		SELECT usageRank, startName, endName, usetime
+		FROM (
+		   SELECT u.recordNum, RANK() OVER (ORDER BY (price - 1000) / 100 DESC) AS usageRank, name startName, (price - 1000) / 100 usetime
+			    FROM usageRecord u
+			    JOIN rental r ON u.recordNum = r.recordNum
+			    JOIN station s ON s.stNum = r.stNum
+			    WHERE price IS NOT NULL
+		) ren JOIN (
+		   SELECT u.recordNum, name endName
+			    FROM usageRecord u
+			    JOIN return r ON u.recordNum = r.recordNum
+			    JOIN station s ON s.stNum = r.stNum
+			    WHERE price IS NOT NULL
+		) ret ON ren.recordNum = ret.recordNum
 	</select>
 	
 	<select id="userAgeTime" resultType="com.sp.app.analysis.UserData">
