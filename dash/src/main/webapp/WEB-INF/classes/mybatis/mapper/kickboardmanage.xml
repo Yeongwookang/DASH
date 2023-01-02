@@ -3,7 +3,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kickboardmanage">
 	 <select id="listKickboard" resultType="com.sp.app.kickmanage.Kickmanage">
-	    SELECT kNum, name, state FROM kickboard
+	  SELECT kNum, name, state FROM kickboard
+      WHERE state != '수리'
+      UNION
+      SELECT  r.kNum, name,  r.state
+      FROM REPAIR r
+      JOIN KICKBOARD k ON r.kNum = k.kNum
 	 </select>
 	 
 	 <select id="repairOrReturn" resultType="com.sp.app.kickmanage.Kickmanage">
@@ -38,5 +43,38 @@
 	WHERE r.state  = '수리완료'
 	 
 	 </select>
+	 
+	 
+	  <!-- 파손 -->
+	 <update id="updatedamage" parameterType="map">
+	 UPDATE kickboard SET state = '파손' WHERE  kNum = #{kNum}
+	 </update>
+	
+	 
+	 <insert id="insertdamage" parameterType="map">
+	 INSERT INTO damage (dmgNum, reg_date, kNum ) VALUES (DAMAGE_SEQ.NEXTVAL, SYSDATE, #{kNum})
+	 </insert>
+	 
+	<!-- 수리중 -->
+	 <update id="updateRepair" parameterType="map">
+	 UPDATE kickboard SET state = '수리' WHERE  kNum = #{kNum}
+	 </update>
+	
+	 <insert id="insertRepair" parameterType="map">
+	 INSERT INTO repair (repairNum, state, reg_date, kNum) VALUES (REPAIR_SEQ.NEXTVAL, '수리중', SYSDATE, #{kNum} )
+	 </insert>
+	 
+	 <!-- 수리완료 -->
+	 	 <update id="updateRepairCom" parameterType="map">
+	  UPDATE kickboard SET state = '수리' WHERE  kNum = #{kNum}
+	 </update>
+	
+	 <insert id="insertRepairCom" parameterType="map">
+	 INSERT INTO repair (repairNum, state, due_date, kNum) VALUES (REPAIR_SEQ.NEXTVAL, '수리완료', SYSDATE, #{kNum} )
+	 </insert>
+	 
+	 
+	 
+
 	 
 </mapper>

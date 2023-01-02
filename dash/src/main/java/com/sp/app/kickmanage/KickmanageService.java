@@ -16,5 +16,17 @@ public interface KickmanageService {
 	public List<Map<String, Object>> repairingkickboard();
 	public List<Map<String, Object>> repaircomkickboard();
 	
-	public void insertrepair(Kickmanage dto) throws Exception;
+	
+	
+	
+	public void updatedamagekickBoard(Map<String, Object> map) throws Exception;
+	public void updaterepairkickBoard(Map<String, Object> map) throws Exception;
+	public void updaterepaircomkickBoard(Map<String, Object> map) throws Exception;
+	
+	public void insertdamage(Map<String, Object> map) throws Exception;
+	public void insertrepair(Map<String, Object> map) throws Exception;
+	public void insertrepaircom(Map<String, Object> map) throws Exception;
+
 }
+
+

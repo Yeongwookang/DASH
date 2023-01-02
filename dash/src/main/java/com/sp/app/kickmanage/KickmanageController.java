@@ -65,5 +65,36 @@ public class KickmanageController {
 		return model;
 	}
 	
+
+	@RequestMapping(value = "repair")
+	public String repairForm(Model model, @RequestParam String kNum) throws Exception {
+		
+		try {
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return "redirect:/kickmanage/main";
+	}
+	
+	
+	
+	
+	@RequestMapping(value = "damage")
+	public String damageForm(@RequestParam Map<String, Object> map) throws Exception {
+		
+		try {
+			sevice.updatedamagekickBoard(map);
+			sevice.insertdamage(map);
+		} catch (Exception e) {
+		 
+		}
+		
+		return "redirect:/kickmanage/main";
+	}
+
+	
+	
 	
 }
