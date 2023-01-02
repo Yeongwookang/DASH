@@ -20,20 +20,6 @@
 		</if>
 	</sql>
 	
-	<select id="empList" parameterType="map" resultType="com.sp.app.employee.Employee">
-		SELECT e.EMPNO, name, state, reg_date, depName, posName, rankName, teamName FROM PERSON_RECORD pr 
-		LEFT OUTER JOIN employee e ON pr.empNo= e.empNo
-		LEFT OUTER JOIN DEPARTMENT d ON d.DEPNO = pr.DEPNO
-		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
-		LEFT OUTER JOIN team t ON t.teamNo = pr.teamNo
-		LEFT OUTER JOIN rank r on r.rankNo = pr.rankNo
-		<where>
-			state = 1
-			<if test="keyword != null and keyword != '' ">
-				AND <include refid="where-list"/>
-			</if>
-		</where> 
-	</select>
 
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) FROM PERSON_RECORD pr 
@@ -85,8 +71,7 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE e.empNo = #{empNo} 
-		OR (f.empNo = #{empNo} AND f.state='대기')
+		WHERE (f.empNo = #{empNo} AND f.state='대기')
 		OR (s.empNo = #{empNo} AND s.state='대기')
 		OR (t.empNo = #{empNo} AND t.state='대기')
 	</select>
@@ -104,7 +89,7 @@
 	</select>
 	
 	<select id="readApproval" parameterType="Long" resultType="approval">
-		SELECT title, content, e.signNum, emp.empNo, depName, emp.name FROM e_document e
+		SELECT title, content, e.signNum, emp.empNo, depName, emp.name, f.empno as ref1, s.empno as ref2, t.empno as ref3 FROM e_document e
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
@@ -115,11 +100,5 @@
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
 		WHERE e.signNum = #{signNum}
 	</select>
-	<select id="refList" parameterType="Long" resultType="approval">
-		SELECT f.empNo, s.empNo, t.empNo FROM e_document e
-		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
-		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
-		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
-		WHERE e.signNum = #{signNum}
-	</select>
+	
 </mapper>

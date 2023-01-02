@@ -1,5 +1,6 @@
 package com.sp.app.approval;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -111,14 +112,28 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public Approval refList(long signNum) {
-		Approval refList = null;
+	public List<String> refList(long signNum) {
+		List<String> refList = new ArrayList<String>();
 		try {
-			refList = dao.selectOne("approval.refList", signNum);
+			Approval app = dao.selectOne("approval.refList", signNum);
+			refList.add(app.getRef1());
+			refList.add(app.getRef2());
+			refList.add(app.getRef3());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return refList;
+	}
+
+	@Override
+	public Approval readEmp(String empNo) {
+		Approval dto = null;
+		try {
+			dto = dao.selectOne("approval.readEmp", empNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
 	}
 	
 }

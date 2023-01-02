@@ -2,7 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
+
 <div class="m-auto scroll" style="width: 90%; height:85%; overflow-y: scroll;">
 	<div><h4>| 결재</h4></div>
 	<div class="ps-5 pe-5 mt-4">
@@ -32,9 +32,9 @@
 				<tr>
 					<td class="text-center align-middle" scope="row">참조 <button type="button" class="btn bg-sub bg-gradient ms-2" data-bs-toggle="modal" data-bs-target="#newApproval"><i class="fa-solid fa-plus" ></i></button></td>
 					<td class="d-flex ">
-						<input type="text" class="form-control me-2" id="ref1name" value="${dto.ref1name}" readonly>
-						<input type="text" class="form-control me-2" id="ref2name" value="${dto.ref2name}" readonly>
-						<input type="text" class="form-control me-2" id="ref3name" value="${dto.ref3name}" readonly>
+						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
+						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
+						<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
 						<input type="hidden" class="form-control me-2" name="ref1" value="${dto.ref1}" readonly>
 						<input type="hidden" class="form-control me-2" name="ref2" value="${dto.ref2}" readonly>
 						<input type="hidden" class="form-control me-2" name="ref3" value="${dto.ref3}" readonly>
@@ -44,8 +44,9 @@
 			</table>
 		${dto.content}
 		<div class="d-flex justify-content-end mt-4">
-			<button class="btn bg-light bg-gradient me-2" type="button">저장</button>
-			<button class="btn bg-sub bg-gradient" type="submit">결재</button>
+
+			<button class="btn bg-light bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/update/${dto.signNum}'">수정</button>
+
 		</div>
 		</form>
 	</div>

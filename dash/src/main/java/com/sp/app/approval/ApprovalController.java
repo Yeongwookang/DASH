@@ -87,32 +87,18 @@ public class ApprovalController {
 		public String approvalForm(Model model, @PathVariable long signNum) throws Exception {
 			model.addAttribute("mode", "read");
 			
-			Approval dto = service.readApproval(signNum);
-			Approval refList = service.refList(signNum);
+			Approval dto = service.readApproval(signNum);			
 			
-			String ref1 = refList.getRef1();
-			String ref2 = refList.getRef2();
-			String ref3 = refList.getRef3();
-			
-			dto.setRef1(ref1);
-			dto.setRef2(ref2);
-			dto.setRef3(ref3);
-			
-			
-			Employee ref1dto = empService.readEmployee(ref1);
-			Employee ref2dto = empService.readEmployee(ref2);
-			Employee ref3dto = empService.readEmployee(ref3);
-			
-			String ref1name = ref1dto.getDepName()+" "+ ref1dto.getName();
-			String ref2name = ref2dto.getDepName()+" "+ ref2dto.getName();
-			String ref3name = ref3dto.getDepName()+" "+ ref3dto.getName();
-			
-			dto.setRef1name(ref1name);
-			dto.setRef2name(ref2name);
-			dto.setRef3name(ref3name);
-			
+			Employee ref1= empService.readEmployee(dto.getRef1());
+			Employee ref2= empService.readEmployee(dto.getRef2());
+			Employee ref3= empService.readEmployee(dto.getRef3());
 			
 			model.addAttribute("dto",dto);
+			model.addAttribute("ref1",ref1);
+			model.addAttribute("ref2",ref2);
+			model.addAttribute("ref3",ref3);
+
+
 
 			return ".approval.read";
 		}
@@ -120,10 +106,18 @@ public class ApprovalController {
 		@GetMapping("update/{signNum}")
 		public String updateForm(Model model, @PathVariable long signNum)throws Exception{
 			
-			Approval dto =  service.readApproval(signNum);
+			Approval dto = service.readApproval(signNum);		
 			
-			model.addAttribute("mode", "update");
+			Employee ref1= empService.readEmployee(dto.getRef1());
+			Employee ref2= empService.readEmployee(dto.getRef2());
+			Employee ref3= empService.readEmployee(dto.getRef3());
+			
 			model.addAttribute("dto", dto);
+			model.addAttribute("ref1", ref1);
+			model.addAttribute("ref2", ref2);
+			model.addAttribute("ref3", ref3);
+			model.addAttribute("mode", "update");
+			
 			return ".approval.write";
 		}
 		
@@ -132,7 +126,6 @@ public class ApprovalController {
 				@RequestParam Map<String, Object>map
 				) throws Exception{
 			
-
 			service.updateApproval(map);
 			
 			return "redirect:/approval/main";

@@ -13,7 +13,8 @@ public interface ApprovalService {
 	public List<Employee> empList(Map<String, Object> map);
 	
 	public Approval readApproval(long signNum);
-	public Approval refList(long signNum);
+	public List<String> refList(long signNum);
+	public Approval readEmp(String empNo);
 	
 	public int dataCount(Map<String, Object> map);
 	public List<Approval> approvalList(Map<String, Object> map);
