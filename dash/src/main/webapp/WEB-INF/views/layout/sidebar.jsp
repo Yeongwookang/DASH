@@ -18,6 +18,9 @@
 			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/notice/main';"><i class="fa-lg fa-regular fa-note-sticky"></i><span class="ms-3"> 공지</span></button> 
 		</li>
 		<li class="nav-item">
+			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/community/main';"><i class="fa-regular fa-address-card"></i><span class="ms-3"> 커뮤니티</span></button> 
+		</li>
+		<li class="nav-item">
 			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/analysis/main';"><i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span></button> 
 		</li>
 		<c:if test="${sessionScope.employee.depNo==1}">
