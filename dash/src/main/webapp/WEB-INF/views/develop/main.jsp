@@ -4,55 +4,97 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="text-start fs-4 ml-2 mb-4">
-	<span>| 개발</span>
+	<span>| 유지보수</span>
+</div>
+
+<div class="scroll m-auto" style="height: 80%; overflow-y: scroll;">
+	<div class="mx-5">
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th scope="col"></th>
+					<th scope="col">결재번호</th>
+					<th scope="col">제목</th>
+					<th scope="col">부서</th>
+					<th scope="col">기안자</th>
+					<th scope="col">승인대기</th>
+					<th scope="col">승인</th>
+					<th scope="col">반려</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<th scope="row">1</th>
+					<th scope="col">${dto.signNum}</th>
+					<th scope="col">${dto.title}</th>
+					<th scope="col">${dto.detpName}</th>
+					<th scope="col">${dto.name}</th>
+					<th scope="col">
+					<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#exampleModal">
+									내용확인</button>
+					 </th>
+					<th scope="col">승인</th>
+					<th scope="col">반려</th>
+				</tr>
+				<tr>
+					<th scope="row">2</th>
+					<th scope="col">결재번호</th>
+					<th scope="col">${dto.title}</th>
+					<th scope="col">${dto.detpName}</th>
+					<th scope="col">${dto.name}</th>
+					<th scope="col">
+					<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#exampleModal">
+									내용확인</button>
+					 </th>
+					<th scope="col">승인</th>
+					<th scope="col">반려</th>
+				</tr>
+				<tr>
+					<th scope="row">3</th>
+					<th scope="col">결재번호</th>
+					<th scope="col">${dto.title}</th>
+					<th scope="col">${dto.detpName}</th>
+					<th scope="col">${dto.name}</th>
+					<th scope="col">
+					<button type="button" class="btn btn-primary"
+									data-bs-toggle="modal" data-bs-target="#exampleModal">
+									내용확인</button>
+					 </th>
+					<th scope="col">승인</th>
+					<th scope="col">반려</th>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
 </div>
 
 
-<div class="card text-center">
-	<div class="card-header">
-		<ul class="nav nav-tabs card-header-tabs">
-			<li class="nav-item"><a class="nav-link active"
-				aria-current="true" href="#">대기 중인 결제 건</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">진행 중인 결제 건</a></li>
-			<li class="nav-item"><a class="nav-link disabled" href="#"
-				tabindex="-1" aria-disabled="true">승인완료</a></li>
-		</ul>
-	</div>
-	<div class="d-flex justify-content-evenly">
-		<div class="card-body" style="width: 38%">
-			<div class="card text-center">
-				<div class="card-header">
-					<h5 class="card-title">결재명</h5>
-				</div>
-				<div class="card-body">
+<!-- Button trigger modal -->
 
-					<p class="card-text">요청 내용</p>
-					<a href="#" class="btn btn-primary">확인</a>
-				</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+		<div class="modal-content">
+			<div class="modal-header">
+				
+				<h5 class="modal-title" id="exampleModalLabel">결재 TITLE</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Close"></button>
 			</div>
-		</div>
-		<div class="card-body" style="width: 38%">
-			<div class="card text-center">
-				<div class="card-header">
-					<h5 class="card-title">결재명</h5>
-				</div>
-				<div class="card-body">
-
-					<p class="card-text">요청 내용</p>
-					<a href="#" class="btn btn-primary">확인</a>
-				</div>
+			<div class="modal-body">
+			${dto.content}
+			
 			</div>
-		</div>
-		<div class="card-body" style="width: 38%">
-			<div class="card text-center">
-				<div class="card-header">
-					<h5 class="card-title">결재명</h5>
-				</div>
-				<div class="card-body">
-
-					<p class="card-text">요청 내용</p>
-					<a href="#" class="btn btn-primary">확인</a>
-				</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-bs-dismiss="modal">반려</button>
+				<button type="button" class="btn btn-primary">승인</button>
 			</div>
 		</div>
 	</div>
