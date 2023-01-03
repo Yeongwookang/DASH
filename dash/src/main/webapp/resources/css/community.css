@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.box {
+	line-height: 30px;
+}
+
+.point {
+	color: #FF5375;
+}
+
+.community-font {
+	font-size: 18px;
+}
