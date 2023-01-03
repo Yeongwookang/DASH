@@ -38,7 +38,8 @@
 		INSERT ALL 
 			INTO e_document (signNum, title, content, empNo, formnum) 
 			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{empNo}, 1)
-			INTO doc_record (signNum, reg_date, state) VALUES(e_document_SEQ.CURRVAL, sysdate, '기안')
+			
+			INTO doc_record (signNum, reg_date, state, max_state) VALUES(e_document_SEQ.CURRVAL, sysdate, 0, #{refcnt})
 			
 			<if test="ref1 !=null">
 				INTO f_approval (signNum, state, empNo) 
@@ -60,10 +61,34 @@
 	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
-		SELECT title, rankName, teamName, depName, posName, emp.name, dr.state, e.signNum  From e_document e 
-		LEFT OUTER JOIN doc_record dr ON dr.signNum = e.signNum
+		SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE dr.state &lt; max_state AND f.empNo = 9602004 and dr.state = 0
+
+        UNION ALL
+
+        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE dr.state &lt; max_state AND s.empNo = 9602004 and dr.state = 1
+
+        UNION ALL
+
+        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
 		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
@@ -71,9 +96,7 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE (f.empNo = #{empNo} AND f.state='대기')
-		OR (s.empNo = #{empNo} AND s.state='대기')
-		OR (t.empNo = #{empNo} AND t.state='대기')
+		WHERE dr.state &lt; max_state AND t.empNo = 9602004 and dr.state = 2
 	</select>
 	
 	<select id="myApprovalList" parameterType="map" resultType="approval">
@@ -96,9 +119,24 @@
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
 		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN position p ON p.posNo = pr.posNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
 		WHERE e.signNum = #{signNum}
+	</select>
+	
+	<select id="empList" parameterType="map" resultType="com.sp.app.employee.Employee">
+		SELECT emp.empNo, depName, emp.name, teamName, posName, rankName FROM employee emp
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = emp.empNo AND pr.state=1
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN position p ON p.posNo = pr.posNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.teamNo
+		<where>
+			<if test="keyword !=null and keyword !=''">
+				<include refid="where-list"/>
+			</if>
+		</where>
 	</select>
 	
 </mapper>

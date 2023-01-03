@@ -42,7 +42,11 @@ public class ApprovalController {
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo)session.getAttribute("employee");
+			if(info == null) {
+				return "redirect:/employee/login";
+			}
 			map.put("empNo",info.getEmpNo());
+			
 			List<Approval> approvalList = service.approvalList(map);
 			
 			List<Approval> myApprovalList = service.myApprovalList(map);
@@ -69,7 +73,12 @@ public class ApprovalController {
 		}
 		
 		@GetMapping("write")
-		public String writeForm(Model model)throws Exception{
+		public String writeForm(Model model, HttpServletRequest req)throws Exception{
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("employee");
+			if(info == null) {
+				return "redirect:/employee/login";
+			}
 			model.addAttribute("mode", "write");
 			return ".approval.write";
 		}
@@ -78,13 +87,19 @@ public class ApprovalController {
 		public String writeSubmit(
 				@RequestParam Map<String, Object>map
 				) throws Exception{
+			
 			service.insertApproval(map);
 			
 			return "redirect:/approval/main";
 		}
 		
 		@GetMapping("read/{signNum}")
-		public String approvalForm(Model model, @PathVariable long signNum) throws Exception {
+		public String approvalForm(Model model, HttpServletRequest req,@PathVariable long signNum) throws Exception {
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("employee");
+			if(info == null) {
+				return "redirect:/employee/login";
+			}
 			model.addAttribute("mode", "read");
 			
 			Approval dto = service.readApproval(signNum);			
@@ -104,8 +119,12 @@ public class ApprovalController {
 		}
 		
 		@GetMapping("update/{signNum}")
-		public String updateForm(Model model, @PathVariable long signNum)throws Exception{
-			
+		public String updateForm(Model model, HttpServletRequest req,@PathVariable long signNum)throws Exception{
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("employee");
+			if(info == null) {
+				return "redirect:/employee/login";
+			}
 			Approval dto = service.readApproval(signNum);		
 			
 			Employee ref1= empService.readEmployee(dto.getRef1());

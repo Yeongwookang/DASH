@@ -32,6 +32,7 @@
 	        			<tr>
 	        				<th>#</th>
 	        				<th style="width: 50%">제목</th>
+	        				<th>부서 </th> 
 	        				<th>직급 </th> 
 	        				<th>기안자</th>
 	        				<th>상태</th>
@@ -42,7 +43,8 @@
         				<tr>
         					<th>${status.count}</th>
         					<td class="title">${ap.title}</td>
-        					<td class="position">${ap.depName}</td>
+        					<td class="dep">${ap.depName}</td>
+        					<td class="rank">${ap.rankName}</td>
         					<td class="name">${ap.name}</td>
         					<td class="state">${ap.state}</td>
         					<td class="signNum" style="display: none">${ap.signNum}</td>

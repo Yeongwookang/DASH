@@ -18,8 +18,14 @@
 				<tr>
 					<td class="w-25 text-center align-middle" scope="row">기 안 자</td>
 					<td class="w-75">
-						 ${dto.depName}&nbsp;${dto.name}
-						 <input name= "empNo" type="hidden" value="${dto.empNo}" >
+						<c:if test="${mode == 'write' }">
+							${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
+							<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
+						</c:if>
+						<c:if test="${mode == 'update'}">
+							 ${dto.depName}&nbsp;${dto.name}
+							 <input name= "empNo" type="hidden" value="${dto.empNo}">
+						 </c:if>
 					</td>
 				</tr>
 				<tr>
@@ -31,13 +37,14 @@
 				</tr>
 				<tr>
 					<td class="text-center align-middle" scope="row">참조 <button type="button" class="btn bg-sub bg-gradient ms-2" data-bs-toggle="modal" data-bs-target="#newApproval"><i class="fa-solid fa-plus" ></i></button></td>
-					<td class="d-flex ">
+					<td class="d-flex refList">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
 						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
 						<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
-						<input type="hidden" class="form-control me-2" name="ref1" value="${dto.ref1}" readonly>
-						<input type="hidden" class="form-control me-2" name="ref2" value="${dto.ref2}" readonly>
-						<input type="hidden" class="form-control me-2" name="ref3" value="${dto.ref3}" readonly>
+						<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
+						<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
+						<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
+						<input type="hidden" name="refcnt" id="refcnt" readonly>
 					</td>
 				</tr>
 				</tbody>
@@ -237,7 +244,9 @@ function ajaxFun(url, method, query, dataType, fn) {
 		
 	});
 	
-	$(".writeBtn").click(function(){	
+	$(".writeBtn").click(function(){
+		$(".refList").children().remove();
+		$(".refList").append('<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly><input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly><input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly><input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly><input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly><input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly><input type="hidden" name="refcnt" id="refcnt" readonly>');
 		let i= 1;
 		for(let item of $(".sendTo tr")){
 			let dep= item.cells[0].textContent;
@@ -246,10 +255,14 @@ function ajaxFun(url, method, query, dataType, fn) {
 			let name= item.cells[3].textContent;
 			let empNo= item.cells[4].textContent;
 			
+			
 			$("#ref"+i+"name").val(dep+" "+name);
-			document.approval["ref"+i].value=empNo;
+			
+			$("#ref"+i).attr("value",empNo);
 			i++;
 		}
+		
+		$("#refcnt").val($(".sendTo tr").length);
 		$("#newApproval").modal('hide');
 		
 	});
@@ -262,7 +275,9 @@ function ajaxFun(url, method, query, dataType, fn) {
 		
 		let date= y+"-"+m+"-"+day;
 		$(".today").val(date);
+		
 	});
+	
 	
 	
 </script>
