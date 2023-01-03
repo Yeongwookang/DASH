@@ -27,15 +27,15 @@
 			<div class="card-body">
 			<c:choose >
 			<c:when test="${not empty approvalList}">
-				<table class="table">
+				<table class="table text-center">
 					<thead>
 	        			<tr>
 	        				<th>#</th>
 	        				<th style="width: 50%">제목</th>
-	        				<th>부서 </th> 
-	        				<th>직급 </th> 
-	        				<th>기안자</th>
-	        				<th>상태</th>
+	        				<th style="width: 15%">부서 </th>
+	        				<th style="width: 10%">직급</th> 
+	        				<th style="width: 10%">기안자</th>
+	        				<th style="width: 15%">상태</th>
 	        			</tr>
         			</thead>
         			<tbody class="sendList">
@@ -46,7 +46,15 @@
         					<td class="dep">${ap.depName}</td>
         					<td class="rank">${ap.rankName}</td>
         					<td class="name">${ap.name}</td>
-        					<td class="state">${ap.state}</td>
+        					<td>
+        					<c:choose>
+        						<c:when test="${ap.state == 0 }">기안</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+        						<c:otherwise>문의</c:otherwise>
+        					</c:choose>
+        					</td>
         					<td class="signNum" style="display: none">${ap.signNum}</td>
         				</tr>
         			</c:forEach>
@@ -72,14 +80,15 @@
 			<div class="card-body">
 				<c:choose >
 			<c:when test="${not empty myApprovalList}">
-				<table class="table">
+				<table class="table text-center">
 					<thead>
 	        			<tr>
 	        				<th>#</th>
 	        				<th style="width: 50%">제목</th>
-	        				<th>직급 </th> 
-	        				<th>기안자</th>
-	        				<th>상태</th>
+	        				<th style="width: 15%">부서 </th> 
+	        				<th style="width: 10%">직급</th>
+	        				<th style="width: 10%">기안자</th>
+	        				<th style="width: 15%">상태</th>
 	        			</tr>
         			</thead>
         			<tbody class="sendList">
@@ -88,8 +97,17 @@
         					<th>${status.count}</th>
         					<td class="title">${ap.title}</td>
         					<td class="dep">${ap.depName}</td>
+        					<td class="rank">${ap.rankName}</td>
         					<td class="name">${ap.name}</td>
-        					<td class="state">${ap.state}</td>
+        					<td>
+        					<c:choose>
+        						<c:when test="${ap.state == 0 }">기안</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+        						<c:otherwise>문의</c:otherwise>
+        					</c:choose>
+        					</td>
         					<td class="signNum" style="display: none">${ap.signNum}</td>
         				</tr>
         			</c:forEach>

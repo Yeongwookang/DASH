@@ -41,10 +41,14 @@
 				</tr>
 				</tbody>
 			</table>
-		${dto.content}
+			${dto.content}
 		<div class="d-flex justify-content-end mt-4">
-			<c:if test="${sessionScope.employee.empNo == dto.empNo}">
+			<c:if test="${sessionScope.employee.empNo == dto.empNo && dto.state < 1}">
 				<button class="btn bg-light bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/update/${dto.signNum}'">수정</button>
+			</c:if>
+			
+			<c:if test="${sessionScope.employee.empNo == dto.ref1}">
+				<button class="btn bg-light bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/approve/${dto.signNum}'">결재</button>
 			</c:if>
 		</div>
 		</form>

@@ -7,7 +7,8 @@ public class Approval {
 	
 	private String empNo;
 	private String reg_date;
-	private String state;
+	private int state;
+	private int max_state;
 	
 	private String posName;
 	private String depName;
@@ -63,12 +64,6 @@ public class Approval {
 	}
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
 	}
 	public int getFormNum() {
 		return formNum;
@@ -147,6 +142,18 @@ public class Approval {
 	}
 	public void setRef3name(String ref3name) {
 		this.ref3name = ref3name;
+	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public int getMax_state() {
+		return max_state;
+	}
+	public void setMax_state(int max_state) {
+		this.max_state = max_state;
 	}
 	
 	

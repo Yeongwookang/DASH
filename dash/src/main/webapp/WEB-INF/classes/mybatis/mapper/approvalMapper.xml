@@ -41,17 +41,17 @@
 			
 			INTO doc_record (signNum, reg_date, state, max_state) VALUES(e_document_SEQ.CURRVAL, sysdate, 0, #{refcnt})
 			
-			<if test="ref1 !=null">
+			<if test="ref1 !=null and ref1!=''">
 				INTO f_approval (signNum, state, empNo) 
 				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref1})
 			</if>
 			
-			<if test="ref2 !=null">
+			<if test="ref2 !=null and ref2!=''">
 				INTO s_approval (signNum, state, empNo)
 				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref2})
 			</if>
 			
-			<if test="ref3 !=null">
+			<if test="ref3 !=null and ref3!=''">
 				INTO t_approval (signNum, state, empNo)
 				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref3})
 			</if>
@@ -61,7 +61,7 @@
 	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
-		SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+		SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName, e.signNum   FROM DOC_RECORD dr
 		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
@@ -70,11 +70,11 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE dr.state &lt; max_state AND f.empNo = 9602004 and dr.state = 0
+		WHERE dr.state &lt; max_state AND f.empNo = #{empNo} and dr.state = 0
 
         UNION ALL
 
-        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName, e.signNum    FROM DOC_RECORD dr
 		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
@@ -83,11 +83,11 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE dr.state &lt; max_state AND s.empNo = 9602004 and dr.state = 1
+		WHERE dr.state &lt; max_state AND s.empNo = #{empNo} and dr.state = 1
 
         UNION ALL
 
-        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName   FROM DOC_RECORD dr
+        SELECT dr.state, dr.max_state, depName, emp.name, emp.empNo, pr.state, title, rankName, e.signNum    FROM DOC_RECORD dr
 		LEFT OUTER JOIN e_document e on e.signNum = dr.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
@@ -96,11 +96,11 @@
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
-		WHERE dr.state &lt; max_state AND t.empNo = 9602004 and dr.state = 2
+		WHERE dr.state &lt; max_state AND t.empNo = #{empNo} and dr.state = 2
 	</select>
 	
 	<select id="myApprovalList" parameterType="map" resultType="approval">
-		SELECT e.title, depName, emp.name, dr.state, to_char(dr.reg_date,'YYYY-MM-DD')reg_date, e.signNum  FROM doc_record dr
+		SELECT e.title, depName, rankName, emp.name, dr.state, to_char(dr.reg_date,'YYYY-MM-DD')reg_date, e.signNum, dr.state, max_state  FROM doc_record dr
 		LEFT OUTER JOIN e_document e ON e.signNum = dr.signNum
 		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
 		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
@@ -112,7 +112,8 @@
 	</select>
 	
 	<select id="readApproval" parameterType="Long" resultType="approval">
-		SELECT title, content, e.signNum, emp.empNo, depName, emp.name, f.empno as ref1, s.empno as ref2, t.empno as ref3 FROM e_document e
+		SELECT title, content, e.signNum, emp.empNo, depName, emp.name, f.empno as ref1, s.empno as ref2, t.empno as ref3, dr.state, max_state FROM e_document e
+		LEFT OUTER JOIN doc_record dr ON dr.signNum = e.signNum
 		LEFT OUTER JOIN f_approval f ON e.signNum = f.signNum
 		LEFT OUTER JOIN s_approval s ON e.signNum = s.signNum
 		LEFT OUTER JOIN t_approval t ON e.signNum = t.signNum
@@ -138,5 +139,17 @@
 			</if>
 		</where>
 	</select>
+	<update id="approveUpdate" parameterType="Long">
+		UPDATE 
+		CASE WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 0 THEN f_approval 
+		WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 1 THEN s_approval
+		WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 2 THEN t_approval
+		END
+		
+		SET reg_date = sysdate, state='승인'
+	</update>
+	<update id="approve" parameterType="Long">
+		UPDATE doc_record SET reg_date = sysdate, state = (SELECT state FROM doc_record WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}
+	</update>
 	
 </mapper>

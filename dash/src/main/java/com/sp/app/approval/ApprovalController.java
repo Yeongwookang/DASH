@@ -94,8 +94,8 @@ public class ApprovalController {
 		}
 		
 		@GetMapping("read/{signNum}")
-		public String approvalForm(Model model, HttpServletRequest req,@PathVariable long signNum) throws Exception {
-			HttpSession session = req.getSession();
+		public String approvalForm(Model model, HttpServletRequest req, @PathVariable long signNum) throws Exception {
+			HttpSession session = req.getSession(); 
 			SessionInfo info = (SessionInfo)session.getAttribute("employee");
 			if(info == null) {
 				return "redirect:/employee/login";
@@ -119,7 +119,7 @@ public class ApprovalController {
 		}
 		
 		@GetMapping("update/{signNum}")
-		public String updateForm(Model model, HttpServletRequest req,@PathVariable long signNum)throws Exception{
+		public String updateForm(Model model, HttpServletRequest req, @PathVariable long signNum)throws Exception{
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo)session.getAttribute("employee");
 			if(info == null) {
@@ -149,6 +149,16 @@ public class ApprovalController {
 			
 			return "redirect:/approval/main";
 		}
+		
+		@GetMapping("approve/{signNum}")
+		public String approve(@PathVariable long signNum
+				) throws Exception{
+			service.approveUpdate(signNum);
+			service.approve(signNum);
+			
+			return "redirect:/approval/main";
+		}
+		
 		
 }
 

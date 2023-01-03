@@ -135,5 +135,25 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		return dto;
 	}
+
+	@Override
+	public void approve(long signNum) throws Exception {
+		try {
+			dao.updateData("approval.approve",signNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void approveUpdate(long signNum) throws Exception {
+		try {
+			dao.updateData("approval.approveUpdate",signNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 }

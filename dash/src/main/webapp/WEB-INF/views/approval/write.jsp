@@ -50,6 +50,9 @@
 				</tbody>
 			</table>
 		<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
+
+		<input class="form-control mt-3" type="file" id="formFile">
+	
 		<div class="d-flex justify-content-end mt-4">
 			<button class="btn bg-light bg-gradient me-2" type="button">저장</button>
 			<button class="btn bg-sub bg-gradient" type="submit">결재</button>
