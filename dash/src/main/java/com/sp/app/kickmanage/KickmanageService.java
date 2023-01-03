@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface KickmanageService {
 	public List<Kickmanage> listkickboard ();
-	public List<Kickmanage> repairOrReturn();
+
 	
 	
 	public List<Map<String, Object>> damagedkickboard ();
@@ -19,14 +19,24 @@ public interface KickmanageService {
 	
 	
 	
-	public void updatedamagekickBoard(Map<String, Object> map) throws Exception;
-	public void updaterepairkickBoard(Map<String, Object> map) throws Exception;
-	public void updaterepaircomkickBoard(Map<String, Object> map) throws Exception;
+	public void updatedamagekickBoard(Map<String, Object> map) throws Exception;//파손
+	public void insertdamage(Map<String, Object> map) throws Exception; //파손
+	public void deletedamage(Map<String, Object> map) throws Exception; //파손
 	
-	public void insertdamage(Map<String, Object> map) throws Exception;
-	public void insertrepair(Map<String, Object> map) throws Exception;
-	public void insertrepaircom(Map<String, Object> map) throws Exception;
 
+	public void updatedamagekickBoardwait(Map<String, Object> map) throws Exception; //대기
+	public void insertrepairwait(Map<String, Object> map) throws Exception;//대기
+	
+	
+	public void updaterepairing(Map<String, Object> map) throws Exception; //입고
+
+	
+	
+	public void updaterepaircomkickBoard(Map<String, Object> map) throws Exception;//완료
+	public void updaterepaircom(Map<String, Object> map) throws Exception; //완료
+	
+	
+	
 }
 
 
