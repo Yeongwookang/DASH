@@ -53,7 +53,7 @@ $(function(){
 	
 	
 	
-	});
+});
 	
 
 
@@ -63,44 +63,102 @@ function searchList() {
 	
 	let value = f.kickboard.value;
 	
-	
-	let url = "${pageContext.request.contextPath}/kickmanage/filterkickboard?value="+ value; 
-	
-	
+	f.action = "${pageContext.request.contextPath}/kickmanage/main";
+	f.submit();
 	
 }
 
-function sendModelrepair() {
-	var f = document.modelrepairForm;
-    var str;
+function sendModelrepairwait() {
+	let chkrs = [];
+	$("input:checkbox[name='nums']:checked").each(function(){
+		chkrs.push($(this).attr("value"));
+	});
+	
+	
+	$("#exampleModal1").modal('hide');
+	
+
+	
+	 let url = "${pageContext.request.contextPath}/kickmanage/repairwait";          
+	 let obj2 = {val : chkrs};
+	 const fn = function(data) {
+		 console.log(data);
+		 location.href = "${pageContext.request.contextPath}/kickmanage/main";
+	};
+	   
+	ajaxFun(url, "get", obj2, "json", fn);        
     
-    str = f.kNum.value();
-   
-    if(!str){
-    	f.kNum.focus();
-    	return;
-    }
+}
+
+function sendModelrepairing() {
+	let chkrs = [];
+	$("input:checkbox[name='nums']:checked").each(function(){
+		chkrs.push($(this).attr("value"));
+	});
+	
+	
+	$("#exampleModal2").modal('hide');
+	
+
+	
+	 let url = "${pageContext.request.contextPath}/kickmanage/repair";          
+	 let obj2 = {val : chkrs};
+	 const fn = function(data) {
+		 console.log(data);
+		 location.href = "${pageContext.request.contextPath}/kickmanage/main";
+	};
+	   
+	ajaxFun(url, "get", obj2, "json", fn);        
     
-    f.action = "${pageContext.request.contextPath}/kickmanage/repair"; 
-    f.submit();
+}
+
+
+
+
+function sendModelrepaircom() {
+	let chkrs1 = [];
+	$("input:checkbox[name='nums']:checked").each(function(){
+		chkrs1.push($(this).attr("value"));
+	});
+	
+	
+	$("#exampleModal3").modal('hide');
+	
+
+	
+	 let url = "${pageContext.request.contextPath}/kickmanage/repaircom";          
+	 let obj3 = {val : chkrs1};
+	 const fn = function(data) {
+		 console.log(data);
+		 location.href = "${pageContext.request.contextPath}/kickmanage/main";
+	};
+	   
+	ajaxFun(url, "get", obj3, "json", fn);        
     
 }
 
 
 function sendModeldamage() {
-		let chks =[];
+		let chks = [];
     	$("input:checkbox[name='nums']:checked").each(function(){
     		chks.push($(this).attr("value"));
     	});
     	
     	
-    	$("#exampleModal2").modal('hide');
-    		$.get("${pageContext.request.contextPath}/kickmanage/damage",
-    	            {val:chks},
-    	             function(data){
-    	            	console.log(chks);
-    	            }, "json")
+    	$("#exampleModal4").modal('hide');
+    	
     
+    	
+    	 let url = "${pageContext.request.contextPath}/kickmanage/damage";          
+    	 let obj = {val : chks};
+    	 const fn = function(data) {
+    		 console.log(data);
+    		 location.href = "${pageContext.request.contextPath}/kickmanage/main";
+		};
+    	   
+		ajaxFun(url, "get", obj, "json", fn);            
+    	            
+	
 }
 
 
@@ -120,11 +178,16 @@ function sendModeldamage() {
 	
 	<div class="col text-end ms-4 d-inline">
 		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+			data-bs-target="#exampleModal2">수리중신청</button>
+	</div>
+	
+	<div class="col text-end ms-4 d-inline">
+		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal3">수리완료신청</button>
 	</div>
 	<div class="col text-end ms-4 d-inline">
 		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal2">파손신청</button>
+			data-bs-target="#exampleModal4">파손신청</button>
 	</div>
 
 	<div class="mt-4">
@@ -135,6 +198,7 @@ function sendModeldamage() {
 					<th style="width: 20%">번호</th>
 					<th style="width: 20%">이름</th>
 					<th style="width: 20%">상태</th>
+					<th style="width: 20%">수리상태</th>
 					<th style="width: 20%">현황</th>
 				</tr>
 			</thead>
@@ -143,10 +207,11 @@ function sendModeldamage() {
 				<c:forEach var="dto" items="${list}" varStatus="status">
 					<tr>
 						<td class="text-center"><input type="checkbox" name="nums" value="${dto.kNum}"></td>
-												<td class="align-middle text-center">${dto.kNum}</td>
+						<td class="align-middle text-center">${dto.kNum}</td>
 						<td class="align-middle text-center">${dto.name}</td>
 						<td class="align-middle text-center">${dto.state}</td>
-						<td class="align-middle text-center">${rlist[status.index].condition}</td>
+						<td class="align-middle text-center">${dto.repairstate}</td>
+						<td class="align-middle text-center">${dto.condition}</td>
 						
 					</tr>
 				</c:forEach>
@@ -160,13 +225,13 @@ function sendModeldamage() {
 				<div class="col-auto p-1">
 					<select name="kickboard" class="form-select" style="width: 20%">
 						<option value="" ${condition==""?"selected='selected'":""}>선택</option>
-						<option value="damage"
-							${condition=="damage"?"selected='selected'":""}>파손</option>
+						<option value="normal"
+							${condition=="normal"?"selected='selected'":""}>정상</option>
 
 						<option value="repair"
-							${condition=="repair"?"selected='selected'":""}>수리중</option>
-						<option value="complete"
-							${condition=="complete"?"selected='selected'":""}>수리완료</option>
+							${condition=="repair"?"selected='selected'":""}>수리</option>
+						<option value="damage"
+							${condition=="damage"?"selected='selected'":""}>파손</option>
 					</select>
 					<button type="button" class="btn btn-light d-inline"
 						onclick="searchList()">
@@ -183,7 +248,7 @@ function sendModeldamage() {
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h1 class="modal-title fs-5" id="exampleModalLabel">킥보드 수리  신청</h1>
+						<h1 class="modal-title fs-5" id="exampleModalLabel">킥보드 수리 신청</h1>
 						<button type="button" class="btn-close" data-bs-dismiss="modal"
 							aria-label="Close"></button>
 					</div>
@@ -191,12 +256,7 @@ function sendModeldamage() {
 						<form name="modelrepairForm" action="" method="post"
 							class="row g-3">
 							<div class="mt-0">
-
-								<p class="form-control-plaintext">수리 신청할 제품번호 작성</p>
-							</div>
-							<div class="mt-0">
-								<input type="text" name="kNum" class="form-control"
-									placeholder="제품번호">
+								<p class="form-control-plaintext">선택하신 킥보드를 수리신청하시겠습니까?</p>
 							</div>
 						</form>
 					</div>
@@ -204,12 +264,38 @@ function sendModeldamage() {
 						<button type="button" class="btn"
 							data-bs-dismiss="modal">돌아가기</button>
 						<button type="button" class="btn bg-sub"
-							onclick="sendModelrepair();">확인</button>
+							onclick="sendModelrepairwait();">확인</button>
 					</div>
 				</div>
 			</div>
 		</div>
-
+      <div class="modal fade" id="exampleModal2" tabindex="-1"
+			aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">킥보드 입고 신청</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<form name="modeldamageForm" action="" method="post"
+							class="row g-3">
+							<div class="mt-0">
+								<p class="form-control-plaintext">선택하신 킥보드를 수리입고하시겠습니까?</p>
+							</div>
+							
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn"
+							data-bs-dismiss="modal">돌아가기</button>
+						<button type="button" class="btn bg-sub"
+							onclick="sendModelrepairing();">확인</button>
+					</div>
+				</div>
+			</div>
+		</div>
 
 
 					<div class="modal fade" id="exampleModal3" tabindex="-1"
@@ -225,27 +311,23 @@ function sendModeldamage() {
 						<form name="modeldamageForm" action="" method="post"
 							class="row g-3">
 							<div class="mt-0">
-
-								<p class="form-control-plaintext">수리완료 신청할 제품번호 작성</p>
+								<p class="form-control-plaintext">선택하신 킥보드를 수리완료하시겠습니까?</p>
 							</div>
-							<div class="mt-0">
-								<input type="text" name="kNum" class="form-control"
-									placeholder="제품번호">
-							</div>
+							
 						</form>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn"
 							data-bs-dismiss="modal">돌아가기</button>
 						<button type="button" class="btn bg-sub"
-							onclick="sendModeldamage();">확인</button>
+							onclick="sendModelrepaircom();">확인</button>
 					</div>
 				</div>
 			</div>
 		</div>
 
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal2" tabindex="-1"
+		<div class="modal fade" id="exampleModal4" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -257,9 +339,8 @@ function sendModeldamage() {
 					<div class="modal-body">
 						<form name="modeldamageForm" action="" method="post"
 							class="row g-3">
-							<div class="mt-0">
-
-								<p class="form-control-plaintext">선파손 신청할 제품번호 작성</p>
+						<div class="mt-0">
+								<p class="form-control-plaintext">선택하신 킥보드를 파손신청하시겠습니까?</p>
 							</div>
 						</form>
 					</div>

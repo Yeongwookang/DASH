@@ -32,18 +32,6 @@ public class KickmanageServiceImpl implements KickmanageService {
 
 
 
-	@Override
-	public List<Kickmanage> repairOrReturn() {
-		List<Kickmanage>  rlist = null;
-		
-		try {
-			rlist = dao.selectList("kickboardmanage.repairOrReturn");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return rlist;
-	}
 	
 	
 
@@ -90,6 +78,10 @@ public class KickmanageServiceImpl implements KickmanageService {
 
 
 
+
+
+
+
 	@Override
 	public void updatedamagekickBoard(Map<String, Object> map) throws Exception {
 		try {
@@ -103,10 +95,14 @@ public class KickmanageServiceImpl implements KickmanageService {
 
 
 
+
+
+
+
 	@Override
-	public void updaterepairkickBoard(Map<String, Object> map) throws Exception {
+	public void insertdamage(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("kickboardmanage.updateRepair", map);
+			dao.insertData("kickboardmanage.updatedamagerepair", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -116,8 +112,80 @@ public class KickmanageServiceImpl implements KickmanageService {
 
 
 
+
+
+
+
+	@Override
+	public void updatedamagekickBoardwait(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("kickboardmanage.repairwait", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public void insertrepairwait(Map<String, Object> map) throws Exception {
+		try {
+			dao.insertData("kickboardmanage.insertrepairwait", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public void updaterepairing(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("kickboardmanage.updateRepairing", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+
+
+
+
+
 	@Override
 	public void updaterepaircomkickBoard(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("kickboardmanage.updatekickCom", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public void updaterepaircom(Map<String, Object> map) throws Exception {
 		try {
 			dao.updateData("kickboardmanage.updateRepairCom", map);
 		} catch (Exception e) {
@@ -129,10 +197,14 @@ public class KickmanageServiceImpl implements KickmanageService {
 
 
 
+
+
+
+
 	@Override
-	public void insertdamage(Map<String, Object> map) throws Exception {
+	public void deletedamage(Map<String, Object> map) throws Exception {
 		try {
-			dao.insertData("kickboardmanage.insertdamage", map);
+			dao.deleteData("kickboardmanage.deletedamage");
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -140,29 +212,11 @@ public class KickmanageServiceImpl implements KickmanageService {
 		
 	}
 
-	@Override
-	public void insertrepair(Map<String, Object> map) throws Exception {
-		try {
-			dao.insertData("kickboardmanage.insertRepair", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-		
-	}
 
-
-	@Override
-	public void insertrepaircom(Map<String, Object> map) throws Exception {
-		try {
-			dao.insertData("kickboardmanage.insertRepairComs", map);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw e;
-		}
-		
-		
-	}
+   
+	
+	
+	
+	
 
 }

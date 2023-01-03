@@ -7,6 +7,7 @@ public class Kickmanage {
 	private int x_pos;
 	private int y_pos;
 	private String condition;
+	private String  repairstate;
 	
 	
 	public int getkNum() {
@@ -44,6 +45,12 @@ public class Kickmanage {
 	}
 	public void setCondition(String condition) {
 		this.condition = condition;
+	}
+	public String getRepairstate() {
+		return repairstate;
+	}
+	public void setRepairstate(String repairstate) {
+		this.repairstate = repairstate;
 	}
 
 

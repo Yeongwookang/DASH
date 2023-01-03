@@ -3,6 +3,85 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="insa">
 
+	<!-- 사원 등록 -->
+	<insert id="insertEmployee" parameterType="com.sp.app.employee.Employee">
+		INSERT INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0) 
+    </insert>
+    
+    <!-- 인사기록 -->
+    <insert id="insertPersonRecord" parameterType="com.sp.app.employee.Employee">
+		INSERT INTO person_record(pRecordNum, state, reg_date, rankNo, empNo, depNo, posNo, teamNo) 
+		VALUES (#{pRecordNum}, #{state}, SYSDATE, #{rankNo}, #{empNo}, #{depNo}, #{posNo}, #{teamNo}) 
+    </insert>
+        
+    
+    <update id="insertEmployee3" parameterType="com.sp.app.employee.Employee">
+		INSERT ALL
+		INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0) 
+		INTO person_record(pRecordNum, state, reg_date, rankNo, empNo, depNo, posNo, teamNo) 
+		VALUES (#{pRecordNum}, #{state}, SYSDATE, #{rankNo}, #{empNo}, #{depNo}, #{posNo}, #{teamNo}) 
+		SELECT * FROM dual     
+    </update>
+    
+    
+    
+    
+       
+       
+    <!-- 사원정보 조회 -->
+    <select id="readEmployee" parameterType="String" resultType="com.sp.app.employee.Employee">
+		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+			failure_cnt, register_date, modify_date, last_login, pr.depNo, depName, pr.posNo, posName, pr.rankNo, rankName, pr.teamNo, teamName
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN position p ON pr.posNo = p.posNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+        JOIN team t ON pr.teamNo = t.teamNo
+		WHERE e.empNo = #{empNo} AND pr.state = 1
+	</select>
+	
+	
+	<select id="readEmployee2" parameterType="String" resultType="com.sp.app.employee.Employee">
+		SELECT e.empNo, name, depName, rankName
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+		WHERE e.empNo = #{empNo} AND pr.state = 1
+	</select>
+	
+	
+	<!-- 사원정보 수정  --> 
+    <update id="updateEmployeeEnabled" parameterType="map">
+		UPDATE employee SET enabled=#{enabled} WHERE empNo=#{empNo}
+    </update>
+    
+    <update id="updateEmployee1" parameterType="com.sp.app.employee.Employee">
+		UPDATE employee SET pwd=#{pwd}, modify_date=SYSDATE
+		WHERE empNo=#{empNo}
+    </update>
+    
+    <update id="updateEmployee2" parameterType="com.sp.app.employee.Employee">
+		UPDATE employee SET thumbnail=#{thumbnail, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
+			tel=#{tel, jdbcType=VARCHAR}, email=#{email, jdbcType=VARCHAR}, 
+			addr=#{addr, jdbcType=VARCHAR}
+		WHERE empNo=#{empNo}
+    </update>
+    
+   
+    <!-- 회원 상태 -->
+    <select id="employeeState_seq" resultType="Long">
+       SELECT employeeState_seq.NEXTVAL FROM dual 
+    </select>
+    
+    <!-- 사원정보 삭제  -->    
+    <delete id="deleteEmployee" parameterType="String">
+		DELETE FROM employee WHERE empNo=#{empNo}
+    </delete>
+    
 
 
 </mapper>

@@ -3,24 +3,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kickboardmanage">
 	 <select id="listKickboard" resultType="com.sp.app.kickmanage.Kickmanage">
-	  SELECT kNum, name, state FROM kickboard
-      WHERE state != '수리'
-      UNION
-      SELECT  r.kNum, name,  r.state
-      FROM REPAIR r
-      JOIN KICKBOARD k ON r.kNum = k.kNum
+	SELECT * FROM(
+	SELECT * FROM (
+    SELECT RANK() OVER(PARTITION BY k.kNum ORDER BY rental_date DESC) rank,
+       k.kNum, k.name,  k.state state, rp.state repairstate ,rental_date, NVL2(r2.recordNum, '반납완료', NVL2(r.recordNum, '대여중', '이력없음')) condition
+    FROM kickboard k
+    left outer JOIN usageRecord u ON k.kNum = u.kNum
+    LEFT OUTER JOIN rental r  ON u.recordNum = r.recordNum
+    LEFT OUTER JOIN return r2  ON u.recordNum = r2.recordNum
+    LEFT OUTER JOIN repair rp On k.kNum = rp.kNum
+    ) WHERE rank = 1 )
+    	<where>
+			<if test="condition!= null">
+				<include refid="where-list"/>
+			</if>
+		</where>	
 	 </select>
 	 
-	 <select id="repairOrReturn" resultType="com.sp.app.kickmanage.Kickmanage">
-	((SELECT kNum , '반납' as condition FROM KICKBOARD)
-	MINUS 
-	(SELECT kNum, '반납' as condition FROM USAGERECORD WHERE distance is null)
-	union all
-	(SELECT kNum, '대여' as condition FROM USAGERECORD WHERE distance is null))
-	order by kNum
-	 </select>
-	 
-	 
+	
+	
+ <sql id="where-list">
+		<choose>
+			<when test="condition == 'normal' ">
+             STATE = '정상'
+			</when>
+			<when test="condition == 'repair' ">
+			    STATE = '수리'
+			</when>
+			<when test="condition == 'damage'">
+			   STATE = '파손'
+			</when>
+		</choose>
+	</sql>
+	
+	
+	
 	 <select id="damagedkickboard" resultType="map">
 	 SELECT kNum, state
 	FROM kickboard 
@@ -46,34 +63,44 @@
 	 
 	 
 	  <!-- 파손 -->
-	 <update id="updatedamage" parameterType="map">
-	 UPDATE kickboard SET state = '파손' WHERE  kNum = #{kNum}
-	 </update>
-	
+
 	 
 	 <insert id="insertdamage" parameterType="map">
 	 INSERT INTO damage (dmgNum, reg_date, kNum ) VALUES (DAMAGE_SEQ.NEXTVAL, SYSDATE, #{kNum})
 	 </insert>
+
+	 <update id="updatedamage" parameterType="map">
+	 UPDATE kickboard SET state = '파손' WHERE  kNum = #{kNum}
+	 </update>
+	
+	
+     <update id="updatedamagerepair" parameterType="map">
+	 UPDATE repair SET state = '' WHERE  kNum = #{kNum}
+	 </update>
+	
 	 
-	<!-- 수리중 -->
-	 <update id="updateRepair" parameterType="map">
+	 <!-- 수리대기 -->
+	 <update id="repairwait" parameterType="map">
 	 UPDATE kickboard SET state = '수리' WHERE  kNum = #{kNum}
 	 </update>
 	
-	 <insert id="insertRepair" parameterType="map">
-	 INSERT INTO repair (repairNum, state, reg_date, kNum) VALUES (REPAIR_SEQ.NEXTVAL, '수리중', SYSDATE, #{kNum} )
+	 <insert id="insertrepairwait" parameterType="map">
+	 INSERT INTO repair (repairNum, state, reg_date, kNum) VALUES (REPAIR_SEQ.NEXTVAL, '수리대기', SYSDATE, #{kNum} )
 	 </insert>
 	 
+	<!-- 입고 -->
+	<update id="updateRepairing" parameterType="map">
+	 UPDATE repair SET state = '입고' WHERE  kNum = #{kNum} AND state = '수리대기'
+	 </update>
+
 	 <!-- 수리완료 -->
-	 	 <update id="updateRepairCom" parameterType="map">
-	  UPDATE kickboard SET state = '수리' WHERE  kNum = #{kNum}
+	  <update id="updatekickCom" parameterType="map">
+	  UPDATE kickboard SET state = '정상' WHERE  kNum = #{kNum}
 	 </update>
 	
-	 <insert id="insertRepairCom" parameterType="map">
-	 INSERT INTO repair (repairNum, state, due_date, kNum) VALUES (REPAIR_SEQ.NEXTVAL, '수리완료', SYSDATE, #{kNum} )
-	 </insert>
-	 
-	 
+	  <update id="updateRepairCom" parameterType="map">
+	  UPDATE repair SET state = '수리완료' WHERE  kNum = #{kNum} AND state = '입고'
+	 </update>
 	 
 
 	 

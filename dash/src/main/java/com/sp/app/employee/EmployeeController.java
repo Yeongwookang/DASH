@@ -82,12 +82,12 @@ public class EmployeeController {
 			reAttr.addFlashAttribute("title", "사원 탈퇴");
 			reAttr.addFlashAttribute("message", sb.toString());
 			
-			return "redirect:/employee/complete";
+			return "redirect:/insa/complete";
 		}
 		
 		model.addAttribute("dto", dto);
 		model.addAttribute("mode", "update");
-		return ".employee.employee";
+		return ".insa.main";
 	}
 	
 	

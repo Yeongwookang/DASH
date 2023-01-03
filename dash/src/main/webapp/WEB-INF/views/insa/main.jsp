@@ -10,20 +10,20 @@
 </style>
 
 <script type="text/javascript">
-	function memberOk() {
-		const f = document.main;
-		let str;
+	function employeeOk() {
+		const f = document.mainForm;
+		let str = [];
 
 		str = f.empNo.value;
-		if (!/^[a-z][a-z0-9_]{4,9}$/i.test(str)) {
-			alert("아이디를 다시 입력 하세요. ");
-			f.userId.focus();
+		if (!/^[0-9_]+$/i.test(str)) {
+			alert("사원번호를 다시 입력 하세요. ");
+			f.empNo.focus();
 			return;
 		}
-
+		
 		let mode = "${mode}";
-		if (mode === "member" && f.empNoValid.value === "false") {
-			str = "아이디 중복 검사가 실행되지 않았습니다.";
+		if (mode === "employee" && f.empNoValid.value === "false") {
+			str = "사원번호 중복 검사가 실행되지 않았습니다.";
 			$("#empNo").parent().find(".help-block").html(str);
 			f.empNo.focus();
 			return;
@@ -91,8 +91,14 @@
 			return;
 		}
 
-		f.action = "${pageContext.request.contextPath}/main/${mode}";
-		f.submit();
+		let url = "${pageContext.request.contextPath}/insa/main";
+		let obj2 = [val : str];
+		const fn = function (data) {
+			console.log(data);
+			location.href = "${pageContext.request.contextPath}/insa/main";
+		}
+		ajaxFun(url, "post", obj2, "json", fn)
+		
 	}
 
 	function changeEmail() {
@@ -113,7 +119,7 @@
 	function changeDepNo() {
 		const f = document.main;
 
-		let str = f.selectDept.value;
+		let str = f.deptNoselect.value;
 		if (str !== "direct") {
 			f.email2.value = str;
 			f.email2.readOnly = true;
@@ -127,9 +133,9 @@
 
 	function empNoCheck() {
 		// 아이디 중복 검사
-		let userId = $("#empNo").val();
+		let empNo = $("#empNo").val();
 
-		if (!/^[a-z][a-z0-9_]{4,9}$/i.test(empNo)) {
+		if (!/^[[0-9_]+$/i.test(empNo)) {
 			let str = "아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.";
 			$("#empNo").focus();
 			$("#empNo").parent().find(".help-block").html(str);
@@ -162,7 +168,7 @@
 			}
 		});
 	}
-	
+
 	function searchList() {
 		const f = document.searchForm;
 		f.submit();
@@ -170,8 +176,8 @@
 
 	function changeList() {
 		let categoryNum = $("#changeCategory").val();
-		let productShow = $("#changeShowEmployee").val();
-		
+		let employeeShow = $("#changeShowEmployee").val();
+
 		const f = document.searchForm;
 		f.categoryNum.value = categoryNum;
 		f.employeeShow.value = employeeShow;
@@ -184,9 +190,10 @@
 	<div class="justify-content-start">
 		<span>| 사원관리</span>
 		<div class="mt-1" style="float: right; padding-right: 5%">
-			<button type="button" class="btn btn1 bg-sub">${mode=="member"?"등록":"수정"}</button>
+			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="main"?"등록":"수정"}</button>
 			<button type="button" class="btn btn1 bg-sub">저장</button>
 			<button type="button" class="btn btn1 bg-sub">삭제</button>
+			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>
 </div>
@@ -202,22 +209,25 @@
 							action="${pageContext.request.contextPath}/insa/main"
 							method="post">
 							<div class="col-auto">
-								<select class="form-select form-select-sm" aria-label="Default select example">
+								<select class="form-select form-select-sm"
+									aria-label="Default select example">
 									<option selected>찾기</option>
 									<option value="1" ${col=="empNo"?"selected='selected'":""}>사번</option>
 									<option value="2" ${col=="name"?"selected='selected'":""}>이름</option>
-									<option value="3" ${col=="depNo"?"selected='selected'":""}>부서</option>
-									<option value="4" ${col=="rankNo"?"selected='selected'":""}>직급</option>
+									<option value="3" ${col=="depName"?"selected='selected'":""}>부서</option>
+									<option value="4" ${col=="rankName"?"selected='selected'":""}>직급</option>
 								</select>
 							</div>
 							<div class="col-auto">
-								<input type="text" name="kw" value="${kw}" class="form-control form-select-sm">
-								<input type="hidden" name="size" value="${size}"> <input
+								<input type="text" name="kw" value="${kw}"
+									class="form-control form-select-sm"> <input
+									type="hidden" name="size" value="${size}"> <input
 									type="hidden" name="categoryNum" value="${categoryNum}">
 								<input type="hidden" name="employeeShow" value="${employeeShow}">
 							</div>
 							<div class="col-auto">
-								<button type="submit" class="btn bg-sub btn-sm" onclick="searchList()">
+								<button type="submit" class="btn bg-sub btn-sm"
+									onclick="searchList()">
 									<i class="bi bi-search"></i>검색
 								</button>
 							</div>
@@ -234,7 +244,6 @@
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th scope="col">구분</th>
 								<th scope="col">사원번호</th>
 								<th scope="col">이름</th>
 								<th scope="col">부서</th>
@@ -244,7 +253,6 @@
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="status">
 								<tr>
-									<th>${dataCount - (page-1) * size - status.index}</th>
 									<td>${dto.empNo}</td>
 									<td>${dto.name}</td>
 									<td>${dto.deptNo}</td>
@@ -255,8 +263,6 @@
 					</table>
 				</div>
 
-				<div class="page-navigation mt-5 ">
-					${dataCount}개(${page}/${total_page} 페이지)</div>
 			</div>
 		</div>
 
@@ -265,275 +271,274 @@
 			<div class="card">
 				<div class="card-header bg-sub text-start">기본정보</div>
 				<div class="card-body">
-					<div class="d-flex justify-content-between">
-						<div class="mt-2" style="width: 70%">
+					<form name="mainForm" method="post">
+						<div class="d-flex justify-content-between">
+							<div class="mt-2" style="width: 70%">
 
-							<div class="d-flex justify-content-evenly">
-								<div style="width: 45%">
-									<div class="row g-2 mt-2">
-										<label class="col-sm-3 col-form-label" for="depNoSelect">부서
-										</label>
-										<div class="col-sm-6">
-											<select name="depNoSelect" id="depNoSelect"
-												class="form-select form-select-sm" onchange="changeDepNo()"
-												aria-label=".form-select-sm-5">
-												<option selected>부서</option>
-												<option value="1"
-													${dto.depNo=="인사" ? "selected='selected'" : ""}>경영지원</option>
-												<option value="2"
-													${dto.depNo=="개발" ? "selected='selected'" : ""}>운영</option>
-												<option value="3"
-													${dto.depNo=="영업" ? "selected='selected'" : ""}>기획</option>
-												<option value="4"
-													${dto.depNo=="마케팅" ? "selected='selected'" : ""}>개발</option>
+								<div class="d-flex justify-content-evenly">
+									<div style="width: 45%">
+										<div class="row g-2 mt-2">
+											<label class="col-sm-3 col-form-label" for="depNoSelect">부서
+											</label>
+											<div class="col-sm-6">
+												<select name="depNoSelect" id="depNoSelect"
+													class="form-select form-select-sm" onchange="changeDepNo()"
+													aria-label=".form-select-sm-5">
+													<option selected>부서</option>
+													<option value="1"
+														${dto.depNo=="인사" ? "selected='selected'" : ""}>경영지원</option>
+													<option value="2"
+														${dto.depNo=="개발" ? "selected='selected'" : ""}>운영</option>
+													<option value="3"
+														${dto.depNo=="영업" ? "selected='selected'" : ""}>기획</option>
+													<option value="4"
+														${dto.depNo=="마케팅" ? "selected='selected'" : ""}>개발</option>
 
-											</select>
+												</select>
+											</div>
 										</div>
+
+										<div class="row g-2 mt-2">
+											<label class="col-sm-3 col-form-label" for="selectPos">직책
+											</label>
+											<div class="col-sm-6">
+												<select name="selectRank" id="selectPos"
+													class="form-select form-select-sm" onchange="changePos()"
+													aria-label=".form-select-sm-5">
+													<option selected>직책</option>
+													<option value="1"
+														${dto.posNo=="팀장" ? "selected='selected'" : ""}>팀장</option>
+													<option value="2"
+														${dto.posNo=="실장" ? "selected='selected'" : ""}>실장</option>
+													<option value="3"
+														${dto.posNo=="본부장" ? "selected='selected'" : ""}>본부장</option>
+													<option value="4"
+														${dto.posNo=="파트장" ? "selected='selected'" : ""}>파트장</option>
+													<option value="5"
+														${dto.posNo=="매니저" ? "selected='selected'" : ""}>매니저</option>
+
+												</select>
+											</div>
+										</div>
+
+
 									</div>
 
-									<div class="row g-2 mt-2">
-										<label class="col-sm-3 col-form-label" for="selectPos">직책
-										</label>
-										<div class="col-sm-6">
-											<select name="selectRank" id="selectPos"
-												class="form-select form-select-sm" onchange="changePos()"
-												aria-label=".form-select-sm-5">
-												<option selected>직책</option>
-												<option value="1"
-													${dto.posNo=="팀장" ? "selected='selected'" : ""}>팀장</option>
-												<option value="2"
-													${dto.posNo=="실장" ? "selected='selected'" : ""}>실장</option>
-												<option value="3"
-													${dto.posNo=="본부장" ? "selected='selected'" : ""}>본부장</option>
-												<option value="4"
-													${dto.posNo=="파트장" ? "selected='selected'" : ""}>파트장</option>
-												<option value="5"
-													${dto.posNo=="매니저" ? "selected='selected'" : ""}>매니저</option>
+									<div style="width: 55%">
 
-											</select>
+										<div class="row g-2 mt-2">
+											<label class="col-sm-3 col-form-label" for="selectTeam">팀
+											</label>
+											<div class="col-sm-5">
+												<select name="selectTeam" id="selectTeam"
+													class="form-select form-select-sm" onchange="changeTeam()"
+													aria-label=".form-select-sm-5">
+													<option selected>팀</option>
+													<option value="1"
+														${dto.team=="총괄" ? "selected='selected'" : ""}>총괄</option>
+												</select>
+											</div>
+										</div>
+
+										<div class="row g-2 mt-2">
+
+											<label class="col-sm-3 col-form-label" for="selectRank">직급
+											</label>
+											<div class="col-sm-5">
+												<select name="selectRank" id="selectRank"
+													class="form-select form-select-sm" onchange="changeRank()"
+													aria-label=".form-select-sm-5">
+													<option selected>직급</option>
+													<option value="1"
+														${dto.rank=="사원" ? "selected='selected'" : ""}>사원</option>
+													<option value="2"
+														${dto.rank=="주임" ? "selected='selected'" : ""}>주임</option>
+													<option value="3"
+														${dto.rank=="대리" ? "selected='selected'" : ""}>대리</option>
+													<option value="4"
+														${dto.rank=="과장" ? "selected='selected'" : ""}>과장</option>
+													<option value="5"
+														${dto.rank=="차장" ? "selected='selected'" : ""}>차장</option>
+													<option value="6"
+														${dto.rank=="부장" ? "selected='selected'" : ""}>부장</option>
+													<option value="7"
+														${dto.rank=="이사" ? "selected='selected'" : ""}>이사</option>
+													<option value="8"
+														${dto.rank=="상무" ? "selected='selected'" : ""}>상무</option>
+													<option value="9"
+														${dto.rank=="전무" ? "selected='selected'" : ""}>전무</option>
+													<option value="10"
+														${dto.rank=="사장" ? "selected='selected'" : ""}>사장</option>
+
+												</select>
+											</div>
 										</div>
 									</div>
-
-
 								</div>
 
-								<div style="width: 55%">
 
-									<div class="row g-2 mt-2">
-										<label class="col-sm-3 col-form-label" for="selectTeam">팀
-										</label>
+								<div class="row g-2 mt-3">
+									<div class="col-sm-15 input-group">
+										<label class="col-sm-3 col-form-label" for="empNo">사&nbsp;&nbsp;&nbsp;번</label>
+										<div class="col-sm-3">
+											<input type="text" name="empNo" id="empNo"
+												class="form-control" placeholder="사원번호">
+										</div>
+										<div class="col-3 ps-1">
+											<c:if test="${mode=='main'}">
+												<button type="button" class="btn btn-sm"
+													onclick="empNoCheck();">사번중복검사</button>
+											</c:if>
+										</div>
+									</div>
+								</div>
+
+								<div class="row g-2 mt-2">
+									<div class="col-sm-15 input-group">
+										<label class="col-sm-3 col-form-label" for="name">이&nbsp;&nbsp;&nbsp;름</label>
+										<div class="col-sm-3">
+											<input type="text" name="name" id="name" class="form-control"
+												value="${dto.name}"
+												${mode=="update" ? "readonly='readonly' ":""}
+												placeholder="이름">
+										</div>
+									</div>
+								</div>
+
+								<div class="row g-2 mt-2">
+									<div class="col-sm-12 input-group">
+										<label class="col-sm-3 col-form-label" for="birth">생년월일</label>
 										<div class="col-sm-5">
-											<select name="selectTeam" id="selectTeam"
-												class="form-select form-select-sm" onchange="changeTeam()"
-												aria-label=".form-select-sm-5">
-												<option selected>팀</option>
-												<option value="1"
-													${dto.team=="총괄" ? "selected='selected'" : ""}>총괄</option>
-											</select>
-										</div>
-									</div>
-
-									<div class="row g-2 mt-2">
-
-										<label class="col-sm-3 col-form-label" for="selectRank">직급
-										</label>
-										<div class="col-sm-5">
-											<select name="selectRank" id="selectRank"
-												class="form-select form-select-sm" onchange="changeRank()"
-												aria-label=".form-select-sm-5">
-												<option selected>직급</option>
-												<option value="1"
-													${dto.rank=="사원" ? "selected='selected'" : ""}>사원</option>
-												<option value="2"
-													${dto.rank=="주임" ? "selected='selected'" : ""}>주임</option>
-												<option value="3"
-													${dto.rank=="대리" ? "selected='selected'" : ""}>대리</option>
-												<option value="4"
-													${dto.rank=="과장" ? "selected='selected'" : ""}>과장</option>
-												<option value="5"
-													${dto.rank=="차장" ? "selected='selected'" : ""}>차장</option>
-												<option value="6"
-													${dto.rank=="부장" ? "selected='selected'" : ""}>부장</option>
-												<option value="7"
-													${dto.rank=="이사" ? "selected='selected'" : ""}>이사</option>
-												<option value="8"
-													${dto.rank=="상무" ? "selected='selected'" : ""}>상무</option>
-												<option value="9"
-													${dto.rank=="전무" ? "selected='selected'" : ""}>전무</option>
-												<option value="10"
-													${dto.rank=="사장" ? "selected='selected'" : ""}>사장</option>
-
-											</select>
+											<input type="date" name="birth" id="birth"
+												class="form-control" value="${dto.birth}" placeholder="생년월일">
 										</div>
 									</div>
 								</div>
 							</div>
 
 
-							<div class="row g-2 mt-3">
-								<div class="col-sm-15 input-group">
-									<label class="col-sm-2 col-form-label" for="empNo">사번</label>
-									<div class="col-sm-3">
-										<input type="text" name="empNo" id="empNo"
-											class="form-control" placeholder="사원번호">
-									</div>
-									<div class="col-3 ps-1">
-										<c:if test="${mode=='member'}">
-											<button type="button" class="btn btn-sm"
-												onclick="userIdCheck();">사번중복검사</button>
-										</c:if>
-									</div>
+							<div class="mt-3" style="width: 30%">
+
+								<a><img class="img-thumbnail"
+									src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
+								<div>
+									<input class="col-auto" type="file" id="exampleInputFile">
 								</div>
+
 							</div>
 
-							<div class="row g-2 mt-2">
-								<div class="col-sm-15 input-group">
-									<label class="col-sm-2 col-form-label" for="name">이름</label>
-									<div class="col-sm-3">
-										<input type="text" name="name" id="name" class="form-control"
-											value="${dto.userName}"
-											${mode=="update" ? "readonly='readonly' ":""}
-											placeholder="이름">
-									</div>
-								</div>
-							</div>
+						</div>
 
-							<div class="row g-2 mt-2">
-								<div class="col-sm-15 input-group">
-									<label class="col-sm-2 col-form-label" for="birth">생년월일</label>
-									<div class="col-sm-5">
-										<input type="date" name="birth" id="birth"
-											class="form-control" value="${dto.birth}" placeholder="생년월일">
-									</div>
+
+						<div class="row g-2 mt-3">
+							<div class="col-sm-15 input-group">
+								<label class="col-sm-2 col-form-label" for="email">이메일</label>
+								<div class="col-sm-4">
+									<input type="text" name="email1" class="form-control sm-6"
+										maxlength="30" value="${dto.email1}">
+								</div>
+								<div>
+									<span class="input-group-text p-1"
+										style="border: none; background: none;">@</span>
+								</div>
+								<div class="col-sm-4">
+									<input type="text" name="email2" class="form-control sm-6"
+										maxlength="30" value="${dto.email2}">
 								</div>
 							</div>
 						</div>
 
 
-						<div class="mt-3" style="width: 30%">
-
-							<a><img class="img-thumbnail"
-								src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
-							<div>
-								<input class="col-auto" type="file" id="exampleInputFile">
+						<div class="row g-2 mt-4">
+							<div class="col-sm-10 input-group">
+								<label class="col-sm-2 col-form-label" for="tel">연락처</label>
+								<div class="col-sm-3">
+									<input type="text" name="tel1" class="form-control"
+										maxlength="20" value="${dto.tel1}">
+								</div>
+								<div>
+									<span class="input-group-text p-1"
+										style="border: none; background: none;">-</span>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" name="tel2" class="form-control"
+										maxlength="20" value="${dto.tel2}">
+								</div>
+								<div>
+									<span class="input-group-text p-1"
+										style="border: none; background: none;">-</span>
+								</div>
+								<div class="col-sm-3">
+									<input type="text" name="tel3" class="form-control"
+										maxlength="20" value="${dto.tel3}">
+								</div>
 							</div>
 
 						</div>
 
-					</div>
 
 
-					<div class="row g-2 mt-3">
-						<div class="col-sm-15 input-group">
-							<label class="col-sm-2 col-form-label" for="email">이메일</label>
+						<div class="row g-3 mt-2">
+							<label class="col-sm-2 col-form-label" for="startDate">입사일</label>
 							<div class="col-sm-4">
-								<input type="text" name="email1" class="form-control sm-6"
-									maxlength="30" value="${dto.email1}">
+								<input type="date" name="startDate" id="startDate"
+									class="form-control" value="${dto.startDate}"
+									placeholder="입사일">
 							</div>
-							<div>
-								<span class="input-group-text p-1"
-									style="border: none; background: none;">@</span>
-							</div>
+						</div>
+
+						<div class="row g-3 mt-2">
+							<label class="col-sm-2 col-form-label" for="endDate">퇴사일</label>
 							<div class="col-sm-4">
-								<label>dash.com</label>
-							</div>
-						</div>
-					</div>
-
-
-					<div class="row g-2 mt-4">
-						<div class="col-sm-10 input-group">
-							<label class="col-sm-2 col-form-label" for="tel">연락처</label>
-							<div class="col-sm-3">
-								<input type="text" name="tel1" class="form-control"
-									maxlength="20" value="${dto.tel1}">
-							</div>
-							<div>
-								<span class="input-group-text p-1"
-									style="border: none; background: none;">-</span>
-							</div>
-							<div class="col-sm-3">
-								<input type="text" name="tel2" class="form-control"
-									maxlength="20" value="${dto.tel2}">
-							</div>
-							<div>
-								<span class="input-group-text p-1"
-									style="border: none; background: none;">-</span>
-							</div>
-							<div class="col-sm-3">
-								<input type="text" name="tel3" class="form-control"
-									maxlength="20" value="${dto.tel3}">
+								<input type="date" name="endDate" id="endDate"
+									class="form-control" value="${dto.endDate}" placeholder="퇴사일">
 							</div>
 						</div>
 
-					</div>
-
-
-
-					<div class="row g-3 mt-2">
-						<label class="col-sm-2 col-form-label" for="startDate">입사일</label>
-						<div class="col-sm-4">
-							<input type="date" name="startDate" id="startDate"
-								class="form-control" value="${dto.startDate}" placeholder="생년월일">
-						</div>
-					</div>
-
-					<div class="row g-3 mt-2">
-						<label class="col-sm-2 col-form-label" for="endDate">퇴사일</label>
-						<div class="col-sm-4">
-							<input type="date" name="endDate" id="endDate"
-								class="form-control" value="${dto.endDate}" placeholder="퇴사일">
-						</div>
-
-						<div class="col-sm-1 mt-4">
-							<input type="checkbox" value="" id="flexCheckDefault"> <label
-								class="form-check-label" for="flexCheckDefault"> 퇴사 </label>
-						</div>
-					</div>
-
-					<div class="row g-3 mt-2">
-						<label class="col-sm-2 col-form-label" for="zip">우편번호</label>
-						<div class="col-sm-5">
-							<div class="input-group">
-								<input type="text" name="zip" id="zip" class="form-control"
-									placeholder="우편번호" value="${dto.zip}" readonly="readonly">
-								<button class="btn btn-light" type="button"
-									style="margin-left: 3px;" onclick="daumPostcode();">우편번호
-									검색</button>
+						<div class="row g-3 mt-2">
+							<label class="col-sm-2 col-form-label" for="zip">우편번호</label>
+							<div class="col-sm-5">
+								<div class="input-group">
+									<input type="text" name="zip" id="zip" class="form-control"
+										placeholder="우편번호" value="${dto.zip}" readonly="readonly">
+									<button class="btn btn-light" type="button"
+										style="margin-left: 3px;" onclick="daumPostcode();">우편번호
+										검색</button>
+								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="row g-3 mt-2">
-						<label class="col-sm-2 col-form-label" for="addr1">주소</label>
-						<div class="col-sm-10">
-							<div>
-								<input type="text" name="addr1" id="addr1" class="form-control"
-									placeholder="기본 주소" value="${dto.addr1}" readonly="readonly">
+						<div class="row g-3 mt-2">
+							<label class="col-sm-2 col-form-label" for="addr1">주소</label>
+							<div class="col-sm-10">
+								<div>
+									<input type="text" name="addr1" id="addr1" class="form-control"
+										placeholder="기본 주소" value="${dto.addr1}" readonly="readonly">
+								</div>
+								<div style="margin-top: 5px;">
+									<input type="text" name="addr2" id="addr2" class="form-control"
+										placeholder="상세 주소" value="${dto.addr2}">
+								</div>
 							</div>
-							<div style="margin-top: 5px;">
-								<input type="text" name="addr2" id="addr2" class="form-control"
-									placeholder="상세 주소" value="${dto.addr2}">
+						</div>
+
+						<div class="row mt-4">
+							<label class="col-sm-2 col-form-label" for="pwd">비밀번호</label>
+							<div class="col-sm-5">
+								<input type="password" name="pwd" id="pwd" class="form-control"
+									autocomplete="off" placeholder="비밀번호">
 							</div>
 						</div>
-					</div>
 
-					<div class="row mt-4">
-						<label class="col-sm-2 col-form-label" for="pwd">비밀번호</label>
-						<div class="col-sm-5">
-							<input type="password" name="pwd" id="pwd" class="form-control"
-								autocomplete="off" placeholder="비밀번호">
+						<div class="row mt-2">
+							<label class="col-sm-2 col-form-label" for="pwd2">비밀번호 확인</label>
+							<div class="col-sm-5">
+								<input type="password" name="pwd2" id="pwd2"
+									class="form-control" autocomplete="off" placeholder="비밀번호 확인">
+								<small class="form-control-plaintext">비밀번호를 한번 더 입력해주세요.</small>
+							</div>
 						</div>
-					</div>
-
-					<div class="row mt-2">
-						<label class="col-sm-2 col-form-label" for="pwd2">비밀번호 확인</label>
-						<div class="col-sm-5">
-							<input type="password" name="pwd2" id="pwd2" class="form-control"
-								autocomplete="off" placeholder="비밀번호 확인"> <small
-								class="form-control-plaintext">비밀번호를 한번 더 입력해주세요.</small>
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
