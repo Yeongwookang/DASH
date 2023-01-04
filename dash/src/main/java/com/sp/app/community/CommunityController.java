@@ -1,8 +1,6 @@
 package com.sp.app.community;
 
 import java.math.BigDecimal;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +33,6 @@ public class CommunityController {
 	@RequestMapping(value = "main")
 	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
 		@RequestParam(defaultValue = "all") String condition,
-		@RequestParam(defaultValue = "") String keyword,
 		HttpServletRequest req,
 		Model model) throws Exception {
 		
@@ -43,13 +40,8 @@ public class CommunityController {
 		int total_page = 0;
 		int dataCount = 0;
 		
-		if(req.getMethod().equalsIgnoreCase("GET")) {
-			keyword = URLDecoder.decode(keyword, "utf-8");
-		}
-		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
-		map.put("keyword", keyword);
 		
 		dataCount = service.dataCount(map);
 		if(dataCount != 0) {
@@ -72,8 +64,8 @@ public class CommunityController {
 		String query = "";
 		String listUrl = cp + "/community/main";
 		String articleUrl = cp + "/community/article?page=" + current_page;
-		if(keyword.length() != 0) {
-			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+		if(condition.length() != 0) {
+			query = "condition=" + condition;
 		}
 		
 		if(query.length() != 0) {
@@ -83,7 +75,6 @@ public class CommunityController {
 		
 		String paging = myUtil.paging(current_page, total_page, listUrl);
 		
-		model.addAttribute("keyword", keyword);
 		model.addAttribute("condition", condition);
 		
 		model.addAttribute("list", list);
@@ -109,7 +100,6 @@ public class CommunityController {
 		SessionInfo info = (SessionInfo) session.getAttribute("employee");
 
 		try {
-			
 			dto.setEmpNo(info.getEmpNo());
 			service.insertCommunity(dto);
 			
@@ -123,15 +113,13 @@ public class CommunityController {
 	public String article(@RequestParam long num,
 			@RequestParam String page,
 			@RequestParam(defaultValue = "all") String condition,
-			@RequestParam(defaultValue = "") String keyword,
 			HttpSession session,
 			Model model) throws Exception {
 		SessionInfo info = (SessionInfo)session.getAttribute("employee");
-		keyword = URLDecoder.decode(keyword, "utf-8");
 		
 		String query = "page=" + page;
-		if(keyword.length() != 0) {
-			query += "&condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+		if(condition.length() != 0) {
+			query += "&condition=" + condition;
 		}
 		
 		Community dto = service.readCommunity(num);

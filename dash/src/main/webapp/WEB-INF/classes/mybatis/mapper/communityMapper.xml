@@ -10,20 +10,24 @@
 	
 	<sql id="where-list">
 		<choose>
-			<when test="condition == 'all' ">
-			   ( INSTR(subject, #{keyword}) &gt; 0
-		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			<when test="condition == 'organization' ">
+             	c.categoryNum = 1
 			</when>
-			<when test="condition == 'reg_date' ">
-			   ( TO_CHAR(reg_date, 'YYYYMMDD') = #{keyword}
-		          OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{keyword} )
+			<when test="condition == 'welfare' ">
+			    c.categoryNum = 2
 			</when>
-			<when test="condition == 'content'">
-			    DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			<when test="condition == 'unfair'">
+			    c.categoryNum = 3
 			</when>
-			<otherwise>
-			    INSTR(${condition}, #{keyword}) &gt; 0
-			</otherwise>
+			<when test="condition == 'work'">
+			    c.categoryNum = 4
+			</when>
+			<when test="condition == 'management'">
+			    c.categoryNum = 5
+			</when>
+			<when test="condition == 'other'">
+			    c.categoryNum = 6
+			</when>
 		</choose>
 	</sql>
 	
@@ -31,8 +35,9 @@
 		SELECT NVL(COUNT(*), 0)
 		FROM community c
 		JOIN employee e ON c.empNo = e.empNo
+		JOIN communityCategory co ON c.categoryNum = co.categoryNum
 		<where>
-			<if test="keyword != null and keyword != ''">
+			<if test="condition != null">
 				<include refid="where-list"/>
 			</if>
 		</where>
@@ -58,7 +63,7 @@
 		) bbb ON c.num = bbb.num
 		JOIN communityCategory co ON c.categoryNum = co.categoryNum
 		<where>
-			<if test="keyword != null and keyword != ''">
+			<if test="condition != null">
 				<include refid="where-list"/>
 			</if> AND state = 1
 		</where>

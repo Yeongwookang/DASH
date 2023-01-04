@@ -28,7 +28,7 @@ function searchList() {
 										<a href="${articleUrl}&num=${dto.num}" class="text-reset underline communitySubject">
 											비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span>
 											<c:if test="${dto.replyDepCount != 0 }">
-												<span class="answer-complete2 p-1">답변 완료</span>&nbsp;&nbsp;
+												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
 											</c:if>
 											</a>
 									</td> 
@@ -42,7 +42,7 @@ function searchList() {
 										<a href="#" class="text-reset underline communitySubject">
 											비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span>
 											<c:if test="${dto.replyDepCount != 0 }">
-												<span class="answer-complete2 p-1">답변 완료</span>&nbsp;&nbsp;
+												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
 											</c:if>
 										</a>
 									</td>
@@ -78,20 +78,19 @@ function searchList() {
 			${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}
 		</div> 
 	
-		<form name="searchForm" action="${pageContext.request.contextPath}/notice/main" method="post" class="mt-5">
+		<form name="searchForm" action="${pageContext.request.contextPath}/community/main" method="post" class="mt-5">
 			<div class="d-flex justify-content-center m-auto">   		
 				<div class="p-1">
-					<select name="condition" class="form-select">
-						<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
-						<option value="name" ${condition=="name"?"selected='selected'":""}>작성자</option>
-						<option value="reg_date" ${condition=="reg_date"?"selected='selected'":""}>등록일</option>
-						<option value="subject" ${condition=="subject"?"selected='selected'":""}>제목</option>
-						<option value="content" ${condition=="content"?"selected='selected'":""}>내용</option>
+					<select name="condition" class="form-select" style="width: 150px;">
+						<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
+						<option value="organization" ${condition=="1"?"selected='selected'":""}>조직 문화</option>
+						<option value="welfare" ${condition=="2"?"selected='selected'":""}>복지 문화</option>
+						<option value="unfair" ${condition=="3"?"selected='selected'":""}>부당 대우</option>
+						<option value="work" ${condition=="4"?"selected='selected'":""}>근무환경</option>
+						<option value="management" ${condition=="5"?"selected='selected'":""}>경영진</option>
+						<option value="other" ${condition=="6"?"selected='selected'":""}>기타</option>
 					</select>
 				</div> 
-				<div class="p-1">
-					<input type="text" name="keyword" value="${keyword}" class="form-control">
-				</div>
 				<div class="p-1">
 					<button type="button" class="btn bg-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 				</div>
