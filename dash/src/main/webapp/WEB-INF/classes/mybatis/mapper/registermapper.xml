@@ -3,14 +3,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="register">
 	<insert id="stationregister" parameterType="com.sp.app.register.Register">
-	INSERT INTO STATION (stNum, x_pos, y_pos, name, maxQty, zoonName, addr) VALUES (STATION_SEQ.NEXTVAL, #{x_pos}, #{y_pos}, #{name}, #{maxQty}, #{zoonName}, #{addr} )
+	INSERT INTO STATION (stNum, x_pos, y_pos, name, maxQty, zoonName, addr, imageFilename) VALUES (STATION_SEQ.NEXTVAL, #{x_pos}, #{y_pos}, #{name}, #{maxQty}, #{zoonName}, #{addr} ,  #{imageFilename} )
 	</insert>
 	
 	<insert id="chrgestationregister" parameterType="com.sp.app.register.Register">
-	INSERT INTO chargingstation (CSTNUM, x_pos, y_pos, name, LEFTQTY, addr) VALUES (CSTATION_SEQ.NEXTVAL, #{x_pos}, #{y_pos}, #{name}, #{LEFTQTY}, #{addr} )
+	INSERT INTO chargingstation (CSTNUM, x_pos, y_pos, name, LEFTQTY, addr, imageFilename) VALUES (CSTATION_SEQ.NEXTVAL, #{x_pos}, #{y_pos}, #{name}, #{LEFTQTY}, #{addr} ,  #{imageFilename}  )
 	</insert>
 	
 	<insert id="kickboardregister" parameterType="com.sp.app.register.Register">
-	INSERT INTO kickboard (KNUM, name, state ,x_pos, y_pos) VALUES (KICKBOARD_SEQ.NEXTVAL, #{name},'정상',  #{x_pos}, #{y_pos})
+	INSERT INTO kickboard (KNUM, name, state ,x_pos, y_pos, imageFilename) VALUES (KICKBOARD_SEQ.NEXTVAL, #{name},'정상',  #{x_pos}, #{y_pos} ,  #{imageFilename})
 	</insert>
 </mapper>
