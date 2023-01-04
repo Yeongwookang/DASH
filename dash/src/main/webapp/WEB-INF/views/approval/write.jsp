@@ -103,7 +103,7 @@ function search(page){
 <div class="m-auto scroll" style="width: 90%; height:85%; overflow-y: scroll;">
 	<div><h4>| 결재</h4></div>
 	<div class="ps-5 pe-5 mt-4">
-		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write">
+		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
 			<table class="table">
 				<tbody>
 				<tr>
@@ -147,8 +147,17 @@ function search(page){
 				</tbody>
 			</table>
 		<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
-
-		<input class="form-control mt-3" type="file" id="formFile">
+		
+		<c:if test="${not empty fileList }">
+				<div><h4>파일</h4></div>
+				<c:forEach var="file" items="${fileList}" varStatus="status" >
+					<div class=" d-flex form-control mb-2 justify-content-between">
+						<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/download/${file.fileNum}'"><i class="fa-solid fa-floppy-disk"></i> ${file.originalFilename} (${file.fileSize/1000} kb)</button></div> 
+						<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/deleteFile/${file.fileNum}?signNum=${dto.signNum}'"><i class="fa-solid fa-trash-can"></i></button></div>
+					</div>
+				</c:forEach>
+			</c:if>
+		<input class="form-control mt-3" type="file" name="addFiles" accept="approval/*" multiple="multiple" >
 	
 		<div class="d-flex justify-content-end mt-4">
 			<button class="btn bg-light bg-gradient me-2" type="button">저장</button>

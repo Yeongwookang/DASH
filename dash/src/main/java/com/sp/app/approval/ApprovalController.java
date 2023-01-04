@@ -1,10 +1,13 @@
 package com.sp.app.approval;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.app.common.FileManager;
 import com.sp.app.common.MyUtil;
 import com.sp.app.employee.Employee;
 import com.sp.app.employee.EmployeeService;
@@ -34,6 +38,9 @@ public class ApprovalController {
 		
 		@Autowired
 		private MyUtil myUtil;
+		
+		@Autowired
+		private FileManager fileManager;
 		
 		@RequestMapping(value = "main")
 		public String main(Model model, HttpServletRequest req ) throws Exception {
@@ -67,7 +74,6 @@ public class ApprovalController {
 				@RequestParam (defaultValue = "1") int current_page
 				) throws Exception {
 			
-				String cp = req.getContextPath();
 				
 				Map<String,Object> map = new HashMap<String, Object>();
 				map.put("keyword",keyword);
@@ -93,7 +99,6 @@ public class ApprovalController {
 				
 				List<Employee> empList= service.empList(map);
 				
-				String list_url = cp+ "/approval/empSearch?condition="+condition+"&keyword="+keyword;			
 				 
 				Map<String, Object> model =  new HashMap<String, Object>();
 				 
@@ -117,10 +122,14 @@ public class ApprovalController {
 		
 		@PostMapping("write")
 		public String writeSubmit(
-				@RequestParam Map<String, Object>map
+				Approval dto,
+				HttpSession session
 				) throws Exception{
 			
-			service.insertApproval(map);
+			String root = session.getServletContext().getRealPath("/");
+			String path = root + "uploads" + File.separator + "approval";
+			
+			service.insertApproval(dto, path);
 			
 			return "redirect:/approval/main";
 		}
@@ -140,7 +149,10 @@ public class ApprovalController {
 			Employee ref2= empService.readEmployee(dto.getRef2());
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
+			List<Approval> fileList = service.fileList(signNum);
+			
 			model.addAttribute("dto",dto);
+			model.addAttribute("fileList", fileList);
 			model.addAttribute("ref1",ref1);
 			model.addAttribute("ref2",ref2);
 			model.addAttribute("ref3",ref3);
@@ -163,7 +175,10 @@ public class ApprovalController {
 			Employee ref2= empService.readEmployee(dto.getRef2());
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
+			List<Approval> fileList = service.fileList(signNum);
+			
 			model.addAttribute("dto", dto);
+			model.addAttribute("fileList", fileList);
 			model.addAttribute("ref1", ref1);
 			model.addAttribute("ref2", ref2);
 			model.addAttribute("ref3", ref3);
@@ -174,10 +189,11 @@ public class ApprovalController {
 		
 		@PostMapping("update")
 		public String updateSubmit(
-				@RequestParam Map<String, Object>map
+				Approval dto, HttpSession session
 				) throws Exception{
-			
-			service.updateApproval(map);
+			String root = session.getServletContext().getRealPath("/");
+			String path = root + "uploads" + File.separator + "approval";
+			service.updateApproval(dto, path);
 			
 			return "redirect:/approval/main";
 		}
@@ -193,6 +209,65 @@ public class ApprovalController {
 			return "redirect:/approval/main";
 		}
 		
+		@GetMapping("download/{fileNum}")
+		public void downloadFile(HttpServletResponse resp,
+				HttpSession session,
+				@PathVariable long fileNum) throws Exception{
+			
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + File.separator + "uploads" + File.separator + "approval";
+			
+			boolean b = false;
+			
+			Approval dto = service.readFile(fileNum);
+			if(dto != null) {
+				String saveFilename = dto.getSaveFilename();
+				String originalFilename = dto.getOriginalFilename();
+				
+				b = fileManager.doFileDownload(saveFilename, originalFilename, pathname, resp);
+			}
+			
+			if(! b) {
+				try {
+					resp.setContentType("text/html; charset=utf-8");
+					PrintWriter out = resp.getWriter();
+					out.println("<script>alert('파일 다운로드가 불가능합니다.');history.back();<script>");
+				} catch (Exception e) {
+				}
+			}
+			
+			
+		}
 		
+		@GetMapping("deleteFile/{fileNum}")
+		public String deleteFile(@PathVariable long fileNum, HttpServletResponse resp, @RequestParam long signNum,
+				HttpSession session) throws Exception {
+
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + File.separator + "uploads" + File.separator + "approval";
+			
+			Approval dto = service.readFile(fileNum);
+			if(dto != null) {
+				fileManager.doFileDelete(dto.getSaveFilename(), pathname);
+			}
+			
+			boolean b = false;
+			try {
+				service.deleteFile(fileNum);
+				
+			} catch (Exception e) {
+			}
+			
+			if(! b) {
+				try {
+					resp.setContentType("text/html; charset=utf-8");
+					PrintWriter out = resp.getWriter();
+					out.println("<script>alert('파일 삭제가 불가능합니다.');history.back();<script>");
+				} catch (Exception e) {
+				}
+			}
+			
+			return "redirect:/approval/update/"+signNum;
+		}
 }
 

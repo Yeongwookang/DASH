@@ -20,7 +20,9 @@
 		</if>
 	</sql>
 	
-
+	<select id="approvalSeq" resultType="Long">
+		SELECT e_document_SEQ.NEXTVAL FROM dual
+	</select>
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0) FROM PERSON_RECORD pr 
 		LEFT OUTER JOIN employee e ON pr.empNo=e.empNo
@@ -36,30 +38,37 @@
 		</where>
 	</select>
 	
-	<update id ="insertApproval" parameterType="map" >
+
+	
+	<update id ="insertApproval" parameterType="approval" >
 		INSERT ALL 
 			INTO e_document (signNum, title, content, empNo, formnum) 
-			VALUES (LPAD(e_document_SEQ.NEXTVAL,8,'0'), #{title}, #{content}, #{empNo}, 1)
+			VALUES (#{signNum}, #{title}, #{content}, #{empNo}, 1)
 			
-			INTO doc_record (signNum, reg_date, state, max_state) VALUES(e_document_SEQ.CURRVAL, sysdate, 0, #{refcnt})
+			INTO doc_record (signNum, reg_date, state, max_state) VALUES(#{signNum}, sysdate, 0, #{refcnt})
 			
 			<if test="ref1 !=null and ref1!=''">
 				INTO f_approval (signNum, state, empNo) 
-				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref1})
+				VALUES (#{signNum}, '대기', #{ref1})
 			</if>
 			
 			<if test="ref2 !=null and ref2!=''">
 				INTO s_approval (signNum, state, empNo)
-				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref2})
+				VALUES (#{signNum}, '대기', #{ref2})
 			</if>
 			
 			<if test="ref3 !=null and ref3!=''">
 				INTO t_approval (signNum, state, empNo)
-				VALUES (LPAD(e_document_SEQ.CURRVAL, 8, '0'), '대기', #{ref3})
+				VALUES (#{signNum}, '대기', #{ref3})
 			</if>
 			
 		SELECT * FROM dual
 	</update>
+	
+	<update id="updateApproval" parameterType="approval">
+		UPDATE e_document SET title = #{title}, content = #{content} WHERE signNum = #{signNum}
+	</update>
+	
 	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
@@ -143,6 +152,7 @@
 		ORDER BY pr.depNo DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
+	
 	<update id="approveUpdate" parameterType="map">
 		UPDATE SET reg_date = sysdate, state='승인' FROM 
 		<choose>
@@ -154,8 +164,30 @@
 		
 		WHERE signNum = #{signNum}
 	</update>
+	
+	
 	<update id="approve" parameterType="Long">
 		UPDATE doc_record SET reg_date = sysdate, state = (SELECT state FROM doc_record WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}
 	</update>
+	
+	<insert id="insertFile" parameterType="approval">
+		INSERT INTO e_documentFile(fileNum, signNum, saveFilename, originalFilename, fileSize)
+		VALUES(e_documentFile_seq.nextval, #{signNum}, #{saveFilename}, #{originalFilename}, #{fileSize})
+	</insert>
+	
+	<select id="fileList" parameterType="Long" resultType="approval" >
+		SELECT fileNum, signNum, saveFilename, originalFilename, fileSize FROM e_documentFile WHERE signNum = #{signNum} 
+	</select>
+	
+	<select id="readFile" parameterType="Long" resultType="approval">
+		SELECT fileNum, signNum, saveFilename, originalFilename, fileSize
+		FROM e_documentFile
+	    WHERE fileNum = #{fileNum}      
+	</select>
+	
+	<delete id="deleteFile" parameterType="Long">
+		DELETE FROM e_documentFile WHERE fileNum = #{fileNum}
+	</delete>
+	
 	
 </mapper>

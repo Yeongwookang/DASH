@@ -6,7 +6,9 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
 import com.sp.app.employee.Employee;
 
@@ -15,10 +17,34 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Autowired
 	private CommonDAO dao;
 	
+	@Autowired
+	private FileManager fileManager;
+	
 	@Override
-	public void insertApproval(Map<String,Object>map) throws Exception {
+	public void insertApproval(Approval dto, String path) throws Exception {
 		try {
-			dao.insertData("approval.insertApproval", map);
+			
+			
+			long signNum = dao.selectOne("approval.approvalSeq");
+			dto.setSignNum(signNum);
+			dao.insertData("approval.insertApproval", dto);
+			
+			if(! dto.getAddFiles().isEmpty()) {
+				for(MultipartFile mf : dto.getAddFiles()) {
+					String saveFilename = fileManager.doFileUpload(mf, path);
+					if(saveFilename == null) {
+						continue;
+					}
+					String originalFilename = mf.getOriginalFilename();
+					long fileSize = mf.getSize();
+					
+					dto.setOriginalFilename(originalFilename);
+					dto.setFileSize(fileSize);
+					dto.setSaveFilename(saveFilename);
+					
+					dao.insertData("approval.insertFile", dto);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -27,9 +53,27 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void updateApproval(Map<String,Object>map) throws Exception {
+	public void updateApproval(Approval dto, String path) throws Exception {
 		try {
-			dao.insertData("approval.updateApproval", map);
+			dao.insertData("approval.updateApproval", dto);
+			
+			if(! dto.getAddFiles().isEmpty()) {
+				for(MultipartFile mf : dto.getAddFiles()) {
+					String saveFilename = fileManager.doFileUpload(mf, path);
+					if(saveFilename == null) {
+						continue;
+					}
+					String originalFilename = mf.getOriginalFilename();
+					long fileSize = mf.getSize();
+					
+					dto.setOriginalFilename(originalFilename);
+					dto.setFileSize(fileSize);
+					dto.setSaveFilename(saveFilename);
+					
+					dao.insertData("approval.insertFile", dto);
+				}
+			
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -142,6 +186,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 			dao.updateData("approval.approve", map);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
 		
 	}
@@ -152,7 +197,42 @@ public class ApprovalServiceImpl implements ApprovalService {
 			dao.updateData("approval.approveUpdate", map);
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw e;
 		}
+	}
+
+	@Override
+	public List<Approval> fileList(long signNum) {
+		
+		List<Approval> list = null;
+		try {
+			list = dao.selectList("approval.fileList",signNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public Approval readFile(long fileNum) {
+		Approval dto = null;
+		try {
+			dto = dao.selectOne("approval.readFile", fileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return dto;
+	}
+
+	@Override
+	public void deleteFile(long fileNum) throws Exception {
+		try {
+			dao.deleteData("approval.deleteFile", fileNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		}
+		
 	}
 	
 	

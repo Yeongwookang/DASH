@@ -1,5 +1,9 @@
 package com.sp.app.approval;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class Approval {
 	private long signNum;
 	private String title;
@@ -10,11 +14,18 @@ public class Approval {
 	private int state;
 	private int max_state;
 	
+	
 	private String posName;
 	private String depName;
 	private String rankName;
 	private String teamName;
 	private String name;
+	
+	private long fileNum;
+	private String saveFilename;
+	private String originalFilename;
+	private long fileSize;
+	private List<MultipartFile> addFiles;
 	
 	private String ref1;
 	private String ref2;
@@ -22,6 +33,7 @@ public class Approval {
 	private String ref1name;
 	private String ref2name;
 	private String ref3name;
+	private int refcnt;
 	
 	private int formNum;
 	private String formName;
@@ -154,6 +166,44 @@ public class Approval {
 	}
 	public void setMax_state(int max_state) {
 		this.max_state = max_state;
+	}
+	public long getFileNum() {
+		return fileNum;
+	}
+	public void setFileNum(long fileNum) {
+		this.fileNum = fileNum;
+	}
+
+	public List<MultipartFile> getAddFiles() {
+		return addFiles;
+	}
+	public void setAddFiles(List<MultipartFile> addFiles) {
+		this.addFiles = addFiles;
+	}
+	public int getRefcnt() {
+		return refcnt;
+	}
+	public void setRefcnt(int refcnt) {
+		this.refcnt = refcnt;
+	}
+
+	public String getSaveFilename() {
+		return saveFilename;
+	}
+	public void setSaveFilename(String saveFilename) {
+		this.saveFilename = saveFilename;
+	}
+	public String getOriginalFilename() {
+		return originalFilename;
+	}
+	public void setOriginalFilename(String originalFilename) {
+		this.originalFilename = originalFilename;
+	}
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
 	}
 	
 	
