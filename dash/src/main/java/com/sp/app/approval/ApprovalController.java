@@ -62,40 +62,46 @@ public class ApprovalController {
 		@GetMapping("empSearch")
 		@ResponseBody
 		public Map<String, Object> empSearch(HttpServletRequest req, 
-				@RequestParam Map<String, Object> map) throws Exception {
+				@RequestParam (defaultValue = "")String keyword,
+				@RequestParam (defaultValue = "dep")String condition,
+				@RequestParam (defaultValue = "1") int current_page
+				) throws Exception {
 			
-			
-			
-			int size = 5;
-			int total_page;
-			int dataCount = service.dataCount(map);
-			
-			int current_page;
-			if(map.get("page") == null) {
-				current_page = 1;
-			} else {
-				current_page = Integer.parseInt((String)map.get("page"));
-			}
-			
-			total_page = myUtil.pageCount(dataCount, size);
-			
-			if(current_page > total_page) {
-				current_page = total_page;
-			}
-			
-			int offset = (current_page - 1) * size;
-			if(offset < 0) offset = 0;
-			
-			map.put("offset", offset);
-			map.put("size", size);
-			
-			
-		     List<Employee> empList= service.empList(map);
-		     Map<String, Object> model =  new HashMap<String, Object>();
-		     model.put("page",current_page);
-		     model.put("empList", empList);
-		     
-		     return model;
+				String cp = req.getContextPath();
+				
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("keyword",keyword);
+				map.put("condition", condition);
+				
+				
+				int size = 5;
+				int total_page;
+				int dataCount = service.dataCount(map);
+				
+				total_page = myUtil.pageCount(dataCount, size);
+				
+				if(current_page > total_page) {
+					current_page = total_page;
+				}
+				
+				int offset = (current_page - 1) * size;
+				if(offset < 0) offset = 0;
+				
+				map.put("offset", offset);
+				map.put("size", size);
+				
+				
+				List<Employee> empList= service.empList(map);
+				
+				String list_url = cp+ "/approval/empSearch?condition="+condition+"&keyword="+keyword;			
+				 
+				Map<String, Object> model =  new HashMap<String, Object>();
+				 
+				model.put("page", current_page);
+				model.put("total_page", total_page);
+				model.put("empList", empList);
+				 
+				return model;
 		}
 		
 		@GetMapping("write")

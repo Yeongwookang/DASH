@@ -34,8 +34,6 @@
 				AND	<include refid="where-list"/>
 			</if>
 		</where>
-		ORDER BY pr.depNo DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<update id ="insertApproval" parameterType="map" >
@@ -142,6 +140,8 @@
 				<include refid="where-list"/>
 			</if>
 		</where>
+		ORDER BY pr.depNo DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	<update id="approveUpdate" parameterType="map">
 		UPDATE SET reg_date = sysdate, state='승인' FROM 

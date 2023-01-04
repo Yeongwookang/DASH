@@ -2,7 +2,104 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!DOCTYPE html>
+
+<script type="text/javascript">
+function search(page){
+	var index = 1;
+	let condition = $("#condition").attr("selected",true).val();
+	let keyword = $("#keyword").val();
+	let query = "condition="+condition+"&keyword="+keyword+"&current_page="+page;
+	let url = "${pageContext.request.contextPath}/approval/empSearch";
+	
+	
+	const fn = function(data){
+		$(".searched").remove();
+		//리스트 등록
+		let i =1;
+		for(let item of data.empList){
+			let empNo= item.empNo;
+			let dep = item.depName;
+			let name= item.name;
+			let pos= item.posName;
+			let rank = item.rankName;
+			let team = item.teamName;
+			
+			let out = "<tr class='searched'>";
+			out += "<td>"+i+"</td>";
+			out += "<td class='dep'>"+ dep + "</td>";
+			out += "<td class='team'>"+ team + "</td>";
+			out += "<td class='pos'>"+ pos + "</td>";
+			out += "<td class='name'>"+ name + "</td>";
+			out += "<td class='empNo' style='display:none;'>"+empNo+"</td>"
+			out += "</tr>";
+			
+			$(".sendInfo").remove();
+			
+			$(".sendList").append(out);
+				
+			i++;
+			
+		}
+		
+		//이벤트 등록
+		$(".sendList").children().click(function(){
+			
+			if(index>3){
+				alert('3명까지 지정이 가능합니다.');
+				return;
+			}
+			
+			let pos = this.querySelector(".pos").textContent;
+			let dep = this.querySelector(".dep").textContent;
+			let team = this.querySelector(".team").textContent;
+			let name = this.querySelector(".name").textContent;
+			let empNo = this.querySelector(".empNo").textContent;
+			
+			
+			if($(".sendTo").children().hasClass(empNo)===true){
+				alert('이미 참조한 대상입니다.');
+				return;
+			}
+			
+			let out = "<tr class='"+empNo+"'>";
+			out += "<td class='dep'>"+ dep + "</td>";
+			out += "<td class='team'>"+ team + "</td>";
+			out += "<td class='pos'>"+ pos + "</td>";
+			out += "<td class='name'>"+ name + "</td>";
+			out += "<td class='empNo' style='display:none;'>"+empNo+"</td>"
+			out += "</tr>";
+			
+			index++;
+			
+			$(".sendToInfo").remove();
+			$(".sendTo").append(out);
+			$(".sendTo").children().click(function(e){
+				this.remove();
+				e.stopImmediatePropagation();
+				index--;
+			});
+		});
+		
+		//페이징 처리 
+		$(".search-page").remove();
+		let total_page= data.total_page;
+		let paginate = "<nav class='search-page' aria-label='Page navigation'><ul class='pagination'>";
+		for(let i=1; i<=total_page;i++){
+			paginate += "<li class='page-item";
+			if(page == i){
+				paginate += " active"
+			}
+			paginate += "'><button type='button' class='page-link empSearchBtn' onclick='search("+i+")'>"+i+"</button></li>"	
+		}
+		paginate += "</ul></nav>"
+		$(".paginate").append(paginate);
+
+		$(".sendList").append("<input type='hidden' class='total_page' value='"+data.total_page+"' >");
+		$(".sendList").append("<input type='hidden' class='current_page' value='"+data.current_page+"' >");
+	}
+	ajaxFun(url, "get", query, "JSON", fn);
+};
+</script>
 <div class="m-auto scroll" style="width: 90%; height:85%; overflow-y: scroll;">
 	<div><h4>| 결재</h4></div>
 	<div class="ps-5 pe-5 mt-4">
@@ -32,7 +129,7 @@
 					<td class="text-center align-middle" scope="row">타임라인</td>
 					<td class="d-flex ">
 						<input type="text" class="form-control" value="${dto.timeLine}" readonly>
-						<button type="button" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button type="button" class="btn bg-sub bg-gradient ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
 					</td>
 				</tr>
 				<tr>
@@ -60,6 +157,10 @@
 		</form>
 	</div>
 </div>
+
+
+
+
 <!-- Modal -->
 <div class="modal fade text-center" id="newApproval" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newApprovalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -82,7 +183,7 @@
 	      		<option value="name">이름</option>
 	      	</select>
 	      	<input type="text" id="keyword" class="form-control ms-2">
-	      	<button type="button" class="btn bg-sub bg-gradient ms-2 empSearchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+	      	<button type="button" class="btn bg-sub bg-gradient ms-2 empSearchBtn" onclick="search(1);"><i class="fa-solid fa-magnifying-glass"></i></button>
       	</div>
 		<div class="form-control mt-4">
        		<table class="table table-hover mt-2">
@@ -99,7 +200,9 @@
        				<tr class="sendInfo"><td colspan="6"><h4 class=" text-center m-5 text-muted">" 검색이 필요합니다 "</h4></td></tr>
        			</tbody>
        		</table>
-       		<div class="paginate"></div>
+       		<div class="paginate d-flex justify-content-center">
+       			
+       		</div>
        	</div>
 
         <div class="form-control mt-4">
@@ -169,92 +272,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 </script>
 <script type="text/javascript">	
 	
-	var index = 1;
-	$(".empSearchBtn").click(function(){
-		let condition = $("#condition").attr("selected",true).val();
-		let keyword = $("#keyword").val();
-		let page = $(".empSearchPage").val();
-		
-		let query = "condition="+condition+"&keyword="+keyword+"&page="+page;
-		let url = "${pageContext.request.contextPath}/approval/empSearch";
-		
-		
-		const fn = function(data){
-			$(".searched").remove();
-			//리스트 등록
-			let i =1;
-			for(let item of data.empList){
-				let empNo= item.empNo;
-				let dep = item.depName;
-				let name= item.name;
-				let pos= item.posName;
-				let rank = item.rankName;
-				let team = item.teamName;
-				
-				let out = "<tr class='searched'>";
-				out += "<td>"+i+"</td>";
-				out += "<td class='dep'>"+ dep + "</td>";
-				out += "<td class='team'>"+ team + "</td>";
-				out += "<td class='pos'>"+ pos + "</td>";
-				out += "<td class='name'>"+ name + "</td>";
-				out += "<td class='empNo' style='display:none;'>"+empNo+"</td>"
-				out += "</tr>";
-				
-				$(".sendInfo").remove();
-				
-				$(".sendList").append(out);
-					
-				i++;
-				
-			}
-			
-			//이벤트 등록
-			$(".sendList").children().click(function(){
-				
-				if(index>3){
-					alert('3명까지 지정이 가능합니다.');
-					return;
-				}
-				
-				let pos = this.querySelector(".pos").textContent;
-				let dep = this.querySelector(".dep").textContent;
-				let team = this.querySelector(".team").textContent;
-				let name = this.querySelector(".name").textContent;
-				let empNo = this.querySelector(".empNo").textContent;
-				
-				
-				if($(".sendTo").children().hasClass(empNo)===true){
-					alert('이미 참조한 대상입니다.');
-					return;
-				}
-				
-				let out = "<tr class='"+empNo+"'>";
-				out += "<td class='dep'>"+ dep + "</td>";
-				out += "<td class='team'>"+ team + "</td>";
-				out += "<td class='pos'>"+ pos + "</td>";
-				out += "<td class='name'>"+ name + "</td>";
-				out += "<td class='empNo' style='display:none;'>"+empNo+"</td>"
-				out += "</tr>";
-				
-				index++;
-				
-				$(".sendToInfo").remove();
-				$(".sendTo").append(out);
-				$(".sendTo").children().click(function(e){
-					this.remove();
-					e.stopImmediatePropagation();
-					index--;
-				});
-			});
-			
-			$(".sendList").append("<tr><td><input class='empSearchPage' type='hidden' value="+data.page+"> </td></tr>");
-			
-		}
-		
-		
-		ajaxFun(url, "get", query, "JSON", fn);
-		
-	});
+
 	
 	$(".writeBtn").click(function(){
 		$(".refList").children().remove();
