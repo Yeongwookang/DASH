@@ -4,15 +4,22 @@ public class Community {
 	private long num;
 	private String empNo;
 	private String name;
+	private int depNo;
+	
 	private String subject;
 	private String content;
 	private String reg_date;
-	private int hitCount;
+	private int open;
+	private int categoryNum;
+	private String categoryName;
+	
+	private int bbsLike;
+	private int likeCount;
+	private int disLikeCount;
 	
 	private int replyCount;
-	private int bbsLikeCount;
-	private int bbsDisLikeCount;
-	
+	private int replyDepCount;
+
 	public long getNum() {
 		return num;
 	}
@@ -30,6 +37,12 @@ public class Community {
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+	public int getDepNo() {
+		return depNo;
+	}
+	public void setDepNo(int depNo) {
+		this.depNo = depNo;
 	}
 	public String getSubject() {
 		return subject;
@@ -49,11 +62,29 @@ public class Community {
 	public void setReg_date(String reg_date) {
 		this.reg_date = reg_date;
 	}
-	public int getHitCount() {
-		return hitCount;
+	public int getOpen() {
+		return open;
 	}
-	public void setHitCount(int hitCount) {
-		this.hitCount = hitCount;
+	public void setOpen(int open) {
+		this.open = open;
+	}
+	public int getCategoryNum() {
+		return categoryNum;
+	}
+	public void setCategoryNum(int categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public int getBbsLike() {
+		return bbsLike;
+	}
+	public void setBbsLike(int bbsLike) {
+		this.bbsLike = bbsLike;
 	}
 	public int getReplyCount() {
 		return replyCount;
@@ -61,17 +92,23 @@ public class Community {
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
-	public int getBbsLikeCount() {
-		return bbsLikeCount;
+	public int getLikeCount() {
+		return likeCount;
 	}
-	public void setBbsLikeCount(int bbsLikeCount) {
-		this.bbsLikeCount = bbsLikeCount;
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
 	}
-	public int getBbsDisLikeCount() {
-		return bbsDisLikeCount;
+	public int getDisLikeCount() {
+		return disLikeCount;
 	}
-	public void setBbsDisLikeCount(int bbsDisLikeCount) {
-		this.bbsDisLikeCount = bbsDisLikeCount;
+	public void setDisLikeCount(int disLikeCount) {
+		this.disLikeCount = disLikeCount;
+	}
+	public int getReplyDepCount() {
+		return replyDepCount;
+	}
+	public void setReplyDepCount(int replyDepCount) {
+		this.replyDepCount = replyDepCount;
 	}
 	
 }
