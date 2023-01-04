@@ -65,10 +65,21 @@
 		SELECT * FROM dual
 	</update>
 	
-	<update id="updateApproval" parameterType="approval">
-		UPDATE e_document SET title = #{title}, content = #{content} WHERE signNum = #{signNum}
-	</update>
+	<delete id="deleteApproval">
+		DELETE FROM e_document WHERE signNum =#{signNum}
+	</delete>
 	
+	<select id="myApprovalCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)  FROM doc_record dr
+		LEFT OUTER JOIN e_document e ON e.signNum = dr.signNum
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+		WHERE emp.empNo = #{empNo}
+	</select>
 	
 	
 	<select id="approvalList" parameterType="map" resultType="approval">
@@ -120,6 +131,8 @@
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
 		WHERE emp.empNo = #{empNo}
+		ORDER BY dr.reg_date
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<select id="readApproval" parameterType="Long" resultType="approval">

@@ -100,10 +100,22 @@ function search(page){
 	ajaxFun(url, "get", query, "JSON", fn);
 };
 </script>
+<script type="text/javascript">
+function write(){
+	const f = document.approval;
+	f.action = "${pageContext.request.contextPath}/approval/write"
+	f.submit();
+}
+function update(){
+	const f = document.approval;
+	f.action = "${pageContext.request.contextPath}/approval/update"
+	f.submit();
+}
+</script>
 <div class="m-auto scroll" style="width: 90%; height:85%; overflow-y: scroll;">
 	<div><h4>| 결재</h4></div>
 	<div class="ps-5 pe-5 mt-4">
-		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
+		<form name="approval" method="POST"  enctype="multipart/form-data">
 			<table class="table">
 				<tbody>
 				<tr>
@@ -122,6 +134,7 @@ function search(page){
 						<c:if test="${mode == 'update'}">
 							 ${dto.depName}&nbsp;${dto.name}
 							 <input name= "empNo" type="hidden" value="${dto.empNo}">
+							 <input name="signNum" type="hidden" value="${dto.signNum }">
 						 </c:if>
 					</td>
 				</tr>
@@ -141,7 +154,7 @@ function search(page){
 						<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
 						<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
 						<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
-						<input type="hidden" name="refcnt" id="refcnt" readonly>
+						<input type="hidden" name="refcnt" id="refcnt" value="${dto.max_state}" readonly>
 					</td>
 				</tr>
 				</tbody>
@@ -160,8 +173,13 @@ function search(page){
 		<input class="form-control mt-3" type="file" name="addFiles" accept="approval/*" multiple="multiple" >
 	
 		<div class="d-flex justify-content-end mt-4">
-			<button class="btn bg-light bg-gradient me-2" type="button">저장</button>
-			<button class="btn bg-sub bg-gradient" type="submit">결재</button>
+			<c:if test="${mode =='update' }">
+				<button class="btn btn-danger me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/delete/${dto.signNum}'">삭제</button>
+				<button class="btn bg-sub bg-gradient" type="button" onclick="update();">수정</button>
+			</c:if>
+			<c:if test="${mode =='write' }">
+				<button class="btn bg-sub bg-gradient" type="button" onclick="write();">결재</button>
+			</c:if>
 		</div>
 		</form>
 	</div>

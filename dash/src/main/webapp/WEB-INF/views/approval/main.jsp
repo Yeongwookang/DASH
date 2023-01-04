@@ -120,7 +120,8 @@
 			    </blockquote>
 			</c:otherwise>
 			</c:choose>
-			</div>		
+			</div>
+			<div>${paging}</div>		
 		</div>
 	</div>
 	<div class="mt-4 mb-4 d-flex justify-content-end">

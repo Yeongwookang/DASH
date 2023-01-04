@@ -43,7 +43,9 @@ public class ApprovalController {
 		private FileManager fileManager;
 		
 		@RequestMapping(value = "main")
-		public String main(Model model, HttpServletRequest req ) throws Exception {
+		public String main(Model model, 
+				HttpServletRequest req, 
+				@RequestParam(value = "page", defaultValue = "1") int current_page ) throws Exception {
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			
@@ -56,11 +58,42 @@ public class ApprovalController {
 			
 			List<Approval> approvalList = service.approvalList(map);
 			
+			
+			int size = 5;
+			
+			int total_page;
+			int dataCount = service.myApprovalCount(map);
+			
+			total_page = myUtil.pageCount(dataCount, size);
+			
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			
+			String cp = req.getContextPath();
+			
+			String list_url = cp+"/approval/main";
+			String paging = myUtil.paging(current_page, total_page, list_url);
+			
+			
+			
 			List<Approval> myApprovalList = service.myApprovalList(map);
 			
 			
 			model.addAttribute("approvalList", approvalList);
 			model.addAttribute("myApprovalList", myApprovalList);
+			model.addAttribute("page", current_page);
+			model.addAttribute("dataCount", dataCount);
+			model.addAttribute("size", size);
+			model.addAttribute("total_page", total_page);
+			model.addAttribute("paging", paging);
 			
 			
 		      return ".approval.main";
@@ -194,6 +227,7 @@ public class ApprovalController {
 			String root = session.getServletContext().getRealPath("/");
 			String path = root + "uploads" + File.separator + "approval";
 			service.updateApproval(dto, path);
+
 			
 			return "redirect:/approval/main";
 		}
@@ -209,6 +243,16 @@ public class ApprovalController {
 			return "redirect:/approval/main";
 		}
 		
+		@GetMapping("delete/{signNum}")
+		public String deleteFile(@PathVariable long signNum, HttpServletResponse resp,
+				HttpSession session) throws Exception {
+			String root = session.getServletContext().getRealPath("/");
+			String pathname = root + "uploads" + File.separator + "approval";
+			service.deleteApproval(signNum, pathname);
+			
+			return "redirect:/approval/main?page=1";
+		}
+		
 		@GetMapping("download/{fileNum}")
 		public void downloadFile(HttpServletResponse resp,
 				HttpSession session,
@@ -216,6 +260,8 @@ public class ApprovalController {
 			
 			String root = session.getServletContext().getRealPath("/");
 			String pathname = root + File.separator + "uploads" + File.separator + "approval";
+			
+			System.out.println(root+":"+pathname);
 			
 			boolean b = false;
 			
@@ -253,7 +299,7 @@ public class ApprovalController {
 			
 			boolean b = false;
 			try {
-				service.deleteFile(fileNum);
+				service.deleteFile(fileNum, pathname);
 				
 			} catch (Exception e) {
 			}

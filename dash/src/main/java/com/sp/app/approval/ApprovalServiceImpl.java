@@ -55,7 +55,12 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public void updateApproval(Approval dto, String path) throws Exception {
 		try {
-			dao.insertData("approval.updateApproval", dto);
+			long signNum = dto.getSignNum();
+			deleteApproval(signNum, path);
+			
+			signNum = dao.selectOne("approval.approvalSeq");
+			dto.setSignNum(signNum);
+			dao.insertData("approval.insertApproval", dto);
 			
 			if(! dto.getAddFiles().isEmpty()) {
 				for(MultipartFile mf : dto.getAddFiles()) {
@@ -82,9 +87,15 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void deleteApproval(long signNum) throws Exception {
+	public void deleteApproval(long signNum, String path) throws Exception {
 		try {
-			dao.insertData("approval.deleteApproval", signNum);
+			List<Approval> listFile = fileList(signNum);
+			if(listFile != null) {
+				for(Approval dto : listFile) {
+					fileManager.doFileDelete(dto.getSaveFilename(), path);
+				}
+			}
+			dao.deleteData("approval.deleteApproval", signNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -225,14 +236,31 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void deleteFile(long fileNum) throws Exception {
+	public void deleteFile(long fileNum, String path) throws Exception {
 		try {
+			Approval dto = readFile(fileNum);
+				
+			fileManager.doFileDelete(dto.getSaveFilename(), path);
+
 			dao.deleteData("approval.deleteFile", fileNum);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 		
+	}
+
+	@Override
+	public int myApprovalCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("approval.myApprovalCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
 	}
 	
 	

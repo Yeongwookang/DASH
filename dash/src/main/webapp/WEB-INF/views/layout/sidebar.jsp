@@ -12,7 +12,7 @@
 			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/'"><i class="fa-lg fa-regular fa-clipboard"></i><span class="ms-3"> 메인</span></button>
 		</li>
 		<li class="nav-item">
-			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/approval/main';"><i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span></button>
+			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/approval/main?page=1';"><i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span></button>
 		</li>
 		<li class="nav-item">
 			<button class="btn nav-box" onclick="location.href='${pageContext.request.contextPath}/notice/main';"><i class="fa-lg fa-regular fa-note-sticky"></i><span class="ms-3"> 공지</span></button> 
