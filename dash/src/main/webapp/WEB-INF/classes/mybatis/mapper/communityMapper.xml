@@ -5,59 +5,173 @@
 
 	<insert id="insertCommunity" parameterType="com.sp.app.community.Community">
 		INSERT INTO community(num, empNo, subject, content, reg_date, open, categoryNum)
-			VALUES(community_seq.NEXTVAL, #{empNo}, #{subject}, #{content}, SYSDATE, 0, 0, #{categoryNum})
+			VALUES(community_seq.NEXTVAL, #{empNo}, #{subject}, #{content}, SYSDATE, #{open}, #{categoryNum})
 	</insert>
 	
 	<sql id="where-list">
 		<choose>
-			<when test="condition == 'all' ">
-			   ( INSTR(subject, #{keyword}) &gt; 0
-		          OR DBMS_LOB.INSTR(content, #{keyword}) &gt; 0 )
+			<when test="condition == 'organization' ">
+             	c.categoryNum = 1
 			</when>
-			<when test="condition == 'reg_date' ">
-			   ( TO_CHAR(reg_date, 'YYYYMMDD') = #{keyword}
-		          OR TO_CHAR(reg_date, 'YYYY-MM-DD') = #{keyword} )
+			<when test="condition == 'welfare' ">
+			    c.categoryNum = 2
 			</when>
-			<when test="condition == 'content'">
-			    DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+			<when test="condition == 'unfair'">
+			    c.categoryNum = 3
 			</when>
-			<otherwise>
-			    INSTR(${condition}, #{keyword}) &gt; 0
-			</otherwise>
+			<when test="condition == 'work'">
+			    c.categoryNum = 4
+			</when>
+			<when test="condition == 'management'">
+			    c.categoryNum = 5
+			</when>
+			<when test="condition == 'other'">
+			    c.categoryNum = 6
+			</when>
 		</choose>
 	</sql>
 	
 	<select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
 		FROM community c
-		JOIN employee e c.empNo = e.empNo
+		JOIN employee e ON c.empNo = e.empNo
+		JOIN communityCategory co ON c.categoryNum = co.categoryNum
 		<where>
-			<if test="keyword != null and keyword != ''">
+			<if test="condition != null">
 				<include refid="where-list"/>
 			</if>
 		</where>
 	</select>
 	
 	<select id="listCommunity" parameterType="map" resultType="com.sp.app.community.Community">
-		SELECT c.num, c.empNo, name, subject, content, TO_CHAR(c.reg_date, 'YYYY-MM-DD') reg_date, c.categoryNum, categoryName, NVL(replyCount, 0) replyCount
+		SELECT c.num, c.empNo, depNo, subject, content, TO_CHAR(c.reg_date, 'YYYY-MM-DD') reg_date, c.categoryNum, categoryName, open, NVL(replyCount, 0) replyCount, NVL(replyDepCount, 0) replyDepCount
 		FROM community c
-		JOIN employee c.empNo = e.empNo
+		JOIN employee e ON c.empNo = e.empNo
+        JOIN person_record pr ON pr.empNo = e.empNo
 		LEFT OUTER JOIN (
 			SELECT num, COUNT(*) replyCount
 			FROM communityReply
 			WHERE answer = 0
 			GROUP BY num	
 		) r ON c.num = r.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) replyDepCount FROM communityReply c
+            JOIN employee e ON c.empNo = e.empNo
+            JOIN person_record pr ON e.empNo = pr.empNo
+            WHERE answer = 0 AND depNo = 1 AND state = 1
+			GROUP BY num
+		) bbb ON c.num = bbb.num
 		JOIN communityCategory co ON c.categoryNum = co.categoryNum
 		<where>
-			<if test="keyword != null and keyword != ''">
+			<if test="condition != null">
 				<include refid="where-list"/>
-			</if>
+			</if> AND state = 1
 		</where>
 		ORDER BY num DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
-
 	
+	<select id="readCommunity" parameterType="Long" resultType="com.sp.app.community.Community">
+		SELECT c.num, c.empNo, subject, content, c.reg_date, open, c.categoryNum, categoryName, NVL(bbsLikeCount, 0) bbsLikeCount, NVL(replyCount, 0) replyCount, NVL(replyDepCount, 0) replyDepCount
+		FROM community c
+		JOIN employee e ON e.empNo = c.empNo
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) bbsLikeCount FROM communityLike
+			GROUP BY num
+		) bc ON c.num = bc.num
+        LEFT OUTER JOIN (
+			SELECT num, COUNT(*) replyCount FROM communityReply 
+            WHERE answer = 0
+			GROUP BY num
+		) bb ON c.num = bb.num
+        LEFT OUTER JOIN (
+			SELECT num, COUNT(*) replyDepCount FROM communityReply c
+            JOIN employee e ON c.empNo = e.empNo
+            JOIN person_record pr ON e.empNo = pr.empNo
+            WHERE answer = 0 AND depNo = 1 AND state = 1
+			GROUP BY num
+		) bbb ON c.num = bbb.num
+		JOIN communityCategory co ON c.categoryNum = co.categoryNum
+		WHERE c.num = #{num}
+	</select>
+	
+	<insert id="insertCommunityLike" parameterType="map">
+		INSERT INTO communityLike(num, empNo, bbsLike) VALUES (#{num}, #{empNo}, #{bbsLike})
+	</insert>
+	
+	<select id="communityLikeCount" parameterType="map" resultType="map">
+		SELECT COUNT(DECODE(bbsLike, 1, 1)) likeCount,
+			   COUNT(DECODE(bbsLike, 0, 1)) disLikeCount
+		FROM communityLike WHERE num = #{num}
+	</select>
+	
+	<insert id="insertReply" parameterType="com.sp.app.community.Reply">
+		INSERT INTO communityReply(replyNum, num, empNo, content, answer, reg_date)
+		VALUES(communityReply_seq.NEXTVAL, #{num}, #{empNo}, #{content}, #{answer}, SYSDATE)
+	</insert>
+	
+	<select id="replyCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM communityReply WHERE num = #{num} AND answer = 0
+	</select>
+	
+	<select id="listReply" parameterType="map" resultType="com.sp.app.community.Reply">
+		SELECT r.replyNum, r.empNo, depNo, num, content, r.reg_date, 
+			   NVL(answerCount, 0) answerCount
+		FROM communityReply r
+		JOIN employee e ON r.empNo = e.empNo
+		JOIN person_record pr ON e.empNo = pr.empNo
+		LEFT OUTER JOIN (
+			SELECT answer, COUNT(*) answerCount
+			FROM communityReply
+			WHERE answer != 0
+			GROUP BY answer
+		) a ON r.replyNum = a.answer
+		WHERE num = #{num} AND r.answer = 0 AND state = 1 AND depNo != 1
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="listReplyTop" parameterType="map" resultType="com.sp.app.community.Reply">
+		SELECT r.replyNum, r.empNo, depNo, num, content, r.reg_date, 
+			   NVL(answerCount, 0) answerCount
+		FROM communityReply r
+		JOIN employee e ON r.empNo = e.empNo
+		JOIN person_record pr ON e.empNo = pr.empNo
+		LEFT OUTER JOIN (
+			SELECT answer, COUNT(*) answerCount
+			FROM communityReply
+			WHERE answer != 0
+			GROUP BY answer
+		) a ON r.replyNum = a.answer
+		WHERE num = #{num} AND r.answer = 0 AND state = 1 AND depNo = 1
+		ORDER BY r.replyNum DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<delete id="deleteReply" parameterType="map">
+		DELETE FROM communityReply
+		WHERE replyNum = #{replyNum}
+		<if test="mode=='reply'">
+			OR answer=#{replyNum}
+		</if>
+	</delete>
+	
+	<select id="listReplyAnswer" parameterType="map" resultType="com.sp.app.community.Reply">
+		SELECT replyNum, num, r.empNo, content, reg_date, answer
+		FROM communityReply r
+		JOIN employee e ON r.empNo = e.empNo
+		WHERE answer = #{answer}
+		ORDER BY replyNum DESC
+	</select>
+	
+	<select id="replyAnswerCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM communityReply
+		WHERE answer = #{answer}
+	</select>
+	
+	<update id="updateCommunity" parameterType="com.sp.app.community.Community">
+		UPDATE community SET open = #{open} WHERE num = #{num}
+	</update> 
 	
 </mapper>

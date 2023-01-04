@@ -147,7 +147,7 @@ function sendkOk() {
 
 		<nav class="mt-4" style="font-size: 17px;">
 			<div class="nav nav-tabs" id="nav-tab" role="tablist">
-				<button style="color: black;" class="nav-link" id="nav-home-tab"
+				<button style="color: black;" class="nav-link active" id="nav-home-tab"
 					data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
 					role="tab" aria-controls="nav-home" aria-selected="true">
 					대여소 등록</button>
@@ -155,7 +155,7 @@ function sendkOk() {
 					data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
 					role="tab" aria-controls="nav-profile" aria-selected="false">
 					충전소 등록</button>
-				<button style="color: black;" class="nav-link" id="nav-kickboard-tab"
+				<button style="color: black;" class="nav-link" id="nav-kickboard-tab" 
 				    data-bs-toggle="tab" data-bs-target="#nav-kick" type="button" role="tab"
 					aria-controls="nav-kickboard" aria-selected="false">킥보드 등록</button>
 			</div>
@@ -227,7 +227,7 @@ function sendkOk() {
 				</div>
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel"
-				aria-labelledby="nav-profile-tab" tabindex="0">
+				aria-labelledby="nav-profile-tab" tabindex="1">
 				<div class="card">
 					<div class="card-header bg-sub" style="height: 40px;"></div>
 					<div class="card-body">
@@ -287,7 +287,7 @@ function sendkOk() {
 				</div>
 			</div>
 			<div class="tab-pane fade" id="nav-kick" role="tabpanel"
-				aria-labelledby="nav-kickboard-tab" tabindex="0">
+				aria-labelledby="nav-kickboard-tab" tabindex="2">
 				<div class="card">
 					<div class="card-header bg-sub" style="height: 40px;"></div>
 					<div class="card-body">

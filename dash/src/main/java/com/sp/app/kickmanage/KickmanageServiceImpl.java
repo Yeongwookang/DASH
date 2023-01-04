@@ -17,11 +17,11 @@ public class KickmanageServiceImpl implements KickmanageService {
 	
 	
 	@Override
-	public List<Kickmanage> listkickboard() {
+	public List<Kickmanage> listkickboard(Map<String, Object> map) {
 		List<Kickmanage> list = null;
 		
 		try {
-			list = dao.selectList("kickboardmanage.listKickboard");
+			list = dao.selectList("kickboardmanage.listKickboard", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,6 +209,26 @@ public class KickmanageServiceImpl implements KickmanageService {
 			e.printStackTrace();
 			throw e;
 		}
+		
+	}
+
+
+
+
+
+
+
+	@Override
+	public int dataCount(Map<String, Object> map) {
+		int result = 0;
+
+		try {
+			result = dao.selectOne("kickboardmanage.dataCount", map);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
 		
 	}
 
