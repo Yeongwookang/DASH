@@ -132,10 +132,6 @@
 .answer-article .article-body { padding: 5px 5px; border-bottom: 1px solid #d5d5d5; }
 
 
-.table-reply tbody, td, tfoot, th, thead, tr {
-	border-style: none;
-}
-
 .btnReplyAnswerLayout {
 	color: #3EA9CD;
 }

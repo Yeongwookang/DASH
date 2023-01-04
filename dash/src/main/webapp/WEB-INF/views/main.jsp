@@ -254,51 +254,58 @@ $(function(){
 			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
 			<div id="chart-container2" class="h-100 w-100"></div>
 		</div>
-		<div class="card " style="width: 66%">
+		<div class="card pb-3" style="width: 66%">
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
-				<table class="table table-hover h-100 board-list">
-					<thead>  
-						<tr class="text-center"> 
-							<th>#</th>
-							<th>대여소명</th>
-							<th>인기도</th> 
-							<th>이용건수</th> 
-						</tr>
-					</thead>
-						<c:forEach var="dto" items="${usageRankList}" end="3">
-							<tr>
-								<td>0${dto.usageRank}</td> 
-								<td>${dto.name}</td> 
-								<td>
-									<c:if test="${dto.usageRank == 1}">
-										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</c:if>
-									<c:if test="${dto.usageRank == 2}"> 
-										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</c:if>
-									<c:if test="${dto.usageRank == 3}">
-										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-										</div>
-									</c:if>
-									<c:if test="${dto.usageRank == 4}">
-										<div class="progress">
-										  <div class="progress-bar" role="progressbar" aria-label="Basic example" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-										</div> 
-									</c:if>
-								</td>
-								<td>${dto.usageCount}건</td>
-							</tr>
-						</c:forEach> 
-					<tbody>
-						
-					</tbody>
-			</table>
+					<c:choose >
+			<c:when test="${not empty myApprovalList}">
+				<table class="table text-center m-auto" style="width: 90%">
+					<thead>
+	        			<tr>
+	        				<th>#</th>
+	        				<th style="width: 50%">제목</th>
+	        				<th style="width: 15%">부서 </th> 
+	        				<th style="width: 10%">직급</th>
+	        				<th style="width: 10%">기안자</th>
+	        				<th style="width: 15%">상태</th>
+	        			</tr>
+        			</thead>
+        			<tbody class="sendList">
+        			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
+        				<tr>
+        					<th>${status.count}</th>
+        					<td class="title">${ap.title}</td>
+        					<td class="dep">${ap.depName}</td>
+        					<td class="rank">${ap.rankName}</td>
+        					<td class="name">${ap.name}</td>
+        					<td>
+        					<c:choose>
+        						<c:when test="${ap.state == 0 }">기안</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+        						<c:otherwise>문의</c:otherwise>
+        					</c:choose>
+        					</td>
+        					<td class="signNum" style="display: none">${ap.signNum}</td>
+        				</tr>
+        			</c:forEach>
+        			</tbody>
+				</table>
+			</c:when>
+			<c:otherwise>
+				<blockquote class="blockquote mt-5 mb-5 text-center text-muted">
+			      <p>" ${sessionScope.employee.name}님이 작성한 결재가 없습니다 "</p>
+			    </blockquote>
+			</c:otherwise>
+			</c:choose>
 			
 		</div>
 	</div> 
 </div>
+<script type="text/javascript">
+	$(".sendList").children().click(function(){
+		let signNum = this.querySelector(".signNum").textContent;
+		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
+	});
+
+</script>

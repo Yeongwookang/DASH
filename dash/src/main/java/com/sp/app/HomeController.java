@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
+import com.sp.app.approval.Approval;
+import com.sp.app.approval.ApprovalService;
 import com.sp.app.employee.SessionInfo;
 
 @Controller
@@ -24,6 +26,9 @@ public class HomeController {
    
    @Autowired
    private AnalysisService service;
+   
+   @Autowired
+   private ApprovalService apService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpSession session, Model model) throws Exception {
@@ -75,7 +80,10 @@ public class HomeController {
       if(info == null) {
          return "redirect:/employee/login";
       }    
-     
+      Map<String, Object> map = new HashMap<String, Object>();
+      map.put("empNo",info.getEmpNo());
+      List<Approval> myApprovalList = apService.myApprovalList(map);
+      
       model.addAttribute("msg", msg);
       model.addAttribute("dayOfWeek", s);
       model.addAttribute("totalSales", totalSales);
@@ -84,6 +92,8 @@ public class HomeController {
       model.addAttribute("repairCount", repairCount);
       model.addAttribute("damageCount", damageCount);
       model.addAttribute("usageRankList", usageRankList);
+      model.addAttribute("myApprovalList", myApprovalList);
+      
       
       return ".mainLayout";
    }

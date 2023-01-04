@@ -10,14 +10,14 @@
 
 
 <c:forEach var="vo" items="${listReplyTop}">
-	<table class='table table-reply border' style="height: 180px;">
-		<tr class="important-background">
-			<td colspan='2' valign='top' class="ps-4 pt-4 date" style="padding-bottom: 0px;">
+	<table class='table table-reply border' style="height: 180px;" >
+		<tr class="important-background" >
+			<td colspan='2' valign='top' class="ps-4 pt-4 date" style="padding-bottom: 0px; border-style: none;">
 				<span class="important">기업 답변</span>&nbsp;&nbsp;|&nbsp;&nbsp;${vo.reg_date}
 			</td>
 		</tr>
-		<tr class="important-background">
-			<td align='right' valign="top"> 
+		<tr class="important-background" >
+			<td align='right' valign="top" style="border-style: none;"> 
 				<div align="left" class="ps-3">${vo.content}</div>
 				<br>
 			</td>
@@ -28,7 +28,7 @@
 <c:forEach var="vo" items="${listReply}">
 	<table class='table table-reply border'>
 		<tr>
-			<td width='50%'>
+			<td width='50%' style="border-style: none;">
 				<div class='row reply-writer'>
 					<div class='col-1 d-flex'>
 						<img class="rounded-circle ms-4 mt-2" style="width:4rem; height: 4rem;" src="${pageContext.request.contextPath}/resources/images/profile2.png" >
@@ -37,7 +37,7 @@
 				</div>
 			</td>
 			<c:if test="${sessionScope.employee.empNo == vo.empNo || sessionScope.employee.depNo ==  1}">
-				<td width='50%' align='right' class='align-middle'>
+				<td width='50%' align='right' class='align-middle' style="border-style: none;">
 					<span class='reply-dropdown me-4'><i class='bi bi-three-dots-vertical'></i></span>
 					<div class="reply-menu">
 						<div class='deleteReply reply-menu-item' data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
@@ -45,15 +45,15 @@
 				</td>
 			</c:if>
 		</tr>
-		<tr>
-			<td colspan='2' valign='top' class="ps-4 date">
+		<tr style="border-style: none;">
+			<td colspan='2' valign='top' class="ps-4 date" style="border-style: none;">
 				${vo.reg_date}&nbsp;&nbsp;
 				<button type='button' class='btn btnReplyAnswerLayout mb-1' data-replyNum='${vo.replyNum}'>대댓글&nbsp;&nbsp;<span id="answerCount${vo.replyNum}">${vo.answerCount}개</span></button>		
 			</td>
 		</tr>
 	
-	    <tr class='reply-answer'> 
-	        <td colspan='2'>
+	    <tr class='reply-answer' style="border-style: none;"> 
+	        <td colspan='2' style="border-style: none;">
 	        	<div>
 		            <div id='listReplyAnswer${vo.replyNum}' class='answer-list'></div>
 		            <div class="pt-2 pe-3"> 
