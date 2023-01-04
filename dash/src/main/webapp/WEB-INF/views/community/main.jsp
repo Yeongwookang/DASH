@@ -92,7 +92,7 @@ function searchList() {
 					</select>
 				</div> 
 				<div class="p-1">
-					<button type="button" class="btn bg-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+					<button type="button" class="btn button-main" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 				</div>
 			</div>
 		</form>

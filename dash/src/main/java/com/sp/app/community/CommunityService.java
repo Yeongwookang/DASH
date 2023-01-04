@@ -21,4 +21,6 @@ public interface CommunityService {
 	public List<Reply> listReplyAnswer(Map<String, Object> map);
 	public int replyAnswerCount(Map<String, Object> map);
 	
+	public void updateCommunity(Community dto) throws Exception;
+	
 }

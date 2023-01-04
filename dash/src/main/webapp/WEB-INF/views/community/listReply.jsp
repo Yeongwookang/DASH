@@ -3,14 +3,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<div class='reply-info mb-2'>
+<div class='reply-info mb-2 ms-1'>
 	<span class='reply-count'>댓글 ${replyCount}개</span>
 	<span>[목록, ${pageNo}/${total_page} 페이지]</span>
 </div>
 
 
 <c:forEach var="vo" items="${listReplyTop}">
-	<table class='table table-reply ps-4 border' style="height: 180px;">
+	<table class='table table-reply border' style="height: 180px;">
 		<tr class="important-background">
 			<td colspan='2' valign='top' class="ps-4 pt-4 date" style="padding-bottom: 0px;">
 				<span class="important">기업 답변</span>&nbsp;&nbsp;|&nbsp;&nbsp;${vo.reg_date}
@@ -26,7 +26,7 @@
 </c:forEach> 
 
 <c:forEach var="vo" items="${listReply}">
-	<table class='table table-reply ps-4 border'>
+	<table class='table table-reply border'>
 		<tr>
 			<td width='50%'>
 				<div class='row reply-writer'>
@@ -56,11 +56,11 @@
 	        <td colspan='2'>
 	        	<div>
 		            <div id='listReplyAnswer${vo.replyNum}' class='answer-list'></div>
-		            <div class="ms-2 pt-2"> 
-		                <textarea class="form-control m-2" style="width: 1100px; height: 100px;"></textarea>
+		            <div class="pt-2 pe-3"> 
+		                <textarea class="form-control m-2" style="height: 100px;"></textarea>  
 		            </div>
 					<div class='text-end pe-2 pb-1 mt-2'>
-						<button type='button' class='btn btn-light btnSendReplyAnswer' data-replyNum='${vo.replyNum}'>답글 등록</button>
+						<button type='button' class='btn button-main btnSendReplyAnswer' data-replyNum='${vo.replyNum}'>답글 등록</button>
 		            </div> 
 	            </div>
 			</td>

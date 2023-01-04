@@ -89,7 +89,8 @@ public class CommunityController {
 	}
 	
 	@GetMapping(value = "write")
-	public String writeForm() throws Exception {
+	public String writeForm(Model model) throws Exception {
+		model.addAttribute("mode", "write");
 		
 		return ".community.write";
 	}
@@ -275,6 +276,36 @@ public class CommunityController {
 		
 		model.put("count", count);
 		return model;
+	}
+	
+	@GetMapping(value = "update")
+	public String updateForm(@RequestParam long num,
+			@RequestParam String page,
+			HttpSession session,
+			Model model) throws Exception {
+		
+		Community dto = service.readCommunity(num);
+		if(dto == null) {
+			return "redirect:/community/main?page=" + page;
+		}
+		
+		model.addAttribute("mode", "update");
+		model.addAttribute("page", page);
+		model.addAttribute("dto", dto);
+		
+		return ".community.write";
+	}
+	
+	@PostMapping(value = "update")
+	public String updateSubmit(Community dto,
+			@RequestParam String page) throws Exception {
+		
+		try {
+			service.updateCommunity(dto);
+		} catch (Exception e) {
+		}
+
+		return "redirect:/community/main?page=" + page;
 	}
 	
 }	

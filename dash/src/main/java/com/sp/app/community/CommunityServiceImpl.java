@@ -164,4 +164,14 @@ public class CommunityServiceImpl implements CommunityService {
 		return listReplyTop;
 	}
 
+	@Override
+	public void updateCommunity(Community dto) throws Exception {
+		try {
+			dao.selectList("community.updateCommunity", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

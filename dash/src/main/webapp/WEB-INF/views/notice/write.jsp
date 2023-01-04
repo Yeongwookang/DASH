@@ -66,7 +66,7 @@ function check() {
 				<tr>
 					<td class="w-25 text-center align-middle" scope="row">내 용</td>
 					<td class="w-75">
-						<textarea name="content" id="ir1" class="form-control" style="width: 95%; height: 270px;">${dto.content}</textarea>
+						<textarea name="content" id="ir1" class="form-control" style="width: 95%; height: 270px;" >${dto.content}</textarea>
 					</td>
 				</tr>
 				<tr>
