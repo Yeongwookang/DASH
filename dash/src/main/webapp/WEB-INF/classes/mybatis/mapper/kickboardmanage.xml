@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kickboardmanage">
-	 <select id="listKickboard" resultType="com.sp.app.kickmanage.Kickmanage">
+	 <select id="listKickboard" parameterType="map"  resultType="com.sp.app.kickmanage.Kickmanage">
 	SELECT * FROM(
 	SELECT * FROM (
     SELECT RANK() OVER(PARTITION BY k.kNum ORDER BY rental_date DESC) rank,
@@ -101,6 +101,25 @@
 	  <update id="updateRepairCom" parameterType="map">
 	  UPDATE repair SET state = '수리완료' WHERE  kNum = #{kNum} AND state = '입고'
 	 </update>
+	 
+	 <!-- 카운트 -->
+	 <select id="">
+	 SELECT count(knum) FROM(
+	SELECT * FROM (
+    SELECT RANK() OVER(PARTITION BY k.kNum ORDER BY rental_date DESC) rank,
+       k.kNum, k.name,  k.state state, rp.state repairstate ,rental_date, NVL2(r2.recordNum, '반납완료', NVL2(r.recordNum, '대여중', '이력없음')) condition
+    FROM kickboard k
+    left outer JOIN usageRecord u ON k.kNum = u.kNum
+    LEFT OUTER JOIN rental r  ON u.recordNum = r.recordNum
+    LEFT OUTER JOIN return r2  ON u.recordNum = r2.recordNum
+    LEFT OUTER JOIN repair rp On k.kNum = rp.kNum
+    ) WHERE rank = 1 )
+       	<where>
+			<if test="condition!= null">
+				<include refid="where-list"/>
+			</if>
+		</where>	
+	 </select>
 	 
 
 	 

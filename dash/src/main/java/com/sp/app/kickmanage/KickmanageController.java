@@ -25,7 +25,7 @@ public class KickmanageController {
 	private KickmanageService service;
 	
 	@RequestMapping(value = "main")
-	public String list(Model model, @RequestParam(defaultValue = "") String condition
+	public String list(Model model, @RequestParam(defaultValue = "other") String condition
 			, HttpServletRequest req) {
 		
 		List<Kickmanage> list =  null;
@@ -33,7 +33,7 @@ public class KickmanageController {
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
 		
-		list = service.listkickboard();
+		list = service.listkickboard(map);
 	
 		model.addAttribute("list", list);
 		model.addAttribute("condition", condition);
@@ -43,32 +43,7 @@ public class KickmanageController {
 		return ".kickmanage.main";
 	}
 	
-	@RequestMapping(value = "filterkickboard")
-	@ResponseBody
-	public Map<String, Object> filterkickboard(@RequestParam String value) throws Exception {
-		
-	  List<Map<String, Object>> damage = null;
-	  List<Map<String, Object>> repair = null;
-	  List<Map<String, Object>> complete = null;
-			  
-					
-		Map<String, Object> model = new HashMap<String, Object>();
-
-		
-		if (value == "damage") {
-			damage = service.damagedkickboard();	
-			model.put("damage", damage);
-			
-		} else if (value == "repair") {
-			repair = service.repairingkickboard();
-			model.put("repair", repair);
-		} else if (value == "complete") {
-			complete = service.repaircomkickboard();
-			model.put("complete", complete);
-		}
-		
-		return model;
-	}
+	
 	//수리대기
 	@RequestMapping(value = "repairwait")
 	@ResponseBody

@@ -8,7 +8,7 @@ import java.util.Map;
 
 
 public interface KickmanageService {
-	public List<Kickmanage> listkickboard ();
+	public List<Kickmanage> listkickboard (Map<String, Object> map);
 
 	
 	

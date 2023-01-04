@@ -59,13 +59,8 @@ $(function(){
 
 
 function searchList() {
-	const f = document.kickboardForm; 
-	
-	let value = f.kickboard.value;
-	
-	f.action = "${pageContext.request.contextPath}/kickmanage/main";
+	const f = document.searchForm;
 	f.submit();
-	
 }
 
 function sendModelrepairwait() {
@@ -170,24 +165,41 @@ function sendModeldamage() {
 	<div class="text-start fs-4 mb-4">
 		<span>| 킥보드 관리</span>
 	</div>
+            <div class="col-6 text-center ms-3">
+					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/kickmanage/main" method="post">
+						<div class="col-auto p-1">
+							<select name="condition" class="form-select">
+								<option value="other">::선택::</option>
+								<option value="normal" ${condition=="normal"?"selected='selected'":""}>정상</option>
+								<option value="repair" ${condition=="repair"?"selected='selected'":""}>수리</option>
+								<option value="damage" ${condition=="damage"?"selected='selected'":""}>파손</option>
+							</select>
+						</div>
+						<div class="col-auto p-1">
+							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+						</div>
+					</form>
+				</div>
 
-	<div class="col text-end ms-4 d-inline">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal1">수리신청</button>
-	</div>
-	
-	<div class="col text-end ms-4 d-inline">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal2">수리중신청</button>
-	</div>
-	
-	<div class="col text-end ms-4 d-inline">
+<div class="d-flex flex-row-reverse bd-highlight  d-inline">
+	<div class="text-end ms-1">
 		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal3">수리완료신청</button>
 	</div>
-	<div class="col text-end ms-4 d-inline">
+		<div class="text-end ms-1">
+		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+			data-bs-target="#exampleModal2">수리중신청</button>
+	</div>
+
+	<div class="text-end ms-1">
+		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+			data-bs-target="#exampleModal1">수리신청</button>
+	</div>
+
+	<div class="text-end ms-1">
 		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal4">파손신청</button>
+	</div>
 	</div>
 
 	<div class="mt-4">
@@ -220,26 +232,8 @@ function sendModeldamage() {
 		</table>
 
 		<div class="page-navigation"></div>
-		<div class="col-6 text-center ms-3 d-inline">
-			<form name="kickboardForm">
-				<div class="col-auto p-1">
-					<select name="kickboard" class="form-select" style="width: 20%">
-						<option value="" ${condition==""?"selected='selected'":""}>선택</option>
-						<option value="normal"
-							${condition=="normal"?"selected='selected'":""}>정상</option>
-
-						<option value="repair"
-							${condition=="repair"?"selected='selected'":""}>수리</option>
-						<option value="damage"
-							${condition=="damage"?"selected='selected'":""}>파손</option>
-					</select>
-					<button type="button" class="btn btn-light d-inline"
-						onclick="searchList()">
-						<i class="bi bi-search"></i>
-					</button>
-				</div>
-			</form>
-		</div>
+		
+		
 
 
 		<!-- Modal -->
