@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sp.app.common.MyUtil;
+
 
 
 @Controller("kick.kickmanageController")
@@ -24,20 +26,62 @@ public class KickmanageController {
 	@Autowired
 	private KickmanageService service;
 	
+	@Autowired
+	private MyUtil myUtil;
+	
 	@RequestMapping(value = "main")
-	public String list(Model model, @RequestParam(defaultValue = "other") String condition
+	public String list(@RequestParam(value = "page", defaultValue = "1") int current_page,
+			Model model, @RequestParam(defaultValue = "other") String condition
 			, HttpServletRequest req) {
 		
-		List<Kickmanage> list =  null;
+		int size = 10;
+		int total_page = 0;
+		int dataCount = 0;
 		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("condition", condition);
+			
+		dataCount = service.dataCount(map);
+		if (dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
+		
+		if (total_page < current_page) {
+			current_page = total_page;
+		}
+
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		
+		List<Kickmanage> list =  null;
 		
 		list = service.listkickboard(map);
 	
+		String cp = req.getContextPath();
+		String query = "";
+		String listUrl = cp + "/kickmanage/main";
+		
+		if(condition.length() != 0) {
+			query = "condition=" + condition;
+		}
+		
+		if(query.length() != 0) {
+			listUrl = cp + "/kickmanage/main?" + query;
+		}
+		
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+		
+	
 		model.addAttribute("list", list);
 		model.addAttribute("condition", condition);
-		
+		model.addAttribute("page", current_page);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 		
 		
 		return ".kickmanage.main";

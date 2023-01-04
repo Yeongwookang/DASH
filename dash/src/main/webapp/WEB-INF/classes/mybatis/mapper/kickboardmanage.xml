@@ -17,7 +17,9 @@
 			<if test="condition!= null">
 				<include refid="where-list"/>
 			</if>
-		</where>	
+		</where>
+	ORDER BY knum
+	OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY	
 	 </select>
 	 
 	
@@ -103,7 +105,7 @@
 	 </update>
 	 
 	 <!-- 카운트 -->
-	 <select id="">
+	 <select id="dataCount"  parameterType="map" resultType="Integer">
 	 SELECT count(knum) FROM(
 	SELECT * FROM (
     SELECT RANK() OVER(PARTITION BY k.kNum ORDER BY rental_date DESC) rank,

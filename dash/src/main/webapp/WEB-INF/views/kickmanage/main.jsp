@@ -231,10 +231,10 @@ function sendModeldamage() {
 			</tbody>
 		</table>
 
-		<div class="page-navigation"></div>
-		
-		
-
+		<div class="page-navigation">
+			<div class="page-navigation paging mt-5 text-center">
+				${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}</div>
+		</div>
 
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal1" tabindex="-1"

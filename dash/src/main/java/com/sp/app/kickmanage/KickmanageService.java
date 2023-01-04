@@ -9,7 +9,7 @@ import java.util.Map;
 
 public interface KickmanageService {
 	public List<Kickmanage> listkickboard (Map<String, Object> map);
-
+	public int dataCount(Map<String, Object> map);
 	
 	
 	public List<Map<String, Object>> damagedkickboard ();
