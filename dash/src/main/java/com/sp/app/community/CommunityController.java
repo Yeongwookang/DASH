@@ -278,6 +278,17 @@ public class CommunityController {
 		return model;
 	}
 	
+	@PostMapping(value = "countReply")
+	@ResponseBody
+	public Map<String, Object> countReply(@RequestParam Map<String, Object> paramMap){
+		int count = service.replyCount(paramMap);
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("count", count);
+		return model;
+	}
+	
 	@GetMapping(value = "update")
 	public String updateForm(@RequestParam long num,
 			@RequestParam String page,

@@ -93,8 +93,9 @@ $(function(){
 			let state = data.state;
 			if(state === "true"){
 				listPage(1);
+				countReply('${dto.num}');
 			} else if(state === "false"){
-				alert("댓글 추가에 실패했습니다.");
+				alert("댓글 추가에 실패했습니다."); 
 			}
 		}
 		
@@ -105,6 +106,7 @@ $(function(){
 
 $(function(){
 	listPage(1);
+	countReply('${dto.num}');
 });
 
 function listPage(page){
@@ -170,6 +172,20 @@ function countReplyAnswer(answer){
 	const fn = function(data){
 		let count = data.count;
 		let selector = "#answerCount" + answer;
+		$(selector).html(count);
+	};
+	
+	ajaxFun(url, "post", query, "json", fn);
+	
+}
+
+function countReply(num){
+	let url = "${pageContext.request.contextPath}/community/countReply";
+	let query = "num=" + num;
+	
+	const fn = function(data){
+		let count = data.count;
+		let selector = "#replyCount" + num;
 		$(selector).html(count);
 	};
 	
@@ -281,11 +297,11 @@ $(function(){
 		<tbody>
 			<tr class="border-bottom"> 
 				<td align="left"> 
-					<span class="date pe-1 ps-3">
+					<span class="date pe-1 ps-3"> 
 						<c:if test="${dto.replyDepCount != 0 }">
-							<span class="answer-complete p-1">답변 완료</span>&nbsp;&nbsp;
+							<span class="answer-complete p-1">답변 완료</span>&nbsp;&nbsp;  
 						</c:if>
-						<i class="fa-regular fa-message"></i>&nbsp;${dto.replyCount}&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_date}
+						<i class="fa-regular fa-message"></i>&nbsp;<span id="replyCount${dto.num}"></span>&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_date}
 					</span>
 					<br>
 				</td>
