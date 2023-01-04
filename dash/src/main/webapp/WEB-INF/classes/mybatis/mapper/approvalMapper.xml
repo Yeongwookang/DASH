@@ -26,12 +26,16 @@
 		LEFT OUTER JOIN employee e ON pr.empNo=e.empNo
 		LEFT OUTER JOIN DEPARTMENT d ON d.DEPNO = pr.DEPNO
 		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
+		LEFT OUTER JOIN team t ON t.teamNo = pr.teamNo
+		LEFT OUTER JOIN rank r ON r.rankNo = pr.rankNo
 		<where>
 			state = 1 
 			<if test="keyword !=null and keyword !=''">
 				AND	<include refid="where-list"/>
 			</if>
 		</where>
+		ORDER BY pr.depNo DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<update id ="insertApproval" parameterType="map" >
@@ -139,14 +143,16 @@
 			</if>
 		</where>
 	</select>
-	<update id="approveUpdate" parameterType="Long">
-		UPDATE 
-		CASE WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 0 THEN f_approval 
-		WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 1 THEN s_approval
-		WHEN SELECT state FROM doc_record WHERE signNum=#{signNum} = 2 THEN t_approval
-		END
+	<update id="approveUpdate" parameterType="map">
+		UPDATE SET reg_date = sysdate, state='승인' FROM 
+		<choose>
+			<when test="state == 0"> f_approval</when>
+			<when test="state == 1"> s_approval</when>
+			<when test="state == 2"> t_approval</when>
+			<otherwise> dual</otherwise>
+		</choose>
 		
-		SET reg_date = sysdate, state='승인'
+		WHERE signNum = #{signNum}
 	</update>
 	<update id="approve" parameterType="Long">
 		UPDATE doc_record SET reg_date = sysdate, state = (SELECT state FROM doc_record WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}

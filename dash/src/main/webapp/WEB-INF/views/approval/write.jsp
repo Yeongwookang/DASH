@@ -145,7 +145,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 				login();
 				return false;
 			} else if(jqXHR.status === 400) {
-				alert("요청 처리가 실패 했습니다.");
+				alert('요청 처리가 실패 했습니다.');
 				return false;
 			}
 	    	
@@ -157,8 +157,14 @@ function ajaxFun(url, method, query, dataType, fn) {
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/translations/ko.js"></script>
 <script>
-	ClassicEditor.create(document.querySelector("#ir1"),{
-		language: "ko"
+	var editor;
+	ClassicEditor
+	.create(document.querySelector("#ir1"),{
+	    language: "ko"
+	})
+	.then( newEditor=>{editor=newEditor;})
+	.catch(error=>{
+	    console.log(error)
 	});
 </script>
 <script type="text/javascript">	
@@ -167,7 +173,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 	$(".empSearchBtn").click(function(){
 		let condition = $("#condition").attr("selected",true).val();
 		let keyword = $("#keyword").val();
-		let page = 1;
+		let page = $(".empSearchPage").val();
 		
 		let query = "condition="+condition+"&keyword="+keyword+"&page="+page;
 		let url = "${pageContext.request.contextPath}/approval/empSearch";
@@ -240,6 +246,9 @@ function ajaxFun(url, method, query, dataType, fn) {
 					index--;
 				});
 			});
+			
+			$(".sendList").append("<tr><td><input class='empSearchPage' type='hidden' value="+data.page+"> </td></tr>");
+			
 		}
 		
 		

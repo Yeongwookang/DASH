@@ -61,13 +61,39 @@ public class ApprovalController {
 		   
 		@GetMapping("empSearch")
 		@ResponseBody
-		public Map<String, Object> empSearch(@RequestParam Map<String, Object> map
-				  ) throws Exception {
-		     List<Employee> empList=null;
-		     
-		     empList= service.empList(map);
+		public Map<String, Object> empSearch(HttpServletRequest req, 
+				@RequestParam Map<String, Object> map) throws Exception {
+			
+			
+			
+			int size = 5;
+			int total_page;
+			int dataCount = service.dataCount(map);
+			
+			int current_page;
+			if(map.get("page") == null) {
+				current_page = 1;
+			} else {
+				current_page = Integer.parseInt((String)map.get("page"));
+			}
+			
+			total_page = myUtil.pageCount(dataCount, size);
+			
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			
+		     List<Employee> empList= service.empList(map);
 		     Map<String, Object> model =  new HashMap<String, Object>();
-		     model.put("empList",empList);
+		     model.put("page",current_page);
+		     model.put("empList", empList);
 		     
 		     return model;
 		}
@@ -150,11 +176,13 @@ public class ApprovalController {
 			return "redirect:/approval/main";
 		}
 		
-		@GetMapping("approve/{signNum}")
-		public String approve(@PathVariable long signNum
+		@PostMapping("approve")
+		public String approve(@RequestParam Map<String, Object> map
 				) throws Exception{
-			service.approveUpdate(signNum);
-			service.approve(signNum);
+			String signNum = (String)map.get("signNum");
+			map.put("signNum",Long.parseLong(signNum));
+			service.approveUpdate(map);
+			service.approve(map);
 			
 			return "redirect:/approval/main";
 		}

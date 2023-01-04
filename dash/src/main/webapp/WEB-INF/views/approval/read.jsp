@@ -42,15 +42,20 @@
 				</tbody>
 			</table>
 			${dto.content}
+			</form>
+			
 		<div class="d-flex justify-content-end mt-4">
 			<c:if test="${sessionScope.employee.empNo == dto.empNo && dto.state < 1}">
 				<button class="btn bg-light bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/update/${dto.signNum}'">수정</button>
 			</c:if>
-			
-			<c:if test="${sessionScope.employee.empNo == dto.ref1}">
-				<button class="btn bg-light bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/approve/${dto.signNum}'">결재</button>
+			<form method="POST" action="${pageContext.request.contextPath}/approval/approve" name="approve">
+				<input type="hidden" value="${dto.state}" name="state">
+				<input type="hidden" value="${dto.signNum}" name="signNum">			
+			<c:if test="${sessionScope.employee.empNo == dto.ref1 || sessionScope.employee.empNo == dto.ref2 || sessionScope.employee.empNo == dto.ref3}">
+				<button class="btn bg-light bg-gradient me-2" type="submit">결재</button>
 			</c:if>
+			</form>
 		</div>
-		</form>
+		
 	</div>
 </div>

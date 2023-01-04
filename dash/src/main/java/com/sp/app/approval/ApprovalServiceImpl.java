@@ -137,9 +137,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void approve(long signNum) throws Exception {
+	public void approve(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("approval.approve",signNum);
+			dao.updateData("approval.approve", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -147,9 +147,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void approveUpdate(long signNum) throws Exception {
+	public void approveUpdate(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("approval.approveUpdate",signNum);
+			dao.updateData("approval.approveUpdate", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

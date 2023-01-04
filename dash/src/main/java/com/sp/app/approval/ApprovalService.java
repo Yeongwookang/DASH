@@ -9,8 +9,8 @@ public interface ApprovalService {
 	public void insertApproval(Map<String,Object>map) throws Exception;
 	public void updateApproval(Map<String,Object>map) throws Exception;
 	public void deleteApproval(long signNum) throws Exception;
-	public void approve(long signNum) throws Exception;
-	public void approveUpdate(long signNum) throws Exception;
+	public void approve(Map<String, Object> map) throws Exception;
+	public void approveUpdate(Map<String, Object> map) throws Exception;
 	
 	public List<Employee> empList(Map<String, Object> map);
 	
