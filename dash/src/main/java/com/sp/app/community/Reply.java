@@ -4,11 +4,11 @@ public class Reply {
 	private long replyNum;
 	private long num;
 	private String empNo;
+	private int depNo;
 	private String name;
 	private String content;
 	private String reg_date;
 	private int answer;
-	private int showReply;
 	
 	private int answerCount;
 	private int likeCount;
@@ -31,6 +31,12 @@ public class Reply {
 	}
 	public void setEmpNo(String empNo) {
 		this.empNo = empNo;
+	}
+	public int getDepNo() {
+		return depNo;
+	}
+	public void setDepNo(int depNo) {
+		this.depNo = depNo;
 	}
 	public String getName() {
 		return name;
@@ -56,12 +62,6 @@ public class Reply {
 	public void setAnswer(int answer) {
 		this.answer = answer;
 	}
-	public int getShowReply() {
-		return showReply;
-	}
-	public void setShowReply(int showReply) {
-		this.showReply = showReply;
-	}
 	public int getAnswerCount() {
 		return answerCount;
 	}
@@ -80,6 +80,5 @@ public class Reply {
 	public void setDisLikeCount(int disLikeCount) {
 		this.disLikeCount = disLikeCount;
 	}
-	
 	
 }
