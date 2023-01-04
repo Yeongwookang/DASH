@@ -1,5 +1,9 @@
 package com.sp.app.register;
 
+import java.io.File;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,12 +28,12 @@ public class RegisterController {
 	
 	
 	@PostMapping("write")
-	public String writeSubmit(Register dto) throws Exception {
-	
+	public String writeSubmit(Register dto, HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "photo";
 
 		try {
-			
-			service.insertstation(dto);
+			service.insertstation(dto, path);
 		} catch (Exception e) {
 		}
 

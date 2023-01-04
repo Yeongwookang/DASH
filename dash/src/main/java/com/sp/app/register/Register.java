@@ -1,5 +1,7 @@
 package com.sp.app.register;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Register {
 	private String name;
 	private String x_pos;
@@ -10,6 +12,12 @@ public class Register {
 	
 	private int LEFTQTY;
 	private String state;
+	
+	private String imageFilename;
+	
+	private MultipartFile imageFilenameFile;
+	
+	
 	
 	public String getName() {
 		return name;
@@ -59,6 +67,19 @@ public class Register {
 	public void setLEFTQTY(int lEFTQTY) {
 		LEFTQTY = lEFTQTY;
 	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
+	public MultipartFile getImageFilenameFile() {
+		return imageFilenameFile;
+	}
+	public void setImageFilenameFile(MultipartFile imageFilenameFile) {
+		this.imageFilenameFile = imageFilenameFile;
+	}
+	
 	
 	
 }

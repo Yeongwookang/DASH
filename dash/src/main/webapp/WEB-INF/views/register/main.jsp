@@ -2,9 +2,27 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<style type="text/css">
 
+.table-form tr>td { vertical-align: middle; }
+.table-form tr:first-child { border-top: 2px solid #212529; }
+.table-form tr>td:first-child { text-align: center; }
+.table-form tr>td:nth-child(2) { padding-left: 10px; }
+.table-form textarea { height: 170px; resize: none; }
 
-
+.table-form .img-viewer {
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 45px;
+	height: 45px;
+	border-radius: 45px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
+}
+</style>
 <script type="text/javascript">
 
 
@@ -135,7 +153,47 @@ function sendkOk() {
 }
 
 
-
+$(function(){
+	var img = "${dto.imageFilename}";
+	if( img ) {
+		img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+		$(".table-form .img-viewer").empty();
+		$(".table-form .img-viewer").css("background-image", "url("+img+")");
+	}
+	
+	$(".table-form .img-viewer").click(function(){
+		$("form[name=stationForm] input[name=imageFilenameFile]").trigger("click");
+	});
+	
+	$("form[name=stationForm] input[name=imageFilenameFile]").change(function(){
+		let file = this.files[0];
+		
+		if(! file) {
+			$(".table-form .img-viewer").empty();
+			
+			if( img ) {
+				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+			} else {
+				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+			}
+			$(".table-form .img-viewer").css("background-image", "url("+img+")");
+			
+			return false;
+		}
+		
+		if( ! file.type.match("image.*") ) {
+			this.focus();
+			return false;
+		}
+		
+		var reader = new FileReader();
+		reader.onload = function(e) { // 파일의 내용을 다 읽었으면
+			$(".table-form .img-viewer").empty();
+			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
+		};
+		reader.readAsDataURL( file );
+	});
+});
 
 
 </script>
@@ -168,8 +226,8 @@ function sendkOk() {
 					<div class="card-header bg-sub" style="height: 40px;"></div>
 					<div class="card-body">
 						<div class="body-main m-auto">
-							<form name="stationForm" method="post">
-								<table class="table  mt-5 text-center" style="font-size: 18px;">
+							<form name="stationForm" method="post" enctype="multipart/form-data">
+								<table class="table table-form  mt-5 text-center" style="font-size: 18px; width: 60%;">
 									<tr>
 										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
 										<td style="background-color: #FFE1E1;">&nbsp;</td>
@@ -205,6 +263,14 @@ function sendkOk() {
 										<td><input type="text" name="addr" class="form-control"
 											value="${dto.addr}" placeholder="주소"></td>
 									</tr>
+									<tr>
+										<td class="table-light col-sm-2">대표이미지</td>
+										<td>
+											<div class="img-viewer"></div> <input type="file"
+											name="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: none;">
+										</td>
+									</tr>
 								</table>
 								<table class="table table-borderless">
 									<tr>
@@ -232,7 +298,7 @@ function sendkOk() {
 					<div class="card-header bg-sub" style="height: 40px;"></div>
 					<div class="card-body">
 						<div class="body-main m-auto">
-							<form name="stationchForm" method="post">
+							<form name="stationchForm" method="post" enctype="multipart/form-data">
 								<table class="table  mt-5 text-center" style="font-size: 18px;">
 									<tr>
 										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
@@ -292,7 +358,7 @@ function sendkOk() {
 					<div class="card-header bg-sub" style="height: 40px;"></div>
 					<div class="card-body">
 						<div class="body-main m-auto">
-							<form name="stationkForm" method="post">
+							<form name="stationkForm" method="post" enctype="multipart/form-data">
 								<table class="table  mt-5 text-center" style="font-size: 18px;">
 									<tr>
 										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
