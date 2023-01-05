@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
-import com.sp.app.employee.Employee;
 
 @Service("insa.insaService")
 public class InsaServiceImpl implements InsaService {
@@ -19,7 +18,7 @@ public class InsaServiceImpl implements InsaService {
 	private FileManager fileManager;
 
 	@Override
-	public void insertInsa(Employee dto, String pathname) throws Exception {
+	public void insertInsa(Insa dto, String pathname) throws Exception {
 		try {
 
 			String filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
@@ -33,9 +32,14 @@ public class InsaServiceImpl implements InsaService {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
 
+			if (dto.getZip().length() != 0 && dto.getAddr1().length() != 0 && dto.getAddr2().length() != 0) {
+				dto.setAddr(dto.getZip() + dto.getAddr1() + dto.getAddr2());
+			}
+			
+			
 			// 사원정보 저장
 
-			dao.updateData("insa.insertEmployee3", dto); 
+			dao.updateData("insa.insertInsa3", dto); 
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +61,7 @@ public class InsaServiceImpl implements InsaService {
 
 	
 	@Override
-	public void updateInsa(Employee dto, String pathname) throws Exception {
+	public void updateInsa(Insa dto, String pathname) throws Exception {
 		try {
 			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
 				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
@@ -66,9 +70,13 @@ public class InsaServiceImpl implements InsaService {
 			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
+			
+			if (dto.getZip().length() != 0 && dto.getAddr1().length() != 0 && dto.getAddr2().length() != 0) {
+				dto.setAddr(dto.getZip() + dto.getAddr1() + dto.getAddr2());
+			}
 
-			dao.updateData("insa.updateEmployee1", dto);
-			dao.updateData("insa.updateEmployee2", dto);
+			dao.updateData("insa.updateInsa1", dto);
+			dao.updateData("insa.updateInsa2", dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -81,8 +89,8 @@ public class InsaServiceImpl implements InsaService {
 			map.put("updateEmployeeEnabled", 0);
 			updateAuthority(map);
 
-			dao.deleteData("member.deleteEmployee2", map);
-			dao.deleteData("member.deleteEmployee1", map);
+			dao.deleteData("insa.deleteInsa2", map);
+			dao.deleteData("insa.deleteInsa1", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
@@ -104,24 +112,30 @@ public class InsaServiceImpl implements InsaService {
 	}
 
 	@Override
-	public List<Employee> listEmployee(Map<String, Object> map) {
-		List<Employee> list = null;
+	public List<Insa> list() {
+		List<Insa> list = null;
 
 		try {
-			list = dao.selectList("insa.readEmployee2", map);
+			list = dao.selectList("insa.listInsa");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return list;
 	}
 
+	
+	
+	
+	
+	
+	
 	@Override
-	public Employee readEmployee(String empNo) {
+	public Insa readInsa(String empNo) {
 		// 전체사원 목록에서 한 항목 클릭하면 오른쪽 화면 내용 보이게
-		Employee dto =null;
+		Insa dto =null;
 		
 			try {
-				dto = dao.selectOne("insa.readEmployee", empNo);
+				dto = dao.selectOne("insa.readInsa", empNo);
 
 				if (dto != null) {
 					if (dto.getEmail() != null) {
@@ -143,6 +157,7 @@ public class InsaServiceImpl implements InsaService {
 		
 		return dto;
 	}
+
 
 	
 }

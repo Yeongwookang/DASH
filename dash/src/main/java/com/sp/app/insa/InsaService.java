@@ -3,20 +3,23 @@ package com.sp.app.insa;
 import java.util.List;
 import java.util.Map;
 
-import com.sp.app.employee.Employee;
 
 
 public interface InsaService {
-	public void insertInsa(Employee dto, String pathname) throws Exception;
+	public void insertInsa(Insa dto, String pathname) throws Exception;
 	
 	public void updateAuthority(Map<String, Object> map) throws Exception;
-	public void updateInsa(Employee dto, String pathname) throws Exception;
+	public void updateInsa(Insa dto, String pathname) throws Exception;
 	public void deleteInsa(Map<String, Object> map) throws Exception;
 	
 	public int dataCount(Map<String, Object> map);
-	public List<Employee> listEmployee(Map<String, Object> map);
+
+	public List<Insa> list();
 	
-	public Employee readEmployee(String empNo);
+	
+	
+	
+	public Insa readInsa(String empNo);
 	
 
 	

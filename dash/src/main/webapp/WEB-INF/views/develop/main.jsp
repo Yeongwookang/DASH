@@ -10,17 +10,17 @@
 <div class="scroll m-auto" style="height: 80%; overflow-y: scroll;">
 	<div class="mx-5">
 
-		<table class="table">
-			<thead>
+		<table class="table n-auto">
+			<thead >
 				<tr>
 					<th scope="col"></th>
 					<th scope="col">결재번호</th>
 					<th scope="col">제목</th>
 					<th scope="col">부서</th>
 					<th scope="col">기안자</th>
-					<th scope="col">승인대기</th>
-					<th scope="col">승인</th>
-					<th scope="col">반려</th>
+					<th scope="col">상세내용</th>
+					<th scope="col">접수상태</th>
+					
 				</tr>
 			</thead>
 			<tbody>
@@ -35,8 +35,8 @@
 									data-bs-toggle="modal" data-bs-target="#exampleModal">
 									내용확인</button>
 					 </th>
-					<th scope="col">승인</th>
-					<th scope="col">반려</th>
+					<th scope="col">접수</th>
+					
 				</tr>
 				<tr>
 					<th scope="row">2</th>
@@ -49,8 +49,8 @@
 									data-bs-toggle="modal" data-bs-target="#exampleModal">
 									내용확인</button>
 					 </th>
-					<th scope="col">승인</th>
-					<th scope="col">반려</th>
+					<th scope="col">대기</th>
+					
 				</tr>
 				<tr>
 					<th scope="row">3</th>
@@ -63,8 +63,8 @@
 									data-bs-toggle="modal" data-bs-target="#exampleModal">
 									내용확인</button>
 					 </th>
-					<th scope="col">승인</th>
-					<th scope="col">반려</th>
+					<th scope="col">완료</th>
+					
 				</tr>
 			</tbody>
 		</table>
@@ -93,8 +93,8 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
-					data-bs-dismiss="modal">반려</button>
-				<button type="button" class="btn btn-primary">승인</button>
+					data-bs-dismiss="modal">취소</button>
+				<button type="button" class="btn btn-primary">접수</button>
 			</div>
 		</div>
 	</div>

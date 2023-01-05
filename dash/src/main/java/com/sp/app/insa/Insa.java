@@ -1,15 +1,20 @@
 package com.sp.app.insa;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Insa {
 		private long empNo;
 		private String pwd;
 		private String name;
 		private String thumbnail;
 		private String birth;
+		private String startDate;
+		private String endDate;
 		private String email;
 		private String email1;
 		private String email2;
 		private String zip;
+		private String addr;
 		private String addr1;
 		private String addr2;
 		private int enabled;
@@ -21,6 +26,18 @@ public class Insa {
 		private String tel1;
 		private String tel2;
 		private String tel3;
+		private MultipartFile thumbnailFile;
+		private int rankNo;
+		private int depNo;
+		private int posNo;
+		private int teamNo;
+		
+		private String rankName;
+		private String depName;
+		private String postName;
+		private String teamName;
+		
+		
 		
 		
 		public long getEmpNo() {
@@ -76,6 +93,13 @@ public class Insa {
 		}
 		public void setZip(String zip) {
 			this.zip = zip;
+		}
+		
+		public String getAddr() {
+			return addr;
+		}
+		public void setAddr(String addr) {
+			this.addr = addr;
 		}
 		public String getAddr1() {
 			return addr1;
@@ -143,8 +167,72 @@ public class Insa {
 		public void setTel3(String tel3) {
 			this.tel3 = tel3;
 		}
-		
-		
+		public MultipartFile getThumbnailFile() {
+			return thumbnailFile;
+		}
+		public void setThumbnailFile(MultipartFile thumbnailFile) {
+			this.thumbnailFile = thumbnailFile;
+		}
+		public int getRankNo() {
+			return rankNo;
+		}
+		public void setRankNo(int rankNo) {
+			this.rankNo = rankNo;
+		}
+		public int getDepNo() {
+			return depNo;
+		}
+		public void setDepNo(int depNo) {
+			this.depNo = depNo;
+		}
+		public int getPosNo() {
+			return posNo;
+		}
+		public void setPosNo(int posNo) {
+			this.posNo = posNo;
+		}
+		public int getTeamNo() {
+			return teamNo;
+		}
+		public void setTeamNo(int teamNo) {
+			this.teamNo = teamNo;
+		}
+		public String getStartDate() {
+			return startDate;
+		}
+		public void setStartDate(String startDate) {
+			this.startDate = startDate;
+		}
+		public String getEndDate() {
+			return endDate;
+		}
+		public void setEndDate(String endDate) {
+			this.endDate = endDate;
+		}
+		public String getRankName() {
+			return rankName;
+		}
+		public void setRankName(String rankName) {
+			this.rankName = rankName;
+		}
+		public String getDepName() {
+			return depName;
+		}
+		public void setDepName(String depName) {
+			this.depName = depName;
+		}
+		public String getPostName() {
+			return postName;
+		}
+		public void setPostName(String postName) {
+			this.postName = postName;
+		}
+		public String getTeamName() {
+			return teamName;
+		}
+		public void setTeamName(String teamName) {
+			this.teamName = teamName;
+		}
 		
 		
 
