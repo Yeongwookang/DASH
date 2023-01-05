@@ -5,7 +5,6 @@
 <style type="text/css">
 
 .table-form tr>td { vertical-align: middle; }
-.table-form tr:first-child { border-top: 2px solid #212529; }
 .table-form tr>td:first-child { text-align: center; }
 .table-form tr>td:nth-child(2) { padding-left: 10px; }
 .table-form textarea { height: 170px; resize: none; }
@@ -13,15 +12,46 @@
 .table-form .img-viewer {
 	cursor: pointer;
 	border: 1px solid #ccc;
-	width: 45px;
-	height: 45px;
-	border-radius: 45px;
+	width: 359px;
+	height: 324px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
 	background-size : cover;
 }
+
+.table-form1 .img-viewer1
+
+{
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 359px;
+	height: 324px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
+}
+
+
+.table-form3 .img-viewer3
+
+{
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 359px;
+	height: 324px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
+}
+
+
+
 </style>
 <script type="text/javascript">
 
@@ -193,6 +223,93 @@ $(function(){
 		};
 		reader.readAsDataURL( file );
 	});
+	
+	
+	$(function(){
+		var img = "${dto.imageFilename}";
+		if( img ) {
+			img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+			$(".table-form1 .img-viewer1").empty();
+			$(".table-form1 .img-viewer1").css("background-image", "url("+img+")");
+		}
+		
+		$(".table-form1 .img-viewer1").click(function(){
+			$("form[name=stationchForm] input[name=imageFilenameFile]").trigger("click");
+		});
+		
+		$("form[name=stationchForm] input[name=imageFilenameFile]").change(function(){
+			let file = this.files[0];
+			
+			if(! file) {
+				$(".table-form1 .img-viewer1").empty();
+				
+				if( img ) {
+					img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+				} else {
+					img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+				}
+				$(".table-form1 .img-viewer1").css("background-image", "url("+img+")");
+				
+				return false;
+			}
+			
+			if( ! file.type.match("image.*") ) {
+				this.focus();
+				return false;
+			}
+			
+			var reader = new FileReader();
+			reader.onload = function(e) { // 파일의 내용을 다 읽었으면
+				$(".table-form1 .img-viewer1").empty();
+				$(".table-form1 .img-viewer1").css("background-image", "url("+e.target.result+")");
+			};
+			reader.readAsDataURL( file );
+		});
+		
+		
+		
+		
+		$(function(){
+			var img = "${dto.imageFilename}";
+			if( img ) {
+				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+				$(".table-form3 .img-viewer3").empty();
+				$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
+			}
+			
+			$(".table-form3 .img-viewer3").click(function(){
+				$("form[name=stationkForm] input[name=imageFilenameFile]").trigger("click");
+			});
+			
+			$("form[name=stationkForm] input[name=imageFilenameFile]").change(function(){
+				let file = this.files[0];
+				
+				if(! file) {
+					$(".table-form3 .img-viewer3").empty();
+					
+					if( img ) {
+						img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+					} else {
+						img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+					}
+					$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
+					
+					return false;
+				}
+				
+				if( ! file.type.match("image.*") ) {
+					this.focus();
+					return false;
+				}
+				
+				var reader = new FileReader();
+				reader.onload = function(e) { // 파일의 내용을 다 읽었으면
+					$(".table-form3 .img-viewer3").empty();
+					$(".table-form3 .img-viewer3").css("background-image", "url("+e.target.result+")");
+				};
+				reader.readAsDataURL( file );
+			});
+	
 });
 
 
@@ -227,12 +344,17 @@ $(function(){
 					<div class="card-body">
 						<div class="body-main m-auto">
 							<form name="stationForm" method="post" enctype="multipart/form-data">
-								<table class="table table-form  mt-5 text-center" style="font-size: 18px; width: 60%;">
-									<tr>
-										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
-										<td style="background-color: #FFE1E1;">&nbsp;</td>
+								<table  class="table table-form text-center" style="font-size: 16px; width: 40%; float: left;">
+										<tr>
+										<th class="p-0">
+											<div class="img-viewer"  ></div> <input type="file"
+											name="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: none;">
+										</th>
 									</tr>
-									
+								</table>
+								
+								<table class="table table-form mt-5 text-center me-0" style="font-size: 16px; width: 60%; float: right: ;">
 									<tr>
 										<td class=" table-light col-sm-2" scope="row">대여소명</td>
 										<td><input type="text" name="name" class="form-control"
@@ -263,14 +385,6 @@ $(function(){
 										<td><input type="text" name="addr" class="form-control"
 											value="${dto.addr}" placeholder="주소"></td>
 									</tr>
-									<tr>
-										<td class="table-light col-sm-2">대표이미지</td>
-										<td>
-											<div class="img-viewer"></div> <input type="file"
-											name="imageFilenameFile" accept="image/*" class="form-control"
-											style="display: none;">
-										</td>
-									</tr>
 								</table>
 								<table class="table table-borderless">
 									<tr>
@@ -299,12 +413,19 @@ $(function(){
 					<div class="card-body">
 						<div class="body-main m-auto">
 							<form name="stationchForm" method="post" enctype="multipart/form-data">
-								<table class="table  mt-5 text-center" style="font-size: 18px;">
-									<tr>
-										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
-										<td style="background-color: #FFE1E1;">&nbsp;</td>
+								
+								
+								<table  class="table table-form1 text-center" style="font-size: 16px; width: 40%; float: left;">
+										<tr>
+										<th class="p-0">
+											<div class="img-viewer1"  ></div> <input type="file"
+											name="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: none;">
+										</th>
 									</tr>
-									
+								</table>
+								
+								<table class="table  table-form1 mt-5 text-center" style="font-size: 16px; width: 60%; float: right: ;">	
 									<tr>
 										<td class=" table-light col-sm-2" scope="row">충전소명</td>
 										<td><input type="text" name="name" class="form-control"
@@ -359,11 +480,16 @@ $(function(){
 					<div class="card-body">
 						<div class="body-main m-auto">
 							<form name="stationkForm" method="post" enctype="multipart/form-data">
-								<table class="table  mt-5 text-center" style="font-size: 18px;">
-									<tr>
-										<td class="col-sm-2" style="background-color: #FFE1E1;"  scope="row">&nbsp;</td>
-										<td style="background-color: #FFE1E1;">&nbsp;</td>
+							<table  class="table table-form3 text-center" style="font-size: 16px; width: 40%; float: left;">
+										<tr>
+										<th class="p-0">
+											<div class="img-viewer3"  ></div> <input type="file"
+											name="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: none;">
+										</th>
 									</tr>
+								</table>
+								<table class="table table-form3  mt-5 text-center" style="font-size: 16px; width: 60%; float: right: ;">
 									<tr>
 										<td class=" table-light col-sm-2" scope="row">제품명</td>
 										<td><input type="text" name="name" class="form-control"

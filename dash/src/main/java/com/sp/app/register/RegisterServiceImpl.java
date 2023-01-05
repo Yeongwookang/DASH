@@ -40,9 +40,22 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 
 	@Override
-	public void insertchargestation(Register dto) throws Exception {
+	public void insertchargestation(Register dto, String pathname) throws Exception {
+		
+		
+		
 		try {
-			dao.insertData("register.chrgestationregister", dto);
+			
+			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
+			
+			
+			if (filename != null) {
+				dto.setImageFilename(filename);
+				dao.insertData("register.chrgestationregister", dto);
+			}
+			
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -50,9 +63,20 @@ public class RegisterServiceImpl implements RegisterService {
 	}
 
 	@Override
-	public void insertkickboard(Register dto) throws Exception {
+	public void insertkickboard(Register dto, String pathname) throws Exception {
+		
+		
+		
 		try {
-			dao.insertData("register.kickboardregister", dto);
+			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
+			
+			
+			if (filename != null) {
+				dto.setImageFilename(filename);
+				dao.insertData("register.kickboardregister", dto);
+			}
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

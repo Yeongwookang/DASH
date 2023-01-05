@@ -41,12 +41,13 @@ public class RegisterController {
 	}
 	
 	@PostMapping("chwrite")
-	public String chwriteSubmit(Register dto) throws Exception {
-	
+	public String chwriteSubmit(Register dto,HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "photo";
 
 		try {
 			
-			service.insertchargestation(dto);
+			service.insertchargestation(dto, path);
 		} catch (Exception e) {
 		}
 
@@ -54,12 +55,13 @@ public class RegisterController {
 	}
 	
 	@PostMapping("kwrite")
-	public String kwriteSubmit(Register dto) throws Exception {
-	
+	public String kwriteSubmit(Register dto,HttpSession session) throws Exception {
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "photo";
 
 		try {
 			
-			service.insertkickboard(dto);
+			service.insertkickboard(dto,path);
 		} catch (Exception e) {
 		}
 
