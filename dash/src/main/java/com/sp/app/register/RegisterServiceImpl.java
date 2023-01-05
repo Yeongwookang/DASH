@@ -79,7 +79,7 @@ public class RegisterServiceImpl implements RegisterService {
 				dto.setImageFilename(filename);
 				dao.insertData("register.kickboardregister", dto);
 			}
-			
+			System.out.println(filename);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
