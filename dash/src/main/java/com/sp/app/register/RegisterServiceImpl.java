@@ -32,7 +32,7 @@ public class RegisterServiceImpl implements RegisterService {
 			
 			
 			
-		System.out.println(filename);
+		
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -48,14 +48,16 @@ public class RegisterServiceImpl implements RegisterService {
 		
 		try {
 			
-			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
+			String filename1 = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
 			
 			
-			if (filename != null) {
-				dto.setImageFilename(filename);
+			if (filename1 != null) {
+				dto.setImageFilename(filename1);
 				dao.insertData("register.chrgestationregister", dto);
 			}
 			
+			System.out.println(filename1);
+				
 			
 			
 		} catch (Exception e) {
