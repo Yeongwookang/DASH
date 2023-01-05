@@ -20,7 +20,7 @@
 			f.empNo.focus();
 			return;
 		}
-		
+
 		let mode = "${mode}";
 		if (mode === "employee" && f.empNoValid.value === "false") {
 			str = "사원번호 중복 검사가 실행되지 않았습니다.";
@@ -35,20 +35,20 @@
 			f.pwd.focus();
 			return;
 		}
-		
+
 		if (str !== f.pwd2.value) {
 			alert("패스워드가 일치하지 않습니다. ");
 			f.pwd.focus();
 			return;
 		}
-	
+
 		str = f.name.value;
 		if (!/^[가-힣]{2,5}$/.test(str)) {
 			alert("이름을 다시 입력하세요. ");
 			f.name.focus();
 			return;
 		}
-							
+
 		str = f.birth.value;
 		if (!str) {
 			alert("생년월일를 입력하세요. ");
@@ -93,11 +93,9 @@
 
 		f.action = "${pageContext.request.contextPath}/insa/main";
 		f.submit();
-		
+
 	}
 
-
-	
 	function empNoCheck() {
 		// 아이디 중복 검사
 		let empNo = $("#empNo").val();
@@ -118,7 +116,7 @@
 			dataType : "json",
 			success : function(data) {
 				let passed = data.passed;
-alert(passed);
+				alert(passed);
 				if (passed === "true") {
 					let str = "<span style='color:blue; font-weight: bold;'>"
 							+ empNo + "</span> 해당 사원번호는 사용가능 합니다.";
@@ -140,8 +138,6 @@ alert(passed);
 		const f = document.searchForm;
 		f.submit();
 	}
-
-	
 </script>
 
 
@@ -211,11 +207,12 @@ alert(passed);
 						</thead>
 						<tbody>
 							<c:forEach var="dto" items="${list}" varStatus="status">
-								<tr style="cursor: pointer;" onclick="location.href='${pageContext.request.contextPath}/insa/main?empNo=${dto.empNo}';">
+								<tr style="cursor: pointer;"
+									onclick="location.href='${pageContext.request.contextPath}/insa/main?empNo=${dto.empNo}';">
 									<td>${dto.empNo}</td>
 									<td>${dto.name}</td>
-									<td>${dto.depNo}</td>
-									<td>${dto.rankNo}</td>
+									<td>${dto.depName}</td>
+									<td>${dto.rankName}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -240,7 +237,7 @@ alert(passed);
 											</label>
 											<div class="col-sm-6">
 												<select name="depNo" id="depNo"
-													class="form-select form-select-sm" 
+													class="form-select form-select-sm"
 													aria-label=".form-select-sm-5">
 													<option selected>부서</option>
 													<option value="1"
@@ -261,7 +258,7 @@ alert(passed);
 											</label>
 											<div class="col-sm-6">
 												<select name="posNo" id="posNo"
-													class="form-select form-select-sm" 
+													class="form-select form-select-sm"
 													aria-label=".form-select-sm-5">
 													<option selected>직책</option>
 													<option value="1"
@@ -304,7 +301,7 @@ alert(passed);
 											</label>
 											<div class="col-sm-5">
 												<select name="rankNo" id="rankNo"
-													class="form-select form-select-sm" 
+													class="form-select form-select-sm"
 													aria-label=".form-select-sm-5">
 													<option selected>직급</option>
 													<option value="1"
@@ -380,7 +377,8 @@ alert(passed);
 								<a><img class="img-thumbnail"
 									src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
 								<div>
-									<input class="col-auto" type="file" name="thumbnailFile" id="exampleInputFile">
+									<input class="col-auto" type="file" name="thumbnailFile"
+										id="exampleInputFile">
 								</div>
 
 							</div>
@@ -440,8 +438,7 @@ alert(passed);
 							<label class="col-sm-2 col-form-label" for="startDate">입사일</label>
 							<div class="col-sm-4">
 								<input type="date" name="startDate" id="startDate"
-									class="form-control" value="${emp.startDate}"
-									placeholder="입사일">
+									class="form-control" value="${emp.startDate}" placeholder="입사일">
 							</div>
 						</div>
 
