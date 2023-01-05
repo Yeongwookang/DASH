@@ -35,6 +35,7 @@ public class RegisterController {
 		try {
 			service.insertstation(dto, path);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 
 		return "redirect:/stationmanage/main";

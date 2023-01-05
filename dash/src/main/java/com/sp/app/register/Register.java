@@ -46,8 +46,8 @@ public class Register {
 	public String getZoonName() {
 		return zoonName;
 	}
-	public void setZonName(String zonName) {
-		this.zoonName = zonName;
+	public void setZoonName(String zoonName) {
+		this.zoonName = zoonName;
 	}
 	public String getAddr() {
 		return addr;

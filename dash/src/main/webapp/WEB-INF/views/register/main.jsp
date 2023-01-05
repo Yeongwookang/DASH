@@ -6,14 +6,13 @@
 
 .table-form tr>td { vertical-align: middle; }
 .table-form tr>td:first-child { text-align: center; }
-.table-form tr>td:nth-child(2) { padding-left: 10px; }
-.table-form textarea { height: 170px; resize: none; }
+
 
 .table-form .img-viewer {
 	cursor: pointer;
 	border: 1px solid #ccc;
 	width: 359px;
-	height: 324px;
+	height: 335px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
 	position: relative;
 	z-index: 9999;
@@ -50,13 +49,13 @@
 	background-size : cover;
 }
 
-
+.table-form tr {
+	height: 70px;
+}
 
 </style>
+
 <script type="text/javascript">
-
-
-
 
 function sendOk() {
     const f = document.stationForm;
@@ -88,232 +87,29 @@ function sendOk() {
         f.maxQty.focus();
         return;
     }
-    str = f.zonName.value.trim();
+    str = f.zoonName.value.trim();
     if(!str) {
         alert("지역명을 입력하세요. ");
-        f.zonName.focus();
+        f.zoonName.focus();
         return;
     }
+    
+    
     str = f.addr.value.trim();
     if(!str) {
         alert("주소를 입력하세요. ");
         f.addr.focus();
         return;
     }
-   
 
     f.action = "${pageContext.request.contextPath}/register/write";
-    f.submit();
+    f.submit();   
 }
-
-function sendChOk() {
-    const f = document.stationchForm;
-	let str;
-	
-    str = f.name.value.trim();
-    if(!str) {
-        alert("충전소명을 입력하세요. ");
-        f.name.focus();
-        return;
-    }
-
-    str = f.x_pos.value.trim();
-    if(!str) {
-        alert("경도를 입력하세요. ");
-        f.x_pos.focus();
-        return;
-    }
-    
-    str = f.y_pos.value.trim();
-    if(!str) {
-        alert("위도를 입력하세요. ");
-        f.y_pos.focus();
-        return;
-    }
-    str = f.leftQty.value.trim();
-    if(!str) {
-        alert("최대 이용가능한 수량을 입력하세요. ");
-        f.leftQty.focus();
-        return;
-    }
-   
-    str = f.addr.value.trim();
-    if(!str) {
-        alert("주소를 입력하세요. ");
-        f.addr.focus();
-        return;
-    }
-   
-
-    f.action = "${pageContext.request.contextPath}/register/chwrite";
-    f.submit();
-}
-
-
-
-function sendkOk() {
-    const f = document.stationkForm;
-	let str;
-	
-    str = f.name.value.trim();
-    if(!str) {
-        alert("제품명을 입력하세요. ");
-        f.name.focus();
-        return;
-    }
-
-    str = f.x_pos.value.trim();
-    if(!str) {
-        alert("경도를 입력하세요. ");
-        f.x_pos.focus();
-        return;
-    }
-    
-    str = f.y_pos.value.trim();
-    if(!str) {
-        alert("위도를 입력하세요. ");
-        f.y_pos.focus();
-        return;
-    }
-
-   
-
-    f.action = "${pageContext.request.contextPath}/register/kwrite";
-    f.submit();
-}
-
-
-$(function(){
-	var img = "${dto.imageFilename}";
-	if( img ) {
-		img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-		$(".table-form .img-viewer").empty();
-		$(".table-form .img-viewer").css("background-image", "url("+img+")");
-	}
-	
-	$(".table-form .img-viewer").click(function(){
-		$("form[name=stationForm] input[name=imageFilenameFile]").trigger("click");
-	});
-	
-	$("form[name=stationForm] input[name=imageFilenameFile]").change(function(){
-		let file = this.files[0];
-		
-		if(! file) {
-			$(".table-form .img-viewer").empty();
-			
-			if( img ) {
-				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-			} else {
-				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
-			}
-			$(".table-form .img-viewer").css("background-image", "url("+img+")");
-			
-			return false;
-		}
-		
-		if( ! file.type.match("image.*") ) {
-			this.focus();
-			return false;
-		}
-		
-		var reader = new FileReader();
-		reader.onload = function(e) { // 파일의 내용을 다 읽었으면
-			$(".table-form .img-viewer").empty();
-			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
-		};
-		reader.readAsDataURL( file );
-	});
-	
-	
-	$(function(){
-		var img = "${dto.imageFilename}";
-		if( img ) {
-			img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-			$(".table-form1 .img-viewer1").empty();
-			$(".table-form1 .img-viewer1").css("background-image", "url("+img+")");
-		}
-		
-		$(".table-form1 .img-viewer1").click(function(){
-			$("form[name=stationchForm] input[name=imageFilenameFile]").trigger("click");
-		});
-		
-		$("form[name=stationchForm] input[name=imageFilenameFile]").change(function(){
-			let file = this.files[0];
-			
-			if(! file) {
-				$(".table-form1 .img-viewer1").empty();
-				
-				if( img ) {
-					img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-				} else {
-					img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
-				}
-				$(".table-form1 .img-viewer1").css("background-image", "url("+img+")");
-				
-				return false;
-			}
-			
-			if( ! file.type.match("image.*") ) {
-				this.focus();
-				return false;
-			}
-			
-			var reader = new FileReader();
-			reader.onload = function(e) { // 파일의 내용을 다 읽었으면
-				$(".table-form1 .img-viewer1").empty();
-				$(".table-form1 .img-viewer1").css("background-image", "url("+e.target.result+")");
-			};
-			reader.readAsDataURL( file );
-		});
-		
-		
-		
-		
-		$(function(){
-			var img = "${dto.imageFilename}";
-			if( img ) {
-				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-				$(".table-form3 .img-viewer3").empty();
-				$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
-			}
-			
-			$(".table-form3 .img-viewer3").click(function(){
-				$("form[name=stationkForm] input[name=imageFilenameFile]").trigger("click");
-			});
-			
-			$("form[name=stationkForm] input[name=imageFilenameFile]").change(function(){
-				let file = this.files[0];
-				
-				if(! file) {
-					$(".table-form3 .img-viewer3").empty();
-					
-					if( img ) {
-						img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-					} else {
-						img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
-					}
-					$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
-					
-					return false;
-				}
-				
-				if( ! file.type.match("image.*") ) {
-					this.focus();
-					return false;
-				}
-				
-				var reader = new FileReader();
-				reader.onload = function(e) { // 파일의 내용을 다 읽었으면
-					$(".table-form3 .img-viewer3").empty();
-					$(".table-form3 .img-viewer3").css("background-image", "url("+e.target.result+")");
-				};
-				reader.readAsDataURL( file );
-			});
-	
-});
-
 
 </script>
+
+
+
 
 <div class="scroll m-auto"
 	style="height: 85%; width: 90%; overflow-y: scroll;">
@@ -336,56 +132,52 @@ $(function(){
 			</div>
 		</nav>
 
-		<div class="tab-content" id="nav-tabContent">
+		<div class="tab-content mt-5" id="nav-tabContent">
 			<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
 				aria-labelledby="nav-home-tab" tabindex="0">
-				<div class="card">
-					<div class="card-header bg-sub" style="height: 40px;"></div>
-					<div class="card-body">
-						<div class="body-main m-auto">
-							<form name="stationForm" method="post" enctype="multipart/form-data">
-								<table  class="table table-form text-center" style="font-size: 16px; width: 40%; float: left;">
-										<tr>
-										<th class="p-0">
-											<div class="img-viewer"  ></div> <input type="file"
-											name="imageFilenameFile" accept="image/*" class="form-control"
-											style="display: none;">
-										</th>
-									</tr>
-								</table>
-								
-								<table class="table table-form mt-5 text-center me-0" style="font-size: 16px; width: 60%; float: right: ;">
+						
+						<form  id="stationForm" name="stationForm" method="post" enctype="multipart/form-data">
+							<div class="d-flex justify-content-start">
+								    <div class="table-form">
+										<div class="img-viewer ms-3 me-4"></div>
+											<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: None; ">
+										
+									</div>
+								<table class="table text-center" style="font-size: 16px;">
+									
 									<tr>
-										<td class=" table-light col-sm-2" scope="row">대여소명</td>
+										<td class=" col-sm-2" scope="row">대여소명</td>
 										<td><input type="text" name="name" class="form-control"
 											value="${dto.name}" placeholder="대여소명"></td>
 									</tr>
 									<tr>
-										<td class="table-light col-sm-2" scope="row">경도</td>
+										<td class="col-sm-2" scope="row">경도</td>
 										<td><input type="text" name="x_pos" class="form-control"
 											value="${dto.x_pos}" placeholder="경도"></td>
 									</tr>
 									<tr>
-										<td class="table-light col-sm-2" scope="row">위도</td>
+										<td class="col-sm-2" scope="row">위도</td>
 										<td><input type="text" name="y_pos" class="form-control"
 											value="${dto.y_pos}" placeholder="위도"></td>
 									</tr>
 									<tr>
-										<td class=" table-light col-sm-2" scope="row">최대수량</td>
+										<td class="col-sm-2" scope="row">최대수량</td>
 										<td><input type="text" name="maxQty" class="form-control"
 											value="${dto.maxQty}" placeholder="최대수량"></td>
 									</tr>
 									<tr>
-										<td class=" table-light col-sm-2" scope="row">지역구</td>
-										<td><input type="text" name="zonName"
+										<td class=" col-sm-2" scope="row">지역구</td>
+										<td><input type="text" name="zoonName"
 											class="form-control" value="${dto.zoonName}" placeholder="지역구"></td>
 									</tr>
 									<tr>
-										<td class="table-light col-sm-2" scope="row">주소</td>
+										<td class="col-sm-2" scope="row">주소</td>
 										<td><input type="text" name="addr" class="form-control"
 											value="${dto.addr}" placeholder="주소"></td>
 									</tr>
 								</table>
+								</div>
 								<table class="table table-borderless">
 									<tr>
 										<td class="text-center">
@@ -402,15 +194,12 @@ $(function(){
 									</tr>
 								</table>
 							</form>
-						</div>
-					</div>
-				</div>
+					
+				
 			</div>
 			<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 				aria-labelledby="nav-profile-tab" tabindex="1">
-				<div class="card">
-					<div class="card-header bg-sub" style="height: 40px;"></div>
-					<div class="card-body">
+
 						<div class="body-main m-auto">
 							<form name="stationchForm" method="post" enctype="multipart/form-data">
 								
@@ -418,8 +207,8 @@ $(function(){
 								<table  class="table table-form1 text-center" style="font-size: 16px; width: 40%; float: left;">
 										<tr>
 										<th class="p-0">
-											<div class="img-viewer1"  ></div> <input type="file"
-											name="imageFilenameFile" accept="image/*" class="form-control"
+											<div class="img-viewer1" ></div> <input type="file"
+											name="imageFilenameFile1" id="imageFilenameFile1" accept="image/*" class="form-control"
 											style="display: none;">
 										</th>
 									</tr>
@@ -470,8 +259,8 @@ $(function(){
 								</table>
 							</form>
 						</div>
-					</div>
-				</div>
+					
+			
 			</div>
 			<div class="tab-pane fade" id="nav-kick" role="tabpanel"
 				aria-labelledby="nav-kickboard-tab" tabindex="2">
@@ -484,7 +273,7 @@ $(function(){
 										<tr>
 										<th class="p-0">
 											<div class="img-viewer3"  ></div> <input type="file"
-											name="imageFilenameFile" accept="image/*" class="form-control"
+											name="imageFilenameFile3" id="" accept="image/*" class="form-control"
 											style="display: none;">
 										</th>
 									</tr>
@@ -529,3 +318,48 @@ $(function(){
 		</div>
 	</div>
 </div>
+
+
+<script type="text/javascript">
+
+$(function(){
+
+	$(".table-form .img-viewer").click(function(){
+		$("#imageFilenameFile").trigger("click");
+	});
+	
+	$("#imageFilenameFile").change(function(){
+		let file = this.files[0];
+		console.log(file);
+		
+		if(! file) {
+			$(".table-form .img-viewer").empty();
+			
+			if( img ) {
+				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+			} else {
+				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+			}
+			$(".table-form .img-viewer").css("background-image", "url("+img+")");
+			
+			return false;
+		}
+		
+		if( ! file.type.match("image.*") ) {
+			this.focus();
+			return false;
+		}
+		
+		var reader = new FileReader();
+		reader.onload = function(e) { // 파일의 내용을 다 읽었으면
+			$(".table-form .img-viewer").empty();
+			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
+		};
+		reader.readAsDataURL( file );
+	});
+
+});
+
+</script>
+
+

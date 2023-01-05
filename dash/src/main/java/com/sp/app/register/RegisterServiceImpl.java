@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
 
-@Service("register.registerService")
+@Service("register.registerServiceImpl")
 public class RegisterServiceImpl implements RegisterService {
 	@Autowired
 	private CommonDAO dao;
@@ -24,13 +24,15 @@ public class RegisterServiceImpl implements RegisterService {
 			
 			
 			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
-			
-			
 			if (filename != null) {
 				dto.setImageFilename(filename);
 				dao.insertData("register.stationregister", dto);
 			}
 			
+			
+			
+			
+		System.out.println(filename);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
