@@ -41,7 +41,7 @@
 	cursor: pointer;
 	border: 1px solid #ccc;
 	width: 359px;
-	height: 324px;
+	height: 300px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
 	position: relative;
 	z-index: 9999;
@@ -217,7 +217,7 @@ function sendkOk() {
 											style="display: None; ">
 										
 									</div>
-								<table class="table text-center" style="font-size: 16px;">
+								<table class="table text-center align-middle" style="font-size: 16px;">
 									
 									<tr>
 										<td class=" col-sm-2" scope="row">대여소명</td>
@@ -278,7 +278,7 @@ function sendkOk() {
 											name="imageFilenameFile" id="imageFilenameFile1" accept="image/*" class="form-control"
 											style="display: none;">
 								</div>
-								<table class="table text-center" style="font-size: 16px; height: 325px;">	
+								<table class="table text-center align-middle" style="font-size: 16px; height: 325px;">	
 									<tr>
 										<td class="col-sm-2" scope="row">충전소명</td>
 										<td><input type="text" name="name" class="form-control"
@@ -333,7 +333,7 @@ function sendkOk() {
 											name="imageFilenameFile" id="imageFilenameFile3" accept="image/*" class="form-control"
 											style="display: None;">
 								</div>
-								<table class="table text-center" style="font-size: 16px;">
+								<table class="table text-center align-middle" style="font-size: 16px; height: 300px; ">
 									<tr>
 										<td class="col-sm-2" scope="row">제품명</td>
 										<td><input type="text" name="name" class="form-control"
