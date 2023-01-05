@@ -112,11 +112,11 @@ public class InsaServiceImpl implements InsaService {
 	}
 
 	@Override
-	public List<Insa> list() {
+	public List<Insa> list(Map<String, Object> map) {
 		List<Insa> list = null;
 
 		try {
-			list = dao.selectList("insa.listInsa");
+			list = dao.selectList("insa.listInsa", map);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

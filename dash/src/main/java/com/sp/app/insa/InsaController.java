@@ -1,10 +1,12 @@
 package com.sp.app.insa;
 
 
+import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,50 +35,69 @@ public class InsaController {
 	@Autowired
 	private MyUtil myUtil;
 	
-	@RequestMapping(value = "main", method = RequestMethod.GET)
-	public String mainForm(String empNo, Model model) throws Exception {
+	@RequestMapping(value = "main")
+	public String mainForm(String empNo, 
+			@RequestParam(defaultValue= "all")String col,
+			@RequestParam(defaultValue="")String kwd,
+			HttpServletRequest req, 
+			
+			Model model) throws Exception {
 		
-		List<Insa> list = service.list();
+		
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("col", col);
+		map.put("kwd", kwd);
+		
+		List<Insa> list = service.list(map);
 		
 		if(empNo != null) {
 			Insa emp = service.readInsa(empNo);
 			model.addAttribute("emp", emp);
+			model.addAttribute("mode", "update");
+		}else {
+			model.addAttribute("mode", "insert");
+			model.addAttribute("col", col);
+			model.addAttribute("kwd", kwd);
+			
 		}
 		
-		model.addAttribute("mode", "main");
 		model.addAttribute("list", list);
 		return ".insa.main";
 	}
 
-	@RequestMapping(value = "main", method = RequestMethod.POST)
+	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public String mainSubmit(Insa dto,
 			final RedirectAttributes reAttr,
 			Model model) {
 		
-		List<Insa> list = service.list();
+	//	List<Insa> list = service.list();
 		
 		try {
 			service.insertInsa(dto, "");
 			
 		}   catch (DuplicateKeyException e) {
-			model.addAttribute("mode", "employee");
+			model.addAttribute("mode", "insert");
 			model.addAttribute("message", "사원번호 중복으로 등록에 실패했습니다.");
-			model.addAttribute("list", list);
-			
+		//	model.addAttribute("list", list);
 			return ".insa.main";
 		}
 		
 		catch (DataIntegrityViolationException e) {
-			model.addAttribute("mode", "employee");
+			model.addAttribute("mode", "insert");
 			model.addAttribute("message", "사원등록에 실패했습니다.");
-			model.addAttribute("list", list);
+		//	model.addAttribute("list", list);
 			return ".insa.main";
 		}
 		
 		catch (Exception e) {
-			model.addAttribute("mode", "employee");
+			model.addAttribute("mode", "insert");
 			model.addAttribute("message", "사원등록에 실패했습니다.");
-			model.addAttribute("list", list);
+		//	model.addAttribute("list", list);
 			return ".insa.main";
 		}
 	
@@ -91,7 +112,7 @@ public class InsaController {
 			Model model) throws Exception {
 		Insa dto = service.readInsa(empNo);
 		if(dto == null) {
-			return "redirect:/community/main";
+			return "redirect:/insa/main";
 	}
 		model.addAttribute("mode", "update");
 		model.addAttribute("dto", dto);

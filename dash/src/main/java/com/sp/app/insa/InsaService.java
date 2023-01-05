@@ -14,11 +14,7 @@ public interface InsaService {
 	
 	public int dataCount(Map<String, Object> map);
 
-	public List<Insa> list();
-	
-	
-	
-	
+	public List<Insa> list(Map<String, Object> map);
 	public Insa readInsa(String empNo);
 	
 

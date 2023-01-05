@@ -91,7 +91,7 @@
 			return;
 		}
 
-		f.action = "${pageContext.request.contextPath}/insa/main";
+		f.action = "${pageContext.request.contextPath}/insa/${mode}";
 		f.submit();
 
 	}
@@ -145,7 +145,7 @@
 	<div class="justify-content-start">
 		<span>| 사원관리</span>
 		<div class="mt-1" style="float: right; padding-right: 5%">
-			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="main"?"등록":"수정"}</button>
+			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="insert"?"등록":"수정"}</button>
 			<button type="button" class="btn btn1 bg-sub">저장</button>
 			<button type="button" class="btn btn1 bg-sub">삭제</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
@@ -165,20 +165,17 @@
 							method="post">
 							<div class="col-auto">
 								<select class="form-select form-select-sm"
-									aria-label="Default select example">
-									<option selected>찾기</option>
-									<option value="1" ${col=="empNo"?"selected='selected'":""}>사번</option>
-									<option value="2" ${col=="name"?"selected='selected'":""}>이름</option>
-									<option value="3" ${col=="depName"?"selected='selected'":""}>부서</option>
-									<option value="4" ${col=="rankName"?"selected='selected'":""}>직급</option>
+									aria-label="Default select example" name = "col">
+									<option selected value="all">찾기</option>
+									<option value="empNo" ${col=="empNo"?"selected='selected'":""}>사번</option>
+									<option value="name" ${col=="name"?"selected='selected'":""}>이름</option>
+									<option value="depName" ${col=="depName"?"selected='selected'":""}>부서</option>
+									<option value="rankName" ${col=="rankName"?"selected='selected'":""}>직급</option>
 								</select>
 							</div>
 							<div class="col-auto">
-								<input type="text" name="kw" value="${kw}"
-									class="form-control form-select-sm"> <input
-									type="hidden" name="size" value="${size}"> <input
-									type="hidden" name="categoryNum" value="${categoryNum}">
-								<input type="hidden" name="employeeShow" value="${employeeShow}">
+								<input type="text" name="kwd" value="${kwd}"
+									class="form-control form-select-sm"> 
 							</div>
 							<div class="col-auto">
 								<button type="submit" class="btn bg-sub btn-sm"
@@ -241,13 +238,13 @@
 													aria-label=".form-select-sm-5">
 													<option selected>부서</option>
 													<option value="1"
-														${emp.depNo=="인사" ? "selected='selected'" : ""}>경영지원</option>
+														${emp.depNo=="1" ? "selected='selected'" : ""}>경영지원</option>
 													<option value="2"
-														${emp.depNo=="개발" ? "selected='selected'" : ""}>운영</option>
+														${emp.depNo=="2" ? "selected='selected'" : ""}>운영</option>
 													<option value="3"
-														${emp.depNo=="영업" ? "selected='selected'" : ""}>기획</option>
+														${emp.depNo=="3" ? "selected='selected'" : ""}>기획</option>
 													<option value="4"
-														${emp.depNo=="마케팅" ? "selected='selected'" : ""}>개발</option>
+														${emp.depNo=="4" ? "selected='selected'" : ""}>개발</option>
 
 												</select>
 											</div>
@@ -262,15 +259,15 @@
 													aria-label=".form-select-sm-5">
 													<option selected>직책</option>
 													<option value="1"
-														${emp.posNo=="팀장" ? "selected='selected'" : ""}>팀장</option>
+														${emp.posNo=="1" ? "selected='selected'" : ""}>팀장</option>
 													<option value="2"
-														${emp.posNo=="실장" ? "selected='selected'" : ""}>실장</option>
+														${emp.posNo=="2" ? "selected='selected'" : ""}>실장</option>
 													<option value="3"
-														${emp.posNo=="본부장" ? "selected='selected'" : ""}>본부장</option>
+														${emp.posNo=="3" ? "selected='selected'" : ""}>본부장</option>
 													<option value="4"
-														${emp.posNo=="파트장" ? "selected='selected'" : ""}>파트장</option>
+														${emp.posNo=="4" ? "selected='selected'" : ""}>파트장</option>
 													<option value="5"
-														${emp.posNo=="매니저" ? "selected='selected'" : ""}>매니저</option>
+														${emp.posNo=="5" ? "selected='selected'" : ""}>매니저</option>
 
 												</select>
 											</div>
@@ -290,7 +287,7 @@
 													aria-label=".form-select-sm-5">
 													<option selected>팀</option>
 													<option value="1"
-														${emp.teamNo=="총괄" ? "selected='selected'" : ""}>총괄</option>
+														${emp.teamNo=="1" ? "selected='selected'" : ""}>총괄</option>
 												</select>
 											</div>
 										</div>
@@ -305,25 +302,25 @@
 													aria-label=".form-select-sm-5">
 													<option selected>직급</option>
 													<option value="1"
-														${emp.rankNo=="사원" ? "selected='selected'" : ""}>사원</option>
+														${emp.rankNo=="1" ? "selected='selected'" : ""}>사원</option>
 													<option value="2"
-														${emp.rankNo=="주임" ? "selected='selected'" : ""}>주임</option>
+														${emp.rankNo=="2" ? "selected='selected'" : ""}>주임</option>
 													<option value="3"
-														${emp.rankNo=="대리" ? "selected='selected'" : ""}>대리</option>
+														${emp.rankNo=="3" ? "selected='selected'" : ""}>대리</option>
 													<option value="4"
-														${emp.rankNo=="과장" ? "selected='selected'" : ""}>과장</option>
+														${emp.rankNo=="4" ? "selected='selected'" : ""}>과장</option>
 													<option value="5"
-														${emp.rankNo=="차장" ? "selected='selected'" : ""}>차장</option>
+														${emp.rankNo=="5" ? "selected='selected'" : ""}>차장</option>
 													<option value="6"
-														${emp.rankNo=="부장" ? "selected='selected'" : ""}>부장</option>
+														${emp.rankNo=="6" ? "selected='selected'" : ""}>부장</option>
 													<option value="7"
-														${emp.rankNo=="이사" ? "selected='selected'" : ""}>이사</option>
+														${emp.rankNo=="7" ? "selected='selected'" : ""}>이사</option>
 													<option value="8"
-														${emp.rankNo=="상무" ? "selected='selected'" : ""}>상무</option>
+														${emp.rankNo=="8" ? "selected='selected'" : ""}>상무</option>
 													<option value="9"
-														${emp.rankNo=="전무" ? "selected='selected'" : ""}>전무</option>
+														${emp.rankNo=="9" ? "selected='selected'" : ""}>전무</option>
 													<option value="10"
-														${emp.rankNo=="사장" ? "selected='selected'" : ""}>사장</option>
+														${emp.rankNo=="10" ? "selected='selected'" : ""}>사장</option>
 
 												</select>
 											</div>
@@ -336,7 +333,7 @@
 									<div class="col-sm-15 input-group">
 										<label class="col-sm-3 col-form-label" for="empNo">사&nbsp;&nbsp;&nbsp;번</label>
 										<div class="col-sm-3">
-											<input type="text" name="empNo" id="empNo"
+											<input type="text" name="empNo" id="empNo" value="${emp.empNo}"
 												class="form-control" placeholder="사원번호">
 										</div>
 										<div class="col-3 ps-1">

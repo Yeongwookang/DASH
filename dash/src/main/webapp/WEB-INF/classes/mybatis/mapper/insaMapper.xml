@@ -25,6 +25,20 @@
 		SELECT * FROM dual     
     </update>
     
+    <sql id="where-list">
+		<if test="col=='depName'">
+			INSTR(depName, #{kwd}) &gt; 0
+		</if>
+		<if test="col=='empNo'">
+			e.empNo = #{kwd} 
+		</if>
+		<if test="col=='name'">
+			INSTR(name, #{kwd}) &gt; 0
+		</if>
+		<if test="col=='rankName'">
+			INSTR(rankName, #{kwd}) &gt; 0
+		</if>
+	</sql>
             
     <!-- 사원정보 조회 -->
     <select id="readInsa" parameterType="String" resultType="com.sp.app.insa.Insa">
@@ -36,11 +50,11 @@
         JOIN position p ON pr.posNo = p.posNo
         JOIN rank r ON pr.rankNo = r.rankNo
         JOIN team t ON pr.teamNo = t.teamNo
-		WHERE e.empNo = #{empNo} 
+		WHERE e.empNo = #{empNo} AND pr.state =  1
 	</select>
 	
 	
-	 <select id="listInsa" resultType="com.sp.app.insa.Insa">
+	 <select id="listInsa" parameterType="map" resultType="com.sp.app.insa.Insa">
 		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
 			failure_cnt, startDate, endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
 		FROM employee e
@@ -49,6 +63,12 @@
         JOIN position p ON pr.posNo = p.posNo
         JOIN rank r ON pr.rankNo = r.rankNo
         JOIN team t ON pr.teamNo = t.teamNo
+        <where>
+            <if test= "kwd != null and kwd != '' ">
+                <include refid="where-list"/>
+            </if>
+            AND pr.state =  1
+        </where> 
 	</select>
 
 	<!-- 사원정보 수정  --> 
