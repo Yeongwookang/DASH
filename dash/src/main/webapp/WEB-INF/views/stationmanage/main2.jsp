@@ -126,6 +126,7 @@ function createMarker(data) {
 			latlng : new kakao.maps.LatLng(item.x_pos, item.y_pos),
 			num : item.cStNum,
 			addr : item.addr,
+			img: item.imageFilename,
 			name : item.name,
 			leftQty : item.leftQty
 
@@ -155,6 +156,10 @@ function createMarker(data) {
 		});
 		
 		var imgSrc = "${pageContext.request.contextPath}/resources/images/x_station.png";
+		if(positions[i].img) {
+	    	imgSrc = "${pageContext.request.contextPath}/resources/images/"+positions[i].img;
+	    }
+		
 		var content = "<div class='overlaybox'>"
 				+ "    <div class='overlay-info'>"
 				+ "        <div class='overlay-title'>"

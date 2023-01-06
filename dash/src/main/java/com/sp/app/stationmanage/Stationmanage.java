@@ -44,12 +44,19 @@ public class Stationmanage {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
+	}
 	private String x_pos;
 	private String y_pos;
 	private String name;
 	private int maxQty;
 	private String zonName;
 	private String addr;
+	private String imageFilename;
 	
 	
 	

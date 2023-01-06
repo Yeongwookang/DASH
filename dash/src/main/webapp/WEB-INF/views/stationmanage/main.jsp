@@ -127,6 +127,7 @@ $(function(){
 				latlng : new kakao.maps.LatLng(item.y_pos, item.x_pos),
 				num : item.stNum,
 				title : item.zoonname,
+				img: item.imageFilename,
 				addr : item.addr,
 				name : item.name,
 				maxQty : item.maxQty
@@ -156,6 +157,10 @@ $(function(){
 			});
 
 			var imgSrc = "${pageContext.request.contextPath}/resources/images/x_station.png";
+			if(positions[i].img) {
+		    	imgSrc = "${pageContext.request.contextPath}/resources/images/"+positions[i].img;
+		    }
+			
 			var content = "<div class='overlaybox'>"
 					+ "    <div class='overlay-info'>"
 					+ "        <div class='overlay-title'>"
