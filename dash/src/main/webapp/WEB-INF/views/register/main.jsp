@@ -13,7 +13,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 335px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
@@ -27,7 +27,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 324px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
@@ -42,7 +42,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 300px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/add_photo.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
@@ -391,7 +391,7 @@ $(function(){
 			if( img ) {
 				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			} else {
-				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
 			}
 			$(".table-form .img-viewer").css("background-image", "url("+img+")");
 			
@@ -429,7 +429,7 @@ $(function(){
 			if( img ) {
 				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			} else {
-				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
 			}
 			$(".table-form1 .img-viewer1").css("background-image", "url("+img+")");
 			
@@ -467,7 +467,7 @@ $(function(){
 			if( img ) {
 				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			} else {
-				img = "${pageContext.request.contextPath}/resources/images/add_photo.png";
+				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
 			}
 			$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
 			
