@@ -22,7 +22,10 @@ public class InsaServiceImpl implements InsaService {
 		try {
 
 			String filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
-			dto.setThumbnail(filename);
+			
+			if (filename != null) {
+				dto.setThumbnail(filename);
+			}
 
 			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
 				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
@@ -123,7 +126,6 @@ public class InsaServiceImpl implements InsaService {
 		return list;
 	}
 
-	
 	
 	
 	

@@ -1,6 +1,7 @@
 package com.sp.app.insa;
 
 
+import java.io.File;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
@@ -73,12 +74,16 @@ public class InsaController {
 	@RequestMapping(value = "insert", method = RequestMethod.POST)
 	public String mainSubmit(Insa dto,
 			final RedirectAttributes reAttr,
+			HttpSession session,
 			Model model) {
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "photo";
+
 		
 	//	List<Insa> list = service.list();
 		
 		try {
-			service.insertInsa(dto, "");
+			service.insertInsa(dto, path);
 			
 		}   catch (DuplicateKeyException e) {
 			model.addAttribute("mode", "insert");
@@ -122,10 +127,15 @@ public class InsaController {
 	
 	@RequestMapping(value = "update")
 	public String updateSubmit(Insa dto, 
+			HttpSession session,
 			Model model) {
-	
+		String root = session.getServletContext().getRealPath("/");
+		String path = root + "uploads" + File.separator + "photo";
+
+		
+		
 		try {
-			service.updateInsa(dto, "");
+			service.updateInsa(dto, path);
 		} catch (Exception e) {
 		}
 		
@@ -163,6 +173,36 @@ public class InsaController {
 		return ".insa.pwd";
 	}
 
+	@RequestMapping(value = "emplist")
+	public String emplist(String empNo, 
+			@RequestParam(defaultValue= "all")String col,
+			@RequestParam(defaultValue="")String kwd,
+			HttpServletRequest req, 
+			Model model) throws Exception {
+		
+		if(req.getMethod().equalsIgnoreCase("GET")) {
+			kwd = URLDecoder.decode(kwd, "utf-8");
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("col", col);
+		map.put("kwd", kwd);
+		
+		List<Insa> list = service.list(map);
+		
+		if(empNo != null) {
+			Insa emp = service.readInsa(empNo);
+			model.addAttribute("emp", emp);
+		}else {
+			model.addAttribute("col", col);
+			model.addAttribute("kwd", kwd);
+			
+		}
+		
+		model.addAttribute("list", list);
+		return ".insa.list";
+		
+	}
 }
 
 

@@ -4,6 +4,18 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <style>
+.thumbnail-viewer {
+	cursor: pointer;
+	border: 1px solid #ccc;
+	width: 180px; 
+	height: 210px;
+	background-image: url("${pageContext.request.contextPath}/resources/images/profile2.png");
+	position: relative;
+	z-index: 9999;
+	background-repeat : no-repeat;
+	background-size : cover;
+}
+
 #btn1 {
 	margin: 3px;
 }
@@ -20,7 +32,7 @@
 			f.empNo.focus();
 			return;
 		}
-
+		
 		let mode = "${mode}";
 		if (mode === "employee" && f.empNoValid.value === "false") {
 			str = "사원번호 중복 검사가 실행되지 않았습니다.";
@@ -28,7 +40,7 @@
 			f.empNo.focus();
 			return;
 		}
-
+	
 		str = f.pwd.value;
 		if (!/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str)) {
 			alert("패스워드를 다시 입력 하세요. ");
@@ -36,6 +48,7 @@
 			return;
 		}
 
+		
 		if (str !== f.pwd2.value) {
 			alert("패스워드가 일치하지 않습니다. ");
 			f.pwd.focus();
@@ -145,8 +158,7 @@
 	<div class="justify-content-start">
 		<span>| 사원관리</span>
 		<div class="mt-1" style="float: right; padding-right: 5%">
-			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="insert"?"등록":"수정"}</button>
-			<button type="button" class="btn btn1 bg-sub">저장</button>
+			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="update"?"저장":"등록"}</button>
 			<button type="button" class="btn btn1 bg-sub">삭제</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
@@ -165,17 +177,19 @@
 							method="post">
 							<div class="col-auto">
 								<select class="form-select form-select-sm"
-									aria-label="Default select example" name = "col">
+									aria-label="Default select example" name="col">
 									<option selected value="all">찾기</option>
 									<option value="empNo" ${col=="empNo"?"selected='selected'":""}>사번</option>
 									<option value="name" ${col=="name"?"selected='selected'":""}>이름</option>
-									<option value="depName" ${col=="depName"?"selected='selected'":""}>부서</option>
-									<option value="rankName" ${col=="rankName"?"selected='selected'":""}>직급</option>
+									<option value="depName"
+										${col=="depName"?"selected='selected'":""}>부서</option>
+									<option value="rankName"
+										${col=="rankName"?"selected='selected'":""}>직급</option>
 								</select>
 							</div>
 							<div class="col-auto">
 								<input type="text" name="kwd" value="${kwd}"
-									class="form-control form-select-sm"> 
+									class="form-control form-select-sm">
 							</div>
 							<div class="col-auto">
 								<button type="submit" class="btn bg-sub btn-sm"
@@ -226,7 +240,7 @@
 				<div class="card-body">
 					<form name="mainSubmit" method="post" enctype="multipart/form-data">
 						<div class="d-flex justify-content-between">
-							<div class="mt-2" style="width: 70%">
+							<div class="mt-2" style="width: 67%">
 								<div class="d-flex justify-content-evenly">
 									<div style="width: 45%">
 										<div class="row g-2 mt-2">
@@ -332,14 +346,14 @@
 								<div class="row g-2 mt-3">
 									<div class="col-sm-15 input-group">
 										<label class="col-sm-3 col-form-label" for="empNo">사&nbsp;&nbsp;&nbsp;번</label>
-										<div class="col-sm-3">
-											<input type="text" name="empNo" id="empNo" value="${emp.empNo}"
-												class="form-control" placeholder="사원번호">
+										<div class="col-sm-5">
+											<input type="text" name="empNo" id="empNo"
+												value="${emp.empNo}" class="form-control" placeholder="사원번호">
 										</div>
 										<div class="col-3 ps-1">
 											<c:if test="${mode=='main'}">
 												<button type="button" class="btn btn-sm"
-													onclick="empNoCheck();">사번중복검사</button>
+													onclick="empNoCheck();">중복검사</button>
 											</c:if>
 										</div>
 									</div>
@@ -348,7 +362,7 @@
 								<div class="row g-2 mt-2">
 									<div class="col-sm-15 input-group">
 										<label class="col-sm-3 col-form-label" for="name">이&nbsp;&nbsp;&nbsp;름</label>
-										<div class="col-sm-3">
+										<div class="col-sm-5">
 											<input type="text" name="name" id="name" class="form-control"
 												value="${emp.name}"
 												${mode=="update" ? "readonly='readonly' ":""}
@@ -369,15 +383,13 @@
 							</div>
 
 
-							<div class="mt-3" style="width: 30%">
-
-								<a><img class="img-thumbnail"
-									src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
-								<div>
-									<input class="col-auto" type="file" name="thumbnailFile"
-										id="exampleInputFile">
+							<div class="mt-3" style="width: 33%">
+								
+								<div class="table-form">
+									<div class="thumbnail-viewer img-thumbnail"></div>
+									<label for="exampleInputFile"></label> 
+									<input type="file" name="selectFile" accept="image/*" id="thumbnail" class="form-control" style="display: none;">
 								</div>
-
 							</div>
 
 						</div>
@@ -428,7 +440,6 @@
 							</div>
 
 						</div>
-
 
 
 						<div class="row g-3 mt-2">
@@ -536,4 +547,88 @@
 					}
 				}).open();
 	}
+
+	$(function () {
+		var img = "${dto.thumbnail}";
+		if( img ) {
+			img = "${pageContext.request.contextPath}/uploads/insa/"+img;
+			$(".table-form .thumbnail-viewer").empty();
+			$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+		}
+		
+			$(".table-form .thumbnail-viewer").click(function () {
+				$("form[name=mainSubmit] input[name=selectFile]").trigger("click");
+		});
+			$("form[name=mainSubmit] input[name=selectFile]").change(function () {
+				let file = this.files[0];
+				if(! file){ //취소버튼눌렀을때 
+					$(".table-form .thumbnail-viewer").empty();
+					
+			        if( img ){
+			        	img = "${pageContext.request.contextPath}/uploads/insa/"+img;
+			        } else {
+			        	img = "${pageContext.request.contextPath}/resources/images/profile2.png";
+			        }
+			        $(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+			        
+					return false;
+				}
+				
+				if( ! file.type.match("image.*") ){
+					this.focus();
+					return false;
+				}
+				
+				var reader = new FileReader();
+				reader.onload = function (e) { // 파일의 내용을 다 읽었으면 
+					$(".table-form .thumbnail-viewer").empty();
+					$(".table-form .thumbnail-viewer").css("background-image", "url("+e.target.result+")");
+					
+				};
+				reader.readAsDataURL ( file );
+				
+			});
+	});
+	
+	
+	$(function() {
+		let img = "${dto.thumbnail}";
+		if( img ) { // 수정인 경우
+			img = "${pageContext.request.contextPath}/uploads/insa/" + img;
+			$("table-form .thumbnail-viewer").empty();
+			$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+		}
+		
+		$("table-form .img-viewer").click(function(){
+			$("form[name=mainSubmit] input[name=selectFile]").trigger("click"); 
+		});
+		
+		$("form[name=table-form] input[name=selectFile]").change(function(){
+			let file=this.files[0];
+			if(! file) {
+				$("table-form .thumbnail-viewer").empty();
+				if( img ) {
+					img = "${pageContext.request.contextPath}/uploads/insa/" + img;
+					$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+				} else {
+					img = "${pageContext.request.contextPath}/resources/images/profile2.png";
+					$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+				}
+				return false;
+			}
+			
+			if(! file.type.match("image.*")) {
+				this.focus();
+				return false;
+			}
+			
+			let reader = new FileReader();
+			reader.onload = function(e) {
+				$("table-form .thumbnail-viewer").empty();
+				$("table-form .thumbnail-viewer").css("background-image", "url("+e.target.result+")");
+			}
+			reader.readAsDataURL(file);
+		});
+	});
+
 </script>
