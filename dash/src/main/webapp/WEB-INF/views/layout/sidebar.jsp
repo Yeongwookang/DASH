@@ -19,6 +19,18 @@
 			</li>
 			<li class="nav-item">
 				<button class="btn nav-box"
+					onclick="location.href='${pageContext.request.contextPath}/marker/main'">
+					<i class="bi bi-1-circle"></i><span class="ms-3">마커</span>
+				</button>
+			</li>
+			<li class="nav-item">
+				<button class="btn nav-box"
+					onclick="location.href='${pageContext.request.contextPath}/map/main'">
+					<i class="bi bi-2-circle"></i><span class="ms-3">맵</span>
+				</button>
+			</li>
+			<li class="nav-item">
+				<button class="btn nav-box"
 					onclick="location.href='${pageContext.request.contextPath}/approval/main?page=1';">
 					<i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span>
 				</button>
