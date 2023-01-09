@@ -3,7 +3,7 @@ package com.sp.app.marker;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@Controller("map.mapController")
+@Controller("map.markerController")
 @RequestMapping("/map/*")
 public class MarkerController {
 
