@@ -41,9 +41,7 @@ public class InsaController {
 			@RequestParam(defaultValue= "all")String col,
 			@RequestParam(defaultValue="")String kwd,
 			HttpServletRequest req, 
-			
 			Model model) throws Exception {
-		
 		
 		
 		if(req.getMethod().equalsIgnoreCase("GET")) {
@@ -173,8 +171,8 @@ public class InsaController {
 		return ".insa.pwd";
 	}
 
-	@RequestMapping(value = "emplist")
-	public String emplist(String empNo, 
+	@RequestMapping(value = "list")
+	public String list(String empNo, 
 			@RequestParam(defaultValue= "all")String col,
 			@RequestParam(defaultValue="")String kwd,
 			HttpServletRequest req, 
@@ -198,10 +196,9 @@ public class InsaController {
 			model.addAttribute("kwd", kwd);
 			
 		}
-		
 		model.addAttribute("list", list);
-		return ".insa.list";
 		
+		return ".insa.list";
 	}
 }
 

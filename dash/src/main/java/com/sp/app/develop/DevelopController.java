@@ -22,7 +22,6 @@ public class DevelopController {
 		List<Develop> list = service.list();
 		
 		
-		
 		model.addAttribute("list", list);
 		
 		return ".develop.main";

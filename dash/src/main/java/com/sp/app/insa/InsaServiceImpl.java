@@ -127,10 +127,6 @@ public class InsaServiceImpl implements InsaService {
 	}
 
 	
-	
-	
-	
-	
 	@Override
 	public Insa readInsa(String empNo) {
 		// 전체사원 목록에서 한 항목 클릭하면 오른쪽 화면 내용 보이게

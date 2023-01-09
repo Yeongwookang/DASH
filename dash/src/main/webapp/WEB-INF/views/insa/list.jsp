@@ -20,11 +20,10 @@ form .img-viewer {
 </style>
 
 <script>
-function searchList() {
-	const f = document.searchForm;
-	f.submit();
-}
-
+	function searchList() {
+		const f = document.searchForm;
+		f.submit();
+	}
 </script>
 
 <div class="text-start fs-4 ml-2 mb-4">
@@ -34,8 +33,9 @@ function searchList() {
 <div class="scroll m-auto" style="height: 80%; overflow-y: scroll;">
 	<div class="mx-5">
 
-		<form class="row" name="emplist"
+		<form class="row" name="searchForm"
 			action="${pageContext.request.contextPath}/insa/list" method="post">
+
 			<div class="col-auto">
 				<select class="form-select form-select-sm"
 					aria-label="Default select example" name="col">
@@ -58,37 +58,83 @@ function searchList() {
 				</button>
 			</div>
 
-			<table class="table n-auto">
-				<thead>
-					<tr>
-						<th scope="col"></th>
-						<th scope="col">사원번호</th>
-						<th scope="col">사원명</th>
-						<th scope="col">부서</th>
-						<th scope="col">직무</th>
-						<th scope="col">연락처</th>
-						<th scope="col">이메일</th>
-
-					</tr>
-				</thead>
-				<c:forEach var="dto" items="${emplist}" varStatus="status">
-					<tbody>
-						<tr>
-							<th scope="row"><input type="file" name="selectFile"
-								accept="image/*" class="form-control" style="display: none;">
-							</th>
-							<th scope="col">${dto.empNo}</th>
-							<th scope="col">${dto.name}</th>
-							<th scope="col">${dto.detpName}</th>
-							<th scope="col">${dto.rankName}</th>
-							<th scope="col">${dto.tel}</th>
-							<th scope="col">${dto.email}</th>
-						</tr>
-
-					</tbody>
-				</c:forEach>
-			</table>
 		</form>
+		<table class="table n-auto">
+			<thead>
+				<tr>
+					<th scope="col">구분</th>
+					<th scope="col">사원번호</th>
+					<th scope="col">사원명</th>
+					<th scope="col">부서</th>
+					<th scope="col">직무</th>
+					<th scope="col">연락처</th>
+					<th scope="col">이메일</th>
+
+				</tr>
+			</thead>
+			<c:forEach var="dto" items="${list}" varStatus="status">
+				<tbody>
+					<tr>
+						<th scope="row">
+							<div class="img-viewer"></div> <input type="file"
+							 name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
+							style="display: none;">
+						</th>
+						<td scope="col">${dto.empNo}</td>
+						<td scope="col">${dto.name}</td>
+						<td scope="col">${dto.depName}</td>
+						<td scope="col">${dto.rankName}</td>
+						<td scope="col">${dto.tel}</td>
+						<td scope="col">${dto.email}</td>
+					</tr>
+
+				</tbody>
+			</c:forEach>
+		</table>
+
 
 	</div>
+
 </div>
+
+<script type="text/javascript">
+
+$(function(){
+
+	$(".table-form .img-viewer").click(function(){
+		$("#imageFilenameFile").trigger("click");
+	});
+	
+	$("#imageFilenameFile").change(function(){
+		let file = this.files[0];
+		
+		
+		if(! file) {
+			$(".table-form .img-viewer").empty();
+			
+			if( img ) {
+				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+			} else {
+				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
+			}
+			$(".table-form .img-viewer").css("background-image", "url("+img+")");
+			
+			return false;
+		}
+		
+		if( ! file.type.match("image.*") ) {
+			this.focus();
+			return false;
+		}
+		
+		var reader = new FileReader();
+		reader.onload = function(e) { 
+			$(".table-form .img-viewer").empty();
+			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
+		};
+		reader.readAsDataURL( file );
+	});
+
+});
+
+</script>
