@@ -28,7 +28,7 @@ public class SubwayMongoOperations {
 		return result;
 	}
 	
-	public List<Subway> listScore() {
+	public List<Subway> listSubway() {
 		List<Subway> list = null;
 		
 		try {
@@ -44,7 +44,7 @@ public class SubwayMongoOperations {
 		return list;
 	}
 	
-	public Subway readScore(String name) {
+	public Subway readSubway(String name) {
 		Subway dto=null;
 		
 		try {

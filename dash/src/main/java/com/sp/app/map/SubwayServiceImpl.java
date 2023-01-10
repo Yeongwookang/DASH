@@ -25,7 +25,7 @@ public class SubwayServiceImpl implements SubwayService {
 		List<Subway> list = null;
 
 		try {
-			list = subwayMongo.listScore();
+			list = subwayMongo.listSubway();
 		} catch (Exception e) {
 		}
 
@@ -37,7 +37,7 @@ public class SubwayServiceImpl implements SubwayService {
 		Subway dto = null;
 
 		try {
-			dto = subwayMongo.readScore(name);
+			dto = subwayMongo.readSubway(name);
 		} catch (Exception e) {
 		}
 
