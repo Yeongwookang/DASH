@@ -19,7 +19,8 @@
 	<div class="mx-5">
 		<div class="col-6 text-center">
 			<form class="row" name="searchForm"
-				action="${pageContext.request.contextPath}/insa/list" method="post">
+				action="${pageContext.request.contextPath}/develop/main"
+				method="post">
 				<div class="col-auto p-1">
 					<select name="condition" class="form-select">
 						<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
@@ -47,7 +48,8 @@
 				</div>
 			</form>
 		</div>
-		<table class="table table text-center">
+
+		<table class="table table text-center mt-3">
 			<thead>
 				<tr>
 					<th scope="col">결재번호</th>
@@ -60,31 +62,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td scope="col">122334</td>
-					<td scope="col">제목</td>
-					<td scope="col">부서</td>
-					<td scope="col">기안자</td>
-					<td scope="col">요청일</td>
-					<td scope="col"><button type="button" class="btn btn-primary"
-							data-bs-toggle="modal" data-bs-target="#staticBackdrop">내용확인</button></td>
-					<td scope="col">진행상태</td>
-
-				</tr>
-
-				<c:forEach items="${myApprovalList}" var="dto" varStatus="status">
+				<c:forEach items="${approvalList}" var="ap" varStatus="status">
 					<tr>
 						<th>${status.count}</th>
-						<td class="signNum">${dto.signNum}</td>
-						<td class="title">${dto.title}</td>
-						<td class="dep">${dto.depName}</td>
-						<td class="rank">${dto.name}</td>
-						<td class="name">${dto.reg_date}</td>
+						<td class="signNum">${ap.signNum}</td>
+						<td class="title">${ap.title}</td>
+						<td class="dep">${ap.depName}</td>
+						<td class="rank">${ap.name}</td>
+						<td class="name">${ap.reg_date}</td>
 						<td>
-							<button type="button" class="btn btn-primary"
+							<button type="button" class="btn btn-primary sendList"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">내용확인</button>
 						</td>
-						<td>${dto.state}</td>
+						<td><c:choose>
+								<c:when test="${ap.state == 0 }">기안</c:when>
+								<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+								<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+								<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+								<c:otherwise>문의</c:otherwise>
+							</c:choose></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -101,18 +97,15 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div>
-				<form name="approval" method="POST"
-					action="${pageContext.request.contextPath}/approval/write"
+				<form name="develop" method="POST"
+					action="${pageContext.request.contextPath}/develop/main"
 					enctype="multipart/form-data">
-					<div class="modal-header">
-						<h5 class="modal-title" id="staticBackdropLabel">상세내용</h5>
-					</div>
 					<div class="modal-body">
 						<table class="table">
 							<tbody>
 								<tr>
-									<td class= "w-25 text-center align-middle" scope="row"><h4>제목</h4></td>
-									<td class= "w-75">${dto.title}</td>
+									<td class="w-25 text-center  align-middle" scope="row"><h4>제목</h4></td>
+									<td class="w-75">${dto.title}</td>
 								</tr>
 
 								<tr>
