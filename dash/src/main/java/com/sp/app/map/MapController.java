@@ -23,7 +23,7 @@ public class MapController {
 	
 	@RequestMapping(value = "subway")
     @ResponseBody
-    public Map<String, Object> regions() throws Exception {
+    public Map<String, Object> subway() throws Exception {
 	   
 	    List<Subway> list = subwayService.listSubway();
 	    Map<String, Object> model =  new HashMap<String, Object>();

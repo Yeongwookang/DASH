@@ -4,13 +4,12 @@ package com.sp.app.map;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-@Service("mscore.scoreMongoOperations")
+@Service("subway.subwayMongoOperations")
 public class SubwayMongoOperations {
 	@Autowired
 	// private MongoTemplate mongo;
@@ -33,11 +32,11 @@ public class SubwayMongoOperations {
 		List<Subway> list = null;
 		
 		try {
-			// list = mongo.findAll(Score.class);
+			list = mongo.findAll(Subway.class);
 			
-			Query query = new Query();
-			query.with(Sort.by(Sort.Direction.DESC, "tot"));
-			list = mongo.find(query, Subway.class);
+			//Query query = new Query();
+			//query.with(Sort.by(Sort.Direction.DESC, "tot"));
+			//list = mongo.find(query, Subway.class);
 		
 		}catch(Exception e) {
 			e.printStackTrace();
