@@ -17,7 +17,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	private BCryptPasswordEncoder bcrypt;
 
 	@Override
-	public Employee loginMember(String empNo) {
+	public Employee loginEmployee(String empNo) {
 		Employee dto = null;
 		
 		try {

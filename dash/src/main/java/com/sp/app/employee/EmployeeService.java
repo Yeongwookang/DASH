@@ -3,7 +3,7 @@ package com.sp.app.employee;
 import java.util.Map;
 
 public interface EmployeeService {
-	public Employee loginMember(String empNo);
+	public Employee loginEmployee(String empNo);
 	
 	public void insertEmployee(Employee dto) throws Exception;
 	
