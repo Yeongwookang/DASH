@@ -71,7 +71,7 @@
 				</button>
 			</li>
 			
-				<c:if test="${sessionScope.employee.depNo==4}">
+			<c:if test="${sessionScope.employee.depNo==4}">
 				<li class="nav-item">
 					<button class="btn nav-box"
 						onclick="location.href='${pageContext.request.contextPath}/develop/main'">
