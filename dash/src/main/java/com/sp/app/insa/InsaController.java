@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.sp.app.common.MyUtil;
 
 
 
@@ -32,9 +31,6 @@ public class InsaController {
 
 	@Autowired
 	private InsaService service;
-	
-	@Autowired
-	private MyUtil myUtil;
 	
 	@RequestMapping(value = "main")
 	public String mainForm(String empNo, 

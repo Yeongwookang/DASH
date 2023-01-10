@@ -70,6 +70,15 @@
 					<i class="bi bi-person-lines-fill"></i><span class="ms-3">사원현황</span>
 				</button>
 			</li>
+			
+				<c:if test="${sessionScope.employee.depNo==4}">
+				<li class="nav-item">
+					<button class="btn nav-box"
+						onclick="location.href='${pageContext.request.contextPath}/develop/main'">
+						<i class="bi bi-gear-fill"></i><span class="ms-3">요청사항 관리</span>
+					</button>
+				</li>
+			</c:if>
 
 			<c:if test="${sessionScope.employee.depNo==2}">
 				<li>
@@ -95,35 +104,7 @@
 				</li>
 			</c:if>
 
-			<li>
-				<div class="dropdown dropend nav-item">
-					<button class="btn dropdown-toggle nav-box" type="button" id="map"
-						data-bs-toggle="dropdown" aria-expanded="false">
-						<i class="bi bi-search"></i><span class="ms-3">추천</span>
-					</button>
-					<ul class="dropdown-menu" aria-labelledby="map">
-						<li class="dropdown-item "><a class="nav-box text-black"
-							href="${pageContext.request.contextPath}/map/filter"><span>
-									필터</span></a></li>
-						<li class="dropdown-item"><a class="nav-box text-black"
-							href="${pageContext.request.contextPath}/map/marker"><span>
-									마커</span></a></li>
-					</ul>
-				</div>
-			</li>
-			
-
-
-
-
-			<c:if test="${sessionScope.employee.depNo==4}">
-				<li class="nav-item">
-					<button class="btn nav-box"
-						onclick="location.href='${pageContext.request.contextPath}/develop/main'">
-						<i class="bi bi-gear-fill"></i><span class="ms-3">요청사항 관리</span>
-					</button>
-				</li>
-			</c:if>
+		
 		</ul>
 	</div>
 </div>

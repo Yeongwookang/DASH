@@ -3,7 +3,7 @@ package com.sp.app.insa;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Insa {
-		private long empNo;
+		private String empNo;
 		private String pwd;
 		private String name;
 		private String thumbnail;
@@ -38,12 +38,10 @@ public class Insa {
 		private String teamName;
 		
 		
-		
-		
-		public long getEmpNo() {
+		public String getEmpNo() {
 			return empNo;
 		}
-		public void setEmpNo(long empNo) {
+		public void setEmpNo(String empNo) {
 			this.empNo = empNo;
 		}
 		public String getPwd() {
