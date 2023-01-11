@@ -82,6 +82,8 @@ public class HomeController {
       }    
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("empNo",info.getEmpNo());
+      map.put("offset",0);
+      map.put("size",5);
       List<Approval> myApprovalList = apService.myApprovalList(map);
       
       model.addAttribute("msg", msg);
