@@ -101,12 +101,14 @@ function search(page){
 };
 </script>
 <script type="text/javascript">
-function write(){
+function write_document(){
 	const f = document.approval;
+	
+	
 	f.action = "${pageContext.request.contextPath}/approval/write"
 	f.submit();
 }
-function update(){
+function update_document(){
 	const f = document.approval;
 	f.action = "${pageContext.request.contextPath}/approval/update"
 	f.submit();
@@ -175,10 +177,10 @@ function update(){
 		<div class="d-flex justify-content-end mt-4">
 			<c:if test="${mode =='update' }">
 				<button class="btn btn-danger me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/delete/${dto.signNum}'">삭제</button>
-				<button class="btn bg-sub bg-gradient" type="button" onclick="update();">수정</button>
+				<button class="btn bg-sub bg-gradient" type="button" onclick="update_document();">수정</button>
 			</c:if>
 			<c:if test="${mode =='write' }">
-				<button class="btn bg-sub bg-gradient" type="button" onclick="write();">결재</button>
+				<button class="btn bg-sub bg-gradient" type="button" onclick="write_document();">결재</button>
 			</c:if>
 		</div>
 		</form>
@@ -284,6 +286,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 	});
 }
 </script>
+
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/translations/ko.js"></script>
 <script>
@@ -297,10 +300,8 @@ function ajaxFun(url, method, query, dataType, fn) {
 	    console.log(error)
 	});
 </script>
-<script type="text/javascript">	
-	
 
-	
+<script type="text/javascript">	
 	$(".writeBtn").click(function(){
 		$(".refList").children().remove();
 		$(".refList").append('<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly><input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly><input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly><input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly><input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly><input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly><input type="hidden" name="refcnt" id="refcnt" readonly>');
@@ -334,7 +335,4 @@ function ajaxFun(url, method, query, dataType, fn) {
 		$(".today").val(date);
 		
 	});
-	
-	
-	
 </script>
