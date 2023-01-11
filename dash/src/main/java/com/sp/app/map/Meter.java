@@ -9,47 +9,20 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "500m")
 public class Meter {
 	@Id
-	private String ID;
-	private String subwayName;
-	private String line;
-	private String lat;
-	private String lon;
-	private List<List<List<List<String>>>> coordinates;
-	public String getID() {
-		return ID;
+	private String id;
+	private List<List<List<List<Double>>>> coordinates;
+	
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getSubwayName() {
-		return subwayName;
-	}
-	public void setSubwayName(String subwayName) {
-		this.subwayName = subwayName;
-	}
-	public String getLine() {
-		return line;
-	}
-	public void setLine(String line) {
-		this.line = line;
-	}
-	public String getLat() {
-		return lat;
-	}
-	public void setLat(String lat) {
-		this.lat = lat;
-	}
-	public String getLon() {
-		return lon;
-	}
-	public void setLon(String lon) {
-		this.lon = lon;
-	}
-	public List<List<List<List<String>>>> getCoordinates() {
+	public List<List<List<List<Double>>>> getCoordinates() {
 		return coordinates;
 	}
-	public void setCoordinates(List<List<List<List<String>>>> coordinates) {
+	public void setCoordinates(List<List<List<List<Double>>>> coordinates) {
 		this.coordinates = coordinates;
 	}
-	
+
 }
