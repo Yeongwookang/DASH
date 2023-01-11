@@ -1,10 +1,12 @@
 package com.sp.app.map;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // 컬렉션(테이블명)
-@Document(collection = "meter")
+@Document(collection = "500m")
 public class Meter {
 	@Id
 	private String ID;
@@ -12,8 +14,7 @@ public class Meter {
 	private String line;
 	private String lat;
 	private String lon;
-	private String[] coordinates;
-	
+	private List<List<List<List<String>>>> coordinates;
 	public String getID() {
 		return ID;
 	}
@@ -44,10 +45,10 @@ public class Meter {
 	public void setLon(String lon) {
 		this.lon = lon;
 	}
-	public String[] getCoordinates() {
+	public List<List<List<List<String>>>> getCoordinates() {
 		return coordinates;
 	}
-	public void setCoordinates(String[] coordinates) {
+	public void setCoordinates(List<List<List<List<String>>>> coordinates) {
 		this.coordinates = coordinates;
 	}
 	
