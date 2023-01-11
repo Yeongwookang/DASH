@@ -15,6 +15,9 @@ public class MapController {
 	@Autowired
 	private SubwayService subwayService;
 	
+	@Autowired
+	private MeterService meterService;
+	
 	@RequestMapping(value = "main")
 	public String main() throws Exception {
 	
@@ -26,6 +29,18 @@ public class MapController {
     public Map<String, Object> subway() throws Exception {
 	   
 	    List<Subway> list = subwayService.listSubway();
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	   
+	    model.put("list", list);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "meter")
+    @ResponseBody
+    public Map<String, Object> meter() throws Exception {
+	   
+	    List<Meter> list = meterService.listMeter();
 	    Map<String, Object> model =  new HashMap<String, Object>();
 	   
 	    model.put("list", list);
