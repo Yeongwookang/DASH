@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Develop {
-	public class Approval {
 		private long signNum;
 		private String title;
 		private String content;
@@ -255,5 +254,5 @@ public class Develop {
 			this.fileSize = fileSize;
 		}
 
-	}
+	
 }
