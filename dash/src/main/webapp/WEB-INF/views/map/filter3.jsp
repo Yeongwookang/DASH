@@ -37,56 +37,53 @@ function ajaxFun(url, method, query, dataType, fn) {
 </script>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script type="module" src="./index.js"></script>
 <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxpS-2Ielyu9jJlqqu994x2dtA9SOYcfA&callback=initMap&v=weekly"
       defer
     ></script>
 <script type="text/javascript">
-var url = "${pageContext.request.contextPath}/map/meter";
-var query = null;
-var fn = function(data) {
-	initMap(data);
-	// console.log(data);
+function initMap() {
+	var url = "${pageContext.request.contextPath}/map/meter";
+	var query = null;
+	var fn = function(data) {
+	    const map = new google.maps.Map(document.getElementById("map"), {
+		    zoom: 5,
+		    center: { lat: 37.55741966828745, lng: 127.18158712098067 },
+		    mapTypeId: "terrain",
+		});
+		  
+		$(data.list).each(function(index, item) {
+			  
+			  let triangleCoords = [];
+			  let obj;
+			  for(let a1 of item.coordinates) {
+				 for(let a2 of a1) {
+					 for(let a3 of a2) {
+						 // console.log(a3[0], a3[1]);
+						 obj = { lat: a3[1], lng: a3[0] },
+						 triangleCoords.push(obj);
+					 }
+				 }
+			  }
+				
+			  const bermudaTriangle = new google.maps.Polygon({
+			    paths: triangleCoords,
+			    strokeColor: "#FF0000",
+			    strokeOpacity: 0.8,
+			    strokeWeight: 2,
+			    fillColor: "#FF0000",
+			    fillOpacity: 0.35,
+			  });
+
+		  	bermudaTriangle.setMap(map);
+		  
+		});
+	};
+
+	ajaxFun(url, "get", query, "json", fn);
 }
 
-ajaxFun(url, "get", query, "json", fn);
-
-function initMap(data) {
-	  const map = new google.maps.Map(document.getElementById("map"), {
-	    zoom: 5,
-	    center: { lat: 37.55741966828745, lng: 127.18158712098067 },
-	    mapTypeId: "terrain",
-	  });
-	  
-	  $(data.list).each(function(index, item) {
-		  
-		  let triangleCoords = [];
-		  for(let a1 of item.coordinates) {
-			 for(let a2 of a1) {
-				 for(let a3 of a2) {
-					 // console.log(a3[0], a3[1]);
-					 triangleCoords.push(a3[1], a3[0]);
-				 }
-			 }
-		  }
-			
-		  // Construct the polygon.
-		  const bermudaTriangle = new google.maps.Polygon({
-		    paths: triangleCoords,
-		    strokeColor: "#FF0000",
-		    strokeOpacity: 0.8,
-		    strokeWeight: 2,
-		    fillColor: "#FF0000",
-		    fillOpacity: 0.35,
-		  });
-	  });
-
-	  bermudaTriangle.setMap(map);
-	}
-
-	window.initMap = initMap;
-
+window.initMap = initMap;
 
 </script>
 
