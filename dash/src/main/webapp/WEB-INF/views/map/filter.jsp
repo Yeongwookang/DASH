@@ -10,8 +10,6 @@
 
 
 
-
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac62133af390475a070f5933661ec2c1"></script>
 <script type="text/javascript">
 
 function ajaxFun(url, method, query, dataType, fn) {
@@ -39,6 +37,7 @@ function ajaxFun(url, method, query, dataType, fn) {
 </script>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script type="module" src="./index.js"></script>
 <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxpS-2Ielyu9jJlqqu994x2dtA9SOYcfA&callback=initMap&v=weekly"
       defer
@@ -53,28 +52,26 @@ var fn = function(data) {
 
 ajaxFun(url, "get", query, "json", fn);
 
-
 function initMap(data) {
 	  const map = new google.maps.Map(document.getElementById("map"), {
 	    zoom: 5,
 	    center: { lat: 37.55741966828745, lng: 127.18158712098067 },
 	    mapTypeId: "terrain",
 	  });
-	 
+	  
 	  $(data.list).each(function(index, item) {
-			//console.log(item.coordinates);
+		  
+		  let triangleCoords = [];
+		  for(let a1 of item.coordinates) {
+			 for(let a2 of a1) {
+				 for(let a3 of a2) {
+					 // console.log(a3[0], a3[1]);
+					 triangleCoords.push(a3[1], a3[0]);
+				 }
+			 }
+		  }
 			
-			let triangleCoords = [];
-			for(let a1 of item.coordinates) {
-				for(let a2 of a1) {
-					for(let a3 of a2) {
-						// console.log(a3[0], a3[1]);
-						triangleCoords.push(a3[1], a3[0]);
-					}
-				}
-			}
-			
-		 
+		  // Construct the polygon.
 		  const bermudaTriangle = new google.maps.Polygon({
 		    paths: triangleCoords,
 		    strokeColor: "#FF0000",
@@ -82,12 +79,14 @@ function initMap(data) {
 		    strokeWeight: 2,
 		    fillColor: "#FF0000",
 		    fillOpacity: 0.35,
-	 });
-	
-		  bermudaTriangle.setMap(map);
+		  });
+	  });
 
-}
+	  bermudaTriangle.setMap(map);
+	}
 
-window.initMap = initMap;
+	window.initMap = initMap;
+
+
 </script>
 
