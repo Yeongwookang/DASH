@@ -30,13 +30,13 @@
                 }
             );
 
-            
-
         
     
             var tile_layer_6876001d86866e7765203c40e3d6c80f = L.tileLayer(
-                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                {"attribution": "Data by \u0026copy; \u003ca target=\"_blank\" href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca target=\"_blank\" href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            		"http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
+                attribution: 'DASH &copy; VWORLD(국토부)',
+            	subdomains: 'abcd',
+            	maxZoom: 20}
             ).addTo(map_e3fc9428f7d808fea22c5b6b6dbd0180);
         
     
