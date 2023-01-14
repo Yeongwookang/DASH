@@ -21,7 +21,7 @@ public class MapController {
 	@RequestMapping(value = "main")
 	public String main() throws Exception {
 	
-		return ".map.filter";
+		return "map/filter";
 	}
 	
 	@RequestMapping(value = "subway")
