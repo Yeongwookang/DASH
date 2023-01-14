@@ -16,28 +16,24 @@
 	text-decoration: none;
 	font-weight: bold;
 }
-
-.box-main{
-    border-radius: 2.7rem 2.7rem 2.7rem 2.7rem / 2.7rem 2.7rem 2.7rem 2.7rem;
-    width: 80vw;
-    height: 90vh;
-	overflow: hidden;
+.nav-item{
+	margin-right: 0.3rem;
 }
+.dropdown-item>a{
+	text-overflow: ellipsis;
+	color: #495057;
+	font-size: 1.2rem;
+	text-decoration: none;
+}
+
 
 .logo{
 	width: 100%;
 	object-fit:contain;
 }
-.main-box{
-	background-color: #ffffff;
-	border-radius: 2rem 2rem 2rem 2rem / 2rem 2rem 2rem 2rem;
-}
+
 .sidenav-item{
 	margin-top: 0.5rem;
-}
-.nav-item{
-	margin-top: 1.5rem;
-	padding-left: 2rem;
 }
 .round-box{
 	height: 100%; 
@@ -46,20 +42,22 @@
 .rad-box{
 	border-radius: 1rem 1rem 1rem 1rem / 1rem 1rem 1rem 1rem;
 }
-a:hover{
+.nav-item>a:hover{
 	color:#9effff;
 }
-.nav-item>.btn:hover{
-	color:#9effff;
+.dropdown-item:hover{
+	background-color: #FFE1E1;
 }
-.nav-item>.btn:focus{
-	border: none;
-	color: white;
+
+.dropdown-item:hover a{
+	color:white;
+	font-weight: bold;
 }
-.nav-item>.btn:active{
-	border: none;
-	color: white;
+
+.dropdown-item:active{
+	background-color: #FF9E9E; 
 }
+
 
 body{
  -ms-overflow-style: none;

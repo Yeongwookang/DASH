@@ -152,7 +152,7 @@ $(function(){
 });
 
 </script>
-	<div class="scroll m-auto" style="width: 90%; height: 85%; overflow-y:scroll;">
+	<div class="scroll m-auto mt-3 " style="width: 90%; height: 85%; overflow-y:scroll;">
 		<div class="d-flex justify-content-between mb-3">
 		<div class="card" style="width: 49%;"> 
 			<div class="text-start sales ms-3 mt-3">| 오늘의 현황</div>
