@@ -8,7 +8,7 @@
 .table-form tr>td:first-child { text-align: center; }
 
 
-.table-form .img-viewer {
+.table-form .img-viewer { 
 	cursor: pointer;
 	border: 1px solid #ccc;
 	width: 359px;
