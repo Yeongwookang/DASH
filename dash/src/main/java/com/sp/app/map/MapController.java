@@ -42,8 +42,8 @@ public class MapController {
 	   
 	    List<Meter> list_100 = meterService.listMeter();
 	    
-	    List<Meter> list_300 = meterService.listMeter();	    
-	    List<Meter> list_500 = meterService.listMeter();
+	    List<Meter2> list_300 = meterService.listMeter2();	    
+	    List<Meter3> list_500 = meterService.listMeter3();
 	   
 	    Map<String, Object> model =  new HashMap<String, Object>();
 	    

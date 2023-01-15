@@ -36,15 +36,14 @@
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 <style type="text/css">
-	#map_e3fc9428f7d808fea22c5b6b6dbd0180 {
-	    width: 100.0%;
-	    height: 100.0%;
-	    position: relative;
-	    overflow: hidden;
-	    z-index: 1;
-	  
-	}
-	.leaflet-container { font-size: 1rem; }
+#map_2d81c07882e829b16808a14b15af9573 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+.leaflet-container { font-size: 1rem; }
 	
 .map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
 .map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
@@ -71,13 +70,8 @@
  </style>
 </head>
 <body>
-
-
- 
- 
- 
  <div class="map_wrap">
-  <div class="folium-map" id="map_e3fc9428f7d808fea22c5b6b6dbd0180"></div>
+  <div class="folium-map" id="map_2d81c07882e829b16808a14b15af9573"></div>
     <div id="menu_wrap" class="bg_white">
         <div class="option">
             <div>
@@ -93,114 +87,200 @@
     </div>
 </div>
    
-<script>
-    
-    
-            var map_e3fc9428f7d808fea22c5b6b6dbd0180 = L.map(
-                "map_e3fc9428f7d808fea22c5b6b6dbd0180",
-                {
-                    center: [37.541, 126.986],
-                    crs: L.CRS.EPSG3857,
-                    zoom: 10,
-                    zoomControl: true,
-                    preferCanvas: false,
-                }
-            );
+<script>         
+function ajaxFun(url, method, query, dataType, fn) {
+   	$.ajax({
+   		type:method,
+   		url:url,
+   		data:query,
+   		dataType:dataType,
+   		success:function(data) {
+   			fn(data);
+   		},
+   		beforeSend:function(jqXHR) {
+   			jqXHR.setRequestHeader("AJAX", true);
+   		},
+   		error:function(jqXHR) {
+   			if(jqXHR.status === 403) {
+   				login();
+   				return false;
+   			} else if(jqXHR.status === 400) {
+   				alert("요청 처리가 실패 했습니다.");
+   				return false;
+   			}
+   	    	
+   			console.log(jqXHR.responseText);
+   		}
+   	});
+   }
+   
+var arr_100=[];
+var arr_300=[];
+var arr_500=[];
+var jsO_100;
+var jsO_300;
+var jsO_500;
 
-        
-    
-            var tile_layer_6876001d86866e7765203c40e3d6c80f = L.tileLayer(
-            		"http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
+$(function(){
+	let url = "${pageContext.request.contextPath}/map/meter";
+	
+	
+	
+	
+	const fn =function (data) {
+		for(item of data.list_100){
+			let obj; 
+			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+			arr_100.push(obj); 
+			
+		}
+    	
+		console.log(arr_100)
+		
+		jsO_100 = {
+	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+	   				"features": arr_100
+	   			};
+		
+		console.log(jsO_100);
+		
+		for(item of data.list_300){
+			let obj; 
+			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+			arr_300.push(obj); 
+			
+		}
+    	
+		console.log(arr_300)
+		
+		jsO_300 = {
+	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+	   				"features": arr_300
+	   			};
+		
+		console.log(jsO_300);
+		
+		for(item of data.list_500){
+			let obj; 
+			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+			arr_500.push(obj); 
+			
+		}
+    	
+		console.log(arr_500)
+		
+		jsO_500 = {
+	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+	   				"features": arr_500
+	   			};
+		
+		console.log(jsO_500);
+		geo_json_100_add (jsO_100);
+		geo_json_300_add (jsO_300);
+		geo_json_500_add (jsO_500);
+	}
+
+	ajaxFun(url,"get",null,"json",fn);
+	
+	
+	
+});
+
+
+
+
+var map_2d81c07882e829b16808a14b15af9573 = L.map(
+    "map_2d81c07882e829b16808a14b15af9573",
+    {
+        center: [37.541, 126.986],
+        crs: L.CRS.EPSG3857,
+        zoom: 14,
+        zoomControl: true,
+        preferCanvas: false,
+    }
+);
+
+
+var tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7 = L.tileLayer(
+    "http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
                 attribution: 'DASH &copy; VWORLD(국토부)',
             	subdomains: 'abcd',
             	maxZoom: 20}
-            ).addTo(map_e3fc9428f7d808fea22c5b6b6dbd0180);
-        
-    
+).addTo(map_2d81c07882e829b16808a14b15af9573);
 
-        function geo_json_de5c5d11ef684903b05a04a553052c3a_onEachFeature(feature, layer) {
-            layer.on({
-            });
-        };
-        var geo_json_de5c5d11ef684903b05a04a553052c3a = L.geoJson(null, {
-                onEachFeature: geo_json_de5c5d11ef684903b05a04a553052c3a_onEachFeature,
-            
-        });
-        
-        function ajaxFun(url, method, query, dataType, fn) {
-        	$.ajax({
-        		type:method,
-        		url:url,
-        		data:query,
-        		dataType:dataType,
-        		success:function(data) {
-        			fn(data);
-        		},
-        		beforeSend:function(jqXHR) {
-        			jqXHR.setRequestHeader("AJAX", true);
-        		},
-        		error:function(jqXHR) {
-        			if(jqXHR.status === 403) {
-        				login();
-        				return false;
-        			} else if(jqXHR.status === 400) {
-        				alert("요청 처리가 실패 했습니다.");
-        				return false;
-        			}
-        	    	
-        			console.log(jqXHR.responseText);
-        		}
-        	});
-        }
-        
-        var url = "${pageContext.request.contextPath}/map/meter";
-    	var query = null;
-    	var fn = function(data) {
-    		// console.log(data);
-    		geo_json_de5c5d11ef684903b05a04a553052c3a_add(data);
-    	}
-    	
-    	ajaxFun(url, "get", query, "json", fn);
 
-		var row = [];
-        function geo_json_de5c5d11ef684903b05a04a553052c3a_add (data) {
-        	$(data.list).each(function(index, item) {
-  			  // console.log(item['type']);
-  			  let obj;
-  			  
-			  obj = { "type": item["type"], "properties": item["properties"], "geometry":item["geometry"] },
-			  row.push(obj); 
-  			  console.log(row);
-        	});
-        	
-            geo_json_de5c5d11ef684903b05a04a553052c3a
-                .addData(data)
-                .addTo(map_e3fc9428f7d808fea22c5b6b6dbd0180);
-            
-        }
-            geo_json_de5c5d11ef684903b05a04a553052c3a_add(
-            		{
-            		"type": "FeatureCollection",
-            		"name": "100m",
-            		"crs":{ "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-            		"features":row
-            		}
-            )
-        
-            var layer_control_2425a285a6180a2933830a58b0cbd424 = {
-                base_layers : {
-                    "openstreetmap" : tile_layer_6876001d86866e7765203c40e3d6c80f,
-                },
-                overlays :  {
-                    "geojson" : geo_json_de5c5d11ef684903b05a04a553052c3a,
-                },
-            };
-            L.control.layers(
-                layer_control_2425a285a6180a2933830a58b0cbd424.base_layers,
-                layer_control_2425a285a6180a2933830a58b0cbd424.overlays,
-                {"autoZIndex": true, "collapsed": true, "position": "topright"}
-            ).addTo(map_e3fc9428f7d808fea22c5b6b6dbd0180);
-        
+
+function geo_json_100_onEachFeature(feature, layer) {
+layer.on({
+});
+};
+var geo_json_100 = L.geoJson(null, {
+    onEachFeature: geo_json_100_onEachFeature,
+
+});
+
+function geo_json_100_add (data) {
+geo_json_100
+    .addData(data)
+    .addTo(map_2d81c07882e829b16808a14b15af9573);
+}
+
+
+
+
+function geo_json_300_onEachFeature(feature, layer) {
+	layer.on({
+	});
+	};
+var geo_json_300 = L.geoJson(null, {
+    onEachFeature: geo_json_300_onEachFeature,
+
+});
+
+function geo_json_300_add (data) {
+geo_json_300
+    .addData(data)
+    .addTo(map_2d81c07882e829b16808a14b15af9573);
+}
+
+
+	
+function geo_json_500_onEachFeature(feature, layer) {
+	layer.on({
+	});
+	};
+var geo_json_500 = L.geoJson(null, {
+    onEachFeature: geo_json_500_onEachFeature,
+
+});
+
+function geo_json_500_add (data) {
+geo_json_500
+    .addData(data)
+    .addTo(map_2d81c07882e829b16808a14b15af9573);
+}
+	
+
+
+
+
+var layer_control_44c8d1a60beb9da1ab7bd8739988c955 = {
+    base_layers : {
+        "openstreetmap" : tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7,
+    },
+    overlays :  {
+        "100m" : geo_json_100, "300m" : geo_json_300, "500m" : geo_json_500,
+    },
+};
+L.control.layers(
+    layer_control_44c8d1a60beb9da1ab7bd8739988c955.base_layers,
+    layer_control_44c8d1a60beb9da1ab7bd8739988c955.overlays,
+    {"autoZIndex": true, "collapsed": true, "position": "topright"}
+).addTo(map_2d81c07882e829b16808a14b15af9573);
+
+
+
+   
 </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
