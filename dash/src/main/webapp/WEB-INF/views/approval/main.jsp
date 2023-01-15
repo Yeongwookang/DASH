@@ -3,10 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div class="scroll m-auto card mt-5 mb-5 p-4" overflow-y:scroll;">
-	<div class="text-start fs-4 mb-4">
+<div class="m-auto card mt-5 mb-5 p-4">
+	<div class="text-start fs-3 mb-4 ps-4">
 		<span>| 결재</span>
 	</div>
+	<div class="m-auto" style="width:80%">
 	<div>
 	<form name="approval-search"  method="post" action="${pageContext.request.contextPath}/approval/main">
 		<div class="d-flex justify-content-center align-items-center">
@@ -128,6 +129,7 @@
 		<div>
 			<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 		</div>
+	</div>
 	</div>
 </div>
 <script type="text/javascript">

@@ -152,7 +152,7 @@ $(function(){
 });
 
 </script> 
-	<div class="scroll m-auto mt-5 mb-5" style="width: 70%; height: 85%; overflow-y:scroll;">
+	<div class="m-auto mt-5 mb-5">
 	<div id="carouselExampleIndicators" class="carousel slide border mb-3 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
 	  <div class="carousel-indicators">
 	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -227,7 +227,7 @@ $(function(){
 				<span style="font-weight: 500; font-size: 1.2rem; ">&nbsp;${dayOfWeek}</span>
 			</div>
 			<div class="d-flex mt-3">
-				<div class="w-50">
+				<div class="w-50 border-right">
 					<div class="d-flex align-items-center">
 						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
 						<div>
