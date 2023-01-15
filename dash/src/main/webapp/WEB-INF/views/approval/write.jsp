@@ -114,7 +114,7 @@ function update_document(){
 	f.submit();
 }
 </script>
-<div class="m-auto scroll card mt-5 mb-5 p-4" style="width: 90%; overflow-y: scroll;">
+<div class="m-auto scroll card mt-5 mb-5 p-4" style="overflow-y: scroll;">
 	<div><h4>| 결재</h4></div>
 	<div class="ps-5 pe-5 mt-4">
 		<form name="approval" method="POST"  enctype="multipart/form-data">

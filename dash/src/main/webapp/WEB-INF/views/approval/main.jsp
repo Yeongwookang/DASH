@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div class="scroll m-auto card mt-5 mb-5 p-4" style="width:70%; overflow-y:scroll;">
+<div class="scroll m-auto card mt-5 mb-5 p-4" overflow-y:scroll;">
 	<div class="text-start fs-4 mb-4">
 		<span>| 결재</span>
 	</div>

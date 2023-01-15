@@ -40,7 +40,7 @@ $(function(){
 });
 </script>
 
-<div class=" card mt-5 mb-5 p-4 m-auto" style="width: 70%;">
+<div class=" card mt-5 mb-5 p-4 m-auto">
 	<div class="text-start fs-4 mb-4">
 		<span>| 충전소·대여소 현황</span>
 	</div>

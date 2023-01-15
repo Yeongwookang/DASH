@@ -9,7 +9,7 @@ function searchList() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4" style=" width:70%; ">
+<div class="m-auto card mt-5 mb-5 p-4">
 	<div class="text-start fs-4 mb-4">
 		<span> 
 		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 

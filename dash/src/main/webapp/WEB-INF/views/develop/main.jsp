@@ -12,7 +12,7 @@
 </script>
 
 
-<div class="m-auto  card mt-5 mb-5 p-4" style="width:70%">
+<div class="m-auto  card mt-5 mb-5 p-4">
 <div class="text-start fs-4 ml-2 mb-4">
 	<span>| 유지보수</span>
 </div>

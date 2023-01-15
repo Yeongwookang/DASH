@@ -155,7 +155,7 @@
 
 
 
-<div class="card mt-5 mb-5 p-4 m-auto" style="width:70%">
+<div class="card mt-5 mb-5 p-4 m-auto">
 	<div class="d-flex justify-content-between">
 		<div class="text-start fs-4 ml-2 mb-4"><span>| 사원관리</span></div>
 		<div class="pe-3">
