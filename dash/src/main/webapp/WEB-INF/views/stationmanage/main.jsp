@@ -58,11 +58,11 @@ $(function(){
 	<div class="tab-content" id="nav-tabContent">
 		<div class="tab-pane fade show active" id="nav-home" role="tabpanel"
 			aria-labelledby="nav-home-tab" tabindex="0">
-			<div id="map" class="map" style="width: 100%; height: 600px;"></div>
+			<div id="map" class="map" style="width: 100%; position:static; top: 0px; height: 600px;"></div>
 		</div>
 		<div class="tab-pane fade" id="nav-profile" role="tabpanel"
 			aria-labelledby="nav-profile-tab" tabindex="0">
-			<div id="maps" class="maps" style="width: 100%; height: 600px;"></div>
+			<div id="maps" class="maps" style="width: 100%; height: 100px;"></div>
 		</div>
 	</div>
 	
