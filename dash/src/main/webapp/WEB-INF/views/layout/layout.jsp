@@ -48,17 +48,17 @@
 	</style>
 </head>
 <body>
-<div class="flex-container">
-		<div>
+<div class="flex-container" style="background:#F5F5F5; min-height: 100vh">
+		<div style="background: #ffffff">
 			<tiles:insertAttribute name="header"/>
 		</div>
-		<div>
+		<div class="sticky-top">
 			<tiles:insertAttribute name="sidebar"/>
 		</div>
-		<div class="scroll" style="height: 90vh; background:#F5F5F5; overflow-y: scroll; ">
-			<div class="m-auto" style="width:90%">
-				<tiles:insertAttribute name="body"/>
-			</div>
+		
+		<div class="scroll d-flex justify-content-between flex-column" style="overflow-y: scroll; ">
+			<tiles:insertAttribute name="body"/>
+			<tiles:insertAttribute name="footer"/>
 		</div>
 </div>
 	

@@ -152,7 +152,33 @@ $(function(){
 });
 
 </script>
-	<div class="scroll m-auto mt-3 " style="width: 90%; height: 85%; overflow-y:scroll;">
+	<div class="scroll m-auto mt-5 mb-5" style="width: 90%; height: 85%; overflow-y:scroll;">
+	<div id="carouselExampleIndicators" class="carousel slide border mb-3 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
+	  <div class="carousel-indicators">
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+	  </div>
+	  <div class="carousel-inner">
+	    <div class="carousel-item active">
+	      <img src="..." class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="..." class="d-block w-100" alt="...">
+	    </div>
+	    <div class="carousel-item">
+	      <img src="..." class="d-block w-100" alt="...">
+	    </div>
+	  </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+	</div>
 		<div class="d-flex justify-content-between mb-3">
 		<div class="card" style="width: 49%;"> 
 			<div class="text-start sales ms-3 mt-3">| 오늘의 현황</div>
@@ -195,8 +221,47 @@ $(function(){
 			</div> 
 		</div>
 		
-		<div class="card"  style="width: 49%">
-	
+		<div class="card p-4"  style="width: 49%">
+			<div class="d-flex align-items-end">
+				<span style="font-weight: 700; font-size: 1.5rem;">${msg}</span>
+				<span style="font-weight: 500; font-size: 1.2rem; ">&nbsp;${dayOfWeek}</span>
+			</div>
+			<div class="d-flex mt-3">
+				<div class="w-50">
+					<div class="d-flex align-items-center">
+						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
+						<div>
+						<select class="form-select ms-3">
+							<option>출근</option>
+							<option>퇴근</option>
+						</select>
+						</div>
+					</div>
+					<div class="d-flex mt-3">
+						<div><span style="font-weight: bold; color:#495057;">근무시간</span></div>
+						<div><span style="color:#868e96">&nbsp;시간 / 시간</span></div>
+					</div>
+					<div class="d-flex mt-3">
+						<div><span style="font-weight: bold;  color:#495057;">잔여근무가능시간</span></div>
+						<div><span style="color:#868e96">&nbsp;시간</span></div>
+					</div>
+				</div>
+				<div class="w-50">
+					<div>
+						<button type="button" class="btn bg-main text-white">출근</button>
+						<button type="button" class="btn bg-main text-white">퇴근</button>
+						<button type="button" class="btn">출퇴근현황</button>
+					</div>
+					<div class="d-flex">
+						<div class="mt-3" style="font-weight: bold; color:#495057;">오늘 출근 시각 </div>
+						<div id="clockOnTime"></div>
+					</div>
+					<div class="d-flex">
+						<div class="mt-3" style="font-weight: bold; color:#495057;">오늘 퇴근 시각 </div>
+						<div id="clockOffTime"></div>
+					</div>
+				</div>
+			</div>
 		</div>
 		</div>
 		<div class="d-flex justify-content-between mb-3">
