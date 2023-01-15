@@ -9,7 +9,7 @@ function searchList() {
 }
 </script>
 
-<div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
+<div class="m-auto card mt-5 mb-5 p-4" style=" width:90%; ">
 	<div class="text-start fs-4 mb-4">
 		<span> 
 		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 

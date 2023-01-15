@@ -12,24 +12,18 @@
 .nav-box{
 	text-overflow: ellipsis;
 	color: white;
-	font-size: 1.5rem;
+	font-size: 1.3rem;
 	text-decoration: none;
 	font-weight: bold;
 }
 .nav-item{
-	margin-right: 0.3rem;
+	margin-right: 1.3rem;
 }
 .dropdown-item>a{
 	text-overflow: ellipsis;
 	color: #495057;
 	font-size: 1.2rem;
 	text-decoration: none;
-}
-
-
-.logo{
-	width: 100%;
-	object-fit:contain;
 }
 
 .sidenav-item{

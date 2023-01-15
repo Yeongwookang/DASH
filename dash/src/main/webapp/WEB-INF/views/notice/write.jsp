@@ -36,7 +36,7 @@ function check() {
 </c:if>
 </script>
 
-<div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
+<div class=" card mt-5 mb-5 p-4 m-auto" style="width:90%; ">
 	<div><h4>| 공지사항</h4></div>
 	<div class="ps-5 pe-5 mt-4">
 		<form name="noticeForm" method="post" enctype="multipart/form-data">

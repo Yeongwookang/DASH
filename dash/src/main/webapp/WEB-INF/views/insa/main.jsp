@@ -154,18 +154,16 @@
 </script>
 
 
-<div class="row text-start fs-4 ml-2">
-	<div class="justify-content-start">
-		<span>| 사원관리</span>
-		<div class="mt-1" style="float: right; padding-right: 5%">
+
+<div class="card mt-5 mb-5 p-4 m-auto" style="width:90%">
+	<div class="d-flex justify-content-between">
+		<div class="text-start fs-4 ml-2 mb-4"><span>| 사원관리</span></div>
+		<div class="pe-3">
 			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="update"?"저장":"등록"}</button>
 			<button type="button" class="btn btn1 bg-sub">삭제</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>
-</div>
-
-<div class="scroll m-auto" style="height: 80%; overflow-y: scroll;">
 	<div class="d-flex justify-content-evenly">
 		<div class="mt-2 p-2" style="width: 38%">
 			<div class="card">

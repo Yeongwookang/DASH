@@ -11,7 +11,7 @@
 			src="${pageContext.request.contextPath}/resources/images/mainLogo.png"
 			style="width:200px"></a>
 		</div>
-		<div class="col-9  text-start text-muted">
+		<div class="col-9  text-start">
 			<div>
 			<span>서비스 이용약관</span>
 			<span>&nbsp;|&nbsp;개인정보 처리방침</span>

@@ -280,7 +280,7 @@ $(function(){
 });
 </script>
 
-<div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
+<div class="m-auto card mt-5 mb-5 p-4" style="width:90%;">
 	<div class="text-start fs-4 mb-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/community/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>

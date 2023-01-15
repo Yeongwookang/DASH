@@ -160,8 +160,8 @@ function sendModeldamage() {
 </script>
 
 
-<div class="scroll m-auto"
-	style="width: 90%; height: 85%; overflow-y: scroll;">
+<div class="card mt-5 mb-5 p-4 m-auto"
+	style="width: 90%;">
 	<div class="text-start fs-4 mb-4">
 		<span>| 킥보드 관리</span>
 	</div>

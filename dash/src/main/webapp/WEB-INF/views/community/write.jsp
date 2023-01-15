@@ -38,7 +38,7 @@ function check() {
 }
 </script>
 
-<div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
+<div class="m-auto  card mt-5 mb-5 p-4" style="width:90%;">
 	<div><h4>| 커뮤니티</h4></div>
 		<div class="ps-5 pe-5 mt-4">
 			<div class="box p-2"> 

@@ -213,7 +213,7 @@ function searchList() {
 </script>
 
 
-<div class="scroll m-auto" style="height: 85%; width:90%; overflow-y:scroll;">
+<div class=" card mt-5 mb-5 p-4 m-auto" style="width:90%; ">
 	<div class="text-start fs-4 mb-4">
 		<span>
 		| 매출 통계

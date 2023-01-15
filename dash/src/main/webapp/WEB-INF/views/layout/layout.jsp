@@ -48,18 +48,17 @@
 	</style>
 </head>
 <body>
-<div class="flex-container" style="background:#F5F5F5; min-height: 100vh">
+<div class="flex-container scroll" id="wrap" style="background:#F5F5F5; min-height: 90vh; overflow-y:scroll">
 		<div style="background: #ffffff">
 			<tiles:insertAttribute name="header"/>
 		</div>
 		<div class="sticky-top">
 			<tiles:insertAttribute name="sidebar"/>
 		</div>
-		
-		<div class="scroll d-flex justify-content-between flex-column" style="overflow-y: scroll; ">
-			<tiles:insertAttribute name="body"/>
-			<tiles:insertAttribute name="footer"/>
-		</div>
+		<tiles:insertAttribute name="body"/>
+</div>
+<div>
+		<footer><tiles:insertAttribute name="footer"/></footer>
 </div>
 	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>

@@ -26,11 +26,11 @@ form .img-viewer {
 	}
 </script>
 
+
+<div class="card mt-5 mb-5 p-4 m-auto" style="width:90%">
 <div class="text-start fs-4 ml-2 mb-4">
 	<span>| 사원 현황</span>
 </div>
-
-<div class="scroll m-auto" style="height: 80%; overflow-y: scroll;">
 	<div class="mx-5">
 
 		<form class="row" name="searchForm"
