@@ -67,7 +67,7 @@
 	    </tr>
 	</table>
 </c:forEach>
-
+<br>
 <div class="page-navigation">
 	${paging}
 </div>			

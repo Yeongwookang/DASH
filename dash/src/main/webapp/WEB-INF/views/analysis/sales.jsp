@@ -213,28 +213,31 @@ function searchList() {
 </script>
 
 
-<div class=" card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
+<div class="card mt-5 mb-5 p-5 m-auto">
+	<div class="text-start fs-3 mb-4 ps-4"> 
 		<span>
 		| 매출 통계
 		</span>
 	</div>
-	<div>
-	<form name="dateForm">
-		<div class="d-flex justify-content-end"> 
-			<select name="selectDate" id="selectDate" class="form-select" style="width: 10%">
-				<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>  
-				<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
-				<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
-			</select>
-			<button type="button" class="btn button-main bg-gradient ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
-		</div> 
-	</form>
-	</div>
-	<div class="mt-4">  
-		<div class="box-container d-flex">     
-	   		<div id="chartContainer" class="box" style="width: 80%; height: 600px;"></div> 
-	   		<div class="scroll mt-5" id="content" style="height: 600px; width: 20%; overflow-y:scroll;"></div>
+	
+	<div class="m-auto" style="width: 80%;">
+		<div> 
+			<form name="dateForm">
+				<div class="d-flex justify-content-end"> 
+					<select name="selectDate" id="selectDate" class="form-select" style="width: 10%">
+						<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>  
+						<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
+						<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
+					</select>
+					<button type="button" class="btn button-main bg-gradient ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div> 
+			</form>
+		</div>
+		<div class="mt-4">  
+			<div class="box-container d-flex">     
+		   		<div id="chartContainer" class="box" style="width: 80%; height: 600px;"></div> 
+		   		<div class="scroll mt-5" id="content" style="height: 600px; width: 20%; overflow-y:scroll;"></div>
+			</div>
 		</div>
 	</div>
 </div> 

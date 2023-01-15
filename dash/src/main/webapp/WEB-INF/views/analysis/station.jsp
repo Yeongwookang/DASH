@@ -470,41 +470,44 @@ function searchList() {
 </script>
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
+<div class="card mt-5 mb-5 p-5 m-auto">
+	<div class="text-start fs-3 mb-4 ps-4"> 
 		<span>
-		| 대여소별 통계
+		| 매출 통계
 		</span>
 	</div>
-	<div>
-	<form name="stationForm">
-		<div class="d-flex justify-content-end">  
-			<select name="selectCondition" id="selectCondition" class="form-select me-2" style="width: 10%">
-				<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>
-				<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
-				<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
-				<option value="4" ${selectDate=="4"?"selected='selected'":""}>연령대</option>
-				<option value="5" ${selectDate=="5"?"selected='selected'":""}>성별</option>
-				<option value="6" ${selectDate=="6"?"selected='selected'":""}>이용시간대</option>
-			</select>
-			<select name="selectStation" id="selectStation" class="form-select" style="width: 20%">
-				<c:forEach var="dto" items="${list}">
-					<option value="${dto.stNum}" ${selectDate=="${dto.stNum}"?"selected='selected'":""}>${dto.name}</option>  
-				</c:forEach>
-			</select>
-			<button type="button" class="btn button-main bg-gradient ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
-		</div> 
-	</form>
-	</div>
-	<div class="mt-4"> 
-		<div class="box-container">
-			<div id="title" class="text-center"></div>  
-	   		<div id="chartContainer1" class="box" style="width: 100%; height: 600px;"></div>
-	   		<div id="chartContainer2" class="box" style="width: 100%; height: 600px;"></div> 
-	   		<div id="chartContainer3" class="box" style="width: 100%; height: 600px;"></div> 
-	   		<div id="chartContainer4" class="box" style="width: 100%; height: 600px;"></div>
-	   		<div id="chartContainer5" class="box" style="width: 100%; height: 600px;"></div>  
-	   		<div id="chartContainer6" class="box" style="width: 100%; height: 600px;"></div>    
+	
+	<div class="m-auto" style="width: 80%;">
+		<div>
+		<form name="stationForm">
+			<div class="d-flex justify-content-end">  
+				<select name="selectCondition" id="selectCondition" class="form-select me-2" style="width: 10%">
+					<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>
+					<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
+					<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
+					<option value="4" ${selectDate=="4"?"selected='selected'":""}>연령대</option>
+					<option value="5" ${selectDate=="5"?"selected='selected'":""}>성별</option>
+					<option value="6" ${selectDate=="6"?"selected='selected'":""}>이용시간대</option>
+				</select>
+				<select name="selectStation" id="selectStation" class="form-select" style="width: 20%">
+					<c:forEach var="dto" items="${list}">
+						<option value="${dto.stNum}" ${selectDate=="${dto.stNum}"?"selected='selected'":""}>${dto.name}</option>  
+					</c:forEach>
+				</select>
+				<button type="button" class="btn button-main bg-gradient ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
+			</div> 
+		</form>
+		</div>
+		<div class="mt-4"> 
+			<div class="box-container">
+				<div id="title" class="text-center"></div>  
+		   		<div id="chartContainer1" class="box" style="width: 100%; height: 600px;"></div>
+		   		<div id="chartContainer2" class="box" style="width: 100%; height: 600px;"></div> 
+		   		<div id="chartContainer3" class="box" style="width: 100%; height: 600px;"></div> 
+		   		<div id="chartContainer4" class="box" style="width: 100%; height: 600px;"></div>
+		   		<div id="chartContainer5" class="box" style="width: 100%; height: 600px;"></div>  
+		   		<div id="chartContainer6" class="box" style="width: 100%; height: 600px;"></div>    
+			</div>
 		</div>
 	</div>
 </div> 

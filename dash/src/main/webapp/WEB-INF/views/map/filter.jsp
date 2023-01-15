@@ -126,6 +126,42 @@
                 onEachFeature: geo_json_de5c5d11ef684903b05a04a553052c3a_onEachFeature,
             
         });
+        
+        function ajaxFun(url, method, query, dataType, fn) {
+        	$.ajax({
+        		type:method,
+        		url:url,
+        		data:query,
+        		dataType:dataType,
+        		success:function(data) {
+        			fn(data);
+        		},
+        		beforeSend:function(jqXHR) {
+        			jqXHR.setRequestHeader("AJAX", true);
+        		},
+        		error:function(jqXHR) {
+        			if(jqXHR.status === 403) {
+        				login();
+        				return false;
+        			} else if(jqXHR.status === 400) {
+        				alert("요청 처리가 실패 했습니다.");
+        				return false;
+        			}
+        	    	
+        			console.log(jqXHR.responseText);
+        		}
+        	});
+        }
+        
+        var url = "${pageContext.request.contextPath}/map/meter";
+    	var query = null;
+    	var fn = function(data) {
+    		console.log(data);
+    		geo_json_de5c5d11ef684903b05a04a553052c3a_add(data);
+    	}
+    	
+    	
+    	ajaxFun(url, "get", query, "json", fn);
 
         function geo_json_de5c5d11ef684903b05a04a553052c3a_add (data) {
             geo_json_de5c5d11ef684903b05a04a553052c3a

@@ -8,23 +8,33 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Meter {
 	@Id
 	private String _id;
-	private Object row;
-	
-	public String getId() {
+	private String features;
+	private Object properties;
+	private Object geometry;
+	public String get_id() {
 		return _id;
 	}
-	public void setId(String _id) {
+	public void set_id(String _id) {
 		this._id = _id;
 	}
-	public Object getRow() {
-		return row;
+	public String getFeature() {
+		return features;
 	}
-	public void setRow(Object row) {
-		this.row = row;
+	public void setFeature(String features) {
+		this.features = features;
 	}
-	
-	
-	
+	public Object getProperties() {
+		return properties;
+	}
+	public void setProperties(Object properties) {
+		this.properties = properties;
+	}
+	public Object getGeometry() {
+		return geometry;
+	}
+	public void setGeometry(Object geometry) {
+		this.geometry = geometry;
+	}
 	
 
 }

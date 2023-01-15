@@ -58,3 +58,7 @@
 .button-point:hover {
 	background: #FF7193;
 }
+
+.board-list tr {  
+	height: 60px;
+}

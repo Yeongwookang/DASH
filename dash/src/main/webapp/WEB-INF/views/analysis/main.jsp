@@ -154,140 +154,141 @@ $(function(){
 </script>
 
 
-<div class=" card mt-5 mb-5 p-4 m-auto">  
-	<div class="text-start fs-4 mb-4">
+<div class="card mt-5 mb-5 p-5 m-auto">
+	<div class="text-start fs-3 mb-4 ps-4">
 		<span>| 통계</span>
 	</div>
-	
-	<div class="d-flex justify-content-center"> 
-		<div class="card me-5" style="width: 25%;">
-			<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-			<div class="card-body pb-2" style="height: 180px;">
-				<h5 class="card-title">매출 통계</h5>
-				<p class="card-text">매출 통계는, 이용기록의 금액을 기준으로 전체 년·월·일 매출을 제공하는 서비스입니다.</p>
-				<a href="${pageContext.request.contextPath}/analysis/sales" class="aTag">바로가기 ></a>
-			</div> 
-		</div>
-		
-		<div class="card me-5" style="width: 25%;">  
-			<img src="${pageContext.request.contextPath}/resources/images/user.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-			<div class="card-body pb-2" style="height: 180px;">
-				<h5 class="card-title">이용자 통계</h5>
-				<p class="card-text">이용자 통계는, 이용자의 기본 정보와 이용기록을 기준으로 전체 연령대·성별·이용시간을 제공하는 서비스입니다.</p>
-				<a href="${pageContext.request.contextPath}/analysis/user" class="aTag">바로가기 ></a>
+	<div class="m-auto" style="width: 80%;">
+		<div class="d-flex justify-content-center"> 
+			<div class="card me-5" style="width: 30%;">
+				<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
+				<div class="card-body pb-2" style="height: 180px;">
+					<h5 class="card-title">매출 통계</h5>
+					<p class="card-text">매출 통계는, 이용기록의 금액을 기준으로 전체 년·월·일 매출을 제공하는 서비스입니다.</p>
+					<a href="${pageContext.request.contextPath}/analysis/sales" class="aTag">바로가기 ></a>
+				</div> 
 			</div>
-		</div>
-		
-		<div class="card" style="width: 25%;">
-			<img src="${pageContext.request.contextPath}/resources/images/station.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-			<div class="card-body pb-2" style="height: 180px;">
-				<h5 class="card-title">대여소별 통계</h5>
-				<p class="card-text">대여소별 통계는, 이용자의 기본 정보와 이용기록을 기준으로 대여소별  매출과 이용자 분석을 제공하는 서비스입니다.</p>
-				<a href="${pageContext.request.contextPath}/analysis/station" class="aTag">바로가기 ></a> 
+			
+			<div class="card me-5" style="width: 30%;">  
+				<img src="${pageContext.request.contextPath}/resources/images/user.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
+				<div class="card-body pb-2" style="height: 180px;">
+					<h5 class="card-title">이용자 통계</h5>
+					<p class="card-text">이용자 통계는, 이용자의 기본 정보와 이용기록을 기준으로 전체 연령대·성별·이용시간을 제공하는 서비스입니다.</p>
+					<a href="${pageContext.request.contextPath}/analysis/user" class="aTag">바로가기 ></a>
+				</div>
 			</div>
-		</div>
-	</div>
-	<br>
-	<div class="d-flex justify-content-between mb-3">
-		<div class="card mt-3" style="width: 100%;">
-			<div class="text-start sales ms-3 mt-3">연령대별 이용시간대</div>
-			<div id="chart-container" style="width: 100%; height: 500px;"></div>
-		</div>	
-	</div>
-	<br>
-	<div class="d-flex justify-content-between mb-3">
-		<div class="card" style="width: 32%;"> 
-			<div class="text-start sales ms-3 mt-3">이용건수 Top 5 대여소</div>
-			<table class="table table-hover h-100 board-list">
-			<thead>  
-				<tr class="text-center">
-					<th style="width: 10%">#</th> 
-					<th style="width: 40%">대여소명</th>
-					<th style="width: 30%">이용건수</th> 
-				</tr>
-			</thead> 
-			<tbody>
-				<c:forEach var="dto" items="${rankTopCount}" end="4">
-				<tr class="text-center"> 
-					<td>0${dto.usageRank}</td> 
-				<td class="stationName">${dto.name}</td> 
-				<td>${dto.usageCount}건</td>
-				</tr>
-				</c:forEach> 
-			</tbody>
-			</table> 
+			
+			<div class="card" style="width: 30%;">
+				<img src="${pageContext.request.contextPath}/resources/images/station.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
+				<div class="card-body pb-2" style="height: 180px;">
+					<h5 class="card-title">대여소별 통계</h5>
+					<p class="card-text">대여소별 통계는, 이용자의 기본 정보와 이용기록을 기준으로 대여소별  매출과 이용자 분석을 제공하는 서비스입니다.</p>
+					<a href="${pageContext.request.contextPath}/analysis/station" class="aTag">바로가기 ></a> 
+				</div>
+			</div>
 		</div>
 		<br>
-		<div class="card" style="width: 32%;"> 
-			<div class="text-start sales ms-3 mt-3">이용금액 Top 5 대여소</div>	
-			<table class="table table-hover h-100 board-list">
+		<div class="d-flex justify-content-between mb-3">
+			<div class="card mt-3" style="width: 100%;">
+				<div class="text-start sales ms-3 mt-3">연령대별 이용시간대</div>
+				<div id="chart-container" style="width: 100%; height: 500px;"></div>
+			</div>	
+		</div>
+		<br>
+		<div class="d-flex justify-content-between mb-3">
+			<div class="card" style="width: 32%;"> 
+				<div class="text-start sales ms-3 mt-3">이용건수 Top 5 대여소</div>
+				<table class="table table-hover h-100 board-list">
 				<thead>  
 					<tr class="text-center">
 						<th style="width: 10%">#</th> 
 						<th style="width: 40%">대여소명</th>
-						<th style="width: 30%">이용금액</th> 
+						<th style="width: 30%">이용건수</th> 
 					</tr>
 				</thead> 
 				<tbody>
-					<c:forEach var="dto" items="${rankTopPrice}" end="4">
-						<tr class="text-center"> 
-							<td>0${dto.usageRank}</td> 
-						<td class="stationName">${dto.name}</td> 
-						<td><fmt:formatNumber value="${dto.price}" pattern="#,###"/>원</td> 
-						</tr>
-					</c:forEach> 
-				</tbody>
-			</table> 
-		</div>
-		<br>
-		<div class="card" style="width: 32%;">  
-			<div class="text-start sales ms-3 mt-3">이동거리 Top 5 대여소 [대여 기준]</div>
-			<table class="table table-hover h-100 board-list">
-				<thead>  
-					<tr class="text-center">
-						<th style="width: 10%">#</th> 
-						<th style="width: 40%">대여소명</th>
-						<th style="width: 30%">이동거리</th> 
-					</tr>
-				</thead> 
-				<tbody>
-					<c:forEach var="dto" items="${rankTopDistance}" end="4">
-						<tr class="text-center"> 
-							<td>0${dto.usageRank}</td> 
-							<td class="stationName">${dto.name}</td> 
-							<td>${dto.distance}km</td>
-						</tr>
-					</c:forEach> 
-				</tbody>
-			</table> 
-		</div>
-	</div>
-	<br>
-	<div class="mb-3">
-		<div class="card"> 
-		<div class="text-start sales ms-3 mt-3">이용시간 Top 5</div> 
-		<table class="table table-hover h-100 board-list">
-			<thead>  
-				<tr class="text-center">
-					<th style="width: 10%">#</th> 
-					<th style="width: 30%">출발 대여소명</th>
-					<th style="width: 10%"></th>
-					<th style="width: 30%">도착 대여소명</th>
-					<th style="width: 20%">이용시간</th> 
-				</tr>
-			</thead> 
-			<tbody>
-				<c:forEach var="dto" items="${rankTopUseTime}" end="4" varStatus="status">
+					<c:forEach var="dto" items="${rankTopCount}" end="4">
 					<tr class="text-center"> 
 						<td>0${dto.usageRank}</td> 
-						<td class="stationName">${dto.startName}</td>  
-						<td class="arrow"><i class="fa-solid fa-arrow-right"></i></td>
-						<td class="stationName">${dto.endName}</td> 
-						<td>${dto.usetime}분</td>
-					</tr> 
-				</c:forEach>
-			</tbody>
-		</table> 
+					<td class="stationName">${dto.name}</td> 
+					<td>${dto.usageCount}건</td>
+					</tr>
+					</c:forEach> 
+				</tbody>
+				</table> 
+			</div>
+			<br>
+			<div class="card" style="width: 32%;"> 
+				<div class="text-start sales ms-3 mt-3">이용금액 Top 5 대여소</div>	
+				<table class="table table-hover h-100 board-list">
+					<thead>  
+						<tr class="text-center">
+							<th style="width: 10%">#</th> 
+							<th style="width: 40%">대여소명</th>
+							<th style="width: 30%">이용금액</th> 
+						</tr>
+					</thead> 
+					<tbody>
+						<c:forEach var="dto" items="${rankTopPrice}" end="4">
+							<tr class="text-center"> 
+								<td>0${dto.usageRank}</td> 
+							<td class="stationName">${dto.name}</td> 
+							<td><fmt:formatNumber value="${dto.price}" pattern="#,###"/>원</td> 
+							</tr>
+						</c:forEach> 
+					</tbody>
+				</table> 
+			</div>
+			<br>
+			<div class="card" style="width: 32%;">  
+				<div class="text-start sales ms-3 mt-3">이동거리 Top 5 대여소 [대여 기준]</div>
+				<table class="table table-hover h-100 board-list">
+					<thead>  
+						<tr class="text-center">
+							<th style="width: 10%">#</th> 
+							<th style="width: 40%">대여소명</th>
+							<th style="width: 30%">이동거리</th> 
+						</tr>
+					</thead> 
+					<tbody>
+						<c:forEach var="dto" items="${rankTopDistance}" end="4">
+							<tr class="text-center"> 
+								<td>0${dto.usageRank}</td> 
+								<td class="stationName">${dto.name}</td> 
+								<td>${dto.distance}km</td>
+							</tr>
+						</c:forEach> 
+					</tbody>
+				</table> 
+			</div>
+		</div>
+		<br>
+		<div class="mb-3">
+			<div class="card"> 
+			<div class="text-start sales ms-3 mt-3">이용시간 Top 5</div> 
+			<table class="table table-hover h-100 board-list">
+				<thead>  
+					<tr class="text-center">
+						<th style="width: 10%">#</th> 
+						<th style="width: 30%">출발 대여소명</th>
+						<th style="width: 10%"></th>
+						<th style="width: 30%">도착 대여소명</th>
+						<th style="width: 20%">이용시간</th> 
+					</tr>
+				</thead> 
+				<tbody>
+					<c:forEach var="dto" items="${rankTopUseTime}" end="4" varStatus="status">
+						<tr class="text-center"> 
+							<td>0${dto.usageRank}</td> 
+							<td class="stationName">${dto.startName}</td>  
+							<td class="arrow"><i class="fa-solid fa-arrow-right"></i></td>
+							<td class="stationName">${dto.endName}</td> 
+							<td>${dto.usetime}분</td>
+						</tr> 
+					</c:forEach>
+				</tbody>
+			</table> 
+			</div>
 		</div>
 	</div>
 </div>

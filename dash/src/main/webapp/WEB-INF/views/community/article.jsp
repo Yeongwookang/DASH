@@ -280,72 +280,74 @@ $(function(){
 });
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
+<div class="m-auto card mt-5 mb-5 p-5">
 	<div class="text-start fs-4 mb-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/community/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>
 	</div>
-	<table class="table community-article"> 
-		<thead>
-			<tr>
-				<td colspan="2" align="left" style="border: none;"> 
-					<div class="communitySubject2 pt-3 ps-3"><span class="categoryName">[${dto.categoryName}]</span>&nbsp;${dto.subject}</div>
-				</td>
-			</tr>
-		</thead>		
-		<tbody>
-			<tr class="border-bottom"> 
-				<td align="left"> 
-					<span class="date pe-1 ps-3"> 
-						<c:if test="${dto.replyDepCount != 0 }">
-							<span class="answer-complete p-1">답변 완료</span>&nbsp;&nbsp;  
-						</c:if>
-						<i class="fa-regular fa-message"></i>&nbsp;<span id="replyCount${dto.num}"></span>&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_date}
-					</span>
-					<br>
-				</td>
-			</tr>				
-			<tr>
-				<td colspan="2" valign="top" height="200" class="pt-3 pb-3 px-3 ps-4"> 
-					${dto.content} 
-				</td> 
-			</tr>
-			
-			<tr>   
-				<td colspan="2" class="text-center p-3" style="border: none;">    
-					<button type="button" class="btn btn-Point btnSendLike" data-like='1' title="좋아요"><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;<span>${likeCount}</span></button> 
-					<button type="button" class="btn btn-Point btnSendLike" data-like='0' title="싫어요"><i class="fa-solid fa-thumbs-down"></i>&nbsp;&nbsp;<span>${disLikeCount}</span></button>
-				</td>
-			</tr>
-		</tbody>
-	</table>	
-	
-	<div class="reply">
-		<form name="replyForm" method="post"> 
-			<div class='form-header'>
-				<span class="bold ms-1">댓글</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가해 주세요.</span>
-			</div> 
-			
-			<table class="table table-borderless reply-form">
+	<div class="m-auto" style="width: 80%">
+		<table class="table community-article"> 
+			<thead>
 				<tr>
-					<td align="center">
-						<textarea class='form-control' name="content"></textarea>
+					<td colspan="2" align="left" style="border: none;"> 
+						<div class="communitySubject2 pt-3 ps-3"><span class="categoryName">[${dto.categoryName}]</span>&nbsp;${dto.subject}</div>
 					</td>
 				</tr>
+			</thead>		
+			<tbody>
+				<tr class="border-bottom"> 
+					<td align="left"> 
+						<span class="date pe-1 ps-3"> 
+							<c:if test="${dto.replyDepCount != 0 }">
+								<span class="answer-complete p-1">답변 완료</span>&nbsp;&nbsp;  
+							</c:if>
+							<i class="fa-regular fa-message"></i>&nbsp;<span id="replyCount${dto.num}"></span>&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_date}
+						</span>
+						<br>
+					</td>
+				</tr>				
 				<tr>
-				    <td align='right'>
-				        <c:if test="${sessionScope.employee.depNo == 1}"> 
-				        	<button type='button' class='btn button-main btnSendReply me-2 mt-2'>댓글 등록</button>   
-				        	<button type='button' class='btn button-main me-2 mt-2' onclick="location.href='${pageContext.request.contextPath}/community/update?num=${dto.num}&page=${page}'">수정</button> 
-				        </c:if>
-				        <c:if test="${sessionScope.employee.depNo != 1}">
-				        	<button type='button' class='btn button-main btnSendReply me-3 mt-2'>댓글 등록</button>
-				        </c:if>
-				    </td>
-				 </tr>
-			</table>
-		</form>
-		<div id="listReply"></div> 
+					<td colspan="2" valign="top" height="200" class="pt-3 pb-3 px-3 ps-4"> 
+						${dto.content} 
+					</td> 
+				</tr>
+				
+				<tr>   
+					<td colspan="2" class="text-center p-3" style="border: none;">    
+						<button type="button" class="btn btn-Point btnSendLike" data-like='1' title="좋아요"><i class="fa-solid fa-thumbs-up"></i>&nbsp;&nbsp;<span>${likeCount}</span></button> 
+						<button type="button" class="btn btn-Point btnSendLike" data-like='0' title="싫어요"><i class="fa-solid fa-thumbs-down"></i>&nbsp;&nbsp;<span>${disLikeCount}</span></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+		
+		<div class="reply">
+			<form name="replyForm" method="post"> 
+				<div class='form-header'>
+					<span class="bold ms-1">댓글</span><span> - 타인을 비방하거나 개인정보를 유출하는 글의 게시를 삼가해 주세요.</span>
+				</div> 
+				
+				<table class="table table-borderless reply-form">
+					<tr>
+						<td align="center">
+							<textarea class='form-control' name="content"></textarea>
+						</td>
+					</tr>
+					<tr>
+					    <td align='right'>
+					        <c:if test="${sessionScope.employee.depNo == 1}"> 
+					        	<button type='button' class='btn button-main btnSendReply me-2 mt-2'>댓글 등록</button>   
+					        	<button type='button' class='btn button-main me-2 mt-2' onclick="location.href='${pageContext.request.contextPath}/community/update?num=${dto.num}&page=${page}'">수정</button> 
+					        </c:if>
+					        <c:if test="${sessionScope.employee.depNo != 1}">
+					        	<button type='button' class='btn button-main btnSendReply me-3 mt-2'>댓글 등록</button>
+					        </c:if>
+					    </td>
+					 </tr>
+				</table>
+			</form>
+			<div id="listReply"></div>
+		</div>
 	</div>
 </div>

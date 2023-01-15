@@ -9,16 +9,16 @@ function searchList() {
 }
 </script>
 
-<div class=" card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
+<div class=" card mt-5 mb-5 p-5 m-auto">
+	<div class="text-start fs-3 mb-4 ps-4">
 		<span>
 		| 공지사항
 		</span>
 	</div>
-	<div class="mt-4"> 
+	<div class="m-auto mt-3" style="width: 80%"> 
 		<table class="table table-hover board-list">
 			<thead class="bg-sub"> 
-					<tr class="text-center">
+					<tr class="text-center" style="height: 30px;">  
 						<th style="width: 10%">순번</th>
 						<th class="text-start ps-5" style="width: 40%">제목</th> 
 						<th style="width: 15%">작성자</th> 
@@ -31,7 +31,7 @@ function searchList() {
 			<tbody>
 				<c:forEach var="dto" items="${noticeList}">
 					<tr class="text-center"> 
-						<td><span class="badge bg-danger">공지</span></td>
+						<td class="align-middle"><span class="badge bg-danger">공지</span></td> 
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
 						</td>

@@ -9,14 +9,22 @@ function searchList() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-4 mb-4">
+<div class="m-auto card mt-5 mb-5 p-5">
+	<div class="text-start fs-3 mb-4 ps-4"> 
 		<span> 
 		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 
 		</span>
 	</div>
-	<div class="mt-4" align="center"> 
-		<table class="table table-hover community-list">
+	<div class="m-auto mt-3" align="center" style="width: 80%;"> 
+		<table class="table table-hover community-list-table">
+			<thead class="bg-sub"> 
+					<tr class="text-center" style="height: 30px;">
+						<th>카테고리</th>
+						<th class="text-start">제목</th> 
+						<th>날짜</th>  
+						<th></th>
+					</tr>
+			</thead>
 			<tbody>	
 				<c:forEach var="dto" items="${list}" varStatus="status">
 					<c:if test="${dto.open == 1}">
