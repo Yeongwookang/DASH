@@ -23,19 +23,19 @@
 				method="post">
 				<div class="col-auto p-1">
 					<select name="condition" class="form-select">
-						<option value="all" ${condition=="all"?"selected='selected'":""}>제목+내용</option>
-						<option value="userName"
-							${condition=="emp.empNo"?"selected='selected'":""}>작성자</option>
+						<option selected value="all">검색</option>
+						<option value="signNum"
+							${condition=="signNum"?"selected='selected'":""}>결재번호</option>
+						<option value="title"
+							${condition=="title"?"selected='selected'":""}>제목</option>
+						<option value="name"
+							${condition=="name"?"selected='selected'":""}>작성자</option>
 						<option value="reg_date"
 							${condition=="reg_date"?"selected='selected'":""}>등록일</option>
-						<option value="subject"
-							${condition=="subject"?"selected='selected'":""}>제목</option>
-						<option value="content"
-							${condition=="content"?"selected='selected'":""}>내용</option>
 					</select>
 				</div>
 				<div class="col-auto p-1">
-					<input type="text" name="kwd" value="${kwd}" class="form-control">
+					<input type="text" name="keyword" value="${keyword}" class="form-control">
 				</div>
 				<div class="col-auto p-1">
 					<button type="button" class="btn btn-light" onclick="searchList()">
@@ -52,6 +52,7 @@
 		<table class="table table text-center mt-3">
 			<thead>
 				<tr>
+					<th scope="col">구분</th>
 					<th scope="col">결재번호</th>
 					<th scope="col">제목</th>
 					<th scope="col">부서</th>
@@ -62,23 +63,23 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${approvalList}" var="ap" varStatus="status">
+				<c:forEach items="${list}" var="dto" varStatus="status">
 					<tr>
 						<th>${status.count}</th>
-						<td class="signNum">${ap.signNum}</td>
-						<td class="title">${ap.title}</td>
-						<td class="dep">${ap.depName}</td>
-						<td class="rank">${ap.name}</td>
-						<td class="name">${ap.reg_date}</td>
+						<td class="signNum">${dto.signNum}</td>
+						<td class="title">${dto.title}</td>
+						<td class="dep">${dto.depName}</td>
+						<td class="rank">${dto.name}</td>
+						<td class="name">${dto.reg_date}</td>
 						<td>
 							<button type="button" class="btn btn-primary sendList"
 								data-bs-toggle="modal" data-bs-target="#staticBackdrop">내용확인</button>
 						</td>
 						<td><c:choose>
-								<c:when test="${ap.state == 0 }">기안</c:when>
-								<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
-								<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
-								<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+								<c:when test="${dto.state == 0 }">기안</c:when>
+								<c:when test="${dto.state < dto.max_state && dto.state == 1 }">1차 승인</c:when>
+								<c:when test="${dto.state < dto.max_state && dto.state == 2 }">2차 승인</c:when>
+								<c:when test="${dto.state< dto.max_state }">결재 완료</c:when>
 								<c:otherwise>문의</c:otherwise>
 							</c:choose></td>
 					</tr>
@@ -116,15 +117,7 @@
 								</tr>
 
 								<tr>
-									<td class="text-center align-middle" scope="row"><h4>타임라인</h4></td>
-									<td class="d-flex "><input type="text"
-										class="form-control" value="${dto.timeLine}" readonly></td>
-								</tr>
-
-
-								<tr>
-									<td class="text-center align-middle" scope="row"><h4>참
-											조</h4></td>
+									<td class="text-center align-middle" scope="row"><h4>결재라인</h4></td>
 									<td class="d-flex "><input type="text"
 										class="form-control me-2" id="ref1name"
 										value="${ref1.depName}&nbsp;${ref1.name}" readonly> <input

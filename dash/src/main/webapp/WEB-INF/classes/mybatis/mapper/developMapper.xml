@@ -2,8 +2,178 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="develop">
-	
-	
-	
-	
+	<sql id="where-list">
+		<if test="condition == 'all'">
+			(e.signNum = #{keyword}
+			OR INSTR(e.title, #{keyword}) &gt; 0
+			OR INSTR(name, #{keyword}) &gt; 0
+			OR (TO_CHAR(dr.reg_date, 'YYYY-MM-DD') = #{keyword}
+			OR
+			TO_CHAR(dr.reg_date, 'YYYYMMDD') = #{keyword})
+			)
+		</if>
+		<if test="condition=='signNum'">
+			e.signNum = #{keyword}
+		</if>
+		<if test="condition=='title'">
+			INSTR(e.title, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='name'">
+			INSTR(name, #{keyword}) &gt; 0
+		</if>
+		<if test="condition == 'reg_date'">
+			(TO_CHAR(dr.reg_date, 'YYYY-MM-DD') = #{keyword}
+			OR
+			TO_CHAR(dr.reg_date, 'YYYYMMDD') = #{keyword})
+		</if>
+	</sql>
+
+
+
+	<select id="approvalList" parameterType="map"
+		resultType="com.sp.app.develop.Develop">
+		SELECT title, name, e.empNo, e.signNum, 1 appLevel,
+		f.empNo appEmpNo, dr.state, to_char(dr.reg_date, 'YYYY-MM-DD') reg_date,
+		max_state, d.depName
+		FROM e_document e
+		LEFT OUTER JOIN doc_record dr ON dr.signNum = e.signNum
+		JOIN employee emp ON emp.empNo = e.empNo
+		JOIN person_record pr ON emp.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+		JOIN f_approval f ON e.signNum = f.signNum
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if> AND f.empNo = #{empNo} AND pr.state = 1
+		</where>
+		UNION ALL
+		SELECT title, name, e.empNo, e.signNum, 2 appLevel, s.empNo appEmpNo,
+		dr.state, to_char(dr.reg_date,'YYYY-MM-DD') reg_date, max_state,
+		d.depName
+		FROM e_document e
+		LEFT OUTER
+		JOIN doc_record dr ON dr.signNum = e.signNum
+		JOIN employee emp ON emp.empNo = e.empNo
+		JOIN person_record pr ON emp.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+		JOIN s_approval s ON e.signNum = s.signNum
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if> AND s.empNo = #{empNo} AND pr.state = 1
+		</where>
+		UNION ALL
+		SELECT title, name, e.empNo,
+		e.signNum, 3 appLevel, t.empNo appEmpNo,
+		dr.state, to_char(dr.reg_date,'YYYY-MM-DD') reg_date, max_state, d.depName
+		FROM e_document e
+		LEFT OUTER
+		JOIN doc_record dr ON dr.signNum = e.signNum
+		JOIN employee emp ON emp.empNo = e.empNo
+		JOIN person_record pr ON emp.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+		JOIN t_approval t ON e.signNum = t.signNum
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-list"/>
+			</if> AND t.empNo = #{empNo} AND pr.state = 1 AND dr.state = 1
+		</where>
+		ORDER BY reg_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+
+	<select id="readApproval" parameterType="Long"
+		resultType="com.sp.app.develop.Develop">
+
+		SELECT title, content, e.signNum, emp.empNo, depName,
+		emp.name,
+		to_char(dr.reg_date,'YYYY-MM-DD')reg_date, f.empno as ref1,
+		s.empno as
+		ref2, t.empno as ref3, dr.state,
+		max_state FROM e_document e
+		LEFT OUTER
+		JOIN doc_record dr ON dr.signNum
+		= e.signNum
+		LEFT OUTER JOIN
+		f_approval
+		f ON e.signNum = f.signNum
+		LEFT
+		OUTER JOIN s_approval s ON
+		e.signNum =
+		s.signNum
+		LEFT OUTER JOIN
+		t_approval t ON e.signNum =
+		t.signNum
+		LEFT
+		OUTER JOIN employee emp ON
+		emp.empNo = e.empNo
+		LEFT OUTER
+		JOIN
+		PERSON_RECORD pr ON pr.empNo =
+		e.empNO AND pr.state=1
+		LEFT OUTER
+		JOIN
+		rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN position p ON
+		p.posNo =
+		pr.posNo
+		LEFT OUTER JOIN
+		department dep ON dep.depNo = pr.depNo
+		LEFT
+		OUTER JOIN team ON
+		team.teamNo = pr.posNo
+		WHERE e.signNum =
+		#{signNum}
+
+	</select>
+
+
+	<update id="approveUpdate" parameterType="map">
+		UPDATE SET reg_date = sysdate, state='승인' FROM
+		<choose>
+			<when test="state == 0"> f_approval</when>
+			<when test="state == 1"> s_approval</when>
+			<when test="state == 2"> t_approval</when>
+			<otherwise> dual</otherwise>
+		</choose>
+		WHERE signNum = #{signNum}
+	</update>
+
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM PERSON_RECORD pr
+		LEFT OUTER JOIN employee
+		emp ON pr.empNo = emp.empNo
+		LEFT OUTER JOIN DEPARTMENT d
+		ON d.DEPNO = pr.DEPNO
+		LEFT OUTER JOIN POSITION p ON p.POSNO = pr.POSNO
+		LEFT OUTER JOIN team t
+		ON t.teamNo = pr.teamNo
+		LEFT OUTER JOIN rank r
+		ON r.rankNo = pr.rankNo
+		
+		<where>
+			 state = 1
+		</where>
+	</select>
+
+	<select id="myApprovalCount" parameterType="map"
+		resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM doc_record dr
+		LEFT OUTER JOIN
+		e_document e ON e.signNum = dr.signNum
+		LEFT OUTER JOIN employee emp ON
+		emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo =
+		e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo =
+		pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN
+		department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON
+		team.teamNo = pr.posNo
+		WHERE emp.empNo = #{empNo}
+	</select>
+
 </mapper>
