@@ -174,4 +174,16 @@ public class CommunityServiceImpl implements CommunityService {
 		
 	}
 
+	@Override
+	public List<Community> listCommunityMain() {
+		List<Community> listCommunityMain = null;
+		
+		try {
+			listCommunityMain = dao.selectList("community.listCommunityMain");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listCommunityMain;
+	}
+
 }

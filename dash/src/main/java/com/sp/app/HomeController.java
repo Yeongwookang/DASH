@@ -1,8 +1,6 @@
 package com.sp.app;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -20,6 +18,8 @@ import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
 import com.sp.app.approval.Approval;
 import com.sp.app.approval.ApprovalService;
+import com.sp.app.community.Community;
+import com.sp.app.community.CommunityService;
 import com.sp.app.employee.SessionInfo;
 import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
@@ -35,6 +35,9 @@ public class HomeController {
    
    @Autowired
    private NoticeService noService;
+   
+   @Autowired
+   private CommunityService coService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpSession session, Model model) throws Exception {
@@ -105,8 +108,11 @@ public class HomeController {
       List<Notice> list = noService.listNoticeMain();
       List<Notice> listTop = noService.listNoticeTopMain();
       
+      List<Community> listCommunity = coService.listCommunityMain();
+      
       model.addAttribute("list", list);
       model.addAttribute("listTop", listTop);
+      model.addAttribute("listCommunity", listCommunity);
       
       return ".mainLayout";
    }

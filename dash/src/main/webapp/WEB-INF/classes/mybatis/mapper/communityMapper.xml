@@ -172,6 +172,20 @@
 	
 	<update id="updateCommunity" parameterType="com.sp.app.community.Community">
 		UPDATE community SET open = #{open} WHERE num = #{num}
-	</update> 
+	</update>
+	
+	<select id="listCommunityMain" resultType="com.sp.app.community.Community">
+		SELECT c.num, c.empNo, subject, content, TO_CHAR(c.reg_date, 'YYYY-MM-DD') reg_date, c.categoryNum, categoryName, open, NVL(replyCount, 0) replyCount
+		FROM community c
+		JOIN employee e ON c.empNo = e.empNo
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) replyCount
+			FROM communityReply
+			WHERE answer = 0
+			GROUP BY num	
+		) r ON c.num = r.num
+		JOIN communityCategory co ON c.categoryNum = co.categoryNum
+		ORDER BY num DESC
+	</select>
 	
 </mapper>

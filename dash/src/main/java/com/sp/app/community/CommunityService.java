@@ -23,4 +23,6 @@ public interface CommunityService {
 	
 	public void updateCommunity(Community dto) throws Exception;
 	
+	public List<Community> listCommunityMain();
+	
 }
