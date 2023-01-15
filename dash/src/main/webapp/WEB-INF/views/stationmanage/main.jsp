@@ -40,8 +40,8 @@ $(function(){
 });
 </script>
 
-<div class=" card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
+<div class="m-auto card mt-5 mb-5 p-4">
+	<div class="text-start fs-3 mb-4 ps-4">
 		<span>| 충전소·대여소 현황</span>
 	</div>
 

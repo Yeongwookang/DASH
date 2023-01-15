@@ -205,7 +205,7 @@ function searchList() {
 		</span>
 	</div>
 	
-	<div class="m-auto" style="width: 80%;">
+	<div class="m-auto mt-3" style="width: 80%;">
 		<div>
 		<form name="userForm">
 			<div class="d-flex justify-content-end"> 

@@ -3,155 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
 
-<script type="text/javascript">
-$(function(){
-	let url = "${pageContext.request.contextPath}/zoonUsageCountAnalysis";
-	
-	$.getJSON(url, function(data){
-		// console.log(data);
-		lastDayUsageCount(data);
-		
-		function lastDayUsageCount(data){
-			var chartDom = document.getElementById('chart-container1');
-			var myChart = echarts.init(chartDom);
-			var option;
-
-			option = {
-			  tooltip: {
-			    trigger: 'item'
-			  },
-			  series: [
-			    { 
-			      name: '전일 시간대별 인원수',
-			      type: 'pie',
-			      radius: ['40%', '70%'],
-			      avoidLabelOverlap: false,
-			      itemStyle: {
-			        borderRadius: 10,
-			        borderColor: '#fff',
-			        borderWidth: 2
-			      },
-			      label: {
-			        show: false,
-			        position: 'center'
-			      },
-			      emphasis: {
-			        label: {
-			          show: true,
-			          fontSize: 40,
-			          fontWeight: 'bold'
-			        }
-			      },
-			      labelLine: {
-			        show: false
-			      },
-			      data: [
-			        { value: data.lastDayUsageCount.t0, name: '00 ~ 03' },
-			        { value: data.lastDayUsageCount.t3, name: '03 ~ 06' },
-			        { value: data.lastDayUsageCount.t6, name: '06 ~ 09' },
-			        { value: data.lastDayUsageCount.t9, name: '9 ~ 12' },
-			        { value: data.lastDayUsageCount.t12, name: '12 ~ 15' },
-			        { value: data.lastDayUsageCount.t15, name: '15 ~ 18' },
-			        { value: data.lastDayUsageCount.t18, name: '18 ~ 21' },
-			        { value: data.lastDayUsageCount.t21, name: '21 ~ 24' }
-			      ]
-			    }
-			  ]
-			};
-
-			option && myChart.setOption(option);
-		}
-		
-
-	});
-		
-	window.onload = function () {
-        window.myChart = echarts.init(document.getElementById('chart-container1'));
-
-        //graph resize
-        $(window).on('resize', resize);
-        function resize(){
-            setTimeout(function(){
-                window.myChart.resize();
-            }, 100);
-        }
-    }
-	
-});
-
-</script>
-
-<script type="text/javascript">
-$(function(){
-	let url = "${pageContext.request.contextPath}/zoonSalesAnalysis";
-	
-	$.getJSON(url, function(data){
-		// console.log(data);
-		salesRankList(data);
-		
-		function salesRankList(data) {
-			let price = [];
-			let zoonName = [];
-			
-			for(let i=0; i<data.salesRankList.length; i++) {
-				item = data.salesRankList[i];
-				if (i == 0){
-					obj = {value : item.price, itemStyle:{color: '#FF5375'}}
-					price.push(obj);
-				} else {
-				    price.push(item.price);
-				}
-				zoonName.push(item.zoonName);
-			}
-			
-			var chartDom = document.getElementById('chart-container2');
-			var myChart = echarts.init(chartDom);
-			var option;
-			
-			option = {
-					  tooltip: {
-					    trigger: 'item',
-					    axisPointer: { type: 'cross' }
-					  },
-					  xAxis: {
-					    type: 'category',
-					    data: zoonName
-					  },
-					  yAxis: {
-						show: false,
-					    type: 'value'
-					  },
-					  series: [
-					    {
-					      data: price,
-					      type: 'bar'
-					    }
-					  ]
-					};
-
-					option && myChart.setOption(option);
-		}
-		
-
-	});
-		
-	window.onload = function () {
-        window.myChart = echarts.init(document.getElementById('chart-container2'));
-
-        //graph resize
-        $(window).on('resize', resize);
-        function resize(){
-            setTimeout(function(){
-                window.myChart.resize();
-            }, 100);
-        }
-    }
-	
-});
-
-</script> 
 	<div class="m-auto mt-5 mb-5">
 	<div id="carouselExampleIndicators" class="carousel slide border mb-3 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
 	  <div class="carousel-indicators">
@@ -223,11 +75,11 @@ $(function(){
 		
 		<div class="card p-4"  style="width: 49%">
 			<div class="d-flex align-items-end">
-				<span style="font-weight: 700; font-size: 1.5rem;">${msg}</span>
-				<span style="font-weight: 500; font-size: 1.2rem; ">&nbsp;${dayOfWeek}</span>
+				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
+				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
 			</div>
 			<div class="d-flex justify-content-between mt-3">
-				<div class="border-end" style="width:48%">
+				<div class="border-end" style="width:47%">
 					<div class="d-flex align-items-center">
 						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
 						<div>
@@ -246,10 +98,10 @@ $(function(){
 						<div><span style="color:#868e96">&nbsp;시간</span></div>
 					</div>
 				</div>
-				<div class="w-50">
+				<div class="w-50"> 
 					<div>
-						<button type="button" class="btn bg-main btn-Point text-white">출근</button>
-						<button type="button" class="btn bg-main btn-Point text-white">퇴근</button>
+						<button type="button" class="btn bg-main btn-Point text-white" style="border: none;">출근</button>
+						<button type="button" class="btn bg-main btn-Point text-white" style="border: none;">퇴근</button>
 						<button type="button" class="btn btn-light">출퇴근현황</button>
 					</div>
 					<div class="d-flex">
@@ -265,9 +117,9 @@ $(function(){
 		</div>
 		</div>
 		<div class="d-flex justify-content-between mb-3">
-			<div class="card " style="width: 66%;">
+			<div class="card " style="width: 49%;">
 				<div class="text-start sales ms-3 mt-3">| 대여소별 이용건수</div>
-				<table class="table table-hover h-100 board-list">
+				<table class="table table-hover h-100 board-list"> 
 					<thead>  
 						<tr class="text-center">
 							<th style="width: 10%">#</th> 
@@ -277,7 +129,7 @@ $(function(){
 						</tr>
 					</thead> 
 					<tbody>
-						<c:forEach var="dto" items="${usageRankList}" end="3">
+						<c:forEach var="dto" items="${usageRankList}" end="4">
 							<tr class="text-center"> 
 								<td>0${dto.usageRank}</td> 
 								<td>${dto.name}</td> 
@@ -309,17 +161,43 @@ $(function(){
 					</tbody>
 			</table>
 			</div>
-		<div class="card " style="width: 32%;">
-			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
-			<div id="chart-container1" class="h-100 w-100"></div>
+		<div class="card " style="width: 49%;">
+			<div class="text-start sales ms-3 mt-3">| 공지사항</div>
+			<table class="table table-hover h-100 board-list"> 
+					<thead>  
+						<tr class="text-center">
+							<th style="width: 10%">#</th> 
+							<th style="width: 60%">제목</th>
+							<th style="width: 30%">날짜</th>  
+						</tr>
+					</thead> 
+					<tbody>
+						<tbody>
+						<c:forEach var="dto" items="${listTop}">
+							<tr class="text-center"> 
+								<td><span class="badge bg-danger">공지</span></td> 
+								<td>${dto.subject}</td>
+								<td>${dto.reg_date}</td>
+							</tr>
+						</c:forEach>
+							
+						<c:forEach var="dto" items="${list}" varStatus="status" end="4">
+							<tr class="text-center">  
+								<td>${status.index + 1}</td>
+								<td>${dto.subject}&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if></td>
+								<td>${dto.reg_date}</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+			</table>
 		</div>		
 		</div>
 		<div class="d-flex justify-content-between">
-		<div class="card"  style="width: 32%">
+		<div class="card"  style="width: 49%">
 			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
 			<div id="chart-container2" class="h-100 w-100"></div>
 		</div>
-		<div class="card pb-3" style="width: 66%">
+		<div class="card pb-3" style="width: 49%">
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
 					<c:choose >
 			<c:when test="${not empty myApprovalList}">

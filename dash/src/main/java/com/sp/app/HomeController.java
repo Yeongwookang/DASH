@@ -1,6 +1,8 @@
 package com.sp.app;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -13,13 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
 import com.sp.app.approval.Approval;
 import com.sp.app.approval.ApprovalService;
 import com.sp.app.employee.SessionInfo;
+import com.sp.app.notice.Notice;
+import com.sp.app.notice.NoticeService;
 
 @Controller
 public class HomeController {
@@ -29,6 +32,9 @@ public class HomeController {
    
    @Autowired
    private ApprovalService apService;
+   
+   @Autowired
+   private NoticeService noService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpSession session, Model model) throws Exception {
@@ -96,32 +102,14 @@ public class HomeController {
       model.addAttribute("usageRankList", usageRankList);
       model.addAttribute("myApprovalList", myApprovalList);
       
+      List<Notice> list = noService.listNoticeMain();
+      List<Notice> listTop = noService.listNoticeTopMain();
+      
+      model.addAttribute("list", list);
+      model.addAttribute("listTop", listTop);
       
       return ".mainLayout";
    }
    
-   @RequestMapping("zoonSalesAnalysis")
-   @ResponseBody
-   public Map<String, Object> salesRankList() throws Exception {
-      Map<String, Object> model = new HashMap<String, Object>();
-
-      List<Analysis> salesRankList = service.salesRankList();
-
-      model.put("salesRankList", salesRankList);
-
-      return model;
-   }
-   
-   @RequestMapping("zoonUsageCountAnalysis")
-   @ResponseBody
-   public Map<String, Object> lastDayUsageCount() throws Exception {
-      Map<String, Object> model = new HashMap<String, Object>();
-
-      Analysis lastDayUsageCount = service.lastDayUsageCount();
-
-      model.put("lastDayUsageCount", lastDayUsageCount);
-
-      return model;
-   }
    
 }

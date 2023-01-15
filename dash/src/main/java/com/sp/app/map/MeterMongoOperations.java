@@ -28,19 +28,39 @@ public class MeterMongoOperations {
 	}
 	
 	public List<Meter> listMeter() {
-		List<Meter> list = null;
+		List<Meter> list_100 = null;
 		
 		try {
-			list = mongo.findAll(Meter.class);
+			list_100 = mongo.findAll(Meter.class);
 			
-			//Query query = new Query();
-			//query.with(Sort.by(Sort.Direction.DESC, "tot"));
-			//list = mongo.find(query, Subway.class);
-		
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return list_100;
+	}
+	
+	public List<Meter2> listMeter2() {
+		List<Meter2> list_300 = null;
+		
+		try {
+			list_300 = mongo.findAll(Meter2.class);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list_300;
+	}
+	
+	public List<Meter3> listMeter3() {
+		List<Meter3> list_500 = null;
+		
+		try {
+			list_500 = mongo.findAll(Meter3.class);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return list_500;
 	}
 
 }

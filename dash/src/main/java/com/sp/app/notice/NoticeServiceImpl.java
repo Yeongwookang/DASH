@@ -234,4 +234,28 @@ public class NoticeServiceImpl implements NoticeService {
 		
 	}
 
+	@Override
+	public List<Notice> listNoticeMain() {
+		List<Notice> list = null;
+		
+		try {
+			list = dao.selectList("notice.listNoticeMain");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public List<Notice> listNoticeTopMain() {
+		List<Notice> list = null;
+		
+		try {
+			list = dao.selectList("notice.listNoticeTopMain");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
 }

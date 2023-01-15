@@ -9,13 +9,11 @@ function searchList() {
 }
 </script>
 
-<div class=" card mt-5 mb-5 p-5 m-auto">
+<div class="m-auto card mt-5 mb-5 p-4">
 	<div class="text-start fs-3 mb-4 ps-4">
-		<span>
-		| 공지사항
-		</span>
+		<span>| 공지사항</span>
 	</div>
-	<div class="m-auto mt-3" style="width: 80%"> 
+	<div class="m-auto" style="width:80%">
 		<table class="table table-hover board-list">
 			<thead class="bg-sub"> 
 					<tr class="text-center" style="height: 30px;">  

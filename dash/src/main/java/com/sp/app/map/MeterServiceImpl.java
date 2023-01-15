@@ -22,14 +22,38 @@ public class MeterServiceImpl implements MeterService {
 
 	@Override
 	public List<Meter> listMeter() {
-		List<Meter> list = null;
+		List<Meter> list_100 = null;
 
 		try {
-			list = meterMongo.listMeter();
+			list_100 = meterMongo.listMeter();
 		} catch (Exception e) {
 		}
 
-		return list;
+		return list_100;
+	}
+
+	@Override
+	public List<Meter2> listMeter2() {
+		List<Meter2> list_300 = null;
+
+		try {
+			list_300 = meterMongo.listMeter2();
+		} catch (Exception e) {
+		}
+
+		return list_300;
+	}
+
+	@Override
+	public List<Meter3> listMeter3() {
+		List<Meter3> list_500 = null;
+
+		try {
+			list_500 = meterMongo.listMeter3();
+		} catch (Exception e) {
+		}
+
+		return list_500;
 	}
 
 }

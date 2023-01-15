@@ -9,13 +9,13 @@ function searchList() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-5">
-	<div class="text-start fs-3 mb-4 ps-4"> 
+<div class="m-auto card mt-5 mb-5 p-4">
+	<div class="text-start fs-3 mb-4 ps-4">
 		<span> 
 		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 
 		</span>
 	</div>
-	<div class="m-auto mt-3" align="center" style="width: 80%;"> 
+	<div class="m-auto" align="center" style="width: 80%;"> 
 		<table class="table table-hover community-list-table">
 			<thead class="bg-sub"> 
 					<tr class="text-center" style="height: 30px;">
