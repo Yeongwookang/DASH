@@ -226,8 +226,8 @@ $(function(){
 				<span style="font-weight: 700; font-size: 1.5rem;">${msg}</span>
 				<span style="font-weight: 500; font-size: 1.2rem; ">&nbsp;${dayOfWeek}</span>
 			</div>
-			<div class="d-flex mt-3">
-				<div class="w-50 border-right">
+			<div class="d-flex justify-content-between mt-3">
+				<div class="border-end" style="width:48%">
 					<div class="d-flex align-items-center">
 						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
 						<div>

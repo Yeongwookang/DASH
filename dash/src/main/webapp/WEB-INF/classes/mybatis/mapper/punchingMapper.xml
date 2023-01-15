@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="punching">
+	<select parameterType="map" resultType="com.sp.app.punching.Punching" id="clockOnTime">
+		select empNo, name, clock_time, punch_kind FROM punching p 
+		JOIN employee e ON e.empNo = p.empNo
+		WHERE empNo = #{empNo} 
+		AND punch_kind = '출근'
+		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
+	</select>
+	
+	<insert id="clockOn">
+		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
+		(punch_clock_seq.NEXTVAL, #{empNo},'출근')
+	</insert>
+	
+	<select parameterType="map" resultType="com.sp.app.punching.Punching" id="clockOffTime">
+		select empNo, name, TO_CHAR(clock_time, 'YYYY-MM-DD HH24:MI:SS') clock_time, punch_kind FROM punching p 
+		JOIN employee e ON e.empNo = p.empNo
+		WHERE empNo = #{empNo} 
+		AND punch_kind = '퇴근'
+		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
+	</select>
+	
+	<insert id="clockOff">
+		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
+		(punch_clock_seq.NEXTVAL, #{empNo},'퇴근')
+	</insert>
+	
+</mapper>

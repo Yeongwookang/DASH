@@ -28,7 +28,7 @@
 			<div class="card-body">
 			<c:choose >
 			<c:when test="${not empty approvalList}">
-				<table class="table text-center">
+				<table class="table table-hover text-center">
 					<thead>
 	        			<tr>
 	        				<th>#</th>
@@ -81,7 +81,7 @@
 			<div class="card-body">
 				<c:choose >
 			<c:when test="${not empty myApprovalList}">
-				<table class="table text-center">
+				<table class="table  table-hover text-center">
 					<thead>
 	        			<tr>
 	        				<th>#</th>

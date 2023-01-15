@@ -3,8 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div class="m-auto scroll card mt-5 mb-5 p-4" style="overflow-y: scroll;">
-	<div class="fs-3"><span>| 결재</span></div>
+<div class="m-auto scroll card mt-5 mb-5 p-5" style="overflow-y: scroll;">
+	<div class="fs-3 mb-4 ps-4"><span>| 결재</span></div>
+	<div class="m-auto" style="width:80%">
 	<div class="ps-5 pe-5 mt-4">
 		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
 			<table class="table">
@@ -63,7 +64,7 @@
 			</c:if>
 			</form>
 		</div>
-		
+		</div>
 	</div>
 </div>
 

@@ -48,12 +48,7 @@
 						커뮤니티</span>
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/analysis/main">
-					<i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span>
-				</a>
-			</li>
+			
 			<c:if test="${sessionScope.employee.depNo==1}">
 			<li class= "dropdown nav-item">
 						<a class="nav-link dropdown-toggle nav-box"
@@ -79,16 +74,15 @@
 			</li>
 			</c:if>
 			
-			<c:if test="${sessionScope.employee.depNo==4}">
-				<li class="nav-item">
-					<a class="nav-link nav-box"
-						href="${pageContext.request.contextPath}/develop/main">
-						<i class="bi bi-gear-fill"></i><span class="ms-3">요청사항 관리</span>
-					</a>
-				</li>
-			</c:if>
+			
 
 			<c:if test="${sessionScope.employee.depNo==2}">
+				<li class="nav-item">
+				<a class="nav-link nav-box"
+					href="${pageContext.request.contextPath}/analysis/main">
+					<i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span>
+				</a>
+				</li>
 				<li class= "dropdown nav-item">
 						<a class="nav-link dropdown-toggle nav-box"
 							id="kickboardMenu" data-bs-toggle="dropdown"
@@ -107,6 +101,22 @@
 								href="${pageContext.request.contextPath}/kickmanage/main"><i
 									class="bi bi-speedometer"></i><span> 킥보드 관리</span></a></li>
 						</ul>
+				</li>
+			</c:if>
+			<c:if test="${sessionScope.employee.depNo==3}">
+				<li class="nav-item">
+				<a class="nav-link nav-box"
+					href="${pageContext.request.contextPath}/analysis/main">
+					<i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span>
+				</a>
+				</li>
+			</c:if>
+			<c:if test="${sessionScope.employee.depNo==4}">
+				<li class="nav-item">
+					<a class="nav-link nav-box"
+						href="${pageContext.request.contextPath}/develop/main">
+						<i class="bi bi-gear-fill"></i><span class="ms-3">요청사항 관리</span>
+					</a>
 				</li>
 			</c:if>
 		</ul>

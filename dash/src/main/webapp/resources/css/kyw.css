@@ -51,11 +51,15 @@
 .dropdown-item:active{
 	background-color: #FF9E9E; 
 }
-
 body{
  -ms-overflow-style: none;
  }
- 
+tr{
+	height: 60px;
+}
+td,th{
+	vertical-align: middle;
+}
 ::-webkit-scrollbar {
   display: none;
 }

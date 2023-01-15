@@ -114,8 +114,9 @@ function update_document(){
 	f.submit();
 }
 </script>
-<div class="m-auto scroll card mt-5 mb-5 p-4" style="overflow-y: scroll;">
-	<div><h4>| 결재</h4></div>
+<div class="m-auto scroll card mt-5 mb-5 p-5" style="overflow-y: scroll;">
+	<div class="fs-3 ps-4 mt-4"><span>| 결재</span></div>
+	<div class="m-auto" style="width: 80%">
 	<div class="ps-5 pe-5 mt-4">
 		<form name="approval" method="POST"  enctype="multipart/form-data">
 			<table class="table">
@@ -184,6 +185,7 @@ function update_document(){
 			</c:if>
 		</div>
 		</form>
+	</div>
 	</div>
 </div>
 
