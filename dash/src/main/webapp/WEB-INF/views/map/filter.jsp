@@ -205,7 +205,7 @@ var tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7 = L.tileLayer(
     "http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
                 attribution: 'DASH &copy; VWORLD(국토부)',
             	subdomains: 'abcd',
-            	maxZoom: 20}
+            	maxZoom: 19}
 ).addTo(map_2d81c07882e829b16808a14b15af9573);
 
 
