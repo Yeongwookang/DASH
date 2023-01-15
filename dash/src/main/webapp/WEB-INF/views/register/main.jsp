@@ -9,7 +9,7 @@
 
 
 .table-form .img-viewer { 
-	cursor: pointer; 
+	cursor: pointer;  
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 335px;
