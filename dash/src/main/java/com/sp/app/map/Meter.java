@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Meter {
 	@Id
 	private String _id;
-	private String features;
+	private String type;
 	private Object properties;
 	private Object geometry;
 	public String get_id() {
@@ -17,11 +17,11 @@ public class Meter {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
-	public String getFeature() {
-		return features;
+	public String getType() {
+		return type;
 	}
-	public void setFeature(String features) {
-		this.features = features;
+	public void setType(String type) {
+		this.type = type;
 	}
 	public Object getProperties() {
 		return properties;
