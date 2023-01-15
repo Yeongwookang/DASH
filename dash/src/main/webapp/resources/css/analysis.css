@@ -27,3 +27,13 @@
 .arrow {
 	color: red;
 }
+
+.community-list tr {
+	height: 60px;
+	border-bottom: 1px solid #ccc; 
+}
+
+.community-list {
+	width: 1100px;
+	border-bottom: 1px solid #ccc;  
+}

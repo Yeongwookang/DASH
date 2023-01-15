@@ -1,28 +1,30 @@
 package com.sp.app.map;
 
-import java.util.List;
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // 컬렉션(테이블명)
-@Document(collection = "500m")
+@Document(collection = "100m")
 public class Meter {
 	@Id
-	private String id;
-	private List<List<List<List<Double>>>> coordinates;
+	private String _id;
+	private Object row;
 	
 	public String getId() {
-		return id;
+		return _id;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String _id) {
+		this._id = _id;
 	}
-	public List<List<List<List<Double>>>> getCoordinates() {
-		return coordinates;
+	public Object getRow() {
+		return row;
 	}
-	public void setCoordinates(List<List<List<List<Double>>>> coordinates) {
-		this.coordinates = coordinates;
+	public void setRow(Object row) {
+		this.row = row;
 	}
+	
+	
+	
+	
 
 }

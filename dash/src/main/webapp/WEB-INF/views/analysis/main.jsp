@@ -154,13 +154,13 @@ $(function(){
 </script>
 
 
-<div class=" card mt-5 mb-5 p-4 m-auto" style="width:90%; ">
+<div class=" card mt-5 mb-5 p-4 m-auto" style="width:70%;">  
 	<div class="text-start fs-4 mb-4">
 		<span>| 통계</span>
 	</div>
 	
-	<div class="d-flex justify-content-between">
-		<div class="card" style="width: 30%;">
+	<div class="d-flex justify-content-center"> 
+		<div class="card me-5" style="width: 25%;">
 			<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 			<div class="card-body pb-2" style="height: 180px;">
 				<h5 class="card-title">매출 통계</h5>
@@ -168,8 +168,8 @@ $(function(){
 				<a href="${pageContext.request.contextPath}/analysis/sales" class="aTag">바로가기 ></a>
 			</div> 
 		</div>
-	
-		<div class="card" style="width: 30%;"> 
+		
+		<div class="card me-5" style="width: 25%;">  
 			<img src="${pageContext.request.contextPath}/resources/images/user.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 			<div class="card-body pb-2" style="height: 180px;">
 				<h5 class="card-title">이용자 통계</h5>
@@ -178,7 +178,7 @@ $(function(){
 			</div>
 		</div>
 		
-		<div class="card" style="width: 30%;">
+		<div class="card" style="width: 25%;">
 			<img src="${pageContext.request.contextPath}/resources/images/station.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 			<div class="card-body pb-2" style="height: 180px;">
 				<h5 class="card-title">대여소별 통계</h5>
@@ -187,14 +187,14 @@ $(function(){
 			</div>
 		</div>
 	</div>
-	
+	<br>
 	<div class="d-flex justify-content-between mb-3">
 		<div class="card mt-3" style="width: 100%;">
 			<div class="text-start sales ms-3 mt-3">연령대별 이용시간대</div>
 			<div id="chart-container" style="width: 100%; height: 500px;"></div>
 		</div>	
 	</div>
-	
+	<br>
 	<div class="d-flex justify-content-between mb-3">
 		<div class="card" style="width: 32%;"> 
 			<div class="text-start sales ms-3 mt-3">이용건수 Top 5 대여소</div>
@@ -217,7 +217,7 @@ $(function(){
 			</tbody>
 			</table> 
 		</div>
-	
+		<br>
 		<div class="card" style="width: 32%;"> 
 			<div class="text-start sales ms-3 mt-3">이용금액 Top 5 대여소</div>	
 			<table class="table table-hover h-100 board-list">
@@ -239,7 +239,7 @@ $(function(){
 				</tbody>
 			</table> 
 		</div>
-	
+		<br>
 		<div class="card" style="width: 32%;">  
 			<div class="text-start sales ms-3 mt-3">이동거리 Top 5 대여소 [대여 기준]</div>
 			<table class="table table-hover h-100 board-list">
@@ -262,9 +262,10 @@ $(function(){
 			</table> 
 		</div>
 	</div>
+	<br>
 	<div class="mb-3">
-		<div class="card" style="width: 100%;"> 
-		<div class="text-start sales ms-3 mt-3">이용시간 Top 5</div>
+		<div class="card"> 
+		<div class="text-start sales ms-3 mt-3">이용시간 Top 5</div> 
 		<table class="table table-hover h-100 board-list">
 			<thead>  
 				<tr class="text-center">

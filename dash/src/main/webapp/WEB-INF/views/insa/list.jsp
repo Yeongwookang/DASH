@@ -27,7 +27,7 @@ form .img-viewer {
 </script>
 
 
-<div class="card mt-5 mb-5 p-4 m-auto" style="width:90%">
+<div class="card mt-5 mb-5 p-4 m-auto" style="width:70%">
 <div class="text-start fs-4 ml-2 mb-4">
 	<span>| 사원 현황</span>
 </div>
@@ -54,11 +54,12 @@ form .img-viewer {
 			<div class="col-auto">
 				<button type="submit" class="btn bg-sub btn-sm"
 					onclick="searchList()">
-					<i class="bi bi-search"></i>검색
+					<i class="bi bi-search"></i>&nbsp;검색
 				</button>
 			</div>
 
 		</form>
+		<br>
 		<table class="table n-auto">
 			<thead>
 				<tr>
