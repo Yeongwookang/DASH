@@ -91,9 +91,6 @@
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="kickboardMenu">
 							<li class="dropdown-item"><a
-								href="${pageContext.request.contextPath}/register/main"><i
-									class="fa-regular fa-square-plus"></i><span> 신규 등록</span></a></li>
-							<li class="dropdown-item"><a
 								href="${pageContext.request.contextPath}/stationmanage/main"><i
 									class="fa-solid fa-charging-station"></i><span> 대여소·충전소
 										관리</span></a></li>
