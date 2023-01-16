@@ -42,7 +42,7 @@
             
     <!-- 사원정보 조회 -->
     <select id="readInsa" parameterType="String" resultType="com.sp.app.insa.Insa">
-		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, zip, addr, enabled, 
 			failure_cnt, startDate, endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
 		FROM employee e
 		JOIN person_record pr ON e.empNo = pr.empNo
@@ -55,7 +55,7 @@
 	
 	
 	 <select id="listInsa" parameterType="map" resultType="com.sp.app.insa.Insa">
-		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, zip, addr, enabled, 
 			failure_cnt, startDate, endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
 		FROM employee e
 		JOIN person_record pr ON e.empNo = pr.empNo

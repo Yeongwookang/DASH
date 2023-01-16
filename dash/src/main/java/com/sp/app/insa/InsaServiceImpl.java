@@ -24,7 +24,7 @@ public class InsaServiceImpl implements InsaService {
 			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
 			
 			if (filename != null) {
-				dto.setThumbnail(filename);
+				dto.setImageFilename(filename);
 			}
 
 			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
@@ -38,6 +38,11 @@ public class InsaServiceImpl implements InsaService {
 			if (dto.getZip().length() != 0 && dto.getAddr1().length() != 0 && dto.getAddr2().length() != 0) {
 				dto.setAddr(dto.getZip() + dto.getAddr1() + dto.getAddr2());
 			}
+			
+			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
+				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
+			}
+			
 			
 			
 			// 사원정보 저장
@@ -74,10 +79,6 @@ public class InsaServiceImpl implements InsaService {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
 			
-			if (dto.getZip().length() != 0 && dto.getAddr1().length() != 0 && dto.getAddr2().length() != 0) {
-				dto.setAddr(dto.getZip() + dto.getAddr1() + dto.getAddr2());
-			}
-
 			dao.updateData("insa.updateInsa1", dto);
 			dao.updateData("insa.updateInsa2", dto);
 		} catch (Exception e) {

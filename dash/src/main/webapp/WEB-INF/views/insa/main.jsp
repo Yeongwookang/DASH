@@ -103,6 +103,14 @@
 			f.email2.focus();
 			return;
 		}
+		
+		str = f.startDate.value;
+		if (!str) {
+			alert("입사일을 입력하세요. ");
+			f.startDate.focus();
+			return;
+		}
+
 
 		f.action = "${pageContext.request.contextPath}/insa/${mode}";
 		f.submit();
@@ -591,27 +599,28 @@
 	
 	
 	$(function() {
-		let img = "${dto.thumbnail}";
+		let img = "${emp.imageFilename}";
 		if( img ) { // 수정인 경우
-			img = "${pageContext.request.contextPath}/uploads/insa/" + img;
-			$("table-form .thumbnail-viewer").empty();
-			$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+			img = "${pageContext.request.contextPath}/uploads/photo/" + img;
+			$(".table-form .thumbnail-viewer").empty();
+			$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
 		}
 		
-		$("table-form .img-viewer").click(function(){
+		
+		$(".table-form .img-viewer").click(function(){
 			$("form[name=mainSubmit] input[name=imageFilenameFile]").trigger("click"); 
 		});
 		
 		$("form[name=table-form] input[name=imageFilenameFile]").change(function(){
 			let file=this.files[0];
 			if(! file) {
-				$("table-form .thumbnail-viewer").empty();
+				$(".table-form .thumbnail-viewer").empty();
 				if( img ) {
 					img = "${pageContext.request.contextPath}/uploads/insa/" + img;
-					$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+					$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
 				} else {
 					img = "${pageContext.request.contextPath}/resources/images/profile2.png";
-					$("table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+					$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
 				}
 				return false;
 			}
@@ -623,8 +632,8 @@
 			
 			let reader = new FileReader();
 			reader.onload = function(e) {
-				$("table-form .thumbnail-viewer").empty();
-				$("table-form .thumbnail-viewer").css("background-image", "url("+e.target.result+")");
+				$(".table-form .thumbnail-viewer").empty();
+				$(".table-form .thumbnail-viewer").css("background-image", "url("+e.target.result+")");
 			}
 			reader.readAsDataURL(file);
 		});
