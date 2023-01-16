@@ -18,8 +18,8 @@
 	
 	<!-- 사원 등록 -->
 	<insert id="insertEmployee" parameterType="com.sp.app.employee.Employee">
-		INSERT INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt) 
-		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0) 
+		INSERT INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, SYSDATE) 
     </insert>
 	
 	<!-- 권한 추가-->
@@ -75,7 +75,7 @@
     	WHERE empNo=#{empNo}
     </select>
     
-    <!-- ex. 3번 실패 후 로그인 했을 때 다시 0으로 -->
+    <!-- ex. 5번 실패 후 로그인 했을 때 다시 0으로 -->
     <update id="updateFailureCountReset" parameterType="String">
     	UPDATE employee SET failure_cnt = 0
     	WHERE empNo=#{empNo}
