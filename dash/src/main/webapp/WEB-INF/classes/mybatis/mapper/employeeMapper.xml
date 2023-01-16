@@ -18,8 +18,8 @@
 	
 	<!-- 사원 등록 -->
 	<insert id="insertEmployee" parameterType="com.sp.app.employee.Employee">
-		INSERT INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate) 
-		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, SYSDATE) 
+		INSERT INTO employee(empNo, pwd, name, imageFilename, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{imageFilename, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, SYSDATE) 
     </insert>
 	
 	<!-- 권한 추가-->
@@ -57,7 +57,7 @@
     </update>
     
     <update id="updateEmployee2" parameterType="com.sp.app.employee.Employee">
-		UPDATE employee SET thumbnail=#{thumbnail, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
+		UPDATE employee SET imageFilename=#{imageFilename, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
 			tel=#{tel, jdbcType=VARCHAR}, email=#{email, jdbcType=VARCHAR}, 
 			addr=#{addr, jdbcType=VARCHAR}
 		WHERE empNo=#{empNo}

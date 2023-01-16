@@ -5,8 +5,8 @@
 
 	<!-- 사원 등록 -->
 	<insert id="insertInsa" parameterType="com.sp.app.insa.Insa">
-		INSERT INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt) 
-		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0) 
+		INSERT INTO employee(empNo, pwd, name, imageFilename, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{imageFilename, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0) 
     </insert>
     
     <!-- 인사기록 -->
@@ -18,8 +18,8 @@
     
     <update id="insertInsa3" parameterType="com.sp.app.insa.Insa">
 		INSERT ALL
-		INTO employee(empNo, pwd, name, thumbnail, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate, endDate) 
-		VALUES (#{empNo}, #{pwd}, #{name}, #{thumbnail, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, #{startDate}, #{endDate}) 
+		INTO employee(empNo, pwd, name, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate, endDate, imageFilename) 
+		VALUES (#{empNo}, #{pwd}, #{name}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, #{startDate}, #{endDate}, #{imageFilename, jdbcType=VARCHAR}) 
 		INTO person_record(pRecordNum, state, reg_date, rankNo, empNo, depNo, posNo, teamNo) 
 		VALUES (pRecord_seq.NEXTVAL, 1, SYSDATE, #{rankNo}, #{empNo}, #{depNo}, #{posNo}, #{teamNo}) 
 		SELECT * FROM dual     
@@ -42,7 +42,7 @@
             
     <!-- 사원정보 조회 -->
     <select id="readInsa" parameterType="String" resultType="com.sp.app.insa.Insa">
-		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
 			failure_cnt, startDate, endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
 		FROM employee e
 		JOIN person_record pr ON e.empNo = pr.empNo
@@ -55,7 +55,7 @@
 	
 	
 	 <select id="listInsa" parameterType="map" resultType="com.sp.app.insa.Insa">
-		SELECT e.empNo, name, pwd, thumbnail, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
+		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, addr, enabled, 
 			failure_cnt, startDate, endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
 		FROM employee e
 		JOIN person_record pr ON e.empNo = pr.empNo
@@ -82,7 +82,7 @@
     </update>
     
     <update id="updateInsa2" parameterType="com.sp.app.insa.Insa">
-		UPDATE employee SET thumbnail=#{thumbnail, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
+		UPDATE employee SET imageFilename=#{imageFilename, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
 			tel=#{tel, jdbcType=VARCHAR}, email=#{email, jdbcType=VARCHAR}, 
 			addr=#{addr, jdbcType=VARCHAR}
 		WHERE empNo=#{empNo}

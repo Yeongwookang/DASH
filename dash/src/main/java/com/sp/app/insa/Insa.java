@@ -26,7 +26,8 @@ public class Insa {
 		private String tel1;
 		private String tel2;
 		private String tel3;
-		private MultipartFile thumbnailFile;
+		private String imageFilename;
+		private MultipartFile imageFilenameFile;
 		private int rankNo;
 		private int depNo;
 		private int posNo;
@@ -165,11 +166,18 @@ public class Insa {
 		public void setTel3(String tel3) {
 			this.tel3 = tel3;
 		}
-		public MultipartFile getThumbnailFile() {
-			return thumbnailFile;
+		
+		public String getImageFilename() {
+			return imageFilename;
 		}
-		public void setThumbnailFile(MultipartFile thumbnailFile) {
-			this.thumbnailFile = thumbnailFile;
+		public void setImageFilename(String imageFilename) {
+			this.imageFilename = imageFilename;
+		}
+		public MultipartFile getImageFilenameFile() {
+			return imageFilenameFile;
+		}
+		public void setImageFilenameFile(MultipartFile imageFilenameFile) {
+			this.imageFilenameFile = imageFilenameFile;
 		}
 		public int getRankNo() {
 			return rankNo;

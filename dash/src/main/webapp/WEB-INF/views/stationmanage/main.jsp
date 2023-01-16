@@ -44,7 +44,9 @@ $(function(){
 	<div class="text-start fs-3 mb-4 ps-4">
 		<span>| 충전소·대여소 현황</span>
 	</div>
-
+<div class=" me-2 d-flex justify-content-end">
+<button type="button" class="btn bg-sub text-center " style="width: 9%"  onclick="location.href='${pageContext.request.contextPath}/register/main'">대여소 등록</button>
+</div>
 	<nav>
 		<div class="nav nav-tabs" id="nav-tab" role="tablist">
 			<button style="color: black;" class="nav-link" id="nav-home-tab"
@@ -65,6 +67,8 @@ $(function(){
 			<div id="maps" class="maps" style="width: 100%; height: 100px;"></div>
 		</div>
 	</div>
+	
+	
 	
 </div>
 

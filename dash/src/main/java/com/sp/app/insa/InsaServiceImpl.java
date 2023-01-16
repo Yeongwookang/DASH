@@ -21,7 +21,7 @@ public class InsaServiceImpl implements InsaService {
 	public void insertInsa(Insa dto, String pathname) throws Exception {
 		try {
 
-			String filename = fileManager.doFileUpload(dto.getThumbnailFile(), pathname);
+			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
 			
 			if (filename != null) {
 				dto.setThumbnail(filename);
