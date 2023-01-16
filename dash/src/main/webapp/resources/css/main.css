@@ -47,7 +47,7 @@
   font-weight: 500;
 }
 
-.page-item.active .page-link {
+.page-item.active .page-link { 
  z-index: 1;
  color: #555;
  font-weight: bold;
