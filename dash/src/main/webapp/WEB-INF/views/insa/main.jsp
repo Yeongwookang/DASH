@@ -9,7 +9,7 @@
 	border: 1px solid #ccc;
 	width: 180px; 
 	height: 210px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/profile2.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
@@ -386,7 +386,8 @@
 								<div class="table-form">
 									<div class="thumbnail-viewer img-thumbnail"></div>
 									<label for="exampleInputFile"></label> 
-									<input type="file" name="selectFile" accept="image/*" id="thumbnail" class="form-control" style="display: none;">
+										<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
+											style="display: None; ">
 								</div>
 							</div>
 
@@ -547,7 +548,7 @@
 	}
 
 	$(function () {
-		var img = "${dto.thumbnail}";
+		var img = "${dto.imageFilenameFile}";
 		if( img ) {
 			img = "${pageContext.request.contextPath}/uploads/insa/"+img;
 			$(".table-form .thumbnail-viewer").empty();
@@ -555,9 +556,9 @@
 		}
 		
 			$(".table-form .thumbnail-viewer").click(function () {
-				$("form[name=mainSubmit] input[name=selectFile]").trigger("click");
+				$("form[name=mainSubmit] input[name=imageFilenameFile]").trigger("click");
 		});
-			$("form[name=mainSubmit] input[name=selectFile]").change(function () {
+			$("form[name=mainSubmit] input[name=imageFilenameFile]").change(function () {
 				let file = this.files[0];
 				if(! file){ //취소버튼눌렀을때 
 					$(".table-form .thumbnail-viewer").empty();
@@ -598,10 +599,10 @@
 		}
 		
 		$("table-form .img-viewer").click(function(){
-			$("form[name=mainSubmit] input[name=selectFile]").trigger("click"); 
+			$("form[name=mainSubmit] input[name=imageFilenameFile]").trigger("click"); 
 		});
 		
-		$("form[name=table-form] input[name=selectFile]").change(function(){
+		$("form[name=table-form] input[name=imageFilenameFile]").change(function(){
 			let file=this.files[0];
 			if(! file) {
 				$("table-form .thumbnail-viewer").empty();
@@ -628,5 +629,7 @@
 			reader.readAsDataURL(file);
 		});
 	});
+
+
 
 </script>
