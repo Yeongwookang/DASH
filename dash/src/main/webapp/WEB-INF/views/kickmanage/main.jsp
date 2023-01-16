@@ -234,6 +234,10 @@ function sendModeldamage() {
 			<div class="page-navigation paging mt-5 text-center">
 				${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}</div>
 		</div>
+		
+		<div class=" me-2 d-flex justify-content-end">
+<button type="button" class="btn bg-sub text-center " style="width: 9%"  onclick="location.href='${pageContext.request.contextPath}/register/main3'">킥보드 등록</button>
+</div>
 
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal1" tabindex="-1"

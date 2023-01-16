@@ -26,6 +26,17 @@ public class RegisterController {
 		return ".register.main";
 	}
 	
+	@RequestMapping(value = "main2")
+	public String main2() {
+		return ".register.main2";
+	}
+	
+	@RequestMapping(value = "main3")
+	public String main3() {
+		return ".register.main3";
+	}
+	
+	
 	
 	@PostMapping("write")
 	public String writeSubmit(Register dto, HttpSession session) throws Exception {

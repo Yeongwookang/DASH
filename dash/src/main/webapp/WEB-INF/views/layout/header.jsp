@@ -10,9 +10,37 @@
 	<div class="ps-3 pe-5">
 		<a class="icon" title="알림설정"><img class="rounded-circle" style="width:2rem; height: 2rem;" src="${pageContext.request.contextPath}/resources/images/profile2.png" ></a>
 		<span class="dep">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</span> 
-		<a class="icon down me-4" title="마이페이지"><i class="fa-solid fa-angle-down"></i></a>
+		<button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<i class="fa-solid fa-angle-down"></i></button>
+		
+		
+		
+		
 		<a class="icon me-4"><i class="fa-regular fa-bell"></i></a>
 		<a class="icon" href="${pageContext.request.contextPath}/employee/logout" title="로그아웃"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
 	</div> 
 </div>
 
+
+
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">개인정보수정</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

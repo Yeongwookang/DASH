@@ -8,11 +8,14 @@
 .table-form tr>td:first-child { text-align: center; }
 
 
-.table-form .img-viewer { 
-	cursor: pointer;  
+
+.table-form3 .img-viewer3
+
+{
+	cursor: pointer;
 	border: 1px solid #ccc;
 	width: 359px;
-	height: 335px;
+	height: 300px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
 	position: relative;
 	z-index: 9999;
@@ -25,13 +28,13 @@
 
 <script type="text/javascript">
 
-function sendOk() {
-    const f = document.stationForm;
+function sendkOk() {
+    const f = document.stationkForm;
 	let str;
 	
     str = f.name.value.trim();
     if(!str) {
-        alert("대여소명을 입력하세요. ");
+        alert("제품명을 입력하세요. ");
         f.name.focus();
         return;
     }
@@ -49,32 +52,12 @@ function sendOk() {
         f.y_pos.focus();
         return;
     }
-    str = f.maxQty.value.trim();
-    if(!str) {
-        alert("최대 이용이 가능한 수량을 입력하세요. ");
-        f.maxQty.focus();
-        return;
-    }
-    str = f.zoonName.value.trim();
-    if(!str) {
-        alert("지역명을 입력하세요. ");
-        f.zoonName.focus();
-        return;
-    }
     
     
-    str = f.addr.value.trim();
-    if(!str) {
-        alert("주소를 입력하세요. ");
-        f.addr.focus();
-        return;
-    }
 
-    f.action = "${pageContext.request.contextPath}/register/write";
+    f.action = "${pageContext.request.contextPath}/register/kwrite";
     f.submit();   
 }
-
-
 
 </script>
 
@@ -82,25 +65,24 @@ function sendOk() {
 
 
 <div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4 ">
-		<span>| 대여소 등록</span>
-
+	<div class="text-start fs-4 mb-4">
+		<span>| 킥보드 등록</span>
 
 						
-						<form class="mt-4" id="stationForm" name="stationForm" method="post" enctype="multipart/form-data">
+
+							<form class="mt-4" name="stationkForm" id="stationkForm" method="post" enctype="multipart/form-data">
 							<div class="d-flex justify-content-start">
-								    <div class="table-form">
-										<div class="img-viewer ms-3 me-4"></div>
-											<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
-											style="display: None; ">
-										
-									</div>
-								<table class="table text-center align-middle" style="font-size: 16px;">
-									
+							  <div class="table-form3">
+										<div class="img-viewer3 ms-3 me-4"></div>
+											 <input type="file"
+											name="imageFilenameFile" id="imageFilenameFile3" accept="image/*" class="form-control"
+											style="display: None;">
+								</div>
+								<table class="table text-center align-middle" style="font-size: 16px; height: 300px; ">
 									<tr>
-										<td class=" col-sm-2" scope="row">대여소명</td>
+										<td class="col-sm-2" scope="row">제품명</td>
 										<td><input type="text" name="name" class="form-control"
-											value="${dto.name}" placeholder="대여소명"></td>
+											value="${dto.name}" placeholder="제품명"></td>
 									</tr>
 									<tr>
 										<td class="col-sm-2" scope="row">경도</td>
@@ -112,28 +94,13 @@ function sendOk() {
 										<td><input type="text" name="y_pos" class="form-control"
 											value="${dto.y_pos}" placeholder="위도"></td>
 									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">최대수량</td>
-										<td><input type="text" name="maxQty" class="form-control"
-											value="${dto.maxQty}" placeholder="최대수량"></td>
-									</tr>
-									<tr>
-										<td class=" col-sm-2" scope="row">지역구</td>
-										<td><input type="text" name="zoonName"
-											class="form-control" value="${dto.zoonName}" placeholder="지역구"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">주소</td>
-										<td><input type="text" name="addr" class="form-control"
-											value="${dto.addr}" placeholder="주소"></td>
-									</tr>
 								</table>
 								</div>
 								<table class="table table-borderless">
 									<tr>
 										<td class="text-center">
 											<button type="button" class="btn text-bg-secondary"
-												onclick="sendOk();">
+												onclick="sendkOk();">
 												등록하기&nbsp;<i class="bi bi-check2"></i>
 											</button>
 											<button type="reset" class="btn btn-light">다시입력</button>
@@ -145,34 +112,31 @@ function sendOk() {
 									</tr>
 								</table>
 							</form>
-			</div>
-			
-							
-			
-		</div>
 
-
+</div>
+</div>
 <script type="text/javascript">
+
 
 $(function(){
 
-	$(".table-form .img-viewer").click(function(){
-		$("#imageFilenameFile").trigger("click");
+	$(".table-form3 .img-viewer3").click(function(){
+		$("#imageFilenameFile3").trigger("click");
 	});
 	
-	$("#imageFilenameFile").change(function(){
+	$("#imageFilenameFile3").change(function(){
 		let file = this.files[0];
 		
 		
 		if(! file) {
-			$(".table-form .img-viewer").empty();
+			$(".table-form3 .img-viewer3").empty();
 			
 			if( img ) {
 				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			} else {
 				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
 			}
-			$(".table-form .img-viewer").css("background-image", "url("+img+")");
+			$(".table-form3 .img-viewer3").css("background-image", "url("+img+")");
 			
 			return false;
 		}
@@ -184,13 +148,11 @@ $(function(){
 		
 		var reader = new FileReader();
 		reader.onload = function(e) { 
-			$(".table-form .img-viewer").empty();
-			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
+			$(".table-form3 .img-viewer3").empty();
+			$(".table-form3 .img-viewer3").css("background-image", "url("+e.target.result+")");
 		};
 		reader.readAsDataURL( file );
 	});
-
-
 
 });
 
