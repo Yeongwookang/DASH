@@ -55,7 +55,7 @@
 		<div class="sticky-top">
 			<tiles:insertAttribute name="sidebar"/>
 		</div>
-		<div class="scroll m-auto" style="width: 70%; min-height: 90vh; overflow-y:scroll;">
+		<div class="scroll m-auto" style="width: 1344px; min-height: 90vh; overflow-y:scroll;">
 			<tiles:insertAttribute name="body"/>
 		</div>
 </div>
