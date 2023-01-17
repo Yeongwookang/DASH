@@ -9,11 +9,10 @@
 	border: 1px solid #ccc;
 	width: 180px; 
 	height: 210px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
-	position: relative;
+	background-image: url("${pageContext.request.contextPath}/resources/images/profile2.png");
+	background-size:contain;
 	z-index: 9999;
 	background-repeat : no-repeat;
-	background-size : cover;
 }
 
 #btn1 {
@@ -110,8 +109,8 @@
 			f.startDate.focus();
 			return;
 		}
-
-
+		
+		
 		f.action = "${pageContext.request.contextPath}/insa/${mode}";
 		f.submit();
 
@@ -159,6 +158,14 @@
 		const f = document.searchForm;
 		f.submit();
 	}
+	
+	function deleteOk() { 
+	    if(confirm("해당 등록 사원을 삭제하시겠습니까 ? ")) {
+	    	let query = "empNo=${dto.empNo}";
+		    let url = "${pageContext.request.contextPath}/insa/delete?"+query;
+	    	location.href = url;
+	    }
+	}
 </script>
 
 
@@ -167,8 +174,9 @@
 	<div class="d-flex justify-content-between">
 		<div class="text-start fs-4 ml-2 mb-4"><span>| 사원관리</span></div>
 		<div class="pe-3">
-			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="update"?"저장":"등록"}</button>
-			<button type="button" class="btn btn1 bg-sub">삭제</button>
+			<button type="button" class="btn btn1 bg-sub"
+						onclick="location.href='${pageContext.request.contextPath}/insa/main';">신규등록</button>
+			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="update"?"수정":"저장"}</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>

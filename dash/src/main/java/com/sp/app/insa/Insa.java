@@ -26,8 +26,13 @@ public class Insa {
 		private String tel1;
 		private String tel2;
 		private String tel3;
+		
+		private long fileNum;
 		private String imageFilename;
+		private String originalFilename;
+		private long fileSize;
 		private MultipartFile imageFilenameFile;
+
 		private int rankNo;
 		private int depNo;
 		private int posNo;
@@ -239,6 +244,25 @@ public class Insa {
 		public void setTeamName(String teamName) {
 			this.teamName = teamName;
 		}
+		public long getFileNum() {
+			return fileNum;
+		}
+		public void setFileNum(long fileNum) {
+			this.fileNum = fileNum;
+		}
+		public String getOriginalFilename() {
+			return originalFilename;
+		}
+		public void setOriginalFilename(String originalFilename) {
+			this.originalFilename = originalFilename;
+		}
+		public long getFileSize() {
+			return fileSize;
+		}
+		public void setFileSize(long fileSize) {
+			this.fileSize = fileSize;
+		}
+		
 		
 		
 

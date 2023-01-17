@@ -44,10 +44,10 @@ public class InsaServiceImpl implements InsaService {
 			}
 			
 			
-			
 			// 사원정보 저장
 
 			dao.updateData("insa.insertInsa3", dto); 
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -86,7 +86,7 @@ public class InsaServiceImpl implements InsaService {
 			throw e;
 		}
 	}
-
+/*
 	@Override
 	public void deleteInsa(Map<String, Object> map) throws Exception {
 		try {
@@ -101,7 +101,7 @@ public class InsaServiceImpl implements InsaService {
 		}
 	
 	}
-
+*/
 	@Override
 	public int dataCount(Map<String, Object> map) {
 		int result = 0;
@@ -157,6 +157,19 @@ public class InsaServiceImpl implements InsaService {
 		return dto;
 	}
 
-
+	
+	@Override
+	public List<Insa> listFile(String empNo) {
+		List<Insa> listFile = null;
+		
+		try {
+			listFile = dao.selectList("insa.listFile", empNo);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listFile;
+	}
+	
+	
 	
 }
