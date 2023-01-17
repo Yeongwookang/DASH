@@ -99,7 +99,7 @@
 				<li class="nav-item">
 				<a class="nav-link nav-box"
 					href="${pageContext.request.contextPath}/map/main">
-					<i class="fa-solid fa-map-location-dot"></i><span class="ms-3">추천</span>
+					<i class="fa-solid fa-map-location-dot"></i><span class="ms-3">추천</span> 
 				</a>
 			</li>
 			</c:if>
