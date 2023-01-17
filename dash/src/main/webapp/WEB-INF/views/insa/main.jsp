@@ -7,10 +7,10 @@
 .thumbnail-viewer {
 	cursor: pointer;
 	border: 1px solid #ccc;
-	width: 180px; 
-	height: 210px;
+	width: 200px; 
+	height: 250px;
 	background-image: url("${pageContext.request.contextPath}/resources/images/profile2.png");
-	background-size:contain;
+	background-size:cover;
 	z-index: 9999;
 	background-repeat : no-repeat;
 }
