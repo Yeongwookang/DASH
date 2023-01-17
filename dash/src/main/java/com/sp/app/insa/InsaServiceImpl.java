@@ -88,16 +88,26 @@ public class InsaServiceImpl implements InsaService {
 			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
+			String saveFilename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
+
+			if (saveFilename != null) {
+				// 이전 파일 지우기
+				if (dto.getImageFilename().length() != 0) {
+					fileManager.doFileDelete(dto.getImageFilename(), pathname);
+				}
+
+				dto.setImageFilename(saveFilename);
+			}
 			
 			boolean bPwdUpdate = ! service.isPasswordCheck(dto.getEmpNo(), dto.getPwd());
 			if(bPwdUpdate) {
-				// 패스워드가 변경된 경우에만 member1 수정
 				String encPassword = bcrypt.encode(dto.getPwd());
 				dto.setPwd(encPassword);
 				
 				dao.updateData("insa.updateInsa1", dto);
-				dao.updateData("insa.updateInsa2", dto);
 			}
+		
+			dao.updateData("insa.updateInsa2", dto);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

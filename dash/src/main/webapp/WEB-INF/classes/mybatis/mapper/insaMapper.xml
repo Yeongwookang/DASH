@@ -81,12 +81,12 @@
     </update>
     
     <update id="updateInsa1" parameterType="com.sp.app.insa.Insa">
-		UPDATE employee SET pwd=#{pwd}, modify_date=SYSDATE
+		UPDATE employee SET pwd=#{pwd}, modify_date=SYSDATE, enabled = 1
 		WHERE empNo=#{empNo}
     </update>
     
     <update id="updateInsa2" parameterType="com.sp.app.insa.Insa">
-		UPDATE employee SET imageFilename=#{imageFilename, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
+		UPDATE employee SET imageFilename=#{imageFilename, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, enabled = 1,
 			tel=#{tel, jdbcType=VARCHAR}, email=#{email, jdbcType=VARCHAR},  startDate=#{startDate, jdbcType=VARCHAR}, endDate=#{endDate, jdbcType=VARCHAR}
 		WHERE empNo=#{empNo}
     </update>
