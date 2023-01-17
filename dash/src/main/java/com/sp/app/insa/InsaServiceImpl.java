@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sp.app.common.FileManager;
 import com.sp.app.common.dao.CommonDAO;
+import com.sp.app.employee.Employee;
+import com.sp.app.employee.EmployeeService;
 
 @Service("insa.insaService")
 public class InsaServiceImpl implements InsaService {
@@ -16,6 +19,12 @@ public class InsaServiceImpl implements InsaService {
 
 	@Autowired
 	private FileManager fileManager;
+	
+	@Autowired
+	private BCryptPasswordEncoder bcrypt;
+	
+	@Autowired
+	private EmployeeService service;
 
 	@Override
 	public void insertInsa(Insa dto, String pathname) throws Exception {
@@ -43,11 +52,12 @@ public class InsaServiceImpl implements InsaService {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
 			
+			String pwd = bcrypt.encode(dto.getPwd());
+			dto.setPwd(pwd);
 			
 			// 사원정보 저장
-
 			dao.updateData("insa.insertInsa3", dto); 
-			
+			dao.insertData("insa.insertAuthority", dto);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,13 +89,22 @@ public class InsaServiceImpl implements InsaService {
 				dto.setTel(dto.getTel1() + "-" + dto.getTel2() + "-" + dto.getTel3());
 			}
 			
-			dao.updateData("insa.updateInsa1", dto);
-			dao.updateData("insa.updateInsa2", dto);
+			boolean bPwdUpdate = ! service.isPasswordCheck(dto.getEmpNo(), dto.getPwd());
+			if(bPwdUpdate) {
+				// 패스워드가 변경된 경우에만 member1 수정
+				String encPassword = bcrypt.encode(dto.getPwd());
+				dto.setPwd(encPassword);
+				
+				dao.updateData("insa.updateInsa1", dto);
+				dao.updateData("insa.updateInsa2", dto);
+			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw e;
 		}
 	}
+	
 /*
 	@Override
 	public void deleteInsa(Map<String, Object> map) throws Exception {
@@ -169,7 +188,17 @@ public class InsaServiceImpl implements InsaService {
 		}
 		return listFile;
 	}
-	
-	
+
+
+	@Override
+	public boolean isPasswordCheck(String empNo, String pwd) {
+		Employee dto = service.readEmployee(empNo);
+		
+		if(dto == null) {
+			return false;
+		}
+		
+		return bcrypt.matches(pwd, dto.getPwd());
+	}
 	
 }
