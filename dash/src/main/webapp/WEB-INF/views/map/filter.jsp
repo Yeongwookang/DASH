@@ -35,6 +35,16 @@
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 <style type="text/css">
+@font-face {
+	    font-family: 'Pretendard-Regular';
+	    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+	    font-weight: 400;
+	    font-style: normal;
+		}
+	
+		body{
+		font-family: 'Pretendard-Regular';
+		}
 #map_1 {
                     position: relative;
                     width: 100.0%;
@@ -85,58 +95,43 @@ var jsO_500;
 
 $(function(){
 	let url = "${pageContext.request.contextPath}/map/meter";
-	
-	
-	
-	
 	const fn =function (data) {
 		for(item of data.list_100){
 			let obj; 
 			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
 			arr_100.push(obj); 
 			
-		}
-    	
-		console.log(arr_100)
+		};
 		
 		jsO_100 = {
 	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 	   				"features": arr_100
 	   			};
 		
-		console.log(jsO_100);
-		
 		for(item of data.list_300){
 			let obj; 
 			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
 			arr_300.push(obj); 
 			
-		}
-    	
-		console.log(arr_300)
+		};
 		
 		jsO_300 = {
 	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 	   				"features": arr_300
 	   			};
 		
-		console.log(jsO_300);
-		
 		for(item of data.list_500){
 			let obj; 
 			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
 			arr_500.push(obj); 
 			
-		}
-    	
-		console.log(arr_500)
+		};
 		
 		jsO_500 = {
 	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
 	   				"features": arr_500
-	   			};
+	   		};
 		
-		console.log(jsO_500);
 		geo_json_100_add (jsO_100);
 		geo_json_300_add (jsO_300);
 		geo_json_500_add (jsO_500);
@@ -228,22 +223,20 @@ geo_json_500
 L.Control.Filter = L.Control.extend({
 	  onAdd: function(map_1) {
 	    var el = L.DomUtil.create('div', 'leaflet-bar my-control');
-
-	    el.innerHTML = '<div class="d-flex mb-2">'
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">100m</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">300m</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">500m</button>';
-	    el.innerHTML += '</div> <hr>';
-	    el.innerHTML += '<div class="d-flex mb-2">'
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">6개월</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">3개월</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">1개월</button>';
-	    el.innerHTML += '</div> <hr>';
-	    el.innerHTML += '<div class="d-flex">'
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">기준1</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">기준2</button>';
-	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">기준3</button>';
-	    el.innerHTML += '</div>';
+	    el.innerHTML = '<p class="mb-2">반경</p>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="100" autocomplete="off" class="btn btn-main radFilter text-white me-2">100m</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="300" autocomplete="off" class="btn btn-main radFilter text-white me-2">300m</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="500" autocomplete="off" class="btn btn-main radFilter text-white">500m</button>';
+	    el.innerHTML += '<hr>';
+	    el.innerHTML += '<p class="mb-2">날짜필터</p>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="6" autocomplete="off" class="btn btn-main monthFilter text-white me-2">6개월</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main monthFilter text-white me-2">3개월</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main monthFilter text-white">1개월</button>';
+	    el.innerHTML += '<hr>';
+	    el.innerHTML += '<p class="mb-2">DASH</p>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준1</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="2" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준2</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main cusFilter text-white">기준3</button>';
 
 	    return el;
 	  },
@@ -297,6 +290,28 @@ var layer_control = {
 
 
 
+</script>
+<script type="text/javascript">
+$(".radFilter").click(function(){
+	if($(".radFilter.active").length > 1){
+		$(".radFilter.active").removeClass("active");
+		$(this).addClass("active");
+	} 	
+});
+
+$(".monthFilter").click(function(){
+	if($(".monthFilter.active").length > 1){
+		$(".monthFilter.active").removeClass("active");
+		$(this).addClass("active");
+	} 	
+});
+
+$(".cusFilter").click(function(){
+	if($(".cusFilter.active").length > 1){
+		$(".cusFilter.active").removeClass("active");
+		$(this).addClass("active");
+	} 	
+});
 </script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>

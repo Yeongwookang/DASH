@@ -77,8 +77,29 @@ td,th{
 	align-items: center;
 	justify-content: center;
 	padding: 1rem;
+	font-family: Pretendard-Regular;
+}
+.my-control .btn{
+	width: 5rem;
 }
 .my-control2{
 	background:#fff;
 	padding:0.2rem;
+}
+
+.btn-main{
+  --bs-btn-color: #fff;
+  --bs-btn-bg: #FF9E9E;
+  --bs-btn-border-color: #FF5375;
+  --bs-btn-hover-color: #FF5375;
+  --bs-btn-hover-bg: #FF5375;
+  --bs-btn-hover-border-color: #FF5375;
+  --bs-btn-focus-shadow-rgb: 49, 132, 253;
+  --bs-btn-active-color: #FF5375;
+  --bs-btn-active-bg: #FF5375;
+  --bs-btn-active-border-color: #FF5375;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #fff;
+  --bs-btn-disabled-bg: #FFE1E1;
+  --bs-btn-disabled-border-color: #FFE1E1;
 }

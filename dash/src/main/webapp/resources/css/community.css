@@ -70,10 +70,14 @@
 
 .btn-Point { 
 	color: #FF5375;
-	border: 1px solid #FF5375; 
+	border: 1px solid #FF5375; 	
 }
 
 .btn-Point:hover { 
+	color: white;
+	background: #FF5375;
+}
+.btn-Point .active{
 	color: white;
 	background: #FF5375;
 }
