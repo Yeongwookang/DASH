@@ -69,11 +69,10 @@
 						<td class="signNum">${dto.signNum}</td>
 						<td class="title">${dto.title}</td>
 						<td class="dep">${dto.depName}</td>
-						<td class="rank">${dto.name}</td>
-						<td class="name">${dto.reg_date}</td>
+						<td class="name">${dto.name}</td>
+						<td class="reg_date">${dto.reg_date}</td>
 						<td>
-							<button type="button" class="btn btn-primary sendList"
-								data-bs-toggle="modal" data-bs-target="#staticBackdrop">내용확인</button>
+							<button type="button" class="btn btn-primary sendList read-btn" data-signNum="${dto.signNum}">내용확인</button>
 						</td>
 						<td><c:choose>
 								<c:when test="${dto.state == 0 }">기안</c:when>
@@ -98,73 +97,120 @@
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div>
-				<form name="develop" method="POST"
-					action="${pageContext.request.contextPath}/develop/main"
-					enctype="multipart/form-data">
 					<div class="modal-body">
 						<table class="table">
 							<tbody>
 								<tr>
 									<td class="w-25 text-center  align-middle" scope="row"><h4>제목</h4></td>
-									<td class="w-75">${dto.title}</td>
+									<td class="w-75 read-title"></td>
 								</tr>
 
 								<tr>
+									<td class="w-25 text-center align-middle" scope="row"><h4>부서</h4></td>
+									<td class="w-75 read-depName">
+									</td>
+								</tr>
+								
+								<tr>
 									<td class="w-25 text-center align-middle" scope="row"><h4>기안자</h4></td>
-									<td class="w-75">${dto.depName}&nbsp;${dto.name}<input
-										name="empNo" type="hidden" value="${dto.empNo}">
+									<td class="w-75 read-name">
 									</td>
 								</tr>
 
 								<tr>
+									<td class="w-25 text-center align-middle" scope="row"><h4></h4></td>
+									<td class="w-75 read-reg_date">
+									</td>
+								</tr>
+								
+								<tr>
 									<td class="text-center align-middle" scope="row"><h4>결재라인</h4></td>
-									<td class="d-flex "><input type="text"
-										class="form-control me-2" id="ref1name"
-										value="${ref1.depName}&nbsp;${ref1.name}" readonly> <input
-										type="text" class="form-control me-2" id="ref2name"
-										value="${ref2.depName}&nbsp;${ref2.name}" readonly> <input
-										type="text" class="form-control" id="ref3name"
-										value="${ref3.depName}&nbsp;${ref3.name}" readonly> <input
-										type="hidden" class="form-control me-2" name="ref1"
-										value="${dto.ref1}" readonly> <input type="hidden"
-										class="form-control me-2" name="ref2" value="${dto.ref2}"
-										readonly> <input type="hidden"
-										class="form-control me-2" name="ref3" value="${dto.ref3}"
-										readonly></td>
+									<td class="d-flex "></td>
 								</tr>
 
 							</tbody>
 						</table>
-						<div class="form-control m-auto mb-4" style="min-height: 400px;">${dto.content}</div>
+						<div class="form-control m-auto mb-4 read-content" style="min-height: 400px;"></div>
 					</div>
-				</form>
-				<c:if test="${not empty fileList}">
-					<div>
-						<h4>파일</h4>
-					</div>
-					<c:forEach var="file" items="${fileList}" varStatus="status">
-						<div class=" d-flex form-control mb-2 justify-content-between">
-							<div>
-								<button class="btn" type="button"
-									onclick="location.href='${pageContext.request.contextPath}/approval/download/${file.fileNum}'">
-									<i class="fa-solid fa-floppy-disk"></i>
-									${file.originalFilename} (${file.fileSize/1000} kb)
-								</button>
-							</div>
-						</div>
-					</c:forEach>
-				</c:if>
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary">승인</button>
+				<button type="button" class="btn btn-primary dtn-shortcuts">바로가기</button>
 			</div>
 		</div>
 	</div>
 </div>
 
 
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert('요청 처리가 실패 했습니다.');
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
 
+
+$(function(){
+	$(".read-btn").click(function(){
+		let signNum = $(this).attr("data-signNum");
+		
+		let url = "${pageContext.request.contextPath}/develop/read"
+		let query = "signNum="+signNum;
+		
+		const fn = function(data){
+			let title = data.dto.title;
+			let depName = data.dto.depName;
+			let name = data.dto.name;
+			let reg_date = data.dto.reg_date;
+			let content = data.dto.content;
+			
+			$("#staticBackdrop .read-title").html(title);
+			$("#staticBackdrop .read-depName").html(content);
+			$("#staticBackdrop .read-name").html(content);
+			$("#staticBackdrop .read-reg_date").html(content);
+			$("#staticBackdrop .read-content").html(content);
+			
+			$("#staticBackdrop .dtn-shortcuts").attr("data-signNum", signNum);
+			$("#staticBackdrop").modal("show");
+		};
+		ajaxFun(url, "get", query, "json", fn)
+		
+	});
+});
+
+
+// 대화상자-바로가기
+$(function(){
+	$(".dtn-shortcuts").click(function(){
+		let signNum = $(this).attr("data-signNum");
+		
+		let url = "${pageContext.request.contextPath}/approval/read/"+signNum;
+		location.href=url;
+	});
+});
+
+</script>
 
 

@@ -89,15 +89,16 @@ public class DevelopController {
 	
 	@GetMapping("read")
 	@ResponseBody
-	public String readApproval(@RequestParam long signNum,
-			Model model) throws Exception {
+	public Map<String, Object> readApproval(@RequestParam long signNum) throws Exception {
 		
 		
 		Develop dto = service.readApproval(signNum);
 		
-		model.addAttribute("dto", dto);
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("dto", dto);
 
-		return ".develop.main";
+		return model;
 	}
 
 	
