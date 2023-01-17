@@ -523,6 +523,9 @@
 								<small class="form-control-plaintext">비밀번호를 한번 더 입력해주세요.</small>
 							</div>
 						</div>
+						<c:if test="${mode=='update'}">
+								<input type="hidden" name="imageFilename" value="${emp.imageFilename}">
+						</c:if>
 					</form>
 				</div>
 			</div>
@@ -571,9 +574,9 @@
 	}
 
 	$(function () {
-		var img = "${dto.imageFilenameFile}";
+		var img = "${emp.imageFilename}"; 
 		if( img ) {
-			img = "${pageContext.request.contextPath}/uploads/insa/"+img;
+			img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			$(".table-form .thumbnail-viewer").empty();
 			$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
 		}
@@ -587,7 +590,7 @@
 					$(".table-form .thumbnail-viewer").empty();
 					
 			        if( img ){
-			        	img = "${pageContext.request.contextPath}/uploads/insa/"+img;
+			        	img = "${pageContext.request.contextPath}/uploads/photo/"+img;
 			        } else {
 			        	img = "${pageContext.request.contextPath}/resources/images/profile2.png";
 			        }
