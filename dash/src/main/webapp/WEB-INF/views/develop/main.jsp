@@ -187,9 +187,9 @@ $(function(){
 			let content = data.dto.content;
 			
 			$("#staticBackdrop .read-title").html(title);
-			$("#staticBackdrop .read-depName").html(content);
-			$("#staticBackdrop .read-name").html(content);
-			$("#staticBackdrop .read-reg_date").html(content);
+			$("#staticBackdrop .read-depName").html(depName);
+			$("#staticBackdrop .read-name").html(name);
+			$("#staticBackdrop .read-reg_date").html(reg_date);
 			$("#staticBackdrop .read-content").html(content);
 			
 			$("#staticBackdrop .dtn-shortcuts").attr("data-signNum", signNum);

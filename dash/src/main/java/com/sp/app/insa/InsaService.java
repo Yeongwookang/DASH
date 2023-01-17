@@ -17,6 +17,8 @@ public interface InsaService {
 	public Insa readInsa(String empNo);
 	
 	public List<Insa> listFile(String empNo);
+	
+	public boolean isPasswordCheck(String empNo, String pwd)throws Exception;
 
 	
 }
