@@ -72,7 +72,7 @@
 						<td class="name">${dto.name}</td>
 						<td class="reg_date">${dto.reg_date}</td>
 						<td>
-							<button type="button" class="btn btn-primary sendList read-btn" data-signNum="${dto.signNum}">내용확인</button>
+							<button type="button" class="btn btn-main sendList read-btn" data-signNum="${dto.signNum}">내용확인</button>
 						</td>
 						<td><c:choose>
 								<c:when test="${dto.state == 0 }">기안</c:when>
@@ -118,16 +118,11 @@
 								</tr>
 
 								<tr>
-									<td class="w-25 text-center align-middle" scope="row"><h4></h4></td>
+									<td class="w-25 text-center align-middle" scope="row"><h4>요청일</h4></td>
 									<td class="w-75 read-reg_date">
 									</td>
 								</tr>
 								
-								<tr>
-									<td class="text-center align-middle" scope="row"><h4>결재라인</h4></td>
-									<td class="d-flex "></td>
-								</tr>
-
 							</tbody>
 						</table>
 						<div class="form-control m-auto mb-4 read-content" style="min-height: 400px;"></div>
@@ -137,7 +132,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
 					data-bs-dismiss="modal">닫기</button>
-				<button type="button" class="btn btn-primary dtn-shortcuts">바로가기</button>
+				<button type="button" class="btn btn-main dtn-shortcuts">바로가기</button>
 			</div>
 		</div>
 	</div>

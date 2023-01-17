@@ -12,6 +12,7 @@ public class SessionInfo {
 	private String rankName;
 	private int teamNo;
 	private String teamName;
+	private String imageFilename;
 	
 	public String getEmpNo() {
 		return empNo;
@@ -72,6 +73,12 @@ public class SessionInfo {
 	}
 	public void setTeamName(String teamName) {
 		this.teamName = teamName;
+	}
+	public String getImageFilename() {
+		return imageFilename;
+	}
+	public void setImageFilename(String imageFilename) {
+		this.imageFilename = imageFilename;
 	}
 	
 	
