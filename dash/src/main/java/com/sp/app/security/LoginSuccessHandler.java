@@ -38,6 +38,11 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws ServletException, IOException {
 		
+		// 로그인 날짜 변경
+		try {
+			service.updateLastLogin(authentication.getName());
+		} catch (Exception e) {
+		}
 		// 세션에 로그인 유저 정보 저장
 		HttpSession session = request.getSession();
 		

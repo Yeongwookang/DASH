@@ -81,7 +81,10 @@
 		</div> 
 		<div class="d-flex justify-content-between mb-3">
 			<div class="card " style="width: 49%; height: 350px;"> 
-				<div class="text-start sales ms-3 mt-3">| 공지사항</div>
+				<div class="d-flex justify-content-between">
+					<div class="text-start sales ms-3 mt-3">| 공지사항</div>
+					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/notice/main" class="underline text-reset gooo">바로가기 ></a></div>
+				</div>
 					<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  
 							<tr class="text-center">
@@ -91,18 +94,20 @@
 							</tr>
 						</thead>
 						<tbody> 
-							<c:forEach var="dto" items="${listTop}" begin="1" end="2">
+							<c:forEach var="dto" items="${listTop}" begin="0" end="1">
 								<tr class="text-center"> 
 									<td><span class="badge bg-danger">공지</span></td> 
-									<td>${dto.subject}</td>
+									<td>
+										<a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
+									</td>
 									<td class="communityDate">${dto.reg_date}</td>
 								</tr>
 							</c:forEach>
 								
-							<c:forEach var="dto" items="${list}" varStatus="status" begin="1" end="3">
+							<c:forEach var="dto" items="${list}" varStatus="status" begin="0" end="2">
 								<tr class="text-center">  
-									<td>${status.index}</td> 
-									<td>${dto.subject}&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if></td>
+									<td>${status.index + 1}</td>
+									<td><a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if></a></td>
 									<td class="communityDate">${dto.reg_date}</td>
 								</tr>
 							</c:forEach>
@@ -117,7 +122,10 @@
 		
 		<div class="d-flex justify-content-between">
 			<div class="card"  style="width: 49%">
-				<div class="text-start sales ms-3 mt-3">| 커뮤니티</div>
+				<div class="d-flex justify-content-between">
+					<div class="text-start sales ms-3 mt-3">| 커뮤니티</div>
+					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/community/main" class="underline text-reset gooo">바로가기 ></a></div>
+				</div>
 				<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  
 							<tr class="text-center">
@@ -127,19 +135,26 @@
 							</tr>
 						</thead> 
 						<tbody>
-							<tbody>
-							<c:forEach var="vo" items="${listCommunity}" varStatus="status" begin="1" end="5">
+							<c:forEach var="vo" items="${listCommunity}" varStatus="status" begin="0" end="4">
 								<c:if test="${vo.open == 1}">
 									<tr class="text-center">  
 										<td class="categoryName">[${vo.categoryName}]</td>
-										<td> 비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span></td> 
-										<td class="communityDate">${vo.reg_date}</td>
+										<c:choose>
+											<c:when test="${sessionScope.employee.empNo==dto.empNo || sessionScope.employee.depNo == 1}">
+													<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
+													<td class="communityDate">${vo.reg_date}</td>	
+											</c:when> 
+											<c:otherwise>
+												<td> 비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span></td> 
+												<td class="communityDate">${vo.reg_date}</td>
+											</c:otherwise>
+										</c:choose> 
 									</tr>
 								</c:if>
 								<c:if test="${vo.open == 0}">
-									<tr class="text-center">  
+									<tr class="text-center">   
 										<td class="categoryName">[${vo.categoryName}]</td>
-										<td> ${vo.subject}</td> 
+										<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
 										<td class="communityDate">${vo.reg_date}</td>
 									</tr>
 								</c:if>
@@ -147,6 +162,7 @@
 						</tbody>
 				</table>
 			</div>
+		
 		<div class="card pb-3" style="width: 49%; height: 350px;">
 			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
 					<c:choose >

@@ -32,28 +32,29 @@ function searchList() {
 							<td class="align-middle categoryName">[${dto.categoryName}]</td>
 							<c:choose>
 								<c:when test="${sessionScope.employee.empNo==dto.empNo || sessionScope.employee.depNo == 1}">
-									<td class="align-middle text-start"> 
+									<td class="align-middle text-start">
 										<a href="${articleUrl}&num=${dto.num}" class="text-reset underline communitySubject">
-											비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span>
+											${dto.subject}&nbsp;&nbsp;
 											<c:if test="${dto.replyDepCount != 0 }">
 												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
 											</c:if>
-											</a>
-									</td> 
+											<i class="fa-regular fa-message" id="msg"></i>&nbsp;<span id="msg">${dto.replyCount}</span>
+										</a>
+									</td>
 									<td class="align-middle communityDate">${dto.reg_date}</td>
 									<td class="align-middle communityIcon">
 										<a href="${articleUrl}&num=${dto.num}" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 10px;"></a>
 									</td>
 								</c:when>
 								<c:otherwise>
-									<td class="align-middle text-start">
+									<td class="align-middle text-start"> 
 										<a href="#" class="text-reset underline communitySubject">
 											비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span>
 											<c:if test="${dto.replyDepCount != 0 }">
 												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
 											</c:if>
-										</a>
-									</td>
+											</a>
+									</td> 
 									<td class="align-middle communityDate">${dto.reg_date}</td>
 									<td class="align-middle communityIcon">
 										<a href="#" class="text-reset"><img src="${pageContext.request.contextPath}/resources/images/right2.png" style="width: 10px;"></a>

@@ -16,18 +16,7 @@
 						메인</span>
 				</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/marker/main">
-					<i class="bi bi-1-circle"></i><span class="ms-3">마커</span>
-				</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/map/main">
-					<i class="bi bi-2-circle"></i><span class="ms-3">맵</span>
-				</a>
-			</li>
+			
 			<li class="nav-item">
 				<a class="nav-link nav-box"
 					href="${pageContext.request.contextPath}/approval/main?page=1">
@@ -107,6 +96,12 @@
 					<i class="fa-lg fa-solid fa-chart-simple"></i><span class="ms-3">통계</span>
 				</a>
 				</li>
+				<li class="nav-item">
+				<a class="nav-link nav-box"
+					href="${pageContext.request.contextPath}/map/main">
+					<i class="fa-solid fa-map-location-dot"></i><span class="ms-3">추천</span>
+				</a>
+			</li>
 			</c:if>
 			<c:if test="${sessionScope.employee.depNo==4}">
 				<li class="nav-item">

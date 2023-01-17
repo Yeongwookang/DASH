@@ -175,16 +175,25 @@
 	</update>
 	
 	<select id="listCommunityMain" resultType="com.sp.app.community.Community">
-		SELECT c.num, c.empNo, subject, content, TO_CHAR(c.reg_date, 'YYYY-MM-DD') reg_date, c.categoryNum, categoryName, open, NVL(replyCount, 0) replyCount
+		SELECT c.num, c.empNo, depNo, subject, content, TO_CHAR(c.reg_date, 'YYYY-MM-DD') reg_date, c.categoryNum, categoryName, open, NVL(replyCount, 0) replyCount, NVL(replyDepCount, 0) replyDepCount
 		FROM community c
 		JOIN employee e ON c.empNo = e.empNo
+        JOIN person_record pr ON pr.empNo = e.empNo
 		LEFT OUTER JOIN (
 			SELECT num, COUNT(*) replyCount
 			FROM communityReply
 			WHERE answer = 0
 			GROUP BY num	
 		) r ON c.num = r.num
+		LEFT OUTER JOIN (
+			SELECT num, COUNT(*) replyDepCount FROM communityReply c
+            JOIN employee e ON c.empNo = e.empNo
+            JOIN person_record pr ON e.empNo = pr.empNo
+            WHERE answer = 0 AND depNo = 1 AND state = 1
+			GROUP BY num
+		) bbb ON c.num = bbb.num
 		JOIN communityCategory co ON c.categoryNum = co.categoryNum
+		WHERE state = 1
 		ORDER BY num DESC
 	</select>
 	

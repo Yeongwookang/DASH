@@ -11,7 +11,7 @@
 			src="${pageContext.request.contextPath}/resources/images/mainLogo.png"
 			style="width:200px"></a>
 		</div>
-		<div class="col-9  text-start">
+		<div class="col-9  text-start" style="color: #787878;">
 			<div>
 			<span>서비스 이용약관</span>
 			<span>&nbsp;|&nbsp;개인정보 처리방침</span>
@@ -21,7 +21,7 @@
 			<div class="mt-4">
 			<span>㈜DASH</span>
 			<span>&nbsp;|&nbsp;서울특별시 마포구 월드컵북로 21 2층 풍성빌딩, 2층</span>
-			<span>&nbsp;|&nbsp;대표: </span>
+			<span>&nbsp;|&nbsp;대표: 강영우</span>
 			<span>&nbsp;|&nbsp;사업자등록번호: 000-00-00000</span>
 			<span>&nbsp;|&nbsp;안전인증번호: A000A000-00000</span>
 			<span>&nbsp;|&nbsp;전파적합등록번호: A-A-A0A-AAAA00</span>
