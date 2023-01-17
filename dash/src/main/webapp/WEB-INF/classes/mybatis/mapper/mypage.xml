@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mypage">
+	<update id="updatemypage"  parameterType="map">
+	 UPDATE EMPLOYEE SET  pwd = #{pwd, jdbcType=VARCHAR}, thumbnail = #{thumbnail, jdbcType=VARCHAR}, email= #{email, jdbcType=VARCHAR}, addr1 = #{addr1, jdbcType=VARCHAR},  addr2 = #{addr2, jdbcType=VARCHAR},  zip = #{zip, jdbcType=VARCHAR},  tel= #{tel, jdbcType=VARCHAR}, MODIFY_DATE = sysdate  WHERE empNo = #{empNo} 
+	</update>
+	
+	<select id="listmyemployee" resultType="com.sp.app.mypage.Mypage">
+	select empNo, name, TO_CHAR(birth, 'YYYY-MM-DD') birth from employee WHERE empNo = #{empNo}
+	</select>
+	
+</mapper>
