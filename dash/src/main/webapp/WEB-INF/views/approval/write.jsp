@@ -117,83 +117,118 @@ function update_document(){
 <div class="m-auto scroll card mt-5 mb-5 p-5" style="overflow-y: scroll;">
 	<div class="fs-3 ps-4 mt-4"><span>| 결재</span></div>
 	<div class="m-auto" style="width: 80%">
-	<div class="ps-5 pe-5 mt-4">
-		<form name="approval" method="POST"  enctype="multipart/form-data">
-			<table class="table">
-				<tbody>
-				<tr>
-					<td class="w-25 text-center align-middle" scope="row">제 목</td>
-					<td class="w-75">
-						<input name="title" type="text"  class="form-control" value="${dto.title}">
-					</td>
-				</tr>
-				<tr>
-					<td class="w-25 text-center align-middle" scope="row">기 안 자</td>
-					<td class="w-75">
-						<c:if test="${mode == 'write' }">
-							${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
-							<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
-						</c:if>
-						<c:if test="${mode == 'update'}">
-							 ${dto.depName}&nbsp;${dto.name}
-							 <input name= "empNo" type="hidden" value="${dto.empNo}">
-							 <input name="signNum" type="hidden" value="${dto.signNum }">
-						 </c:if>
-					</td>
-				</tr>
-				<tr>
-					<td class="text-center align-middle" scope="row">타임라인</td>
-					<td class="d-flex ">
-						<input type="text" class="form-control" value="${dto.timeLine}" readonly>
-						<button type="button" class="btn bg-sub bg-gradient ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
-					</td>
-				</tr>
-				<tr>
-					<td class="text-center align-middle" scope="row">참조 <button type="button" class="btn bg-sub bg-gradient ms-2" data-bs-toggle="modal" data-bs-target="#newApproval"><i class="fa-solid fa-plus" ></i></button></td>
-					<td class="d-flex refList">
+		<div class="ps-5 pe-5 mt-4">
+		<form name="approval" method="POST"  enctype="multipart/form-data">			
+			<div class="mb-2 pt-3 pb-3">
+			<div class="d-flex align-items-center">
+				<div class="w-25 p-2 text-white text-center bg-main fs-4" style="border-radius: 2rem 0 0 0 / 2rem 0 0 0">제목</div>
+				<div class="w-75 fs-5 ms-3 me-3">
+					<input name="title" type="text"  class="form-control" value="${dto.title}">
+				</div>
+			</div>
+			<div class="d-flex align-items-center">
+				<div class="w-25 p-2  text-white text-center bg-main fs-4">기안자</div>
+				<div class="w-75 ms-3 me-3">
+				<c:if test="${mode == 'write' }">
+					${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
+					<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
+				</c:if>
+				<c:if test="${mode == 'update'}">
+					${dto.depName}&nbsp;${dto.name}
+					<input name= "empNo" type="hidden" value="${dto.empNo}">
+					<input name="signNum" type="hidden" value="${dto.signNum }">
+				</c:if>
+				</div>
+			</div>
+			
+			<div class="d-flex align-items-center">
+				<div class="w-25 p-2  text-white text-center bg-main fs-4">타임라인</div>
+				<div class="d-flex w-75 ms-3 me-3">
+					<input type="text" class="form-control" value="${dto.timeLine}" readonly>
+					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+				</div>
+			</div>
+			<div class="d-flex align-items-center">
+				<div class="w-25 p-2  text-white text-center bg-main fs-4" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>
+				<div class="w-75 ms-3 me-3">
+					<div class="d-flex refList">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
 						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
-						<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
+						<input type="text" class="form-control me-1" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
 						<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
 						<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
 						<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
 						<input type="hidden" name="refcnt" id="refcnt" value="${dto.max_state}" readonly>
-					</td>
-				</tr>
-				</tbody>
-			</table>
-		<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
-		
-		<c:if test="${not empty fileList }">
-				<div><h4>파일</h4></div>
-				<c:forEach var="file" items="${fileList}" varStatus="status" >
-					<div class=" d-flex form-control mb-2 justify-content-between">
-						<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/download/${file.fileNum}'"><i class="fa-solid fa-floppy-disk"></i> ${file.originalFilename} (${file.fileSize/1000} kb)</button></div> 
-						<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/deleteFile/${file.fileNum}?signNum=${dto.signNum}'"><i class="fa-solid fa-trash-can"></i></button></div>
+						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#empSearch" ><i class="fa-solid fa-plus"></i></button>
 					</div>
-				</c:forEach>
+				</div>
+			</div>
+			</div>		
+			<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
+			
+			<c:if test="${not empty fileList }">
+			<div><h4>파일</h4></div>
+			<c:forEach var="file" items="${fileList}" varStatus="status" >
+			<div class=" d-flex form-control mb-2 justify-content-between">
+				<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/download/${file.fileNum}'"><i class="fa-solid fa-floppy-disk"></i> ${file.originalFilename} (${file.fileSize/1000} kb)</button></div> 
+			<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/deleteFile/${file.fileNum}?signNum=${dto.signNum}'"><i class="fa-solid fa-trash-can"></i></button></div>
+			</div>
+			</c:forEach>
 			</c:if>
-		<input class="form-control mt-3" type="file" name="addFiles" accept="approval/*" multiple="multiple" >
-	
-		<div class="d-flex justify-content-end mt-4">
-			<c:if test="${mode =='update' }">
-				<button class="btn btn-danger me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/delete/${dto.signNum}'">삭제</button>
-				<button class="btn bg-sub bg-gradient" type="button" onclick="update_document();">수정</button>
+			<input class="form-control mt-3" type="file" name="addFiles" accept="approval/*" multiple="multiple" >
+			
+			<div class="d-flex justify-content-end mt-4">
+				<c:if test="${mode =='update' }">
+			<button class="btn btn-danger me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/delete/${dto.signNum}'">삭제</button>
+			<button class="btn btn-sub bg-gradient" type="button" onclick="update_document();">수정</button>
 			</c:if>
 			<c:if test="${mode =='write' }">
-				<button class="btn bg-sub bg-gradient" type="button" onclick="write_document();">결재</button>
+			<button class="btn btn-main" type="button" onclick="write_document();">결재</button>
 			</c:if>
+				</div>
+				</form>
 		</div>
-		</form>
-	</div>
-	</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">타임라인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        	<div class="alert bg-sub text-center" role="alert">
+        		<div>타임라인이란, </div>
+        		<div><span style="font-weight: bold">여러 결재를 하나로 묶어 시간순으로 배열하는 것</span>을 의미합니다.</div>
+        		<div>프로젝트 단위의 결재를 처리하는데 용이하며,</div>
+        		<div><span style="font-weight: bold">부서, 팀, 이름, 제목</span>으로 검색이 가능합니다.</div>
+        	</div>
+        	<div class="d-flex">
+        	<select class="form-select me-2" id="condition">
+	      		<option value="dep">부서</option>
+	      		<option value="team">팀</option>
+	      		<option value="name">이름</option>
+	      		<option value="title">제목</option>
+	      	</select>
+        	<input class="form-control" id="keyword">
+        	<button type="button" class="btn btn-main ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
 </div>
 
 
-
-
 <!-- Modal -->
-<div class="modal fade text-center" id="newApproval" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newApprovalLabel" aria-hidden="true">
+<div class="modal fade text-center" id="empSearch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newApprovalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">

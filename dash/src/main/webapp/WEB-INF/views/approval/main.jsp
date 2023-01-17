@@ -8,19 +8,9 @@
 		<span>| 결재</span>
 	</div>
 	<div class="m-auto" style="width:80%">
-	<div>
-	<form name="approval-search"  method="post" action="${pageContext.request.contextPath}/approval/main">
-		<div class="d-flex justify-content-center align-items-center">
-			<input name="s_date" class="form-control me-2" type="date">
-			<span>~</span>
-			<input name="e_date" class="form-control ms-2 today" type="date"> 
-			<button type="button" class="btn bg-sub bg-gradient ms-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-		</div>
-	</form>
-	</div>
 	<div class="mt-4">
 		<div class="card">
-			<div class="card-header bg-sub bg-gradient text-start">
+			<div class="card-header bg-main text-white bg-gradient text-start">
 				<blockquote class="blockquote mb-0">
 			      <p>결재 대기 목록</p>
 			    </blockquote>
@@ -73,7 +63,7 @@
 	</div>
 	<div class="mt-4">
 		<div class="card">
-			<div class="card-header bg-sub bg-gradient text-start">
+			<div class="card-header  bg-main text-white bg-gradient text-start">
 				<blockquote class="blockquote mb-0">
 			      <p>${sessionScope.employee.name}님의 결재</p>
 			    </blockquote>
@@ -125,12 +115,46 @@
 			<div>${paging}</div>		
 		</div>
 	</div>
-	<div class="mt-4 mb-4 d-flex justify-content-end">
-		<div>
-			<button class="btn bg-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
-		</div>
+	<div class="mt-4 mb-4 d-flex justify-content-between">	
+			<button class="btn btn-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#timeLine">타임라인</button>
+			<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 	</div>
 	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">타임라인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid">
+        	<div class="alert bg-sub text-center" role="alert">
+        		<div>타임라인이란, </div>
+        		<div><span style="font-weight: bold">여러 결재를 하나로 묶어 시간순으로 배열하는 것</span>을 의미합니다.</div>
+        		<div>프로젝트 단위의 결재를 처리하는데 용이하며,</div>
+        		<div><span style="font-weight: bold">부서, 팀, 이름, 제목</span>으로 검색이 가능합니다.</div>
+        	</div>
+        	<div class="d-flex">
+        	<select class="form-select me-2" id="condition">
+	      		<option value="dep">부서</option>
+	      		<option value="team">팀</option>
+	      		<option value="name">이름</option>
+	      		<option value="title">제목</option>
+	      	</select>
+        	<input class="form-control" id="keyword">
+        	<button type="button" class="btn btn-main ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
+        	</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+      </div>
+    </div>
+  </div>
 </div>
 <script type="text/javascript">
 	$(".sendList").children().click(function(){
