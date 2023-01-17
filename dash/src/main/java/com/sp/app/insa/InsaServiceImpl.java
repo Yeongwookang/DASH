@@ -37,7 +37,7 @@ public class InsaServiceImpl implements InsaService {
 			}
 
 			if (dto.getEmail1().length() != 0 && dto.getEmail2().length() != 0) {
-				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2());
+				dto.setEmail(dto.getEmail1() + "@" + dto.getEmail2()); 
 			}
 
 			if (dto.getTel1().length() != 0 && dto.getTel2().length() != 0 && dto.getTel3().length() != 0) {
