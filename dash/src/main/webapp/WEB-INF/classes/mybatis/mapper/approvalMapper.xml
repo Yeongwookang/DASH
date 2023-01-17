@@ -167,14 +167,14 @@
 	</select>
 	
 	<update id="approveUpdate" parameterType="map">
-		UPDATE SET reg_date = sysdate, state='승인' FROM 
+		UPDATE 
 		<choose>
 			<when test="state == 0"> f_approval</when>
 			<when test="state == 1"> s_approval</when>
 			<when test="state == 2"> t_approval</when>
 			<otherwise> dual</otherwise>
 		</choose>
-		
+		SET reg_date = sysdate, state='승인' 
 		WHERE signNum = #{signNum}
 	</update>
 	

@@ -137,7 +137,7 @@ $(function(){
 		geo_json_500_add (jsO_500);
 	}
 
-	//ajaxFun(url,"get",null,"json",fn);
+	ajaxFun(url,"get",null,"json",fn);
 	
 	
 	
@@ -228,7 +228,7 @@ L.Control.Filter = L.Control.extend({
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="300" autocomplete="off" class="btn btn-main radFilter text-white me-2">300m</button>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="500" autocomplete="off" class="btn btn-main radFilter text-white">500m</button>';
 	    el.innerHTML += '<hr>';
-	    el.innerHTML += '<p class="mb-2">날짜필터</p>';
+	    el.innerHTML += '<p class="mb-2">날짜</p>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="6" autocomplete="off" class="btn btn-main monthFilter text-white me-2">6개월</button>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main monthFilter text-white me-2">3개월</button>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main monthFilter text-white">1개월</button>';
@@ -258,7 +258,7 @@ L.Control.Home= L.Control.extend({
 	onAdd: function(map_1){
 		var el2 = L.DomUtil.create('div', 'leaflet-bar my-control2');
 		
-		el2.innerHTML = "<button class='btn btn-primary' type='button' onclick='location.href=${pageContext.request.contextPath}/'><i class='fa-solid fa-house'></i></button>"
+		el2.innerHTML = "<button class='btn btn-main' type='button' onclick='location.href=${pageContext.request.contextPath}/'><i class='fa-solid fa-house'></i></button>"
 		return el2;
 	},
 	onRemove: function(map_1) {
