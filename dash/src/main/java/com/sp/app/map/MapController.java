@@ -18,6 +18,9 @@ public class MapController {
 	@Autowired
 	private MeterService meterService;
 	
+	@Autowired
+	private FilterService filterService;
+	
 	@RequestMapping(value = "main")
 	public String main() throws Exception {
 	
@@ -50,6 +53,85 @@ public class MapController {
 	    model.put("list_100", list_100);
 	    model.put("list_300", list_300);
 	    model.put("list_500", list_500);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "all_month")
+    @ResponseBody
+    public Map<String, Object> all_month() throws Exception {
+	   
+	    List<All_month> all_month = filterService.list_all_month();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("all_month", all_month);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "all_quarter")
+    @ResponseBody
+    public Map<String, Object> all_quarter() throws Exception {
+	   
+	    List<All_quarter> all_quarter = filterService.list_all_quarter();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("all_quarter", all_quarter);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "all_6months")
+    @ResponseBody
+    public Map<String, Object> all_6months() throws Exception {
+	   
+	    List<All_6months> all_6months = filterService.list_all_6months();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("all_6months", all_6months);
+	   
+	    return model;
+    }
+	
+	
+	@RequestMapping(value = "people_month")
+    @ResponseBody
+    public Map<String, Object> people_month() throws Exception {
+	   
+	    List<People_month> people_month = filterService.list_people_month();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("people_month", people_month);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "people_quarter")
+    @ResponseBody
+    public Map<String, Object> people_quarter() throws Exception {
+	   
+	    List<People_quarter> people_quarter = filterService.list_people_quarter();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("people_quarter", people_quarter);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "people_6months")
+    @ResponseBody
+    public Map<String, Object> people_6months() throws Exception {
+	   
+	    List<People_6months> people_6months = filterService.list_people_6months();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("people_6months", people_6months);
 	   
 	    return model;
     }
