@@ -9,7 +9,7 @@
 	border: 1px solid #ccc;
 	width: 200px; 
 	height: 250px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/profile2.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/profileImage.png");
 	background-size:cover;
 	z-index: 9999;
 	background-repeat : no-repeat;
