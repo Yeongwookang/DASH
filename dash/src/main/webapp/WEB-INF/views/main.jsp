@@ -32,16 +32,12 @@
 	  </button>
 	</div>
 		<div class="d-flex justify-content-between mb-3">
-		<div class="card" style="width: 49%;"> 
-			
-		</div>
-		
-		<div class="card p-4"  style="width: 49%">
-			<div class="d-flex align-items-end">
+		<div class="card"  style="width: 49%">
+			<div class="d-flex align-items-end  ms-3 mt-3" >
 				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
 				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
 			</div>
-			<div class="d-flex justify-content-between mt-3">
+			<div class="d-flex justify-content-between mt-3 mb-3 m-auto" style="width:90%">
 				<div class="border-end" style="width:47%">
 					<div class="d-flex align-items-center">
 						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
@@ -63,8 +59,8 @@
 				</div>
 				<div class="w-50"> 
 					<div>
-						<button type="button" class="btn bg-main btn-Point text-white" style="border: none;">출근</button>
-						<button type="button" class="btn bg-main btn-Point text-white" style="border: none;">퇴근</button>
+						<button type="button" class="btn btn-main" style="border: none;">출근</button>
+						<button type="button" class="btn btn-main" style="border: none;">퇴근</button>
 						<button type="button" class="btn btn-light">출퇴근현황</button>
 					</div>
 					<div class="d-flex">
@@ -78,6 +74,27 @@
 				</div>
 			</div>
 		</div>
+		<div class="card" style="width: 49%;">
+		<div class="d-flex justify-content-between">
+			<div class="text-start sales ms-3 mt-3">| 연차 현황 (전체 / 사용 / 잔여)</div>
+			<div><button class="btn btn-main me-3 mt-3" type="button">사용 기록</button></div>
+		</div> 
+			<div class="m-auto w-75 mt-3">
+				<div>
+				<div>연차(20일 / 3일 / 17일)</div>
+				<div class="progress">
+				  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				</div>
+				<div class="mt-3">
+					<div>특별휴가(0일/ 0일 / 0일)</div>
+					<div class="progress">
+					  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
 		</div> 
 		<div class="d-flex justify-content-between mb-3">
 			<div class="card " style="width: 49%; height: 350px;"> 
