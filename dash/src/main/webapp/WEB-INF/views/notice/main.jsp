@@ -10,12 +10,12 @@ function searchList() {
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>| 공지사항</span>
 	</div>
-	<div class="m-auto" style="width:80%">
+	<div class="m-auto mt-4" style="width:80%">
 		<table class="table table-hover board-list">
-			<thead class="bg-sub"> 
+			<thead class="bg-main text-white"> 
 					<tr class="text-center" style="height: 30px;">  
 						<th style="width: 10%">순번</th>
 						<th class="text-start ps-5" style="width: 40%">제목</th> 
@@ -88,7 +88,7 @@ function searchList() {
 					<input type="text" name="keyword" value="${keyword}" class="form-control">
 				</div>
 				<div class="p-1">
-					<button type="button" class="btn bg-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+					<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 				</div>
 			</div>
 		</form>
@@ -96,7 +96,7 @@ function searchList() {
 		<div class="mt-4 mb-4 d-flex justify-content-end">
 			<c:if test="${sessionScope.employee.empNo == '8801001' || sessionScope.employee.empNo == '8502002'}"> 
 				<div> 
-					<button class="btn button-main bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">작성</button>
+					<button class="btn btn-sub" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">작성</button>
 				</div> 
 			</c:if>
 		</div>

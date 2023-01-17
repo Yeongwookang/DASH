@@ -470,14 +470,14 @@ function searchList() {
 </script>
 
 
-<div class="card mt-5 mb-5 p-5 m-auto">
-	<div class="text-start fs-3 mb-4 ps-4"> 
+<div class="m-auto card mt-5 mb-5 p-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>
-		| 매출 통계
+		| 대여소 통계
 		</span>
 	</div>
 	
-	<div class="m-auto mt-3" style="width: 80%;">
+	<div class="m-auto mt-4" style="width: 80%;">
 		<div>
 		<form name="stationForm">
 			<div class="d-flex justify-content-end">  
@@ -494,7 +494,7 @@ function searchList() {
 						<option value="${dto.stNum}" ${selectDate=="${dto.stNum}"?"selected='selected'":""}>${dto.name}</option>  
 					</c:forEach>
 				</select>
-				<button type="button" class="btn button-main bg-gradient ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
+				<button type="button" class="btn btn-sub ms-2" onclick="searchList();"><i class="fa-solid fa-magnifying-glass"></i></button>
 			</div> 
 		</form>
 		</div>

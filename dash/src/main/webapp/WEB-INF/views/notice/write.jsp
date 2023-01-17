@@ -37,10 +37,10 @@ function check() {
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>| 공지사항</span>
 	</div>
-	<div class="m-auto" style="width:80%">
+	<div class="m-auto mt-4" style="width:80%">
 		<form name="noticeForm" method="post" enctype="multipart/form-data">
 			<table class="table"> 
 				<tr>
@@ -98,13 +98,13 @@ function check() {
 					<td class="text-center"> 
 						<div class="mt-4 mb-4 d-flex justify-content-center">
 							<div class="me-3">  
-								<button class="btn button-point text-white" type="button" onclick="check();">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
+								<button class="btn btn-main text-white" type="button" onclick="check();">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
 							</div> 
 							<div class="me-3"> 
-								<button class="btn button-main bg-gradient" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
+								<button class="btn btn-sub bg-gradient" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
 							</div>
 							<div> 
-								<button class="btn button-main bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/main';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
+								<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/main';">${mode=='update'?'수정취소':'등록취소'}&nbsp;<i class="bi bi-x"></i></button>
 							</div>
 						</div>
 						<c:if test="${mode=='update'}">

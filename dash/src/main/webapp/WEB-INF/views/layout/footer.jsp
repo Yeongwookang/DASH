@@ -2,16 +2,15 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<div class="bg-sub">
-	<hr style="margin-top: 0px">
-	<div class="m-auto mt-3 mb-3" style="width:80%">
+<div class="bg-sub"> 
+	<div class="m-auto mb-3" style="width:80%">
 		<div class="row">
 		<div class="col-3 d-flex align-items-center">
 			<a class="navbar-brand" href="${pageContext.request.contextPath}"><img
 			src="${pageContext.request.contextPath}/resources/images/mainLogo.png"
 			style="width:200px"></a>
 		</div>
-		<div class="col-9  text-start pt-4 pb-4" style="color: #787878;">
+		<div class="col-9  text-start pt-5 pb-4" style="color: #787878;">
 			<div>
 			<span>서비스 이용약관</span>
 			<span>&nbsp;|&nbsp;개인정보 처리방침</span>

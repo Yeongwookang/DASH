@@ -10,14 +10,14 @@ function searchList() {
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span> 
 		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 
 		</span>
 	</div>
-	<div class="m-auto" align="center" style="width: 80%;"> 
-		<table class="table table-hover community-list-table">
-			<thead class="bg-sub"> 
+	<div class="m-auto mt-4" align="center" style="width: 80%;"> 
+		<table class="table table-hover community-list-table"> 
+			<thead class="bg-main text-white"> 
 					<tr class="text-center" style="height: 30px;">
 						<th>카테고리</th>
 						<th class="text-start">제목</th> 
@@ -101,14 +101,14 @@ function searchList() {
 					</select>
 				</div> 
 				<div class="p-1">
-					<button type="button" class="btn button-main" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+					<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
 				</div>
 			</div>
 		</form>
 
 		<div class="mt-4 mb-4 d-flex justify-content-end">
 			<div> 
-				<button class="btn button-main bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/community/write';">작성</button>
+				<button class="btn btn-sub" type="button" onclick="location.href='${pageContext.request.contextPath}/community/write';">작성</button>
 			</div> 
 		</div>
 	</div>

@@ -100,7 +100,7 @@
 			<div class="card " style="width: 49%; height: 350px;"> 
 				<div class="d-flex justify-content-between">
 					<div class="text-start sales ms-3 mt-3">| 공지사항</div>
-					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/notice/main" class="underline text-reset gooo">바로가기 ></a></div>
+					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/notice/main" class="aTag">바로가기 ></a></div>
 				</div>
 					<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  
@@ -141,7 +141,7 @@
 			<div class="card"  style="width: 49%">
 				<div class="d-flex justify-content-between">
 					<div class="text-start sales ms-3 mt-3">| 커뮤니티</div>
-					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/community/main" class="underline text-reset gooo">바로가기 ></a></div>
+					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/community/main" class="aTag">바로가기 ></a></div>
 				</div>
 				<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  

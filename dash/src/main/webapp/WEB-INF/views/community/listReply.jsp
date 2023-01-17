@@ -60,7 +60,7 @@
 		                <textarea class="form-control m-2" style="height: 100px;"></textarea>  
 		            </div>
 					<div class='text-end pe-2 pb-1 mt-2'>
-						<button type='button' class='btn button-main btnSendReplyAnswer' data-replyNum='${vo.replyNum}'>답글 등록</button>
+						<button type='button' class='btn btn-sub btnSendReplyAnswer' data-replyNum='${vo.replyNum}'>답글 등록</button>
 		            </div> 
 	            </div>
 			</td>

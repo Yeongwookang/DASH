@@ -297,10 +297,10 @@ $(function(){
 </script> 
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>| 통계</span>
 	</div>
-	<div class="m-auto" style="width: 80%;">
+	<div class="m-auto mt-4" style="width: 80%;">
 		<div class="d-flex justify-content-center"> 
 			<div class="card me-5" style="width: 30%;">
 				<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">

@@ -39,10 +39,10 @@ function check() {
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>| 커뮤니티</span>
 	</div>
-	<div class="m-auto" style="width: 80%;">
+	<div class="m-auto mt-4" style="width: 80%;">
 		<div class="box p-2"> 
 			* DASH의 사내 커뮤니티는 일반 익명 게시판과는 다릅니다. 단순 직원끼리 이야기를 나누는 익명게시판으로도 이용할 수 있지만 <span class="point">인사팀이나 경영진과의 소통</span>을 할 수 있습니다.<br>
 			* 양식을 <span class="point">모두</span> 작성해 주세요.<br>
@@ -78,13 +78,13 @@ function check() {
 					<td class="text-center"> 
 						<div class="mt-4 mb-4 d-flex justify-content-center">
 							<div class="me-3">  
-								<button class="btn button-point text-white" type="button" onclick="check();">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
+								<button class="btn btn-main" style="border: none;" type="button" onclick="check();">${mode=='update'?'수정':'등록'}&nbsp;<i class="bi bi-check-all"></i></button>
 							</div> 
 							<div class="me-3"> 
-								<button class="btn button-main bg-gradient" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
+								<button class="btn btn-sub" type="reset">다시입력&nbsp;<i class="bi bi-arrow-clockwise"></i></button>
 							</div>
 							<div> 
-								<button class="btn button-main bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/community/main';">등록취소&nbsp;<i class="bi bi-x"></i></button>
+								<button class="btn btn-sub" type="button" onclick="location.href='${pageContext.request.contextPath}/community/main';">등록취소&nbsp;<i class="bi bi-x"></i></button>
 							</div>
 						</div>
 						<c:if test="${mode=='update'}">

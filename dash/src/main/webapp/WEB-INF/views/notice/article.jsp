@@ -14,12 +14,12 @@ function deleteOk() {
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/notice/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>
 	</div>
-	<div class="m-auto" style="width: 80%">
+	<div class="m-auto mt-4" style="width: 80%">
 		<table class="table"> 
 			<thead>
 				<tr>
@@ -80,8 +80,8 @@ function deleteOk() {
 			<tr>
 				<c:if test="${sessionScope.employee.empNo == '8801001' || sessionScope.employee.empNo == '8502002'}"> 
 					<td width="50%" class="text-end">
-						<button type="button" class="btn button-main" onclick="location.href='${pageContext.request.contextPath}/notice/update?num=${dto.num}&page=${page}';">수정</button>
-				    	<button type="button" class="btn button-main" onclick="deleteOk();">삭제</button>
+						<button type="button" class="btn btn-sub" onclick="location.href='${pageContext.request.contextPath}/notice/update?num=${dto.num}&page=${page}';">수정</button>
+				    	<button type="button" class="btn btn-sub" onclick="deleteOk();">삭제</button>
 					</td>
 				</c:if>
 			</tr>

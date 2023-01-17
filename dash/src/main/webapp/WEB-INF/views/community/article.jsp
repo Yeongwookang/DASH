@@ -281,12 +281,12 @@ $(function(){
 </script>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 ps-4 mt-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/community/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>
 	</div> 
-	<div class="m-auto" style="width: 80%">
+	<div class="m-auto mt-4" style="width: 80%">
 		<table class="table community-article"> 
 			<thead>
 				<tr>
@@ -337,11 +337,11 @@ $(function(){
 					<tr>
 					    <td align='right'>
 					        <c:if test="${sessionScope.employee.depNo == 1}"> 
-					        	<button type='button' class='btn button-main btnSendReply me-2 mt-2'>댓글 등록</button>   
-					        	<button type='button' class='btn button-main me-2 mt-2' onclick="location.href='${pageContext.request.contextPath}/community/update?num=${dto.num}&page=${page}'">수정</button> 
+					        	<button type='button' class='btn btnSendReply me-2 mt-2 btn-sub'>댓글 등록</button>   
+					        	<button type='button' class='btn me-2 mt-2 btn-sub'  onclick="location.href='${pageContext.request.contextPath}/community/update?num=${dto.num}&page=${page}'">수정</button> 
 					        </c:if>
 					        <c:if test="${sessionScope.employee.depNo != 1}">
-					        	<button type='button' class='btn button-main btnSendReply me-3 mt-2'>댓글 등록</button>
+					        	<button type='button' class='btn btn-sub btnSendReply me-3 mt-2'>댓글 등록</button>
 					        </c:if>
 					    </td>
 					 </tr>
