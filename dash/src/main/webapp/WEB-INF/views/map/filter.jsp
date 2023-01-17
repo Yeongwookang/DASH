@@ -12,9 +12,8 @@
             L_NO_TOUCH = false;
             L_DISABLE_3D = false;
     </script>
-	<title><tiles:insertAttribute name="title"/></title>
+	<title>지도</title>
 	<style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
-    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/jquery/js/jquery.min.js"></script>
@@ -36,7 +35,7 @@
                 initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
 <style type="text/css">
-#map_2d81c07882e829b16808a14b15af9573 {
+#map_1 {
                     position: relative;
                     width: 100.0%;
                     height: 100.0%;
@@ -44,48 +43,11 @@
                     top: 0.0%;
                 }
 .leaflet-container { font-size: 1rem; }
-	
-.map_wrap, .map_wrap * {margin:0;padding:0;font-family:'Malgun Gothic',dotum,'돋움',sans-serif;font-size:12px;}
-.map_wrap a, .map_wrap a:hover, .map_wrap a:active{color:#000;text-decoration: none;}
-.map_wrap {position:relative;width:100%;height:100%;}
-#menu_wrap {position:absolute;top:0;left:0;bottom:0;width:450px; height:600px; margin:10px 0 30px 10px;padding:5px;overflow-y:auto;background:rgba(255, 255, 255, 1);z-index: 1;font-size:12px;border-radius: 10px;}
-.bg_white {background:#fff;}
-#menu_wrap hr {display: block; height: 1px;border: 0; border-top: 2px solid #5F5F5F; margin:3px 0;}
-#menu_wrap .option p {margin:10px 0;}  
-#menu_wrap .option button {margin-left:5px;}
-#placesList li {list-style: none;}
-#placesList .item {position:relative;border-bottom:1px solid #888;overflow: hidden;cursor: pointer;min-height: 65px;}
-#placesList .item span {display: block;margin-top:4px;}
-#placesList .item h5, #placesList .item .info {text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
-#placesList .item .info{padding:10px 0 10px 55px;}
-#placesList .info .gray {color:#8a8a8a;}
-#placesList .info .jibun {padding-left:26px;background:url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/places_jibun.png) no-repeat;}
-#placesList .info .tel {color:#009900;}
-
-#pagination {margin:10px auto;text-align: center;}
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-	
-	
  </style>
 </head>
 <body>
- <div class="map_wrap">
-  <div class="folium-map" id="map_2d81c07882e829b16808a14b15af9573"></div>
-    <div id="menu_wrap" class="bg_white">
-        <div class="option">
-            <div>
-                <form onsubmit="searchPlaces(); return false;">
-                   <input type="text" value="이태원 맛집" id="keyword" size="15"style="width: 300px;"> 
-                    <button type="submit">검색</button> 
-                </form>
-            </div>
-        </div>
-        <hr>
-        <ul id="placesList"></ul>
-        <div id="pagination"></div>
-    </div>
-</div>
+  <div class="folium-map" id="map_1">
+  </div>
    
 <script>         
 function ajaxFun(url, method, query, dataType, fn) {
@@ -180,7 +142,7 @@ $(function(){
 		geo_json_500_add (jsO_500);
 	}
 
-	ajaxFun(url,"get",null,"json",fn);
+	//ajaxFun(url,"get",null,"json",fn);
 	
 	
 	
@@ -189,8 +151,8 @@ $(function(){
 
 
 
-var map_2d81c07882e829b16808a14b15af9573 = L.map(
-    "map_2d81c07882e829b16808a14b15af9573",
+var map_1 = L.map(
+    "map_1",
     {
         center: [37.541, 126.986],
         crs: L.CRS.EPSG3857,
@@ -201,12 +163,13 @@ var map_2d81c07882e829b16808a14b15af9573 = L.map(
 );
 
 
+	
 var tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7 = L.tileLayer(
     "http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
                 attribution: 'DASH &copy; VWORLD(국토부)',
             	subdomains: 'abcd',
             	maxZoom: 19}
-).addTo(map_2d81c07882e829b16808a14b15af9573);
+).addTo(map_1);
 
 
 
@@ -222,7 +185,7 @@ var geo_json_100 = L.geoJson(null, {
 function geo_json_100_add (data) {
 geo_json_100
     .addData(data)
-    .addTo(map_2d81c07882e829b16808a14b15af9573);
+    .addTo(map_1);
 }
 
 
@@ -240,7 +203,7 @@ var geo_json_300 = L.geoJson(null, {
 function geo_json_300_add (data) {
 geo_json_300
     .addData(data)
-    .addTo(map_2d81c07882e829b16808a14b15af9573);
+    .addTo(map_1);
 }
 
 
@@ -257,31 +220,85 @@ var geo_json_500 = L.geoJson(null, {
 function geo_json_500_add (data) {
 geo_json_500
     .addData(data)
-    .addTo(map_2d81c07882e829b16808a14b15af9573);
+    .addTo(map_1);
 }
-	
 
 
 
+L.Control.Filter = L.Control.extend({
+	  onAdd: function(map_1) {
+	    var el = L.DomUtil.create('div', 'leaflet-bar my-control');
 
-var layer_control_44c8d1a60beb9da1ab7bd8739988c955 = {
-    base_layers : {
-        "openstreetmap" : tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7,
-    },
-    overlays :  {
-        "100m" : geo_json_100, "300m" : geo_json_300, "500m" : geo_json_500,
-    },
-};
-L.control.layers(
-    layer_control_44c8d1a60beb9da1ab7bd8739988c955.base_layers,
-    layer_control_44c8d1a60beb9da1ab7bd8739988c955.overlays,
-    {"autoZIndex": true, "collapsed": true, "position": "topright"}
-).addTo(map_2d81c07882e829b16808a14b15af9573);
+	    el.innerHTML = '<div class="d-flex mb-2">'
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">100m</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">300m</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">500m</button>';
+	    el.innerHTML += '</div> <hr>';
+	    el.innerHTML += '<div class="d-flex mb-2">'
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">6개월</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">3개월</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">1개월</button>';
+	    el.innerHTML += '</div> <hr>';
+	    el.innerHTML += '<div class="d-flex">'
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">기준1</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white me-2">기준2</button>';
+	    el.innerHTML += '<button type="button" class="btn bg-main btn-Point text-white">기준3</button>';
+	    el.innerHTML += '</div>';
+
+	    return el;
+	  },
+
+	  onRemove: function(map_1) {
+	    // Nothing to do here
+	  }
+	});
+
+	L.control.Filter = function(opts) {
+	  return new L.Control.Filter(opts);
+	}
+
+	L.control.Filter({
+		"autoZIndex": true, "collapsed": true,position: 'topleft'
+	}).addTo(map_1);
+
+L.Control.Home= L.Control.extend({
+	onAdd: function(map_1){
+		var el2 = L.DomUtil.create('div', 'leaflet-bar my-control2');
+		
+		el2.innerHTML = "<button class='btn btn-primary' type='button' onclick='location.href=${pageContext.request.contextPath}/'><i class='fa-solid fa-house'></i></button>"
+		return el2;
+	},
+	onRemove: function(map_1) {
+	    // Nothing to do here
+	 }
+});
+
+	L.control.Home = function(opts) {
+	  return new L.Control.Home(opts);
+	}
+
+	L.control.Home({
+		"autoZIndex": true, "collapsed": true,position: 'bottomright'
+	}).addTo(map_1);
+
+var layer_control = {
+	    base_layers : {
+	        "openstreetmap" : tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7,
+	    },
+	    overlays :  {
+	        "100m" : geo_json_100, "300m" : geo_json_300, "500m" : geo_json_500,
+	    },
+	};
+	L.control.layers(
+	    layer_control.base_layers,
+	    layer_control.overlays,
+	    {"autoZIndex": true, "collapsed": true, "position": "topright"}
+	).addTo(map_1);
 
 
 
-   
 </script>
+
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
 </body>

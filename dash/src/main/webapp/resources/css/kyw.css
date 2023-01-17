@@ -72,3 +72,13 @@ td,th{
 }
 .ck-editor__editable{height: 400px;}
 .ck-content{font-size:12px;}
+.my-control{
+	background: #fff;
+	align-items: center;
+	justify-content: center;
+	padding: 1rem;
+}
+.my-control2{
+	background:#fff;
+	padding:0.2rem;
+}
