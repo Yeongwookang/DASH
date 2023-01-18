@@ -78,7 +78,7 @@ function deleteOk() {
 		<br>
 		<table class="table table-borderless">
 			<tr>
-				<c:if test="${sessionScope.employee.empNo == '8801001' || sessionScope.employee.empNo == '8502002'}"> 
+				<c:if test="${sessionScope.employee.empNo == '9401003' || sessionScope.employee.empNo == '8102002' || sessionScope.employee.empNo == '8903002' || sessionScope.employee.empNo == '8904003'}"> 
 					<td width="50%" class="text-end">
 						<button type="button" class="btn btn-sub" onclick="location.href='${pageContext.request.contextPath}/notice/update?num=${dto.num}&page=${page}';">수정</button>
 				    	<button type="button" class="btn btn-sub" onclick="deleteOk();">삭제</button>

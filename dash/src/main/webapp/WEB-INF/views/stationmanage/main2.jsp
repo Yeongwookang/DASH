@@ -125,7 +125,7 @@ function createMarker(data) {
 	    
 		let mobj = {
 			content : "<div class='marker-info'>" + item.name + "</div>",
-			latlng : new kakao.maps.LatLng(item.x_pos, item.y_pos),
+			latlng : new kakao.maps.LatLng(item.y_pos, item.x_pos),
 			num : item.cStNum,
 			addr : item.addr,
 			img: item.imageFilename,

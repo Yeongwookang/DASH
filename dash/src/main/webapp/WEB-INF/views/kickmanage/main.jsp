@@ -181,21 +181,27 @@ function sendModeldamage() {
 	</div>
 </div>
 </form>
-<div class="d-flex bd-highlight  d-inline">
-	<div class="text-end ms-1">
-		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal3">수리완료신청</button>
-	</div>
-		<div class="text-end ms-1">
-		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal2">수리중신청</button>
-	</div>
 
-	<div class="text-end ms-1">
-		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal1">수리신청</button>
-	</div>
-	</div>
+
+</div>
+<div class="d-flex justify-content-end">
+<div class="dropdown">
+  <a class="btn btn-secondary dropdown-toggle btn-sub" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        수리
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href=""  data-bs-toggle="modal"
+			data-bs-target="#exampleModal1">신청</a></li>
+    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
+			data-bs-target="#exampleModal2">입고</a></li>
+    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
+			data-bs-target="#exampleModal3">완료</a></li>
+  </ul>
+</div>
+	<button type="button" class="btn btn-sub ms-2" data-bs-toggle="modal"
+				data-bs-target="#exampleModal4">파손</button>
+	
 </div>
 	<div class="mt-4">
 		<table class="table table-hover board-list">
@@ -226,12 +232,10 @@ function sendModeldamage() {
 
 		<div class="page-navigation">
 			<div class="page-navigation paging mt-5 text-center">
-				${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}</div>
+				${dataCount == 0 ? "등록된 킥보드가 없습니다." : paging}</div>
 		</div>
 		
 		<div class="me-2 d-flex justify-content-between">
-			<button type="button" class="btn btn-sub" data-bs-toggle="modal"
-				data-bs-target="#exampleModal4">파손신청</button>
 			<button type="button" class="btn btn-sub text-center"  onclick="location.href='${pageContext.request.contextPath}/register/main3'">킥보드 등록</button>
 		</div>
 </div>

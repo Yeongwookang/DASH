@@ -49,7 +49,7 @@
 			
 			
 
-		
+			<c:if test="${sessionScope.employee.depNo==2}">
 				<li class="nav-item">
 				<a class="nav-link nav-box"
 					href="${pageContext.request.contextPath}/analysis/main">
@@ -70,7 +70,8 @@
 								href="${pageContext.request.contextPath}/kickmanage/main"><span> 킥보드 관리</span></a></li>
 						</ul>
 				</li>
-		
+			</c:if>
+			
 			<c:if test="${sessionScope.employee.depNo==3}">
 				<li class="nav-item">
 				<a class="nav-link nav-box"

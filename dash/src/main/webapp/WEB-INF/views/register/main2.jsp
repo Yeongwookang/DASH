@@ -17,7 +17,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 324px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/chargingStation.jpg");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
