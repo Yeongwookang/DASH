@@ -60,6 +60,24 @@ tr{
 td,th{
 	vertical-align: middle;
 }
+a{
+	text-decoration: none;
+	color:black;
+}
+.fc-day-sun > .fc-scrollgrid-sync-inner > a{
+	color:red;
+}
+.fc-day-sun > .fc-scrollgrid-sync-inner > .fc-daygrid-day-top> a{
+	color:red;
+}
+.fc-day-sat > .fc-scrollgrid-sync-inner > a{
+	color:blue;
+}
+
+.fc-day-sat > .fc-scrollgrid-sync-inner > .fc-daygrid-day-top> a{
+	color:blue;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

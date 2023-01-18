@@ -32,8 +32,9 @@
 	  </button>
 	</div>
 		<div class="d-flex justify-content-between mb-3">
-		<div class="card"  style="width: 49%">
-			<div class="d-flex align-items-end  ms-3 mt-3" >
+		<div style="width: 49%">
+		<div class="card p-4 mb-4">
+			<div class="d-flex align-items-end" >
 				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
 				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
 			</div>
@@ -74,10 +75,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="card" style="width: 49%;">
+		<div class="card p-4 mb-4">
 		<div class="d-flex justify-content-between">
-			<div class="text-start sales ms-3 mt-3">| 연차 현황 (전체 / 사용 / 잔여)</div>
-			<div><button class="btn btn-main me-3 mt-3" type="button">사용 기록</button></div>
+			<div class="text-start sales">| 연차 현황 (전체 / 사용 / 잔여)</div>
+			<button class="btn btn-main" type="button">사용 기록</button>
 		</div> 
 			<div class="m-auto w-75 mt-3">
 				<div>
@@ -94,13 +95,10 @@
 				</div>
 			</div>
 		</div>
-		
-		</div> 
-		<div class="d-flex justify-content-between mb-3">
-			<div class="card " style="width: 49%; height: 350px;"> 
+			<div class="card p-4 mb-4 " > 
 				<div class="d-flex justify-content-between">
-					<div class="text-start sales ms-3 mt-3">| 공지사항</div>
-					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/notice/main" class="aTag">바로가기 ></a></div>
+					<div class="text-start sales">| 공지사항</div>
+					<a href="${pageContext.request.contextPath}/notice/main" class="aTag">바로가기 ></a>
 				</div>
 					<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  
@@ -131,20 +129,66 @@
 						</tbody>
 					</table>
 				</div>
+			<div class="card p-4 mb-4">
+			<div class="text-start sales">| 진행중인 결재</div>
+					<c:choose >
+					<c:when test="${not empty myApprovalList}"> 
+						<table class="table text-center table-hover m-auto board-list-main" style="width: 90%">
+							<thead>
+			        			<tr>
+			        				<th>#</th>
+			        				<th style="width: 45%">제목</th>
+			        				<th style="width: 15%">부서 </th> 
+			        				<th style="width: 8%">직급</th>
+			        				<th style="width: 12%">기안자</th>
+			        				<th style="width: 15%">상태</th>
+			        			</tr>
+		        			</thead>
+		        			<tbody class="sendList">
+		        			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
+		        				<tr>
+		        					<th>${status.count}</th>
+		        					<td class="title">${ap.title}</td>
+		        					<td class="dep">${ap.depName}</td>
+		        					<td class="rank">${ap.rankName}</td>
+		        					<td class="name">${ap.name}</td>
+		        					<td>
+		        					<c:choose>
+		        						<c:when test="${ap.state == 0 }">기안</c:when>
+		        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+		        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+		        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+		        						<c:otherwise>문의</c:otherwise>
+		        					</c:choose>
+		        					</td>
+		        					<td class="signNum" style="display: none">${ap.signNum}</td>
+		        				</tr>
+		        			</c:forEach>
+		        			</tbody>
+						</table>
+					</c:when>
+					<c:otherwise>
+						<blockquote class="blockquote mt-5 mb-5 text-center text-muted"> 
+					      <p>" ${sessionScope.employee.name}님이 작성한 결재가 없습니다 "</p>
+					    </blockquote>
+					</c:otherwise>
+					</c:choose>
+					
+				</div>
+			</div>
 			
-			<div class="card " style="width: 49%; height: 350px;">
-				<div class="text-start sales ms-3 mt-3">| 일정관리</div> 
-				<div class="col px-2">
+			
+			<div style="width:49%">
+			<div class="card p-4 mb-4">
+				<div class="text-start sales">| 일정관리</div> 
+				<div class="mt-4">
 					<div id="calendar"></div>
 				</div>
 			</div>		
-		</div>
-		
-		<div class="d-flex justify-content-between">
-			<div class="card"  style="width: 49%">
+			<div class="card p-4 mb-4" >
 				<div class="d-flex justify-content-between">
-					<div class="text-start sales ms-3 mt-3">| 커뮤니티</div>
-					<div class="me-4 mt-4"><a href="${pageContext.request.contextPath}/community/main" class="aTag">바로가기 ></a></div>
+					<div class="text-start sales">| 커뮤니티</div>
+					<a href="${pageContext.request.contextPath}/community/main" class="aTag">바로가기 ></a>
 				</div>
 				<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 						<thead>  
@@ -183,52 +227,10 @@
 				</table>
 			</div>
 		
-		<div class="card pb-3" style="width: 49%; height: 350px;">
-			<div class="text-start sales ms-3 mt-3">| 진행중인 결재</div>
-					<c:choose >
-			<c:when test="${not empty myApprovalList}"> 
-				<table class="table text-center table-hover m-auto board-list-main" style="width: 90%">
-					<thead>
-	        			<tr>
-	        				<th>#</th>
-	        				<th style="width: 45%">제목</th>
-	        				<th style="width: 15%">부서 </th> 
-	        				<th style="width: 10%">직급</th>
-	        				<th style="width: 10%">기안자</th>
-	        				<th style="width: 15%">상태</th>
-	        			</tr>
-        			</thead>
-        			<tbody class="sendList">
-        			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
-        				<tr>
-        					<th>${status.count}</th>
-        					<td class="title">${ap.title}</td>
-        					<td class="dep">${ap.depName}</td>
-        					<td class="rank">${ap.rankName}</td>
-        					<td class="name">${ap.name}</td>
-        					<td>
-        					<c:choose>
-        						<c:when test="${ap.state == 0 }">기안</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
-        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
-        						<c:otherwise>문의</c:otherwise>
-        					</c:choose>
-        					</td>
-        					<td class="signNum" style="display: none">${ap.signNum}</td>
-        				</tr>
-        			</c:forEach>
-        			</tbody>
-				</table>
-			</c:when>
-			<c:otherwise>
-				<blockquote class="blockquote mt-5 mb-5 text-center text-muted"> 
-			      <p>" ${sessionScope.employee.name}님이 작성한 결재가 없습니다 "</p>
-			    </blockquote>
-			</c:otherwise>
-			</c:choose>
+		
 			
-		</div>
+		
+		
 	</div> 
 </div>
 
@@ -295,6 +297,7 @@
 		</div>
 	</div>
 </div>
+</div>
 <script type="text/javascript">
 	$(".sendList").children().click(function(){
 		let signNum = this.querySelector(".signNum").textContent;
@@ -305,7 +308,7 @@
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/locales-all.min.js"></script>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.css">
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dateUtil.js"></script>
 <script type="text/javascript">
 function ajaxFun(url, method, query, dataType, fn) {
@@ -337,7 +340,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		headerToolbar: {
-			left: 'prev,next today',
+			left: 'prev,next',
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
 		},

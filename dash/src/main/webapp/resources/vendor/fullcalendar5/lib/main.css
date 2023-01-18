@@ -200,18 +200,18 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
 .fc .fc-button-primary {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #2C3E50;
-    background-color: var(--fc-button-bg-color, #2C3E50);
-    border-color: #2C3E50;
-    border-color: var(--fc-button-border-color, #2C3E50);
+    background-color: #FF9E9E;
+    background-color: var(--fc-button-bg-color, #FF9E9E);
+    border-color: #FF9E9E;
+    border-color: var(--fc-button-border-color, #FF9E9E);
   }
 .fc .fc-button-primary:hover {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #1e2b37;
-    background-color: var(--fc-button-hover-bg-color, #1e2b37);
-    border-color: #1a252f;
-    border-color: var(--fc-button-hover-border-color, #1a252f);
+    background-color: #FF5375;
+    background-color: var(--fc-button-hover-bg-color, #FF5375);
+    border-color: #FF5375;
+    border-color: var(--fc-button-hover-border-color, #FF5375);
   }
 .fc .fc-button-primary:disabled { /* not DRY */
     color: #fff;
@@ -228,10 +228,10 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   .fc .fc-button-primary:not(:disabled).fc-button-active {
     color: #fff;
     color: var(--fc-button-text-color, #fff);
-    background-color: #1a252f;
-    background-color: var(--fc-button-active-bg-color, #1a252f);
-    border-color: #151e27;
-    border-color: var(--fc-button-active-border-color, #151e27);
+    background-color: #FF5375;
+    background-color: var(--fc-button-active-bg-color, #FF5375);
+    border-color: #FF5375;
+    border-color: var(--fc-button-active-border-color, #FF5375);
   }
 .fc .fc-button-primary:not(:disabled):active:focus,
   .fc .fc-button-primary:not(:disabled).fc-button-active:focus {
@@ -427,7 +427,6 @@ When it's NOT activated, the fc-button classes won't even be in the DOM.
   }
 .fc .fc-col-header-cell-cushion {
     display: inline-block; /* x-browser for when sticky (when multi-tier header) */
-    padding: 2px 4px;
   }
 .fc .fc-bg-event,
   .fc .fc-non-business,
