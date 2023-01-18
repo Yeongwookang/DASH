@@ -215,12 +215,12 @@ function update_document(){
 	      		<option value="title">제목</option>
 	      	</select>
         	<input class="form-control" id="keyword">
-        	<button type="button" class="btn btn-main ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
+        	<button type="button" class="btn btn-sub ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
         	</div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-main" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
   </div>
@@ -249,7 +249,7 @@ function update_document(){
 	      		<option value="name">이름</option>
 	      	</select>
 	      	<input type="text" id="keyword" class="form-control ms-2">
-	      	<button type="button" class="btn bg-sub bg-gradient ms-2 empSearchBtn" onclick="search(1);"><i class="fa-solid fa-magnifying-glass"></i></button>
+	      	<button type="button" class="btn btn-sub ms-2 empSearchBtn" onclick="search(1);"><i class="fa-solid fa-magnifying-glass"></i></button>
       	</div>
 		<div class="form-control mt-4">
        		<table class="table table-hover mt-2">
@@ -289,8 +289,8 @@ function update_document(){
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-light" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn bg-sub writeBtn">완료</button>
+        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-main writeBtn">완료</button>
       </div>
     </div>
   </div>

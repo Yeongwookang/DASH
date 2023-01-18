@@ -63,7 +63,7 @@ function punchOff(){
 			<div>
 				<button type="button" class="btn btn-main"  onclick="punchOn();">출근</button>
 				<button type="button" class="btn btn-main" onclick="punchOff();">퇴근</button>
-				<button type="button" class="btn btn-sub">출퇴근현황</button>
+				<button type="button" class="btn btn-sub" data-bs-toggle="modal" data-bs-target="#attendance">출퇴근 현황</button>
 			</div>
 			</div>
 			<div class="d-flex justify-content-between mt-3 mb-2 m-auto" style="width:90%">
@@ -92,9 +92,9 @@ function punchOff(){
 		<div class="card p-4 mb-4">
 		<div class="d-flex justify-content-between align-items-center">
 			<div class="text-start sales">| 연차 현황</div>
-			<button class="btn btn-sub" type="button">기록</button>
+			<button class="btn btn-sub" type="button" data-bs-toggle="modal" data-bs-target="#holidayHistory">기록</button>
 		</div> 
-			<div class="m-auto w-75 mt-3 mb-2">
+			<div class="m-auto mt-3 mb-2" style="width: 90%">
 				<div>
 				<div>연차 (17일 / 20일)</div>
 				<div class="progress">
@@ -546,3 +546,46 @@ $(function(){
 });
 </script>
 
+<!-- 출퇴근 기록 Modal -->
+<div class="modal fade" id="attendance" tabindex="-1" aria-labelledby="attendanceLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">출퇴근 기록</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<div class="alert bg-sub text-center" role="alert">
+      		<div>출퇴근을 한 기록을 볼 수 있습니다.</div>
+        	<div>출퇴근 기록은 <span style="font-weight: bold">출근, 퇴근의 필터와 날짜</span>로 검색할 수 있습니다.</div>
+        </div>
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-main" data-bs-dismiss="modal">닫기</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 연차 기록 Modal -->
+<div class="modal fade" id="holidayHistory" tabindex="-1" aria-labelledby="attendanceLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">연차 기록</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+		<div class="alert bg-sub text-center" role="alert">
+			<div>연차나 특별휴가를 얻고 사용한 기록을 볼 수 있습니다.</div>
+			<div>연차 기록은 <span style="font-weight: bold">획득, 사용의 필터와 날짜</span>로 검색할 수 있습니다.</div>
+		</div>
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-main" data-bs-dismiss="modal">닫기</button>        
+      </div>
+    </div>
+  </div>
+</div>
