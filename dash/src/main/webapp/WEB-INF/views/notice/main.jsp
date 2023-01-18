@@ -94,7 +94,7 @@ function searchList() {
 		</form>
 
 		<div class="mt-4 mb-4 d-flex justify-content-end">
-			<c:if test="${sessionScope.employee.empNo == '8801001' || sessionScope.employee.empNo == '8502002'}"> 
+			<c:if test="${sessionScope.employee.empNo == '7601011' || sessionScope.employee.empNo == '8502002'}"> 
 				<div> 
 					<button class="btn btn-sub" type="button" onclick="location.href='${pageContext.request.contextPath}/notice/write';">작성</button>
 				</div> 

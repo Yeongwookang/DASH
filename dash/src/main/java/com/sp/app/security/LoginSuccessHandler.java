@@ -2,9 +2,6 @@ package com.sp.app.security;
 
 import java.io.IOException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -60,22 +57,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		info.setImageFilename(employee.getImageFilename());
 		
 		session.setAttribute("employee", info);
-		
-		// 패스워드 변경이 90일 이상인 경우 패스워드 변경 창으로 이동
-		try {
-			Date endDate = new Date();
-			long gap;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			Date modifyDate = sdf.parse(employee.getModify_date());
-			gap = (endDate.getTime() - modifyDate.getTime()) / (24*60*60*1000);
-			
-			if(gap >= 90) {
-				String targetUrl = "/employee/updatePwd";
-				redirectStrategy.sendRedirect(request, response, targetUrl);
-				return;
-			}
-		} catch (Exception e) {
-		}
 		
 		// redirect 설정
 		resultRedirectStrategy(request, response, authentication);

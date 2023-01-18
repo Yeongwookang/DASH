@@ -35,7 +35,7 @@
 		.login {
 		    height: 100vh;
 		    width: 100vw;
-		    background-image: url("https://cdn.pixabay.com/photo/2012/04/24/23/07/dog-41039_960_720.png");
+		    background: #FF9E9E;
 		    background-repeat: no-repeat;
 		    background-position: right bottom;
 		} 
@@ -196,11 +196,11 @@ function sendLogin() {
           <form name="loginForm" action="" method="post">       
             <div class="w-75 m-auto mb-4"><img class="m-auto" src="${pageContext.request.contextPath}/resources/images/mainLogo.png" alt="img"/></div>
             <input type="text" name="empNo" placeholder="사원번호"> 
-            <input type="password" name="pwd" placeholder="패스워드"> 
+            <input type="password" name="pwd" placeholder="패스워드">
             <div class="text-center"><button type="button" class="btn text-white mt-4 w-75 m-auto btn-main" onclick="sendLogin();">&nbsp;Login&nbsp;</button></div>
           </form>  
           <div> 
-			<p class="form-control-plaintext text-center text-danger mt-2">${message}</p>
+			<p class="form-control-plaintext text-center text-danger mt-2">${message}${pwd}</p>
           </div>  
         </div>
       </div>

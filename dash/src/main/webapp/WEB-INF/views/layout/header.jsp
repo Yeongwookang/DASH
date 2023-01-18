@@ -17,8 +17,8 @@
 			<a class="icon"><img class="rounded-circle"
 				style="width: 2rem; height: 2rem;"
 				src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
-		</c:if>
-		<span class="dep me-4">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</span>
+		</c:if> 
+		<span class="dep me-4"><a class="aTag" href="${pageContext.request.contextPath}/mypage/main">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</a></span>
 		<a class="icon me-4" title="알림설정"><i class="fa-regular fa-bell"></i></a> <a
 			class="icon"
 			href="${pageContext.request.contextPath}/employee/logout"

@@ -33,7 +33,7 @@
 			<li class="nav-item">
 				<a class="nav-link nav-box"
 					href="${pageContext.request.contextPath}/community/main">
-					<i class="fa-regular fa-address-card"></i><span class="ms-3">
+					<i class="fa-solid fa-bullhorn"></i><span class="ms-3">
 						커뮤니티</span>
 				</a>
 			</li>
@@ -50,7 +50,7 @@
 				<li class="nav-item">
 					<a class="nav-link nav-box"
 						href="${pageContext.request.contextPath}/insa/main">
-						<i class="fa-lg bi bi-person-rolodex"></i><span class="ms-3">인사</span>
+						<i class="fa-solid fa-user-tie"></i><span class="ms-3">인사</span>
 					</a>
 				</li>
 			</c:if>
