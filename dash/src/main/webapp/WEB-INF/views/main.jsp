@@ -231,6 +231,70 @@
 		</div>
 	</div> 
 </div>
+
+<!-- 일정 상세 보기 Modal -->
+<div class="modal fade" id="myDialogModal" tabindex="-1" aria-labelledby="myDialogModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="myDialogModalLabel">일정 상세 보기</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body pt-1">
+				<table class="table">
+					<tr>
+						<td colspan="2" class="text-center align-middle">
+							<p class="form-control-plaintext view-subject"></p>
+						</td>
+					</tr>
+					<tr>
+						<td class="table-light col-2 align-middle">일정분류</td>
+						<td>
+							<p class="form-control-plaintext view-category"></p>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-light col-2 align-middle">날 짜</td>
+						<td>
+							<p class="form-control-plaintext view-period"></p>
+						</td>
+					</tr>
+
+					<tr>
+						<td class="table-light col-2 align-middle">일정반복</td>
+						<td>
+							<p class="form-control-plaintext view-repeat"></p>
+						</td>
+					</tr>
+
+ 					<tr>
+						<td class="table-light col-2 align-middle">등록일</td>
+						<td>
+							<p class="form-control-plaintext view-reg_date"></p>
+						</td>
+					</tr>
+
+ 					<tr>
+						<td class="table-light col-2 align-middle">메모</td>
+						<td>
+							<p class="form-control-plaintext view-memo"></p>
+						</td>
+					</tr>
+				</table>
+				
+				<table class="table table-borderless">
+					<tr>
+						<td class="text-end">
+							<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
+			    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 <script type="text/javascript">
 	$(".sendList").children().click(function(){
 		let signNum = this.querySelector(".signNum").textContent;
@@ -339,4 +403,96 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	calendar.render();
 });
+
+//일정 상세 보기
+function viewSchedule(calEvent) {
+	$("#myDialogModal").modal("show");
+	
+	// console.log(calEvent);
+	
+	var num = calEvent.id;
+	var title = calEvent.title;
+	var color = calEvent.backgroundColor;
+	// var start = calEvent.start;
+	// var end = calEvent.end;
+	var start = calEvent.startStr;
+	var end = calEvent.endStr;
+	var allDay = calEvent.allDay;
+
+	var categoryNum = calEvent.extendedProps.categoryNum;
+	if(! categoryNum) categoryNum = 0;
+	var category = calEvent.extendedProps.category;
+	if(! category) category = "설정하지 않음";
+	
+	var sday = calEvent.extendedProps.sday;
+	var eday = calEvent.extendedProps.eday;
+	var stime = calEvent.extendedProps.stime;
+	var etime = calEvent.extendedProps.etime;
+	
+	var memo = calEvent.extendedProps.memo;
+	if(! memo) memo = "";
+	var reg_date = calEvent.extendedProps.reg_date;
+	var repeat = calEvent.extendedProps.repeat;
+	var repeat_cycle = calEvent.extendedProps.repeat_cycle;
+	
+	$(".btnScheduleUpdate").attr("data-num", num);
+	$(".btnScheduleDelete").attr("data-num", num);
+	
+	var s;
+	$(".view-subject").html(title);
+	
+	s = allDay ? "종일일정" : "시간일정";
+	$(".view-category").html(category + ", " + s);
+	
+	s = sday;
+	if( stime ) {
+		s += " "+stime;
+	}
+	if( eday && allDay ) {
+		eday = daysLater(eday, 0);
+		if(sday < eday) {
+			s += " ~ " + eday;
+		}
+	} else if( eday ) {
+		s += " ~ " + eday;
+	}
+	if( etime ) s += " " + etime;
+	$(".view-period").html(s);
+	
+	$(".view-reg_date").html(reg_date);
+	
+	s = repeat != 0 && repeat_cycle != 0 ? "반복일정, 반복주기 " + repeat_cycle + "년" : "반복안함";
+	$(".view-repeat").html(s);
+	
+	$(".view-memo").html(memo);
+}
+
+$(function(){
+	// 일정 수정 화면
+	$(".btnScheduleUpdate").click(function(){
+		var num = $(this).attr("data-num");
+		location.href="${pageContext.request.contextPath}/schedule/update?num="+num;
+	});
+
+	// 일정 삭제
+	$(".btnScheduleDelete").click(function(){
+		if(! confirm("일정을 삭제 하시겠습니까 ? ")) {
+			return false;
+		}
+		
+		var fn = function(data){
+			var event = calendar.getEventById(num);
+	        event.remove();
+	        
+	        $("#myDialogModal").modal("hide");
+		};
+		
+		var num = $(this).attr("data-num");
+		var query = "num="+num;
+		var url = "${pageContext.request.contextPath}/schedule/delete";
+
+		ajaxFun(url, "post", query, "json", fn);
+	});
+});
 </script>
+
