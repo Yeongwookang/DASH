@@ -7,7 +7,7 @@
 		<div class="row">
 		<div class="col-3 d-flex align-items-center">
 			<a class="navbar-brand" href="${pageContext.request.contextPath}"><img
-			src="${pageContext.request.contextPath}/resources/images/logo_black.png"
+			src="${pageContext.request.contextPath}/resources/images/logo_normal.png"
 			style="width:200px"></a>
 		</div>
 		<div class="col-9  text-start pt-5 pb-4" style="color: #787878;">
