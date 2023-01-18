@@ -128,7 +128,17 @@
 	</delete>
     
   
-    
+    <select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		
+		<where>
+			<if test="col != null">
+				<include refid="where-list"/>
+			</if>
+		</where>
+	</select>
 
 
 </mapper>
