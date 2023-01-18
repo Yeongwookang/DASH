@@ -38,6 +38,14 @@
 				</a>
 			</li>
 			
+			<li class="nav-item">
+				<a class="nav-link nav-box"
+					href="${pageContext.request.contextPath}/schedule/main">
+					<i class="fa-regular fa-address-card"></i><span class="ms-3">
+						일정관리</span>
+				</a>
+			</li>
+			
 			<c:if test="${sessionScope.employee.depNo==1}">
 			<li class= "dropdown nav-item">
 						<a class="nav-link dropdown-toggle nav-box"

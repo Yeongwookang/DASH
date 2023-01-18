@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
 	<div class="m-auto mt-5 mb-5">
 	<div id="carouselExampleIndicators" class="carousel slide border mb-3 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
 	  <div class="carousel-indicators">
@@ -132,8 +132,11 @@
 					</table>
 				</div>
 			
-			<div class="card " style="width: 49%; height: 350px;"> 
-				
+			<div class="card " style="width: 49%; height: 350px;">
+				<div class="text-start sales ms-3 mt-3">| 일정관리</div> 
+				<div class="col px-2">
+					<div id="calendar"></div>
+				</div>
 			</div>		
 		</div>
 		
@@ -234,4 +237,106 @@
 		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
 	});
 
+</script>
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/locales-all.min.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/dateUtil.js"></script>
+<script type="text/javascript">
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status===403) {
+				login();
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
+
+var calendar = null;
+document.addEventListener('DOMContentLoaded', function() {
+	var calendarEl = document.getElementById('calendar');
+
+	calendar = new FullCalendar.Calendar(calendarEl, {
+		headerToolbar: {
+			left: 'prev,next today',
+			center: 'title',
+			right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+		},
+		initialView: 'dayGridMonth', // 처음 화면에 출력할 뷰
+		locale: 'ko',
+		editable: true,
+		navLinks: true,
+		dayMaxEvents: true,
+		events: function(info, successCallback, failureCallback) {
+			var url="${pageContext.request.contextPath}/schedule/month";
+			var startDay=info.startStr.substr(0, 10);
+			var endDay=info.endStr.substr(0, 10);
+            var query="start="+startDay+"&end="+endDay;
+            
+            var a = $(".category-list input:checkbox.category-item").length;
+            var b = $(".category-list input:checkbox.category-item:checked").length;
+            if(b != 0 && a != b) {
+            	$('.category-list input:checkbox.category-item:checked').each(function() {
+            		query += "&categorys=" + $(this).val();
+            	});
+            }
+            
+        	var fn = function(data){
+        		// var events = eval(data.list);
+        		// console.log(data.list);
+        		successCallback(data.list);
+        	};
+        	
+        	ajaxFun(url, "get", query, "json", fn);
+
+		},
+		selectable: true,
+		selectMirror: true,
+		select: function(info) {
+			// 날짜의 셀을 선택하거나 드래그하면 일정 추가 화면으로 이동
+			// console.log(info);
+			insertSchedule(info.startStr, info.endStr, info.allDay);
+			
+			calendar.unselect(); // 현재 선택된 영역을 지움
+		},
+		eventClick: function(info) {
+			// 일정 제목을 선택할 경우
+			
+			//  상세 일정 보기
+			viewSchedule(info.event);
+		},
+		eventDrop: function(info) {
+			// 일정을 드래그 한 경우
+			
+			// 수정하기
+			updateDrag(info.event);
+		},
+		eventResize: function(info) {
+			// 일정의 크기를 변경 한 경우
+			
+			// 수정하기
+			updateDrag(info.event);
+		},
+		loading: function(bool) {
+			// document.getElementById('scheduleLoading').style.display = bool ? 'block' : 'none';
+		}
+	});
+
+	calendar.render();
+});
 </script>
