@@ -16,7 +16,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 300px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/kickboard.jpg"); 
+	background-image: url("${pageContext.request.contextPath}/resources/images/K.png"); 
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
