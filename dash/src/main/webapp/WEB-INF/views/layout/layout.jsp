@@ -53,16 +53,21 @@
 			<tiles:insertAttribute name="header"/>
 		</div>
 		<div class="sticky-top">
-			<tiles:insertAttribute name="sidebar"/>
+			<tiles:insertAttribute name="navbar"/>
 		</div>
-		<div class="scroll m-auto" style="width: 1344px; min-height: 70vh;overflow-y:scroll;">
-			<tiles:insertAttribute name="body"/>
+		<div class="scroll d-flex m-auto" style="width: 1744px; min-height:70vh; overflow-y: scroll;">
+			<div class="me-4" style="width: 200px"></div>
+			<div style="width:1344px;">
+				<tiles:insertAttribute name="body"/>
+			</div>
+			<div class="ms-4 mt-5" style="width: 200px">
+				<tiles:insertAttribute name="rightSidebar"/>
+			</div>
+		</div>		
+		<div>
+				<footer><tiles:insertAttribute name="footer"/></footer>
 		</div>
 </div>
-<div>
-		<footer><tiles:insertAttribute name="footer"/></footer>
-</div>
-	
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
 </body>
