@@ -2,7 +2,28 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<script type="text/javascript">
 
+function punchOn(){
+	if(confirm("${sessionScope.employee.name}님 출근하시겠습니까?")){
+	location.href='${pageContext.request.contextPath}/punching/punchOn';
+	}
+}
+
+function punchOff(){
+	if(confirm("${sessionScope.employee.name}님 퇴근하시겠습니까?"))
+	{ 	
+		let date = new Date("${todayPunch.punchOnTime}");
+		date.setTime(date.getTime()+9*60*60*1000);
+		
+		if((new Date()-date)>=0){
+		location.href='${pageContext.request.contextPath}/punching/punchOff';
+		} else{
+			alert("아직은 퇴근할 수 없습니다.");
+		}
+	}
+}
+</script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
 	<div class="m-auto mt-5 mb-5">
 	<div id="carouselExampleIndicators" class="carousel slide border mb-4 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
@@ -34,61 +55,54 @@
 		<div class="d-flex justify-content-between mb-3">
 		<div style="width: 49%">
 		<div class="card p-4 mb-4">
+			<div class="d-flex justify-content-between align-items-center">
 			<div class="d-flex align-items-end" >
 				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
 				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
 			</div>
+			<div>
+				<button type="button" class="btn btn-main"  onclick="punchOn();">출근</button>
+				<button type="button" class="btn btn-main" onclick="punchOff();">퇴근</button>
+				<button type="button" class="btn btn-sub">출퇴근현황</button>
+			</div>
+			</div>
 			<div class="d-flex justify-content-between mt-3 mb-2 m-auto" style="width:90%">
-				<div class="border-end" style="width:47%">
-					<div class="d-flex align-items-center">
-						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
-						<div>
-						<select class="form-select ms-3">
-							<option>출근</option>
-							<option>퇴근</option>
-						</select>
-						</div>
+				<div class="border-end d-flex flex-column justify-content-center" style="width:47%">
+					<div class="d-flex">
+						<div style="font-weight: bold; color:#495057;">주간근무시간</div>
+						<div style="color:#868e96">&nbsp;${attendance.weekAttend} 시간 / ${attendance.weekMax}시간</div>
 					</div>
 					<div class="d-flex mt-3">
-						<div><span style="font-weight: bold; color:#495057;">근무시간</span></div>
-						<div><span style="color:#868e96">&nbsp;시간 / 시간</span></div>
-					</div>
-					<div class="d-flex mt-3">
-						<div><span style="font-weight: bold;  color:#495057;">잔여근무가능시간</span></div>
-						<div><span style="color:#868e96">&nbsp;시간</span></div>
+						<div style="font-weight: bold;  color:#495057;">잔여근무시간</div>
+						<div class="todayRemain"style="color:#868e96"></div>
 					</div>
 				</div>
-				<div class="w-50"> 
-					<div>
-						<button type="button" class="btn btn-main" style="border: none;" onclick="location.href='${pageContext.request.contextPath}/punching/punchOn'">출근</button>
-						<button type="button" class="btn btn-main" style="border: none;" onclick="location.href='${pageContext.request.contextPath}/punching/punchOff'">퇴근</button>
-						<button type="button" class="btn btn-sub">출퇴근현황</button>
-					</div>
+				<div class="w-50 d-flex flex-column justify-content-center"> 	
 					<div class="d-flex">
-						<div class="mt-3" style="font-weight: bold; color:#495057;">오늘 출근 시각 </div>
-						<div id="clockOnTime">${punching.clockOnTime}</div>
+						<div class="me-2" style="font-weight: bold; color:#495057;">오늘 출근 시각 </div>
+						<div id="clockOnTime">${todayPunch.punchOnTime}</div>
 					</div>
-					<div class="d-flex">
-						<div class="mt-3" style="font-weight: bold; color:#495057;">오늘 퇴근 시각 </div>
-						<div id="clockOffTime">${punching.clockOffTime}</div>
+					<div class="d-flex mt-3">
+						<div class="me-2" style="font-weight: bold; color:#495057;">오늘 퇴근 시각 </div>
+						<div id="clockOffTime">${todayPunch.punchOffTime}</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="card p-4 mb-4">
-		<div class="d-flex justify-content-between">
-			<div class="text-start sales">| 연차 현황 (전체 / 사용 / 잔여)</div>
-			<button class="btn btn-main" type="button">사용 기록</button>
+		<div class="d-flex justify-content-between align-items-center">
+			<div class="text-start sales">| 연차 현황</div>
+			<button class="btn btn-sub" type="button">기록</button>
 		</div> 
 			<div class="m-auto w-75 mt-3 mb-2">
 				<div>
-				<div>연차(20일 / 3일 / 17일)</div>
+				<div>연차 (17일 / 20일)</div>
 				<div class="progress">
 				  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				</div>
 				<div class="mt-3">
-					<div>특별휴가(0일/ 0일 / 0일)</div>
+					<div>특별휴가 (0일 / 0일)</div>
 					<div class="progress">
 					  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
@@ -325,6 +339,17 @@
 		let signNum = this.querySelector(".signNum").textContent;
 		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
 	});
+	
+	$(function(){
+		let date = new Date("${todayPunch.punchOnTime}");
+		date.setTime(date.getTime()+9*60*60*1000);
+		let hour = Math.floor((date - new Date())/1000/60/60);
+		let min = Math.floor(((date - new Date())-hour*60*60*1000)/1000/60);
+		let out = "&nbsp;"+hour+"&nbsp;시간&nbsp;"+min+"&nbsp;분";
+		
+		$(".todayRemain").append(out);
+	});
+
 
 </script>
 

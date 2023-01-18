@@ -34,7 +34,9 @@ public class PunchingServiceImpl implements PunchingService {
 	@Override
 	public void punchOn(Punching pun) throws Exception{
 		try {
-			dao.insertData("punching.clockOn");
+			dao.deleteData("punching.deleteClockOn", pun);
+			dao.deleteData("punching.deleteClockOff", pun);
+			dao.insertData("punching.insertClockOn", pun);
 			
 		} catch (Exception e) {
 			throw e;
@@ -45,7 +47,8 @@ public class PunchingServiceImpl implements PunchingService {
 	@Override
 	public void punchOff(Punching pun) throws Exception {
 		try {
-			dao.insertData("punching.clockOff");
+			dao.deleteData("punching.deleteClockOff", pun);
+			dao.insertData("punching.insertClockOff", pun);
 			
 		} catch (Exception e) {
 			throw e;
@@ -55,15 +58,23 @@ public class PunchingServiceImpl implements PunchingService {
 	}
 
 	@Override
-	public Punching todayPunch(Map<String,Object>map) {
-		Punching punching =new Punching();
+	public Punching todayPunch(Map<String,Object> map) {
+		Punching punching = null;
 		try {
-			Punching pun = dao.selectOne("punching.clockOffTime", map);
+			punching = new Punching();
+			 if(dao.selectOne("punching.clockOffTime", map) == null) {
+				 punching.setPunchOffTime("-");
+			} else{
+				Punching pun = dao.selectOne("punching.clockOffTime", map);
+				punching.setPunchOffTime(pun.getPunchOffTime());
+			};
 			
-			punching.setPunchOffTime(pun.getPunchOffTime());
-			
-			Punching pun2 = dao.selectOne("punching.clockOnTime", map);
-			punching.setPunchOnTime(pun2.getPunchOnTime());
+			 if(dao.selectOne("punching.clockOnTime", map) == null) {
+				 punching.setPunchOnTime("-");
+			} else{
+				Punching pun = dao.selectOne("punching.clockOnTime", map);
+				punching.setPunchOnTime(pun.getPunchOnTime());
+			};
 			
 		} catch (Exception e) {
 			logger.warn("{} 가 발생했습니다.", e.getMessage());

@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -48,7 +49,7 @@ public class HomeController {
    private PunchingService punService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
-   public String home(Locale locale, HttpSession session, Model model) throws Exception {
+   public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
       Calendar cal = Calendar.getInstance();
       
       int year = cal.get(Calendar.YEAR);
@@ -92,6 +93,7 @@ public class HomeController {
       
       List<Analysis> usageRankList = service.usageRankList();
       
+      HttpSession session = req.getSession();
       SessionInfo info = (SessionInfo)session.getAttribute("employee");
       
       if(info == null) {

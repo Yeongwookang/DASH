@@ -8,11 +8,9 @@
 		WHERE p.empNo = #{empNo} 
 		AND punch_kind = '출근'
 		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
-		ORDER BY clock_time DESC
-		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
-	<insert id="clockOn" parameterType="com.sp.app.punching.Punching">
+	<insert id="insertClockOn" parameterType="com.sp.app.punching.Punching">
 		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
 		(punch_clock_seq.NEXTVAL, #{empNo},'출근')
 	</insert>
@@ -23,13 +21,23 @@
 		WHERE p.empNo = #{empNo} 
 		AND punch_kind = '퇴근'
 		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
-		ORDER BY clock_time DESC
-		FETCH FIRST 1 ROWS ONLY
 	</select>
 	
-	<insert id="clockOff" parameterType="com.sp.app.punching.Punching">
+	<insert id="insertClockOff" parameterType="com.sp.app.punching.Punching">
 		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
 		(punch_clock_seq.NEXTVAL, #{empNo},'퇴근')
 	</insert>
+	<delete id="deleteClockOn" parameterType="com.sp.app.punching.Punching">
+		DELETE FROM punch_clock 
+		WHERE empNo =  #{empNo} 
+		AND punch_kind = '출근'
+		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')   
+	</delete>
+	<delete id="deleteClockOff" parameterType="com.sp.app.punching.Punching">
+		DELETE FROM punch_clock 
+		WHERE empNo =  #{empNo} 
+		AND punch_kind = '퇴근'
+		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD') 
+	</delete>
 	
 </mapper>
