@@ -49,25 +49,37 @@
 </head>
 <body>
 <div class="flex-container" style="background:#fff;">
-		<div style="background: #ffffff">
+		<div>
 			<tiles:insertAttribute name="header"/>
 		</div>
 		<div class="sticky-top">
 			<tiles:insertAttribute name="navbar"/>
 		</div>
-		<div class="scroll d-flex m-auto" style="width: 1744px; min-height:70vh; overflow-y: scroll;">
-			<div class="me-4" style="width: 200px"></div>
-			<div style="width:1344px;">
+		<div class="scroll d-flex m-auto" style="width: 1744px; min-height:80vh; overflow-y: scroll; ">
+				<div style="width: 200px;"></div>
+				<div style="width: 1344px;">
 				<tiles:insertAttribute name="body"/>
-			</div>
-			<div class="ms-4 mt-5" style="width: 200px">
-				<tiles:insertAttribute name="rightSidebar"/>
-			</div>
-		</div>		
+				</div>
+				<div style="width: 200px; position: relative;">
+					<tiles:insertAttribute name="rightSidebar"/>
+				</div>
+		</div>
+
+			
+			
 		<div>
 				<footer><tiles:insertAttribute name="footer"/></footer>
 		</div>
 </div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			  var currentPosition = parseInt($("#sidebar").css("top"));
+			  $(window).scroll(function() {
+			    var position = $(window).scrollTop(); 
+			    $("#sidebar").stop().animate({"top":position+currentPosition+"px"},1000);
+			  });
+			});
+	</script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>
 	
 </body>
