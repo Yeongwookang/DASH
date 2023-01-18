@@ -7,7 +7,7 @@
 
 </style>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.css">
 <div class="m-auto card mt-5 mb-5 p-4">
 	<div class="text-start fs-3 ps-4 mt-4">
 		<span>| 일정관리</span>
@@ -187,7 +187,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	calendar = new FullCalendar.Calendar(calendarEl, {
 		headerToolbar: {
-			left: 'prev,next today',
+			left: 'prev,next',
 			center: 'title',
 			right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
 		},
