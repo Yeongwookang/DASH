@@ -91,7 +91,9 @@ form .img-viewer {
 
 				</tbody>
 			</c:forEach>
+			
 		</table>
+			<div>${paging}</div>
 
 
 	</div>

@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.sp.app.common.MyUtil;
+
 
 
 
@@ -31,6 +33,9 @@ public class InsaController {
 
 	@Autowired
 	private InsaService service;
+	
+	@Autowired
+	private MyUtil myUtil;
 	
 	@RequestMapping(value = "main")
 	public String mainForm(String empNo, 
@@ -171,6 +176,7 @@ public class InsaController {
 	public String list(String empNo, 
 			@RequestParam(defaultValue= "all")String col,
 			@RequestParam(defaultValue="")String kwd,
+			@RequestParam(value = "page", defaultValue = "1") int current_page,
 			HttpServletRequest req, 
 			Model model) throws Exception {
 		
@@ -182,7 +188,35 @@ public class InsaController {
 		map.put("col", col);
 		map.put("kwd", kwd);
 		
+		
+		int size = 5;
+		
+		int total_page;
+		int dataCount = service.dataCount(map);
+		
+		total_page = myUtil.pageCount(dataCount, size);
+		
+		if(current_page > total_page) {
+			current_page = total_page;
+		}
+		
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
+		
+		String cp = req.getContextPath();
+		
+		String list_url = cp+"/insa/list";
+		String paging = myUtil.paging(current_page, total_page, list_url);
+		
+		map.put("offset", offset);
+		map.put("size", size);
+		
 		List<Insa> list = service.list(map);
+		
 		
 		if(empNo != null) {
 			Insa emp = service.readInsa(empNo);
@@ -190,6 +224,11 @@ public class InsaController {
 		}else {
 			model.addAttribute("col", col);
 			model.addAttribute("kwd", kwd);
+			model.addAttribute("page", current_page);
+			model.addAttribute("dataCount", dataCount);
+			model.addAttribute("size", size);
+			model.addAttribute("total_page", total_page);
+			model.addAttribute("paging", paging);
 			
 		}
 		model.addAttribute("list", list);
