@@ -10,19 +10,19 @@
 	<div class="ps-3 pe-5">
 		<c:if test="${sessionScope.employee.imageFilename != null}">
 			<a class="icon"><img class="rounded-circle"
-				style="width: 2rem; height: 2rem;"
+				style="width: 2.5rem; height: 2.5rem;"
 				src="${pageContext.request.contextPath}/uploads/photo/${sessionScope.employee.imageFilename}"></a>
 		</c:if>
 		<c:if test="${sessionScope.employee.imageFilename == null}">
 			<a class="icon"><img class="rounded-circle"
-				style="width: 2rem; height: 2rem;"
+				style="width: 2.5rem; height: 2.5rem;"
 				src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
 		</c:if> 
-		<span class="dep me-4"><a class="aTag" href="${pageContext.request.contextPath}/mypage/main">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</a></span>
-		<a class="icon me-4" title="알림설정"><i class="fa-regular fa-bell"></i></a> <a
+		<span class="dep me-4"><a class="aTag depSize" href="${pageContext.request.contextPath}/mypage/main">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</a></span>
+		<a class="icon me-4" title="알림설정"><i class="fa-regular fa-bell fa-lg"></i></a> <a
 			class="icon"
 			href="${pageContext.request.contextPath}/employee/logout"
-			title="로그아웃"><i class="fa-solid fa-arrow-right-from-bracket"></i></a>
+			title="로그아웃"><i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i></a>
 	</div>
 </div>
 
