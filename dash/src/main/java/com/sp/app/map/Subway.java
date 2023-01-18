@@ -7,13 +7,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection = "subway")
 public class Subway {
 	@Id
+	private String _id;
 	private String name;
 	private String lat;
 	private String lon;
 	private String addr;
 	private String district;
 	private String line;
-	
+	public String get_id() {
+		return _id;
+	}
+	public void set_id(String _id) {
+		this._id = _id;
+	}
 	public String getName() {
 		return name;
 	}
