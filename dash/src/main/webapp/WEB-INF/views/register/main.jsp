@@ -13,7 +13,7 @@
 	border: 1px solid #ccc;
 	width: 359px;
 	height: 335px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/insertimage.png");
+	background-image: url("${pageContext.request.contextPath}/resources/images/station.jpg");
 	position: relative;
 	z-index: 9999;
 	background-repeat : no-repeat;
