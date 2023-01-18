@@ -60,7 +60,7 @@ public class ScheduleController {
 	@RequestMapping(value = "write", method = RequestMethod.POST)
 	public String writeSubmit(Schedule dto,
 			HttpSession session) throws Exception {
-		SessionInfo info=(SessionInfo)session.getAttribute("empNo");
+		SessionInfo info=(SessionInfo)session.getAttribute("employee");
 		
 		try {
 			if(dto.getCategoryNum() == 0) {
