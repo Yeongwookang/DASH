@@ -36,6 +36,10 @@
 	text-decoration: none;
 	margin-left: 5px; 
 }
+
+.depSize {
+	font-size: 16px; 
+}
 	
 .icon:hover {
 	color: #FF5375;
