@@ -11,6 +11,8 @@ public class Subway {
 	private String lat;
 	private String lon;
 	private String addr;
+	private String district;
+	private String line;
 	
 	public String getName() {
 		return name;
@@ -35,6 +37,18 @@ public class Subway {
 	}
 	public void setAddr(String addr) {
 		this.addr = addr;
+	}
+	public String getDistrict() {
+		return district;
+	}
+	public void setDistrict(String district) {
+		this.district = district;
+	}
+	public String getLine() {
+		return line;
+	}
+	public void setLine(String line) {
+		this.line = line;
 	}
 	
 }
