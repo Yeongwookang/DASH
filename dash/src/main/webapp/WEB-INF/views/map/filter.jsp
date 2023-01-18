@@ -133,8 +133,8 @@ $(function(){
 	   		};
 		
 		geo_json_100_add (jsO_100);
-		geo_json_300_add (jsO_300);
-		geo_json_500_add (jsO_500);
+		//geo_json_300_add (jsO_300);
+		//geo_json_500_add (jsO_500);
 	}
 
 	ajaxFun(url,"get",null,"json",fn);

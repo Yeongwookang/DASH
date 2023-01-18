@@ -48,14 +48,14 @@
 	</style>
 </head>
 <body>
-<div class="flex-container" style="background:#F5F5F5;">
+<div class="flex-container" style="background:#fff;">
 		<div style="background: #ffffff">
 			<tiles:insertAttribute name="header"/>
 		</div>
 		<div class="sticky-top">
 			<tiles:insertAttribute name="sidebar"/>
 		</div>
-		<div class="scroll m-auto" style="width: 1344px; min-height: 90vh; overflow-y:scroll;">
+		<div class="scroll m-auto" style="width: 1344px; min-height: 70vh;overflow-y:scroll;">
 			<tiles:insertAttribute name="body"/>
 		</div>
 </div>
