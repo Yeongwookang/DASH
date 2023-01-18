@@ -92,56 +92,10 @@ var arr_500=[];
 var jsO_100;
 var jsO_300;
 var jsO_500;
+var subway = [];
+var station = [];
 
-$(function(){
-	let url = "${pageContext.request.contextPath}/map/meter";
-	const fn =function (data) {
-		for(item of data.list_100){
-			let obj; 
-			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-			arr_100.push(obj); 
-			
-		};
-		
-		jsO_100 = {
-	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-	   				"features": arr_100
-	   			};
-		
-		for(item of data.list_300){
-			let obj; 
-			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-			arr_300.push(obj); 
-			
-		};
-		
-		jsO_300 = {
-	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-	   				"features": arr_300
-	   			};
-		
-		for(item of data.list_500){
-			let obj; 
-			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-			arr_500.push(obj); 
-			
-		};
-		
-		jsO_500 = {
-	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-	   				"features": arr_500
-	   		};
-		
-		geo_json_100_add (jsO_100);
-		//geo_json_300_add (jsO_300);
-		//geo_json_500_add (jsO_500);
-	}
 
-	ajaxFun(url,"get",null,"json",fn);
-	
-	
-	
-});
 
 
 
@@ -158,15 +112,24 @@ var map_1 = L.map(
 );
 
 
+
+
 	
-var tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7 = L.tileLayer(
+var tile_layer_vworld = L.tileLayer(
     "http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png",{
                 attribution: 'DASH &copy; VWORLD(국토부)',
             	subdomains: 'abcd',
             	maxZoom: 19}
 ).addTo(map_1);
 
+var baseMaps={"국토부맵": tile_layer_vworld};
+var overlayMaps = {};
 
+layer_control = L.control.layers(
+		baseMaps, 
+		overlayMaps,
+		{"autoZIndex": true, "collapsed": true, "position": "topright"}
+		).addTo(map_1);
 
 function geo_json_100_onEachFeature(feature, layer) {
 layer.on({
@@ -179,8 +142,8 @@ var geo_json_100 = L.geoJson(null, {
 
 function geo_json_100_add (data) {
 geo_json_100
-    .addData(data)
-    .addTo(map_1);
+    .addData(data);
+layer_control.addOverlay(geo_json_100,"100m");
 }
 
 
@@ -196,9 +159,8 @@ var geo_json_300 = L.geoJson(null, {
 });
 
 function geo_json_300_add (data) {
-geo_json_300
-    .addData(data)
-    .addTo(map_1);
+geo_json_300.addData(data);
+layer_control.addOverlay(geo_json_300,"300m");
 }
 
 
@@ -214,8 +176,8 @@ var geo_json_500 = L.geoJson(null, {
 
 function geo_json_500_add (data) {
 geo_json_500
-    .addData(data)
-    .addTo(map_1);
+    .addData(data);
+layer_control.addOverlay(geo_json_500,"500m");
 }
 
 
@@ -251,7 +213,7 @@ L.Control.Filter = L.Control.extend({
 	}
 
 	L.control.Filter({
-		"autoZIndex": true, "collapsed": true,position: 'topleft'
+		"autoZIndex": true, "collapsed": true, position: 'topleft'
 	}).addTo(map_1);
 
 L.Control.Home= L.Control.extend({
@@ -274,21 +236,82 @@ L.Control.Home= L.Control.extend({
 		"autoZIndex": true, "collapsed": true,position: 'bottomright'
 	}).addTo(map_1);
 
-var layer_control = {
-	    base_layers : {
-	        "openstreetmap" : tile_layer_e7d08d3bddd0875bfc28142ded8cd1f7,
-	    },
-	    overlays :  {
-	        "100m" : geo_json_100, "300m" : geo_json_300, "500m" : geo_json_500,
-	    },
-	};
-	L.control.layers(
-	    layer_control.base_layers,
-	    layer_control.overlays,
-	    {"autoZIndex": true, "collapsed": true, "position": "topright"}
-	).addTo(map_1);
+	
+	
+	$(function(){
+		let url = "";
+		
+		url = "${pageContext.request.contextPath}/map/subway";
+		
 
+		const fn2 = function(data){
 
+			for(item of data.list){
+				let obj;
+				obj = {"역사_ID": item["id"], "역사명": item["name"], "위도": item["lat"], "경도": item["lon"], "주소": item["addr"], "구": item["district"]}
+				subway.push(obj);
+				station.push(L.marker([item["lat"], item["lon"]]).bindPopup("<div style='font-family:Pretendard-Regular;'><div style='font-weight:bold;'>"+item["name"]+"역 </div><div> 주소: "+item["addr"]+"</div>"));
+			}
+			let stations = L.layerGroup(station);
+			layer_control.addOverlay(stations,"역");
+			stations.addTo(map_1);
+		}
+		
+		ajaxFun(url,"get",null,"json",fn2);
+		
+		url= "${pageContext.request.contextPath}/map/meter";
+		
+		const fn =function (data) {
+			for(item of data.list_100){
+				let obj; 
+				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+				arr_100.push(obj); 
+				
+			};
+			
+			jsO_100 = {
+		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+		   				"features": arr_100
+		   			};
+			
+			for(item of data.list_300){
+				let obj; 
+				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+				arr_300.push(obj); 
+				
+			};
+			
+			jsO_300 = {
+		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+		   				"features": arr_300
+		   			};
+			
+			for(item of data.list_500){
+				let obj; 
+				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+				arr_500.push(obj); 
+				
+			};
+			
+			jsO_500 = {
+		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+		   				"features": arr_500
+		   		};
+			
+			geo_json_100_add (jsO_100);
+			//geo_json_300_add (jsO_300);
+			//geo_json_500_add (jsO_500);
+		}
+
+		ajaxFun(url,"get",null,"json",fn);
+		
+		
+		
+	});
+	
+	
+
+	
 
 </script>
 <script type="text/javascript">

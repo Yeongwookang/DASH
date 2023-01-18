@@ -3,6 +3,8 @@ package com.sp.app.community;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("community.communityService")
 public class CommunityServiceImpl implements CommunityService {
-	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 
@@ -19,7 +21,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dao.insertData("community.insertCommunity", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -31,7 +33,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			result = dao.selectOne("community.dataCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return result;
 	}
@@ -43,7 +45,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			list = dao.selectList("community.listCommunity", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -56,7 +58,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dto = dao.selectOne("community.readCommunity", num);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -66,7 +68,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dao.insertData("community.insertCommunityLike", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -79,7 +81,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			countMap = dao.selectOne("community.communityLikeCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return countMap;
 	}
@@ -89,7 +91,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dao.insertData("community.insertReply", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -102,7 +104,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			listReply = dao.selectList("community.listReply", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listReply;
 	}
@@ -114,7 +116,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			result = dao.selectOne("community.replyCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return result;
 	}
@@ -124,7 +126,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dao.deleteData("community.deleteReply", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 	}
 
@@ -135,7 +137,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			listReplyAnswer = dao.selectList("community.listReplyAnswer", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listReplyAnswer;
 	}
@@ -147,7 +149,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			result = dao.selectOne("community.replyAnswerCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return result;
 	}
@@ -159,7 +161,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			listReplyTop = dao.selectList("community.listReplyTop", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listReplyTop;
 	}
@@ -169,7 +171,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			dao.selectList("community.updateCommunity", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 	}
@@ -181,7 +183,7 @@ public class CommunityServiceImpl implements CommunityService {
 		try {
 			listCommunityMain = dao.selectList("community.listCommunityMain");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listCommunityMain;
 	}

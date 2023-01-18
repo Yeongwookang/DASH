@@ -2,6 +2,8 @@ package com.sp.app.employee;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("employee.employeeService") 
 public class EmployeeServiceImpl implements EmployeeService {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -23,7 +26,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dto = dao.selectOne("employee.loginEmployee", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return dto;
@@ -39,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			dto.setAuthority("ROLE_USER");
 			dao.insertData("employee.insertAuthority", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}	
@@ -50,7 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.updateData("employee.updateLastLogin", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -62,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.updateData("employee.updateMember", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -91,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return dto;
@@ -102,7 +105,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.deleteData("employee.deleteMember", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -114,7 +117,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dto = dao.selectOne("employee.readMain", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return dto;
@@ -150,7 +153,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 			dao.updateData("employee.updateEmployee1", dto);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -163,7 +166,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			count = dao.selectOne("employee.checkFailureCount", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return count;
 	}
@@ -173,7 +176,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.updateData("employee.updateFailureCount", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -184,7 +187,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.updateData("employee.updateFailureCountReset", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -195,7 +198,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.updateData("employee.updateEmployeeEnabled", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -206,7 +209,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		try {
 			dao.insertData("employee.insertEmployeeState", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}

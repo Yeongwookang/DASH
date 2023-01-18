@@ -3,6 +3,8 @@ package com.sp.app.analysis;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.sp.app.stationmanage.Stationmanage;
 
 @Service("analysis.analysisService")
 public class AnalysisServiceImpl implements AnalysisService { 
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 
@@ -21,7 +24,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			result = dao.selectOne("analysis.totalSales");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -34,7 +37,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			result = dao.selectOne("analysis.newCustomerCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -47,7 +50,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			result = dao.selectOne("analysis.repairCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -60,7 +63,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			result = dao.selectOne("analysis.rentalCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -73,7 +76,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			result = dao.selectOne("analysis.damageCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -86,7 +89,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.usageRankList");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -99,7 +102,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.salesRankList");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -112,7 +115,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			dto = dao.selectOne("analysis.lastDayUsageCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.debug("{} - 값 : {}", e.getMessage(), dto.getUsageCount());
 		}
 		
 		return dto;
@@ -125,7 +128,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.yearTotalMoney", year);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -138,7 +141,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.monthTotalMoney", month);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -151,7 +154,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.dayTotalMoney");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return list;
@@ -164,7 +167,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			lastDay = dao.selectOne("analysis.lastDay");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return lastDay;
 	}
@@ -176,7 +179,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.userAge");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -188,7 +191,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.userGender");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -200,7 +203,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			dto = dao.selectOne("analysis.userUseTime");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -212,7 +215,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.station");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -224,7 +227,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.stationAge", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -236,7 +239,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.stationGender", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -248,7 +251,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			dto = dao.selectOne("analysis.stationUseTime", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -260,7 +263,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.stationYearTotalMoney", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -272,7 +275,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.stationMonthTotalMoney", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -284,7 +287,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.stationDayTotalMoney", stNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list; 
 	}
@@ -296,7 +299,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.rankTopCount");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}  
@@ -308,7 +311,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.rankTopPrice");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}  
@@ -320,7 +323,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.rankTopDistance");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -332,7 +335,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.rankTopUseTime");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -344,7 +347,7 @@ public class AnalysisServiceImpl implements AnalysisService {
 		try {
 			list = dao.selectList("analysis.userAgeTime");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}

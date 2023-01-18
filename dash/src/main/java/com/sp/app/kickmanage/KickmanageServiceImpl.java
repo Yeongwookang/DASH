@@ -3,6 +3,8 @@ package com.sp.app.kickmanage;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +13,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("kickboard.kickManage")
 public class KickmanageServiceImpl implements KickmanageService {
-
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -23,7 +25,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			list = dao.selectList("kickboardmanage.listKickboard", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		
@@ -43,7 +45,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.selectList("kickboardmanage.damagedkickboard");
 		} catch (Exception e) {
-		  e.printStackTrace();
+		  logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -57,7 +59,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.selectList("kickboardmanage.repairedkickboard");
 		} catch (Exception e) {
-		  e.printStackTrace();
+		  logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -71,7 +73,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.selectList("kickboardmanage.repaircomkickboard");
 		} catch (Exception e) {
-		  e.printStackTrace();
+		  logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -87,7 +89,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.updateData("kickboardmanage.updatedamage", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -104,7 +106,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.insertData("kickboardmanage.updatedamagerepair", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -121,7 +123,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.updateData("kickboardmanage.repairwait", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -138,7 +140,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.insertData("kickboardmanage.insertrepairwait", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -155,7 +157,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.updateData("kickboardmanage.updateRepairing", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -172,7 +174,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.updateData("kickboardmanage.updatekickCom", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -189,7 +191,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.updateData("kickboardmanage.updateRepairCom", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -206,7 +208,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			dao.deleteData("kickboardmanage.deletedamage");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -225,7 +227,7 @@ public class KickmanageServiceImpl implements KickmanageService {
 		try {
 			result = dao.selectOne("kickboardmanage.dataCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 
 		return result;

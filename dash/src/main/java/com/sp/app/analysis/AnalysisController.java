@@ -17,7 +17,6 @@ import com.sp.app.stationmanage.Stationmanage;
 @Controller("analysis.AnalysisController")
 @RequestMapping("/analysis/*")
 public class AnalysisController {
-	
 	@Autowired
 	private AnalysisService service;
 	

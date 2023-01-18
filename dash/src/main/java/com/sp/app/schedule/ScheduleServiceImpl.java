@@ -3,6 +3,8 @@ package com.sp.app.schedule;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("schedule.scheduleService")
 public class ScheduleServiceImpl implements ScheduleService {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -32,6 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			
 			dao.insertData("schedule.insertSchedule", dto);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -42,6 +46,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			list=dao.selectList("schedule.listMonth", map);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		return list;
@@ -53,6 +58,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			dto=dao.selectOne("schedule.readSchedule", num);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		return dto;
@@ -76,6 +82,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 			}
 			dao.updateData("schedule.updateSchedule", dto);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 
@@ -86,6 +93,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			dao.deleteData("schedule.deleteSchedule", map);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -95,6 +103,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			dao.insertData("schedule.insertCategory", map);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -105,6 +114,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			list = dao.selectList("schedule.listCategory", map);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		return list;
@@ -115,6 +125,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 		try {
 			dao.deleteData("schedule.deleteCategory", map);
 		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}

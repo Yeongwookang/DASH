@@ -3,6 +3,8 @@ package com.sp.app.insa;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,7 @@ import com.sp.app.employee.EmployeeService;
 
 @Service("insa.insaService")
 public class InsaServiceImpl implements InsaService {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 
@@ -60,7 +63,7 @@ public class InsaServiceImpl implements InsaService {
 			dao.insertData("insa.insertAuthority", dto);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -71,7 +74,7 @@ public class InsaServiceImpl implements InsaService {
 			try {
 				dao.updateData("insa.updateEmployeeEnabled", map);
 			} catch (Exception e) {
-				e.printStackTrace();
+				logger.warn("{} ", e.getMessage());
 				throw e;
 			}
 		
@@ -110,7 +113,7 @@ public class InsaServiceImpl implements InsaService {
 			dao.updateData("insa.updateInsa2", dto);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -125,7 +128,7 @@ public class InsaServiceImpl implements InsaService {
 			dao.deleteData("insa.deleteInsa2", map);
 			dao.deleteData("insa.deleteInsa1", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	
@@ -138,7 +141,7 @@ public class InsaServiceImpl implements InsaService {
 		try {
 			result = dao.selectOne("insa.dataCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 
 		return result;
@@ -151,7 +154,7 @@ public class InsaServiceImpl implements InsaService {
 		try {
 			list = dao.selectList("insa.listInsa", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -180,7 +183,7 @@ public class InsaServiceImpl implements InsaService {
 					}
 				}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return dto;
@@ -194,7 +197,7 @@ public class InsaServiceImpl implements InsaService {
 		try {
 			listFile = dao.selectList("insa.listFile", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listFile;
 	}

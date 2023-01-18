@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +16,7 @@ import com.sp.app.employee.Employee;
 
 @Service("approval.approvalService")
 public class ApprovalServiceImpl implements ApprovalService {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -46,7 +49,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -80,7 +83,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 			
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -97,7 +100,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 			}
 			dao.deleteData("approval.deleteApproval", signNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -110,7 +113,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			dto = dao.selectOne("approval.readApproval", signNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return dto;
@@ -123,7 +126,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			result = dao.selectOne("approval.dataCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -136,7 +139,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			list = dao.selectList("approval.approvalList", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -149,7 +152,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			empList = dao.selectList("approval.empList", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return empList;
 	}
@@ -161,7 +164,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			list = dao.selectList("approval.myApprovalList", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -175,7 +178,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 			refList.add(app.getRef2());
 			refList.add(app.getRef3());
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return refList;
 	}
@@ -186,7 +189,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			dto = dao.selectOne("approval.readEmp", empNo);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -196,7 +199,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			dao.updateData("approval.approve", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -207,7 +210,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			dao.updateData("approval.approveUpdate", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -219,7 +222,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			list = dao.selectList("approval.fileList",signNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -230,7 +233,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			dto = dao.selectOne("approval.readFile", fileNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -244,7 +247,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 
 			dao.deleteData("approval.deleteFile", fileNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -257,7 +260,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 		try {
 			result = dao.selectOne("approval.myApprovalCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;

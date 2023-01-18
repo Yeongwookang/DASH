@@ -8,6 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +25,13 @@ import com.sp.app.community.CommunityService;
 import com.sp.app.employee.SessionInfo;
 import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
+import com.sp.app.punching.Punching;
+import com.sp.app.punching.PunchingService;
 
 @Controller
 public class HomeController {
-   
+   private Logger logger = LoggerFactory.getLogger(this.getClass());
+	
    @Autowired
    private AnalysisService service;
    
@@ -38,6 +43,9 @@ public class HomeController {
    
    @Autowired
    private CommunityService coService;
+   
+   @Autowired
+   private PunchingService punService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpSession session, Model model) throws Exception {
@@ -91,6 +99,9 @@ public class HomeController {
       }    
       Map<String, Object> map = new HashMap<String, Object>();
       map.put("empNo",info.getEmpNo());
+      
+      Punching punching = punService.todayPunch(map);
+      
       map.put("offset",0);
       map.put("size",5);
       List<Approval> myApprovalList = apService.myApprovalList(map);
@@ -110,9 +121,12 @@ public class HomeController {
       
       List<Community> listCommunity = coService.listCommunityMain();
       
+      
+      
       model.addAttribute("list", list);
       model.addAttribute("listTop", listTop);
       model.addAttribute("listCommunity", listCommunity);
+      model.addAttribute("todayPunch", punching);
       
       return ".mainLayout";
    }

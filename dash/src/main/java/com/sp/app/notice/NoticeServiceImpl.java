@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,7 +15,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("notice.noticeService")
 public class NoticeServiceImpl implements NoticeService {
-	
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -46,7 +48,7 @@ public class NoticeServiceImpl implements NoticeService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -59,7 +61,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			result = dao.selectOne("notice.dataCount", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		return result;
@@ -72,7 +74,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			list = dao.selectList("notice.listNotice", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -84,7 +86,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			list = dao.selectList("notice.listNoticeTop");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -94,7 +96,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dao.updateData("notice.updateHitCount", num);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -107,7 +109,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dto = dao.selectOne("notice.readNotice", num);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -119,7 +121,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dto = dao.selectOne("notice.preReadNotice", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -131,7 +133,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dto = dao.selectOne("notice.nextReadNotice", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;	
 	}
@@ -159,7 +161,7 @@ public class NoticeServiceImpl implements NoticeService {
 				}
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -182,7 +184,7 @@ public class NoticeServiceImpl implements NoticeService {
 			
 			dao.deleteData("notice.deleteNotice", num);	
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -193,7 +195,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dao.insertData("notice.insertFile", dto);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -206,7 +208,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			listFile = dao.selectList("notice.listFile", num);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return listFile;
 	}
@@ -218,7 +220,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dto = dao.selectOne("notice.readFile", fileNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -228,7 +230,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			dao.deleteData("notice.deleteFile", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -241,7 +243,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			list = dao.selectList("notice.listNoticeMain");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -253,7 +255,7 @@ public class NoticeServiceImpl implements NoticeService {
 		try {
 			list = dao.selectList("notice.listNoticeTopMain");
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}

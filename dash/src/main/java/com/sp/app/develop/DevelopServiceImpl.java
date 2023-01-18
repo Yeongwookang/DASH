@@ -3,6 +3,8 @@ package com.sp.app.develop;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +12,7 @@ import com.sp.app.common.dao.CommonDAO;
 
 @Service("develop.developService")
 public class DevelopServiceImpl implements DevelopService {
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 
@@ -21,7 +24,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			list = dao.selectList("develop.approvalList", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -34,7 +37,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			dto = dao.selectOne("develop.readApproval", signNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -47,7 +50,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			list = dao.selectList("develop.fileList", signNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return list;
 	}
@@ -58,7 +61,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			dto = dao.selectOne("develop.readFile", fileNum);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		return dto;
 	}
@@ -68,7 +71,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			dao.updateData("develop.approveUpdate", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 	}
@@ -78,7 +81,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			dao.updateData("develop.approve", map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 			throw e;
 		}
 		
@@ -91,7 +94,7 @@ public class DevelopServiceImpl implements DevelopService {
 		try {
 			result = dao.selectOne("develop.dataCount",map);
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} ", e.getMessage());
 		}
 		
 		
