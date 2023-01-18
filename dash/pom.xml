@@ -15,7 +15,7 @@
 		
 		<org.slf4j-version>1.7.36</org.slf4j-version>
 		<org.log4j-version>1.2.17</org.log4j-version>
-		<logback-version>1.2.11</logback-version>
+		<logback-version>1.2.3</logback-version>
 
 		<!-- Test -->
 		<junit-version>4.13.2</junit-version>
@@ -141,19 +141,17 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>${org.slf4j-version}</version>
-			<scope>runtime</scope>
+		   <groupId>org.slf4j</groupId>
+		   <artifactId>slf4j-simple</artifactId>
+		   <version>1.7.25</version>
 		</dependency>
-		
 		<!-- Logback -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback-version}</version>
-			<scope>runtime</scope>
-		</dependency>
+			<scope>test</scope>
+		</dependency>		
 
 		<!-- @Inject -->
 		<dependency>

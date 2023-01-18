@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ import com.sp.app.employee.Employee;
 
 @Service("punching.punchingService")
 public class PunchingServiceImpl implements PunchingService {
-	private static Logger logger = org.slf4j.LoggerFactory.getLogger(Punching.class);
+	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private CommonDAO dao;
 	
@@ -61,8 +62,8 @@ public class PunchingServiceImpl implements PunchingService {
 			
 			punching.setPunchOffTime(pun.getPunchOffTime());
 			
-			pun = dao.selectOne("punching.clockOnTime", map);
-			punching.setPunchOnTime(pun.getPunchOnTime());
+			Punching pun2 = dao.selectOne("punching.clockOnTime", map);
+			punching.setPunchOnTime(pun2.getPunchOnTime());
 			
 		} catch (Exception e) {
 			logger.warn("{} 가 발생했습니다.", e.getMessage());
