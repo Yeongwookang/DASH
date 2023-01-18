@@ -5,7 +5,7 @@
 
 <div class="d-flex justify-content-between align-items-center p-2">
 	<a class="navbar-brand ps-5" href="${pageContext.request.contextPath}"><img
-		src="${pageContext.request.contextPath}/resources/images/mainLogo.png"
+		src="${pageContext.request.contextPath}/resources/images/logo_2.png"
 		class="logo" style="width: 200px"> </a>
 	<div class="ps-3 pe-5">
 		<c:if test="${sessionScope.employee.imageFilename != null}">

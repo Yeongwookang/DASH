@@ -2,7 +2,9 @@ package com.sp.app.punching;
 
 import javax.servlet.http.HttpSession;
 
+import org.mvel2.util.ThisLiteral;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,7 @@ import com.sp.app.employee.SessionInfo;
 @Controller("punching.punchingController")
 @RequestMapping(value = "/punching/*")
 public class PunchingController {
+		private Logger logger = LoggerFactory.getLogger(this.getClass());
 		@Autowired
 		private PunchingService service;
 		
@@ -31,6 +34,7 @@ public class PunchingController {
 			try {
 				service.punchOn(pun);
 			} catch (Exception e) {
+				logger.debug("{}",e.getMessage());
 			}
 			
 			
@@ -49,6 +53,7 @@ public class PunchingController {
 			try {
 				service.punchOff(pun);
 			} catch (Exception e) {
+				logger.debug("{}",e.getMessage());
 			}
 			
 			

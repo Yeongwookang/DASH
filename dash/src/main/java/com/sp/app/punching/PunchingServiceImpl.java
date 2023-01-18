@@ -23,8 +23,9 @@ public class PunchingServiceImpl implements PunchingService {
 		
 		try {
 			empList = dao.selectList("approval.empList", map);
+			
 		} catch (Exception e) {
-			logger.warn("{} - id: {}", e.getMessage());
+			logger.warn("{} 가 발생했습니다.", e.getMessage());
 		}
 		return empList;
 	}
@@ -33,8 +34,8 @@ public class PunchingServiceImpl implements PunchingService {
 	public void punchOn(Punching pun) throws Exception{
 		try {
 			dao.insertData("punching.clockOn");
+			
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw e;
 		}
 		
@@ -44,8 +45,8 @@ public class PunchingServiceImpl implements PunchingService {
 	public void punchOff(Punching pun) throws Exception {
 		try {
 			dao.insertData("punching.clockOff");
+			
 		} catch (Exception e) {
-			e.printStackTrace();
 			throw e;
 		}
 		
@@ -62,8 +63,9 @@ public class PunchingServiceImpl implements PunchingService {
 			
 			pun = dao.selectOne("punching.clockOnTime", map);
 			punching.setPunchOnTime(pun.getPunchOnTime());
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			logger.warn("{} 가 발생했습니다.", e.getMessage());
 		}
 		
 		return punching;
