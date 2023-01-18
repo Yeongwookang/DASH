@@ -62,7 +62,7 @@
 					<div>
 						<button type="button" class="btn btn-main" style="border: none;">출근</button>
 						<button type="button" class="btn btn-main" style="border: none;">퇴근</button>
-						<button type="button" class="btn btn-light">출퇴근현황</button>
+						<button type="button" class="btn btn-sub">출퇴근현황</button>
 					</div>
 					<div class="d-flex">
 						<div class="mt-3" style="font-weight: bold; color:#495057;">오늘 출근 시각 </div>
