@@ -38,7 +38,7 @@
 				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
 				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
 			</div>
-			<div class="d-flex justify-content-between mt-3 mb-3 m-auto" style="width:90%">
+			<div class="d-flex justify-content-between mt-3 mb-2 m-auto" style="width:90%">
 				<div class="border-end" style="width:47%">
 					<div class="d-flex align-items-center">
 						<div><span style="font-weight: bold;">출퇴근 정보</span></div>
@@ -80,7 +80,7 @@
 			<div class="text-start sales">| 연차 현황 (전체 / 사용 / 잔여)</div>
 			<button class="btn btn-main" type="button">사용 기록</button>
 		</div> 
-			<div class="m-auto w-75 mt-3">
+			<div class="m-auto w-75 mt-3 mb-2">
 				<div>
 				<div>연차(20일 / 3일 / 17일)</div>
 				<div class="progress">
@@ -100,37 +100,50 @@
 					<div class="text-start sales">| 공지사항</div>
 					<a href="${pageContext.request.contextPath}/notice/main" class="aTag">바로가기 ></a>
 				</div>
-					<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
-						<thead>  
-							<tr class="text-center">
-								<th style="width: 10%">#</th> 
-								<th style="width: 60%">제목</th>
-								<th style="width: 30%">날짜</th>  
-							</tr>
-						</thead>
-						<tbody> 
-							<c:forEach var="dto" items="${listTop}" begin="0" end="1">
-								<tr class="text-center"> 
-									<td><span class="badge bg-danger">공지</span></td> 
-									<td>
-										<a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
-									</td>
-									<td class="communityDate">${dto.reg_date}</td>
+					<c:choose>
+					<c:when test="${empty listTop && empty list}">
+							<blockquote class="blockquote mt-5 mb-5 text-center text-muted"> 
+						      <p>" 공지사항이 없습니다 "</p>
+						    </blockquote>
+					</c:when>
+					<c:otherwise>
+						<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
+							<thead>  
+								<tr class="text-center">
+									<th style="width: 10%">#</th> 
+									<th style="width: 60%">제목</th>
+									<th style="width: 30%">날짜</th>  
 								</tr>
-							</c:forEach>
-								
-							<c:forEach var="dto" items="${list}" varStatus="status" begin="0" end="2">
-								<tr class="text-center">  
-									<td>${status.index + 1}</td>
-									<td><a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if></a></td>
-									<td class="communityDate">${dto.reg_date}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
+							</thead>
+							<tbody> 
+						
+								<c:forEach var="dto" items="${listTop}" begin="0" end="1">
+									<tr class="text-center"> 
+										<td><span class="badge bg-danger">공지</span></td> 
+										<td>
+											<a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
+										</td>
+										<td class="communityDate">${dto.reg_date}</td>
+									</tr>
+								</c:forEach>
+									
+								<c:forEach var="dto" items="${list}" varStatus="status" begin="0" end="2">
+									<tr class="text-center">  
+										<td>${status.index + 1}</td>
+										<td><a href="${pageContext.request.contextPath}/notice/article?page=1&num=${dto.num}" class="text-reset underline">${dto.subject}&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if></a></td>
+										<td class="communityDate">${dto.reg_date}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
+			</div>
 			<div class="card p-4 mb-4">
-			<div class="text-start sales">| 진행중인 결재</div>
+			<div class="d-flex justify-content-between">
+				<div class="text-start sales">| 진행중인 결재</div>
+				<a href="${pageContext.request.contextPath}/approval/main?page=1" class="aTag">바로가기 ></a>
+			</div>
 					<c:choose >
 					<c:when test="${not empty myApprovalList}"> 
 						<table class="table text-center table-hover m-auto board-list-main" style="width: 90%">
@@ -190,41 +203,50 @@
 					<div class="text-start sales">| 커뮤니티</div>
 					<a href="${pageContext.request.contextPath}/community/main" class="aTag">바로가기 ></a>
 				</div>
-				<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
-						<thead>  
-							<tr class="text-center">
-								<th style="width: 10%">#</th> 
-								<th style="width: 60%">제목</th>
-								<th style="width: 30%">날짜</th>  
-							</tr>
-						</thead> 
-						<tbody>
-							<c:forEach var="vo" items="${listCommunity}" varStatus="status" begin="0" end="4">
-								<c:if test="${vo.open == 1}">
-									<tr class="text-center">  
-										<td class="categoryName">[${vo.categoryName}]</td>
-										<c:choose>
-											<c:when test="${sessionScope.employee.empNo==dto.empNo || sessionScope.employee.depNo == 1}">
-													<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
-													<td class="communityDate">${vo.reg_date}</td>	
-											</c:when> 
-											<c:otherwise>
-												<td> 비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span></td> 
+				<c:choose>
+					<c:when test="${empty listCommunity}">
+						<blockquote class="blockquote mt-5 mb-5 text-center text-muted"> 
+					      <p>" 게시글이 없습니다 "</p>
+					    </blockquote>
+					</c:when>
+					<c:otherwise>
+						<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
+								<thead>  
+									<tr class="text-center">
+										<th style="width: 10%">#</th> 
+										<th style="width: 60%">제목</th>
+										<th style="width: 30%">날짜</th>  
+									</tr>
+								</thead> 
+								<tbody>
+									<c:forEach var="vo" items="${listCommunity}" varStatus="status" begin="0" end="4">
+										<c:if test="${vo.open == 1}">
+											<tr class="text-center">  
+												<td class="categoryName">[${vo.categoryName}]</td>
+												<c:choose>
+													<c:when test="${sessionScope.employee.empNo==dto.empNo || sessionScope.employee.depNo == 1}">
+															<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
+															<td class="communityDate">${vo.reg_date}</td>	
+													</c:when> 
+													<c:otherwise>
+														<td> 비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span></td> 
+														<td class="communityDate">${vo.reg_date}</td>
+													</c:otherwise>
+												</c:choose> 
+											</tr>
+										</c:if>
+										<c:if test="${vo.open == 0}">
+											<tr class="text-center">   
+												<td class="categoryName">[${vo.categoryName}]</td>
+												<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
 												<td class="communityDate">${vo.reg_date}</td>
-											</c:otherwise>
-										</c:choose> 
-									</tr>
-								</c:if>
-								<c:if test="${vo.open == 0}">
-									<tr class="text-center">   
-										<td class="categoryName">[${vo.categoryName}]</td>
-										<td class="text-reset"> <a href="${pageContext.request.contextPath}/community/article?page=1&num=${vo.num}" class="underline communitySubject text-reset">${vo.subject}</a></td> 
-										<td class="communityDate">${vo.reg_date}</td>
-									</tr>
-								</c:if>
-							</c:forEach>
-						</tbody>
-				</table>
+											</tr>
+										</c:if>
+									</c:forEach>
+								</tbody>
+						</table>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		
 		
