@@ -3,6 +3,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chargestation">
 	 <select id="chargeStationManage" resultType="com.sp.app.chargestation.ChargeStation">
-	 	select cStNum, x_pos, y_pos, name, leftQty, addr,  IMAGEFILENAME from chargingStation 
+	 	select cStNum, x_pos, y_pos, name, leftQty, addr from chargingStation 
 	 </select>
 </mapper>
