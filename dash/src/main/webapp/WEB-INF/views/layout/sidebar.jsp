@@ -38,14 +38,6 @@
 				</a>
 			</li>
 			
-			<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/schedule/main">
-					<i class="fa-regular fa-address-card"></i><span class="ms-3">
-						일정관리</span>
-				</a>
-			</li>
-			
 			<c:if test="${sessionScope.employee.depNo==1}">
 				<li class="nav-item">
 					<a class="nav-link nav-box"
@@ -68,16 +60,14 @@
 						<a class="nav-link dropdown-toggle nav-box"
 							id="kickboardMenu" data-bs-toggle="dropdown"
 							aria-expanded="false">
-							<i class="fa-solid fa-broom-ball"></i><span class="ms-3">운영</span>
+							<i class="fa-solid fa-charging-station"></i><span class="ms-3">운영</span>
 						</a>
 						<ul class="dropdown-menu" aria-labelledby="kickboardMenu">
 							<li class="dropdown-item"><a
-								href="${pageContext.request.contextPath}/stationmanage/main"><i
-									class="fa-solid fa-charging-station"></i><span> 대여소·충전소
-										관리</span></a></li>
+								href="${pageContext.request.contextPath}/stationmanage/main">
+								<span> 대여소·충전소 관리</span></a></li>
 							<li class="dropdown-item"><a
-								href="${pageContext.request.contextPath}/kickmanage/main"><i
-									class="bi bi-speedometer"></i><span> 킥보드 관리</span></a></li>
+								href="${pageContext.request.contextPath}/kickmanage/main"><span> 킥보드 관리</span></a></li>
 						</ul>
 				</li>
 		
