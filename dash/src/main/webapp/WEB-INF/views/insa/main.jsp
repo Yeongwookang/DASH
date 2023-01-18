@@ -178,25 +178,29 @@
 
 
 <div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="d-flex justify-content-between">
-		<div class="text-start fs-4 ml-2 mb-4"><span>| 사원관리</span></div>
+	<div class="d-flex justify-content-between ps-4 mt-4">
+		<div class="text-start fs-3 "><span>| 사원관리</span></div>
 		<div class="pe-3">
-			<button type="button" class="btn btn1 bg-sub"
+			<button type="button" class="btn btn1 btn-sub"
 						onclick="location.href='${pageContext.request.contextPath}/insa/main';">신규등록</button>
-			<button type="button" class="btn btn1 bg-sub" onclick="employeeOk();">${mode=="update"?"수정":"저장"}</button>
+			<button type="button" class="btn btn1 btn-sub" onclick="employeeOk();">${mode=="update"?"수정":"저장"}</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>
-	<div class="d-flex justify-content-evenly">
-		<div class="mt-2 p-2" style="width: 38%">
+	<div class="d-flex m-auto justify-content-between mt-4" style="width: 90%;">
+		<div class="mt-2 p-2" style="width: 39%; ">
 			<div class="card">
-				<div class="card-header bg-sub text-start">전체 사원 목록</div>
+				<div class="card-header bg-main text-white bg-gradient text-start">
+					<blockquote class="blockquote mb-0">
+					<p>전체 사원 목록</p>
+					</blockquote>
+				</div>
 				<div class="card-body">
-					<div class="row mt-1">
 						<form class="row" name="searchForm"
 							action="${pageContext.request.contextPath}/insa/main"
 							method="post">
-							<div class="col-auto">
+					<div class="d-flex mt-1 justify-content-center">
+							<div class="me-2">
 								<select class="form-select form-select-sm"
 									aria-label="Default select example" name="col">
 									<option selected value="all">찾기</option>
@@ -208,26 +212,25 @@
 										${col=="rankName"?"selected='selected'":""}>직급</option>
 								</select>
 							</div>
-							<div class="col-auto">
+							<div class="me-2">
 								<input type="text" name="kwd" value="${kwd}"
 									class="form-control form-select-sm">
 							</div>
-							<div class="col-auto">
-								<button type="submit" class="btn bg-sub btn-sm"
+							<div>
+								<button type="submit" class="btn btn-sub btn-sm"
 									onclick="searchList()">
-									<i class="bi bi-search"></i>검색
+									<i class="bi bi-search"></i>
 								</button>
 							</div>
-
-							<div class="col-auto mt-3">
+					</div>
+							<div class="mt-3">
 								<input type="checkbox" value="" id="flexCheckDefault"> <label
 									class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
 								</label>
 							</div>
+
 						</form>
-
-					</div>
-
+					<div class="scroll" style="overflow-y: scroll; height: 500px; ">
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -249,15 +252,17 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					</div>
 				</div>
-
+			
 			</div>
 		</div>
 
-		<div class="mt-2 p-2" style="width: 58%">
-
+		<div class="mt-2 p-2" style="width: 59%">
 			<div class="card">
-				<div class="card-header bg-sub text-start">기본정보</div>
+				<div class="card-header bg-main text-white bg-gradient text-start">
+				<blockquote class="blockquote mb-0">
+					<p>기본정보</p></blockquote></div>
 				<div class="card-body">
 					<form name="mainSubmit" method="post" enctype="multipart/form-data">
 						<div class="d-flex justify-content-between">

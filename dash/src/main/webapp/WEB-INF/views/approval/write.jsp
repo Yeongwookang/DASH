@@ -114,10 +114,10 @@ function update_document(){
 	f.submit();
 }
 </script>
-<div class="m-auto scroll card mt-5 mb-5 p-5" style="overflow-y: scroll;">
+<div class="m-auto scroll card mt-5 mb-5 p-4" style="overflow-y: scroll;">
 	<div class="fs-3 ps-4 mt-4"><span>| 결재</span></div>
 	<div class="m-auto" style="width: 80%">
-		<div class="ps-5 pe-5 mt-4">
+		<div class="ps-5 pe-5 mt-3">
 		<form name="approval" method="POST"  enctype="multipart/form-data">			
 			<div class="mb-2 pt-3 pb-3">
 			<div class="d-flex align-items-center">
@@ -220,7 +220,7 @@ function update_document(){
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

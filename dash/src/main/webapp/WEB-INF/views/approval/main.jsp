@@ -4,16 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 mb-4 ps-4 mt-4">
 		<span>| 결재</span>
 	</div>
 	<div class="m-auto" style="width:80%">
-	<div class="mt-4">
 		<div class="card">
-			<div class="card-header bg-main text-white bg-gradient text-start">
-				<blockquote class="blockquote mb-0">
-			      <p>결재 대기 목록</p>
-			    </blockquote>
+			<div class="card-header bg-main text-white bg-gradient fs-5" style="font-weight: bold;">
+				결재 대기 목록
 			</div>
 			<div class="card-body">
 			<c:choose >
@@ -60,13 +57,11 @@
 			</c:choose>
 			</div>
 		</div>
-	</div>
+
 	<div class="mt-4">
 		<div class="card">
-			<div class="card-header  bg-main text-white bg-gradient text-start">
-				<blockquote class="blockquote mb-0">
-			      <p>${sessionScope.employee.name}님의 결재</p>
-			    </blockquote>
+			<div class="card-header  bg-main text-white bg-gradient text-start fs-5"  style="font-weight: bold;">
+				${sessionScope.employee.name}님의 결재
 			</div>
 			<div class="card-body">
 				<c:choose >
@@ -119,9 +114,8 @@
 			<button class="btn btn-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#timeLine">타임라인</button>
 			<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 	</div>
-	</div>
 </div>
-
+</div>
 <!-- Modal -->
 <div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -151,7 +145,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">취소</button>
       </div>
     </div>
   </div>

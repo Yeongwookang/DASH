@@ -40,32 +40,33 @@ $(function(){
 });
 </script>
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4">
+	<div class="text-start fs-3 mb-4 ps-4 mt-3">
 		<span>| 충전소·대여소 현황</span>
 	</div>
-<div class=" me-2 d-flex justify-content-end">
-<button type="button" class="btn bg-sub text-center " style="width: 9%"  onclick="location.href='${pageContext.request.contextPath}/register/main2'">충전소 등록</button>
-</div>
-	<nav>
-		<div class="nav nav-tabs" id="nav-tab" role="tablist">
-			<button style="color: black;" class="nav-link" id="nav-home-tab"
-				data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
-				role="tab" aria-controls="nav-home" aria-selected="true">대여소 현황</button>
-			<button style="color: black;" class="nav-link" id="nav-profile-tab"
-				data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
-				role="tab" aria-controls="nav-profile" aria-selected="false">충전소 현황</button>
+	<div class="m-auto" style="width:80%">
+		<nav>
+			<div class="nav nav-tabs" id="nav-tab" role="tablist">
+				<button style="color: black;" class="nav-link" id="nav-home-tab"
+					data-bs-toggle="tab" data-bs-target="#nav-home" type="button"
+					role="tab" aria-controls="nav-home" aria-selected="true">대여소 현황</button>
+				<button style="color: black;" class="nav-link" id="nav-profile-tab"
+					data-bs-toggle="tab" data-bs-target="#nav-profile" type="button"
+					role="tab" aria-controls="nav-profile" aria-selected="false">충전소 현황</button>
+			</div>
+		</nav>
+		<div class="tab-content" id="nav-tabContent">
+			<div class="tab-pane fade" id="nav-home" role="tabpanel"
+				aria-labelledby="nav-home-tab" tabindex="0">
+			</div>
+			<div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
+				aria-labelledby="nav-profile-tab" tabindex="0">
+				<div id="maps" class="maps" style="width: 100%; height: 600px;"></div>
+			</div>
 		</div>
-	</nav>
-	<div class="tab-content" id="nav-tabContent">
-		<div class="tab-pane fade" id="nav-home" role="tabpanel"
-			aria-labelledby="nav-home-tab" tabindex="0">
-		</div>
-		<div class="tab-pane fade show active" id="nav-profile" role="tabpanel"
-			aria-labelledby="nav-profile-tab" tabindex="0">
-			<div id="maps" class="maps" style="width: 100%; height: 600px;"></div>
+		<div class="d-flex justify-content-end mt-3 mb-4">
+			<button type="button" class="btn bg-sub text-center " onclick="location.href='${pageContext.request.contextPath}/register/main2'">충전소 등록</button>
 		</div>
 	</div>
-	
 </div>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=ac62133af390475a070f5933661ec2c1"></script>

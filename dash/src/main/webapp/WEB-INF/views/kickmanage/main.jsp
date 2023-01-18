@@ -161,49 +161,45 @@ function sendModeldamage() {
 
 
 <div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
+	<div class="text-start fs-3 mb-4 ps-4 mt-4">
 		<span>| 킥보드 관리</span>
 	</div>
-            <div class="col-6 text-center ms-3">
-					<form class="row" name="searchForm" action="${pageContext.request.contextPath}/kickmanage/main" method="post">
-						<div class="col-auto p-1">
-							<select name="condition" class="form-select">
-								<option value="other">::선택::</option>
-								<option value="normal" ${condition=="normal"?"selected='selected'":""}>정상</option>
-								<option value="repair" ${condition=="repair"?"selected='selected'":""}>수리</option>
-								<option value="damage" ${condition=="damage"?"selected='selected'":""}>파손</option>
-							</select>
-						</div>
-						<div class="col-auto p-1">
-							<button type="button" class="btn btn-light" onclick="searchList()"> <i class="bi bi-search"></i> </button>
-						</div>
-					</form>
-				</div>
-
-<div class="d-flex flex-row-reverse bd-highlight  d-inline">
+<div class="m-auto mb-3" style="width: 80%">
+<div class="d-flex justify-content-between" >
+<form name="searchForm" action="${pageContext.request.contextPath}/kickmanage/main" method="post">
+<div class="d-flex">				
+	<div class="col-auto p-1">
+		<select name="condition" class="form-select">
+			<option value="other">::선택::</option>
+			<option value="normal" ${condition=="normal"?"selected='selected'":""}>정상</option>
+			<option value="repair" ${condition=="repair"?"selected='selected'":""}>수리</option>
+			<option value="damage" ${condition=="damage"?"selected='selected'":""}>파손</option>
+		</select>
+	</div>
+	<div class="col-auto p-1">
+		<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+	</div>
+</div>
+</form>
+<div class="d-flex bd-highlight  d-inline">
 	<div class="text-end ms-1">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal3">수리완료신청</button>
 	</div>
 		<div class="text-end ms-1">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal2">수리중신청</button>
 	</div>
 
 	<div class="text-end ms-1">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
+		<button type="button" class="btn btn-sub" data-bs-toggle="modal"
 			data-bs-target="#exampleModal1">수리신청</button>
 	</div>
-
-	<div class="text-end ms-1">
-		<button type="button" class="btn bg-sub" data-bs-toggle="modal"
-			data-bs-target="#exampleModal4">파손신청</button>
 	</div>
-	</div>
-
+</div>
 	<div class="mt-4">
 		<table class="table table-hover board-list">
-			<thead class="bg-sub">
+			<thead class="bg-main text-white fs-5">
 				<tr class="text-center">
 					<th class="text-center"><input type="checkbox" id="checkAll" name="checkAll"></th>
 					<th style="width: 20%">번호</th>
@@ -223,10 +219,8 @@ function sendModeldamage() {
 						<td class="align-middle text-center">${dto.state}</td>
 						<td class="align-middle text-center">${dto.repairstate}</td>
 						<td class="align-middle text-center">${dto.condition}</td>
-						
 					</tr>
 				</c:forEach>
-
 			</tbody>
 		</table>
 
@@ -235,10 +229,12 @@ function sendModeldamage() {
 				${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}</div>
 		</div>
 		
-		<div class=" me-2 d-flex justify-content-end">
-<button type="button" class="btn bg-sub text-center " style="width: 9%"  onclick="location.href='${pageContext.request.contextPath}/register/main3'">킥보드 등록</button>
+		<div class="me-2 d-flex justify-content-between">
+			<button type="button" class="btn btn-sub" data-bs-toggle="modal"
+				data-bs-target="#exampleModal4">파손신청</button>
+			<button type="button" class="btn btn-sub text-center"  onclick="location.href='${pageContext.request.contextPath}/register/main3'">킥보드 등록</button>
+		</div>
 </div>
-
 		<!-- Modal -->
 		<div class="modal fade" id="exampleModal1" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -258,9 +254,9 @@ function sendModeldamage() {
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn"
+						<button type="button" class="btn btn-sub"
 							data-bs-dismiss="modal">돌아가기</button>
-						<button type="button" class="btn bg-sub"
+						<button type="button" class="btn btn-main"
 							onclick="sendModelrepairwait();">확인</button>
 					</div>
 				</div>
@@ -285,9 +281,9 @@ function sendModeldamage() {
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn"
+						<button type="button" class="btn btn-sub"
 							data-bs-dismiss="modal">돌아가기</button>
-						<button type="button" class="btn bg-sub"
+						<button type="button" class="btn btn-main"
 							onclick="sendModelrepairing();">확인</button>
 					</div>
 				</div>
@@ -314,9 +310,9 @@ function sendModeldamage() {
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn"
+						<button type="button" class="btn btn-sub"
 							data-bs-dismiss="modal">돌아가기</button>
-						<button type="button" class="btn bg-sub"
+						<button type="button" class="btn btn-main"
 							onclick="sendModelrepaircom();">확인</button>
 					</div>
 				</div>
@@ -342,9 +338,9 @@ function sendModeldamage() {
 						</form>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn"
+						<button type="button" class="btn btn-sub"
 							data-bs-dismiss="modal">돌아가기</button>
-						<button type="button" class="damagekick btn bg-sub"
+						<button type="button" class="damagekick btn btn-main"
 							onclick="sendModeldamage();">확인</button>
 					</div>
 				</div>
