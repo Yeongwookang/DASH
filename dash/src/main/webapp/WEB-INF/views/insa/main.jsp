@@ -7,12 +7,13 @@
 .thumbnail-viewer {
 	cursor: pointer;
 	border: 1px solid #ccc;
-	width: 200px; 
+	width: 200px;
 	height: 250px;
-	background-image: url("${pageContext.request.contextPath}/resources/images/profileImage.png");
-	background-size:cover;
+	background-image:
+		url("${pageContext.request.contextPath}/resources/images/profileImage.png");
+	background-size: cover;
 	z-index: 9999;
-	background-repeat : no-repeat;
+	background-repeat: no-repeat;
 }
 
 #btn1 {
@@ -31,7 +32,7 @@
 			f.empNo.focus();
 			return;
 		}
-		
+
 		let mode = "${mode}";
 		if (mode === "employee" && f.empNoValid.value === "false") {
 			str = "사원번호 중복 검사가 실행되지 않았습니다.";
@@ -39,7 +40,7 @@
 			f.empNo.focus();
 			return;
 		}
-	
+
 		str = f.pwd.value;
 		if (!/^(?=.*[a-z])(?=.*[!@#$%^*+=-]|.*[0-9]).{5,10}$/i.test(str)) {
 			alert("패스워드를 다시 입력 하세요. ");
@@ -47,7 +48,6 @@
 			return;
 		}
 
-		
 		if (str !== f.pwd2.value) {
 			alert("패스워드가 일치하지 않습니다. ");
 			f.pwd.focus();
@@ -102,22 +102,21 @@
 			f.email2.focus();
 			return;
 		}
-		
+
 		str = f.startDate.value;
 		if (!str) {
 			alert("입사일을 입력하세요. ");
 			f.startDate.focus();
 			return;
 		}
-		
+
 		str = f.addr1.value;
 		if (!str) {
 			alert("주소를 입력하세요. ");
 			f.addr1.focus();
 			return;
 		}
-		
-		
+
 		f.action = "${pageContext.request.contextPath}/insa/${mode}";
 		f.submit();
 
@@ -165,13 +164,13 @@
 		const f = document.searchForm;
 		f.submit();
 	}
-	
-	function deleteOk() { 
-	    if(confirm("해당 등록 사원을 삭제하시겠습니까 ? ")) {
-	    	let query = "empNo=${dto.empNo}";
-		    let url = "${pageContext.request.contextPath}/insa/delete?"+query;
-	    	location.href = url;
-	    }
+
+	function deleteOk() {
+		if (confirm("해당 등록 사원을 삭제하시겠습니까 ? ")) {
+			let query = "empNo=${dto.empNo}";
+			let url = "${pageContext.request.contextPath}/insa/delete?" + query;
+			location.href = url;
+		}
 	}
 </script>
 
@@ -179,27 +178,31 @@
 
 <div class="card mt-5 mb-5 p-4 m-auto">
 	<div class="d-flex justify-content-between ps-4 mt-4">
-		<div class="text-start fs-3 "><span>| 사원관리</span></div>
+		<div class="text-start fs-3 ">
+			<span>| 사원관리</span>
+		</div>
 		<div class="pe-3">
 			<button type="button" class="btn btn1 btn-sub"
-						onclick="location.href='${pageContext.request.contextPath}/insa/main';">신규등록</button>
-			<button type="button" class="btn btn1 btn-sub" onclick="employeeOk();">${mode=="update"?"수정":"저장"}</button>
+				onclick="location.href='${pageContext.request.contextPath}/insa/main';">신규등록</button>
+			<button type="button" class="btn btn1 btn-sub"
+				onclick="employeeOk();">${mode=="update"?"수정":"저장"}</button>
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>
-	<div class="d-flex m-auto justify-content-between mt-4" style="width: 90%;">
-		<div class="mt-2 p-2" style="width: 39%; ">
+	<div class="d-flex m-auto justify-content-between mt-4"
+		style="width: 90%;">
+		<div class="mt-2 p-2" style="width: 39%;">
 			<div class="card">
 				<div class="card-header bg-main text-white bg-gradient text-start">
 					<blockquote class="blockquote mb-0">
-					<p>전체 사원 목록</p>
+						<p>전체 사원 목록</p>
 					</blockquote>
 				</div>
 				<div class="card-body">
-						<form class="row" name="searchForm"
-							action="${pageContext.request.contextPath}/insa/main"
-							method="post">
-					<div class="d-flex mt-1 justify-content-center">
+					<form class="row" name="searchForm"
+						action="${pageContext.request.contextPath}/insa/main"
+						method="post">
+						<div class="d-flex mt-1 justify-content-center">
 							<div class="me-2">
 								<select class="form-select form-select-sm"
 									aria-label="Default select example" name="col">
@@ -222,47 +225,49 @@
 									<i class="bi bi-search"></i>
 								</button>
 							</div>
-					</div>
-							<div class="mt-3">
-								<input type="checkbox" value="" id="flexCheckDefault"> <label
-									class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
-								</label>
-							</div>
+						</div>
+						<div class="mt-3">
+							<input type="checkbox" value="" id="flexCheckDefault"> <label
+								class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
+							</label>
+						</div>
 
-						</form>
-					<div class="scroll" style="overflow-y: scroll; height: 500px; ">
-					<table class="table table-hover">
-						<thead>
-							<tr>
-								<th scope="col">사원번호</th>
-								<th scope="col">이름</th>
-								<th scope="col">부서</th>
-								<th scope="col">직급</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="dto" items="${list}" varStatus="status">
-								<tr style="cursor: pointer;"
-									onclick="location.href='${pageContext.request.contextPath}/insa/main?empNo=${dto.empNo}';">
-									<td>${dto.empNo}</td>
-									<td>${dto.name}</td>
-									<td>${dto.depName}</td>
-									<td>${dto.rankName}</td>
+					</form>
+					<div class="scroll" style="overflow-y: scroll; height: 500px;">
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th scope="col">사원번호</th>
+									<th scope="col">이름</th>
+									<th scope="col">부서</th>
+									<th scope="col">직급</th>
 								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+							</thead>
+							<tbody>
+								<c:forEach var="dto" items="${list}" varStatus="status">
+									<tr style="cursor: pointer;"
+										onclick="location.href='${pageContext.request.contextPath}/insa/main?empNo=${dto.empNo}';">
+										<td>${dto.empNo}</td>
+										<td>${dto.name}</td>
+										<td>${dto.depName}</td>
+										<td>${dto.rankName}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 					</div>
 				</div>
-			
+
 			</div>
 		</div>
 
 		<div class="mt-2 p-2" style="width: 59%">
 			<div class="card">
 				<div class="card-header bg-main text-white bg-gradient text-start">
-				<blockquote class="blockquote mb-0">
-					<p>기본정보</p></blockquote></div>
+					<blockquote class="blockquote mb-0">
+						<p>기본정보</p>
+					</blockquote>
+				</div>
 				<div class="card-body">
 					<form name="mainSubmit" method="post" enctype="multipart/form-data">
 						<div class="d-flex justify-content-between">
@@ -378,12 +383,29 @@
 										</div>
 										<div class="col-3 ps-1">
 											<c:if test="${mode=='main'}">
-												<button type="button" class="btn btn-sm"
+												<button type="button" class="btn btn-sub"
 													onclick="empNoCheck();">중복검사</button>
 											</c:if>
 										</div>
 									</div>
 								</div>
+
+
+								<div class="row g-2 mt-3">
+									<div class="col-sm-15 input-group">
+										<label class="col-sm-3 col-form-label" for="empNo">사&nbsp;&nbsp;&nbsp;번</label>
+										
+										<div class="col-3 ps-1">
+											<c:if test="${mode=='main'}">
+												<button type="button" class="btn btn-sub"
+													onclick="empNoCheck();">중복검사</button>
+											</c:if>
+										</div>
+									</div>
+								</div>
+
+
+
 
 								<div class="row g-2 mt-2">
 									<div class="col-sm-15 input-group">
@@ -410,12 +432,12 @@
 
 
 							<div class="mt-3" style="width: 33%">
-								
+
 								<div class="table-form">
 									<div class="thumbnail-viewer img-thumbnail"></div>
-									<label for="exampleInputFile"></label> 
-										<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
-											style="display: None; ">
+									<label for="exampleInputFile"></label> <input type="file"
+										name="imageFilenameFile" id="imageFilenameFile"
+										accept="image/*" class="form-control" style="display: None;">
 								</div>
 							</div>
 
@@ -529,7 +551,8 @@
 							</div>
 						</div>
 						<c:if test="${mode=='update'}">
-								<input type="hidden" name="imageFilename" value="${emp.imageFilename}">
+							<input type="hidden" name="imageFilename"
+								value="${emp.imageFilename}">
 						</c:if>
 					</form>
 				</div>
@@ -578,49 +601,54 @@
 				}).open();
 	}
 
-	$(function () {
-		var img = "${emp.imageFilename}"; 
-		if( img ) {
-			img = "${pageContext.request.contextPath}/uploads/photo/"+img;
+	$(function() {
+		var img = "${emp.imageFilename}";
+		if (img) {
+			img = "${pageContext.request.contextPath}/uploads/photo/" + img;
 			$(".table-form .thumbnail-viewer").empty();
-			$(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
+			$(".table-form .thumbnail-viewer").css("background-image",
+					"url(" + img + ")");
 		}
-		
-			$(".table-form .thumbnail-viewer").click(function () {
-				$("form[name=mainSubmit] input[name=imageFilenameFile]").trigger("click");
-		});
-			$("form[name=mainSubmit] input[name=imageFilenameFile]").change(function () {
-				let file = this.files[0];
-				if(! file){ //취소버튼눌렀을때 
-					$(".table-form .thumbnail-viewer").empty();
-					
-			        if( img ){
-			        	img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-			        } else {
-			        	img = "${pageContext.request.contextPath}/resources/images/profile2.png";
-			        }
-			        $(".table-form .thumbnail-viewer").css("background-image", "url("+img+")");
-			        
-					return false;
-				}
-				
-				if( ! file.type.match("image.*") ){
-					this.focus();
-					return false;
-				}
-				
-				var reader = new FileReader();
-				reader.onload = function (e) { // 파일의 내용을 다 읽었으면 
-					$(".table-form .thumbnail-viewer").empty();
-					$(".table-form .thumbnail-viewer").css("background-image", "url("+e.target.result+")");
-					
-				};
-				reader.readAsDataURL ( file );
-				
-			});
-	});
-	
-	
-	
 
+		$(".table-form .thumbnail-viewer").click(
+				function() {
+					$("form[name=mainSubmit] input[name=imageFilenameFile]")
+							.trigger("click");
+				});
+		$("form[name=mainSubmit] input[name=imageFilenameFile]")
+				.change(
+						function() {
+							let file = this.files[0];
+							if (!file) { //취소버튼눌렀을때 
+								$(".table-form .thumbnail-viewer").empty();
+
+								if (img) {
+									img = "${pageContext.request.contextPath}/uploads/photo/"
+											+ img;
+								} else {
+									img = "${pageContext.request.contextPath}/resources/images/profile2.png";
+								}
+								$(".table-form .thumbnail-viewer").css(
+										"background-image", "url(" + img + ")");
+
+								return false;
+							}
+
+							if (!file.type.match("image.*")) {
+								this.focus();
+								return false;
+							}
+
+							var reader = new FileReader();
+							reader.onload = function(e) { // 파일의 내용을 다 읽었으면 
+								$(".table-form .thumbnail-viewer").empty();
+								$(".table-form .thumbnail-viewer").css(
+										"background-image",
+										"url(" + e.target.result + ")");
+
+							};
+							reader.readAsDataURL(file);
+
+						});
+	});
 </script>

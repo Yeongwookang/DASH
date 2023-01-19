@@ -27,10 +27,10 @@ form .img-viewer {
 </script>
 
 
-<div class="card mt-5 mb-5 p-4 m-auto" >
-<div class="text-start fs-4 ml-2 mb-4">
-	<span>| 사원 현황</span>
-</div>
+<div class="card mt-5 mb-5 p-4 m-auto">
+	<div class="text-start fs-4 ml-2 mb-4">
+		<span>| 사원 현황</span>
+	</div>
 	<div class="mx-5">
 
 		<form class="row" name="searchForm"
@@ -62,7 +62,7 @@ form .img-viewer {
 		<br>
 		<table class="table n-auto">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th scope="col">구분</th>
 					<th scope="col">사원번호</th>
 					<th scope="col">사원명</th>
@@ -70,74 +70,77 @@ form .img-viewer {
 					<th scope="col">직무</th>
 					<th scope="col">연락처</th>
 					<th scope="col">이메일</th>
+					<th scope="col">생년월일</th>
 
 				</tr>
 			</thead>
 			<c:forEach var="dto" items="${list}" varStatus="status">
 				<tbody>
-					<tr>
-						<th scope="row">
-							<div class="img-viewer"></div> <input type="file"
-							 name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
-							style="display: none;">
-						</th>
+					<tr class="text-center">
+						<td scope="col"><img
+							src="${pageContext.request.contextPath}/uploads/photo/${dto.imageFilename}"
+							class="rounded-circle" style="width: 2.5rem; height: 2.5rem;">
+						</td>
 						<td scope="col">${dto.empNo}</td>
 						<td scope="col">${dto.name}</td>
 						<td scope="col">${dto.depName}</td>
 						<td scope="col">${dto.rankName}</td>
 						<td scope="col">${dto.tel}</td>
 						<td scope="col">${dto.email}</td>
+						<td scope="col">${dto.birth}</td>
 					</tr>
 
 				</tbody>
 			</c:forEach>
-			
+
 		</table>
-			<div>${paging}</div>
-
-
+		<div class="page-navigation paging mt-5 text-center">
+			${dataCount == 0 ? "등록된 사원이 없습니다." : paging}</div>
 	</div>
 
 </div>
 
 <script type="text/javascript">
+	$(function() {
 
-$(function(){
+		$(".table-form .img-viewer").click(function() {
+			$("#imageFilenameFile").trigger("click");
+		});
 
-	$(".table-form .img-viewer").click(function(){
-		$("#imageFilenameFile").trigger("click");
+		$("#imageFilenameFile")
+				.change(
+						function() {
+							let file = this.files[0];
+
+							if (!file) {
+								$(".table-form .img-viewer").empty();
+
+								if (img) {
+									img = "${pageContext.request.contextPath}/uploads/photo/"
+											+ img;
+								} else {
+									img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
+								}
+								$(".table-form .img-viewer").css(
+										"background-image", "url(" + img + ")");
+
+								return false;
+							}
+
+							if (!file.type.match("image.*")) {
+								this.focus();
+								return false;
+							}
+
+							var reader = new FileReader();
+							reader.onload = function(e) {
+								$(".table-form .img-viewer").empty();
+								$(".table-form .img-viewer").css(
+										"background-image",
+										"url(" + e.target.result + ")");
+							};
+							reader.readAsDataURL(file);
+						});
+
 	});
-	
-	$("#imageFilenameFile").change(function(){
-		let file = this.files[0];
-		
-		
-		if(! file) {
-			$(".table-form .img-viewer").empty();
-			
-			if( img ) {
-				img = "${pageContext.request.contextPath}/uploads/photo/"+img;
-			} else {
-				img = "${pageContext.request.contextPath}/resources/images/insertimage.png";
-			}
-			$(".table-form .img-viewer").css("background-image", "url("+img+")");
-			
-			return false;
-		}
-		
-		if( ! file.type.match("image.*") ) {
-			this.focus();
-			return false;
-		}
-		
-		var reader = new FileReader();
-		reader.onload = function(e) { 
-			$(".table-form .img-viewer").empty();
-			$(".table-form .img-viewer").css("background-image", "url("+e.target.result+")");
-		};
-		reader.readAsDataURL( file );
-	});
-
-});
-
 </script>

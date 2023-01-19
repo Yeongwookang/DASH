@@ -189,7 +189,7 @@ public class InsaController {
 		map.put("kwd", kwd);
 		
 		
-		int size = 5;
+		int size = 10;
 		
 		int total_page;
 		int dataCount = service.dataCount(map);
@@ -217,20 +217,13 @@ public class InsaController {
 		
 		List<Insa> list = service.list(map);
 		
-		
-		if(empNo != null) {
-			Insa emp = service.readInsa(empNo);
-			model.addAttribute("emp", emp);
-		}else {
-			model.addAttribute("col", col);
-			model.addAttribute("kwd", kwd);
-			model.addAttribute("page", current_page);
-			model.addAttribute("dataCount", dataCount);
-			model.addAttribute("size", size);
-			model.addAttribute("total_page", total_page);
-			model.addAttribute("paging", paging);
-			
-		}
+		model.addAttribute("col", col);
+		model.addAttribute("kwd", kwd);
+		model.addAttribute("page", current_page);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
 		model.addAttribute("list", list);
 		
 		return ".insa.list";

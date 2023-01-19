@@ -72,7 +72,9 @@
                 <include refid="where-list"/>
             </if>
             AND pr.state =  1
-        </where> 
+        </where>
+        ORDER BY pr.depNo
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 
 	<!-- 사원정보 수정  --> 
@@ -130,9 +132,7 @@
   
     <select id="dataCount" parameterType="map" resultType="Integer">
 		SELECT NVL(COUNT(*), 0)
-		FROM employee e
-		JOIN person_record pr ON e.empNo = pr.empNo
-		
+		FROM employee
 		<where>
 			<if test="col != null">
 				<include refid="where-list"/>
