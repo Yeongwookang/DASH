@@ -29,15 +29,15 @@
 	<table class='table table-reply border'>
 		<tr>
 			<td width='50%' style="border-style: none;">
-				<div class='row reply-writer'>
-					<div class='col-1 d-flex'>
+				<div class='reply-writer'>
+					<div class='d-flex'>
 						<img class="rounded-circle ms-4 mt-2" style="width:4rem; height: 4rem;" src="${pageContext.request.contextPath}/resources/images/profile2.png" >
 						<div class="ms-4 mt-4">${vo.content}</div>
 					</div>
 				</div>
 			</td>
 			<c:if test="${sessionScope.employee.empNo == vo.empNo || sessionScope.employee.depNo ==  1}">
-				<td width='50%' align='right' class='align-middle' style="border-style: none;">
+				<td width='10%' align='right' class='align-middle' style="border-style: none;">
 					<span class='reply-dropdown me-4'><i class='bi bi-three-dots-vertical'></i></span>
 					<div class="reply-menu">
 						<div class='deleteReply reply-menu-item' data-replyNum='${vo.replyNum}' data-pageNo='${pageNo}'>삭제</div>
