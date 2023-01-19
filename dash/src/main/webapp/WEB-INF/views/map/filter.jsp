@@ -12,7 +12,7 @@
             L_NO_TOUCH = false;
             L_DISABLE_3D = false;
     </script>
-	<title>지도</title>
+	<title>DASH - 대여소 추천</title>
 	<style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
