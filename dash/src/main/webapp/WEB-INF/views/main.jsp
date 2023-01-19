@@ -227,9 +227,9 @@ function punchOff(){
 						<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
 								<thead>  
 									<tr class="text-center">
-										<th style="width: 10%">#</th> 
-										<th style="width: 60%">제목</th>
-										<th style="width: 30%">날짜</th>  
+										<th style="width: 20%">#</th> 
+										<th style="width: 55%">제목</th>
+										<th style="width: 25%">날짜</th>  
 									</tr>
 								</thead> 
 								<tbody>
@@ -345,6 +345,14 @@ function punchOff(){
 		date.setTime(date.getTime()+9*60*60*1000);
 		let hour = Math.floor((date - new Date())/1000/60/60);
 		let min = Math.floor(((date - new Date())-hour*60*60*1000)/1000/60);
+		
+		if (isNaN(hour)){
+			hour="-";
+		}
+		if (isNaN(min)){
+			min ="-";
+		}
+		
 		let out = "&nbsp;"+hour+"&nbsp;시간&nbsp;"+min+"&nbsp;분";
 		
 		$(".todayRemain").append(out);
