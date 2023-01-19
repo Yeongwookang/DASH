@@ -10,5 +10,9 @@ public interface PunchingService {
 	public void punchOn(Punching pun) throws Exception;
 	public void punchOff(Punching pun) throws Exception;
 	public Punching todayPunch(Map<String,Object>map);
-	
+	public Punching readDayOff(String empNo);
+	public void insertDayoff(Punching pun)throws Exception;
+	public void updateDayoff(Punching pun)throws Exception;
+	public void deleteDayoff(String empNo)throws Exception;
+	public void updateWorkDays(String empNo) throws Exception;
 }

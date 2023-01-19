@@ -20,9 +20,6 @@ public class PunchingController {
 		@Autowired
 		private PunchingService service;
 		
-		@Autowired
-		private MyUtil myUtil;
-		
 		@GetMapping("punchOn")
 		public String punchOn(HttpServletRequest req ) {
 			HttpSession session = req.getSession();
@@ -53,13 +50,18 @@ public class PunchingController {
 				return "redirect:/employee/login";
 			}
 			Punching pun =  new Punching();
-			
 			pun.setEmpNo(info.getEmpNo());
 			
+			
 			try {
-				service.punchOff(pun);
+				if(service.readDayOff(info.getEmpNo())==null || service.readDayOff(info.getEmpNo()).getEmpNo() ==null) {
+					service.insertDayoff(pun);
+				} else {
+					service.punchOff(pun);
+					service.updateWorkDays(info.getEmpNo());
+				}
 			} catch (Exception e) {
-				logger.warn("{}가 발생했습니다. empNo: {}",e.getMessage(),pun.getEmpNo());
+				logger.warn("{}가 발생했습니다. empNo: {}", e.getMessage(), pun.getEmpNo());
 			}
 			
 			

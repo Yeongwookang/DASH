@@ -40,4 +40,32 @@
 		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD') 
 	</delete>
 	
+	<insert id="insertDayoff" parameterType="com.sp.app.punching.Punching">
+		INSERT INTO DayOff (empNo, leftQty, totalQty, reqDays, workDays)
+		SELECT empNo, CASE 
+		   WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14
+		   ELSE 0
+		   END as b, CASE 
+		   WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14
+		   ELSE 0
+		   END as c,
+		   TO_date((TO_CHAR(EXTRACT(YEAR FROM sysdate))||'1231'),'YYYYMMDD') - TO_date( TO_CHAR(EXTRACT(YEAR FROM sysdate)-1)||'1231','YYYYMMDD'),
+		   '0'
+		FROM employee 
+		WHERE empNo = #{empNo}
+	</insert>
+	<update id="updateDayoff" parameterType="com.sp.app.punching.Punching">
+		UPDATE Dayoff 
+		SET workDays = #{workDays}, leftQty = #{leftQty}, 
+			reqDays= #{reqDays}, workDays=#{workDays}, totalQty = #{totalQty} 
+		WHERE empNo = #{empNo}
+	</update>
+	
+	<update id="updateWorkDays" parameterType="com.sp.app.punching.Punching">
+		UPDATE Dayoff SET workDays = workDays+1 WHERE empNo = #{empNo}
+	</update>
+	
+	<delete id="deleteDayoff" parameterType="com.sp.app.punching.Punching">
+		DELETE FROM Dayoff WHERE empNo = #{empNo}
+	</delete>
 </mapper>

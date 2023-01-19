@@ -47,6 +47,7 @@ public class PunchingServiceImpl implements PunchingService {
 	@Override
 	public void punchOff(Punching pun) throws Exception {
 		try {
+			
 			dao.deleteData("punching.deleteClockOff", pun);
 			dao.insertData("punching.insertClockOff", pun);
 			
@@ -82,5 +83,58 @@ public class PunchingServiceImpl implements PunchingService {
 		
 		return punching;
 	}
+
+	@Override
+	public Punching readDayOff(String empNo) {
+		Punching dto =null;
+		try {
+			 dto = dao.selectOne("punching.readDayOff", empNo);
+		} catch (Exception e) {
+			logger.warn("오류가 발생했습니다: {}, 파라미터: {}", e.getMessage(), empNo);
+		}
+		return dto;
+	}
+
+	@Override
+	public void insertDayoff(Punching pun) throws Exception {
+		try {
+			dao.insertData("punching.insertDayoff", pun);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void updateDayoff(Punching pun) throws Exception {
+		try {
+			dao.updateData("punching.updateDayoff", pun);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+	
+	@Override
+	public void updateWorkDays(String empNo) throws Exception {
+		try {
+			dao.updateData("punching.updateWorkDays", empNo);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void deleteDayoff(String empNo) throws Exception {
+		try {
+			dao.deleteData("punching.deleteDayoff", empNo);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+
 	
 }
