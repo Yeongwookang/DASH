@@ -235,7 +235,7 @@ function sendModeldamage() {
 				${dataCount == 0 ? "등록된 킥보드가 없습니다." : paging}</div>
 		</div>
 		
-		<div class="me-2 d-flex justify-content-between">
+		<div class="me-2 d-flex justify-content-end">
 			<button type="button" class="btn btn-sub text-center"  onclick="location.href='${pageContext.request.contextPath}/register/main3'">킥보드 등록</button>
 		</div>
 </div>
