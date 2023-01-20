@@ -39,15 +39,21 @@
 			</li>
 			
 			<c:if test="${sessionScope.employee.depNo==1}">
-				<li class="nav-item">
-					<a class="nav-link nav-box"
-						href="${pageContext.request.contextPath}/insa/main">
-						<i class="fa-solid fa-user-tie"></i><span class="ms-3">인사</span>
-					</a>
-				</li>
+			<li class= "dropdown nav-item">
+						<a class="nav-link dropdown-toggle nav-box"
+							id="insaMenu" data-bs-toggle="dropdown"
+							aria-expanded="false">
+							<i class="bi bi-people-fill"></i><span class="ms-3">인사</span></a>
+						<ul class="dropdown-menu" aria-labelledby="insaMenu">
+							<li class="dropdown-item"><a
+								href="${pageContext.request.contextPath}/insa/main">
+								<span> 사원 관리</span></a></li>
+							<li class="dropdown-item"><a
+								href="${pageContext.request.contextPath}/insa/vacation"><span> 연차 관리</span></a></li>
+						</ul>
+			</li>
 			</c:if>
-			
-			
+					
 
 			<c:if test="${sessionScope.employee.depNo==2}">
 				<li class="nav-item">

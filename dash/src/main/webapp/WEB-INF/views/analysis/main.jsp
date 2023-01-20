@@ -306,7 +306,7 @@ $(function(){
 				<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 				<div class="card-body pb-2" style="height: 180px;">
 					<h5 class="card-title" style="font-size: 19px;">매출 통계</h5> 
-					<p class="card-text" style="font-size: 15px;">매출 통계는, 이용기록의 금액을 기준으로 전체 년·월·일 매출을 제공하는 서비스입니다.</p>
+					<p class="card-text" style="font-size: 15px;">매출 통계는, 이용기록의 금액을 기준으로 전체 년·월·일 매출 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/sales" class="aTag">바로가기 ></a>
 				</div> 
 			</div>
@@ -315,7 +315,7 @@ $(function(){
 				<img src="${pageContext.request.contextPath}/resources/images/user.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 				<div class="card-body pb-2" style="height: 180px;">
 					<h5 class="card-title" style="font-size: 19px;">이용자 통계</h5>
-					<p class="card-text" style="font-size: 15px;">이용자 통계는, 이용자의 기본 정보와 이용기록을 기준으로 전체 연령대·성별·이용시간을 제공하는 서비스입니다.</p>
+					<p class="card-text" style="font-size: 15px;">이용자 통계는, 이용자의 기본 정보와 이용기록을 기준으로 전체 연령대·성별·이용시간별 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/user" class="aTag">바로가기 ></a>
 				</div>
 			</div>
@@ -324,7 +324,7 @@ $(function(){
 				<img src="${pageContext.request.contextPath}/resources/images/station.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
 				<div class="card-body pb-2" style="height: 180px;">
 					<h5 class="card-title" style="font-size: 19px;">대여소별 통계</h5>
-					<p class="card-text" style="font-size: 15px;">대여소별 통계는, 이용자의 기본 정보와 이용기록을 기준으로 대여소별  매출과 이용자 분석을 제공하는 서비스입니다.</p>
+					<p class="card-text" style="font-size: 15px;">대여소별 통계는, 이용자의 기본 정보와 이용기록을 기준으로 대여소별  매출과 이용자 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/station" class="aTag">바로가기 ></a> 
 				</div>
 			</div>

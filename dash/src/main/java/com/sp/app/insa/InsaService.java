@@ -18,6 +18,8 @@ public interface InsaService {
 	
 	public List<Insa> listFile(String empNo);
 	
+	public List<Insa> list2(Map<String, Object> map);
+	
 	public boolean isPasswordCheck(String empNo, String pwd)throws Exception;
 
 	

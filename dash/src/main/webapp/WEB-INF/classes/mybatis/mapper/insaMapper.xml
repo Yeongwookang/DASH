@@ -73,10 +73,30 @@
             </if>
             AND pr.state =  1
         </where>
-        ORDER BY pr.depNo
-        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+        ORDER BY pr.depNo, pr.empNo
 	</select>
 
+
+	 <select id="listInsa2" parameterType="map" resultType="com.sp.app.insa.Insa">
+		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, zip, addr1, addr2, enabled, 
+			failure_cnt, TO_CHAR(startDate, 'YYYY-MM-DD') startDate, TO_CHAR(endDate, 'YYYY-MM-DD') endDate, register_date, modify_date, last_login, pr.depNo, d.depName, pr.posNo, p.posName, pr.rankNo, r.rankName, pr.teamNo, t.teamName
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN position p ON pr.posNo = p.posNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+        JOIN team t ON pr.teamNo = t.teamNo
+        <where>
+            <if test= "kwd != null and kwd != '' ">
+                <include refid="where-list"/>
+            </if>
+            AND pr.state =  1
+        </where>
+        ORDER BY pr.depNo, pr.empNo
+        OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	
 	<!-- 사원정보 수정  --> 
     <update id="updateEmployeeEnabled" parameterType="map">
 		UPDATE employee SET enabled=#{enabled} WHERE empNo=#{empNo}

@@ -159,6 +159,18 @@ public class InsaServiceImpl implements InsaService {
 		return list;
 	}
 
+	@Override
+	public List<Insa> list2(Map<String, Object> map) {
+		List<Insa> list = null;
+
+		try {
+			list = dao.selectList("insa.listInsa2", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return list;
+	}
+	
 	
 	@Override
 	public Insa readInsa(String empNo) {

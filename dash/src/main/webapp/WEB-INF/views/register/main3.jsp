@@ -38,24 +38,11 @@ function sendkOk() {
         f.name.focus();
         return;
     }
-
-    str = f.x_pos.value.trim();
-    if(!str) {
-        alert("경도를 입력하세요. ");
-        f.x_pos.focus();
-        return;
-    }
     
-    str = f.y_pos.value.trim();
-    if(!str) {
-        alert("위도를 입력하세요. ");
-        f.y_pos.focus();
-        return;
-    }
-    
-    
-
-    f.action = "${pageContext.request.contextPath}/register/kwrite";
+	let stNum = f.station.value;
+	
+	
+    f.action = "${pageContext.request.contextPath}/register/kwrite?stNum=" + stNum;
     f.submit();   
 }
 
@@ -85,27 +72,27 @@ function sendkOk() {
 											value="${dto.name}" placeholder="제품명"></td>
 									</tr>
 									<tr>
-										<td class="col-sm-2" scope="row">경도</td>
-										<td><input type="text" name="x_pos" class="form-control"
-											value="${dto.x_pos}" placeholder="경도"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">위도</td>
-										<td><input type="text" name="y_pos" class="form-control"
-											value="${dto.y_pos}" placeholder="위도"></td>
-									</tr>
+										<td class="col-sm-2" scope="row">설치 대여소</td>
+										<td>
+											<select name="station" class="form-select">
+												<c:forEach var="dto" items="${list}">
+													<option value="${dto.stNum}">${dto.sname}</option>  
+												</c:forEach>
+											</select>
+										</td>
+									</tr>	
 								</table>
 								</div>
 								<table class="table table-borderless">
 									<tr>
 										<td class="text-center">
-											<button type="button" class="btn text-bg-secondary"
+											<button type="button" class="btn btn-main"
 												onclick="sendkOk();">
 												등록하기&nbsp;<i class="bi bi-check2"></i>
 											</button>
-											<button type="reset" class="btn btn-light">다시입력</button>
-											<button type="button" class="btn btn-light"
-												onclick="location.href='${pageContext.request.contextPath}/register/main';">
+											<button type="reset" class="btn btn-sub">다시입력</button>
+											<button type="button" class="btn btn-sub"
+												onclick="location.href='${pageContext.request.contextPath}/kickmanage/main';">
 												등록취소&nbsp;<i class="bi bi-x"></i>
 											</button>
 										</td>

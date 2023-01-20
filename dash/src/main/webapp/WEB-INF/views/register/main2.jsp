@@ -124,13 +124,13 @@ function sendChOk() {
 			<table class="table table-borderless">
 				<tr>
 					<td class="text-center">
-						<button type="button" class="btn text-bg-secondary"
+						<button type="button" class="btn btn-main"
 							onclick="sendChOk();">
 							등록하기&nbsp;<i class="bi bi-check2"></i>
 						</button>
-						<button type="reset" class="btn btn-light">다시입력</button>
-						<button type="button" class="btn btn-light"
-							onclick="location.href='${pageContext.request.contextPath}/register/main2';">
+						<button type="reset" class="btn btn-sub">다시입력</button>
+						<button type="button" class="btn btn-sub"
+							onclick="location.href='${pageContext.request.contextPath}/stationmanage/main';">
 							등록취소&nbsp;<i class="bi bi-x"></i>
 						</button>
 					</td>
