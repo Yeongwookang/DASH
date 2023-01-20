@@ -10,8 +10,7 @@ function search(page){
 	let keyword = $("#keyword").val();
 	let query = "condition="+condition+"&keyword="+keyword+"&current_page="+page;
 	let url = "${pageContext.request.contextPath}/approval/empSearch";
-	
-	console.log(page);
+
 	const fn = function(data){
 		$(".searched").remove();
 		//리스트 등록

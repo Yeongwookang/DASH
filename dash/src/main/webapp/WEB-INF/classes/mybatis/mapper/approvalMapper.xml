@@ -162,7 +162,7 @@
 				<include refid="where-list"/>
 			</if>
 		</where>
-		ORDER BY pr.empNo DESC
+		ORDER BY pr.depNo, pr.empNo DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	

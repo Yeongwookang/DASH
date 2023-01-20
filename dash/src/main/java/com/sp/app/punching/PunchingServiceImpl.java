@@ -88,7 +88,7 @@ public class PunchingServiceImpl implements PunchingService {
 	public Punching readDayOff(String empNo) {
 		Punching dto =null;
 		try {
-			 dto = dao.selectOne("punching.readDayOff", empNo);
+			 dto = dao.selectOne("punching.readDayoff", empNo);
 		} catch (Exception e) {
 			logger.warn("오류가 발생했습니다: {}, 파라미터: {}", e.getMessage(), empNo);
 		}
@@ -98,7 +98,7 @@ public class PunchingServiceImpl implements PunchingService {
 	@Override
 	public void insertDayoff(Punching pun) throws Exception {
 		try {
-			dao.insertData("punching.insertDayoff", pun);
+			dao.updateData("punching.insertDayoff", pun);
 		} catch (Exception e) {
 			throw e;
 		}

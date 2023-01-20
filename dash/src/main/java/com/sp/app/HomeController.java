@@ -124,11 +124,13 @@ public class HomeController {
       List<Community> listCommunity = coService.listCommunityMain();
       
       
+      Punching punDto = punService.readDayOff(info.getEmpNo());
       
       model.addAttribute("list", list);
       model.addAttribute("listTop", listTop);
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
+      model.addAttribute("punDto",punDto);
       
       return ".mainLayout";
    }

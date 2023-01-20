@@ -54,14 +54,14 @@ public class PunchingController {
 			
 			
 			try {
-				if(service.readDayOff(info.getEmpNo())==null || service.readDayOff(info.getEmpNo()).getEmpNo() ==null) {
+				if(service.readDayOff(info.getEmpNo())==null) {
 					service.insertDayoff(pun);
-				} else {
-					service.punchOff(pun);
-					service.updateWorkDays(info.getEmpNo());
-				}
+				} 
+				service.punchOff(pun);
+				service.updateWorkDays(info.getEmpNo());
+				
 			} catch (Exception e) {
-				logger.warn("{}가 발생했습니다. empNo: {}", e.getMessage(), pun.getEmpNo());
+				logger.warn("{}오류가 발생했습니다. empNo: {}", e.getMessage(), pun.getEmpNo());
 			}
 			
 			

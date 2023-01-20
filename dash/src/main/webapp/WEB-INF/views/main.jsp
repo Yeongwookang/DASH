@@ -6,7 +6,12 @@
 
 function punchOn(){
 	if(confirm("${sessionScope.employee.name}님 출근하시겠습니까?")){
-	location.href='${pageContext.request.contextPath}/punching/punchOn';
+		
+		if(${empty todayPunch.punchOnTime}){
+			location.href='${pageContext.request.contextPath}/punching/punchOn';
+		} else{
+			alert('이미 출근했습니다.');
+		}
 	}
 }
 
@@ -17,7 +22,11 @@ function punchOff(){
 		date.setTime(date.getTime()+9*60*60*1000);
 		
 		if((new Date()-date)>=0){
-		location.href='${pageContext.request.contextPath}/punching/punchOff';
+			if(${empty todayPunch.punchOffTime}){
+				location.href='${pageContext.request.contextPath}/punching/punchOff';
+			} else{
+				alert("이미 퇴근했습니다.");
+			}
 		} else{
 			alert("아직은 퇴근할 수 없습니다.");
 		}
@@ -96,15 +105,15 @@ function punchOff(){
 		</div> 
 			<div class="m-auto mt-3 mb-2" style="width: 90%">
 				<div>
-				<div>연차 (17일 / 20일)</div>
+				<div>연차 (${punDto.leftQty}일 / ${punDto.totalQty}일)</div>
 				<div class="progress">
-				  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 85%" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+				  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" id="dayoff" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 				</div>
 				</div>
 				<div class="mt-3">
 					<div>특별휴가 (0일 / 0일)</div>
 					<div class="progress">
-					  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+					  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" id="specialVacation" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 					</div>
 				</div>
 			</div>
@@ -346,16 +355,22 @@ function punchOff(){
 		let hour = Math.floor((date - new Date())/1000/60/60);
 		let min = Math.floor(((date - new Date())-hour*60*60*1000)/1000/60);
 		
-		if (isNaN(hour)){
-			hour="-";
-		}
-		if (isNaN(min)){
+		if (isNaN(min)||hour<0){
 			min ="-";
 		}
+		if (isNaN(hour)||hour<=0){
+			hour="-";
+		}
+		
 		
 		let out = "&nbsp;"+hour+"&nbsp;시간&nbsp;"+min+"&nbsp;분";
 		
 		$(".todayRemain").append(out);
+	});
+	
+	$(function(){
+		$("#dayoff").attr("aria-valuenow",${punDto.leftQty}/${punDto.totalQty}*100);
+		$("#dayoff").attr("style", "width:"+${punDto.leftQty}/${punDto.totalQty}*100+"%");
 	});
 
 
@@ -589,7 +604,115 @@ $(function(){
 			<div>연차나 특별휴가를 얻고 사용한 기록을 볼 수 있습니다.</div>
 			<div>연차 기록은 <span style="font-weight: bold">획득, 사용의 필터와 날짜</span>로 검색할 수 있습니다.</div>
 		</div>
-        ...
+
+			<div class="d-flex justify-content-center align-items-center mt-4">
+				<div class="rounded bg-main p-2 text-white" style="font-weight: bold">잔여 휴가</div>
+				<div class="ms-3 me-3">10일</div>
+				<div class="rounded bg-main p-2 text-white" style="font-weight: bold">전체 휴가</div>
+				<div class="ms-3 me-3">20일</div>
+				<div class="rounded bg-main p-2 text-white" style="font-weight: bold">사용 휴가</div>
+				<div class="ms-3 me-3">30일</div>
+			</div>
+       <div class="card mt-4 p-4">
+	       	<div>
+	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/dayoffSearch" method="POST">
+		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
+			     		<select class="form-select me-2" name="condition" style="width: 100px;">
+			     			<option value="gain">획득</option>
+			     			<option value="use">사용</option>
+			     		</select>
+			     		<input class="form-control me-2" name="startDate" type="date">
+			     		<span class="me-2">~</span>
+			     		<input class="form-control me-2" name="endDate" type="date">
+			     		<button class="btn btn-main"><i class="fa-solid fa-magnifying-glass"></i></button>
+		    		</div>
+	     		</form>
+	       		<div class="m-auto">
+		       		<c:choose>
+		       			<c:when test="${empty dayoffList}">
+		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       			</c:when>
+		       			<c:otherwise>
+		       				<div class="mt-2">
+		       					<table class="table hover-table">
+		       						<thead>
+				       					<tr>
+				       						<th>#</th>
+				       						<th style="width:50%">사유</th>
+				       						<th>수량</th>
+				       						<th>일자</th>
+				       						<th>잔여 연차</th>
+				       					</tr>
+			       					</thead>
+			       					<tbody>
+			       						<c:forEach items="${dayoffList}" var="dto" varStatus="status">
+			       							<tr>
+			       								<td>${status.index}</td>
+			       								<td>${dto.content}</td>
+			       								<td>${dto.qty}</td>
+			       								<td>${dto.date}</td>
+			       								<td>${dto.leftQty}</td>
+			       							</tr>
+			       						</c:forEach>
+		       						</tbody>
+		       					</table>
+		       				</div>
+		       			</c:otherwise>
+		       		</c:choose>
+	       		</div>
+	      	</div>
+       </div>
+       
+       <div class="card mt-4 p-4">
+	       	<div>
+	 			<form name="svSearch" action="${pageContext.request.contextPath}/punching/svSearch" method="POST">
+		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
+			     		<select class="form-select me-2" name="condition" style="width: 100px;">
+			     			<option value="gain">획득</option>
+			     			<option value="use">사용</option>
+			     		</select>
+			     		<input class="form-control me-2" name="startDate" type="date">
+			     		<span class="me-2">~</span>
+			     		<input class="form-control me-2" name="endDate" type="date">
+			     		<button class="btn btn-main"><i class="fa-solid fa-magnifying-glass"></i></button>
+		    		</div>
+	     		</form>
+	       		<div class="m-auto">
+		       		<c:choose>
+		       			<c:when test="${empty svList}">
+		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       			</c:when>
+		       			<c:otherwise>
+		       				<div class="mt-2">
+		       					<table class="table hover-table">
+		       						<thead>
+				       					<tr>
+				       						<th>#</th>
+				       						<th style="width:50%">사유</th>
+				       						<th>수량</th>
+				       						<th>일자</th>
+				       						<th>잔여 연차</th>
+				       					</tr>
+			       					</thead>
+			       					<tbody>
+			       						<c:forEach items="${specialVacationList}" var="sv" varStatus="sv_status">
+			       							<tr>
+			       								<td>${sv_status.index}</td>
+			       								<td>${sv.content}</td>
+			       								<td>${sv.qty}</td>
+			       								<td>${sv.date}</td>
+			       								<td>${sv.leftQty}</td>
+			       							</tr>
+			       						</c:forEach>
+		       						</tbody>
+		       					</table>
+		       				</div>
+		       			</c:otherwise>
+		       		</c:choose>
+	       		</div>
+	      	</div>
+       </div>
+       
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-main" data-bs-dismiss="modal">닫기</button>        
