@@ -10,6 +10,9 @@ public class Register {
 	private String zoonName;
 	private String addr;
 	
+	private String sname;
+	private int stNum;
+	
 	private int LEFTQTY;
 	private String state;
 	
@@ -78,6 +81,18 @@ public class Register {
 	}
 	public void setImageFilenameFile(MultipartFile imageFilenameFile) {
 		this.imageFilenameFile = imageFilenameFile;
+	}
+	public int getStNum() {
+		return stNum;
+	}
+	public void setStNum(int stNum) {
+		this.stNum = stNum;
+	}
+	public String getSname() {
+		return sname;
+	}
+	public void setSname(String sname) {
+		this.sname = sname;
 	}
 	
 	

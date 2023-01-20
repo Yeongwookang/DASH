@@ -1,5 +1,7 @@
 package com.sp.app.register;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,17 +79,41 @@ public class RegisterServiceImpl implements RegisterService {
 		try {
 			String filename = fileManager.doFileUpload(dto.getImageFilenameFile(), pathname);
 			
+			dto.setImageFilename(filename);
+			dao.insertData("register.kickboardregister", dto);
 			
-			if (filename != null) {
-				dto.setImageFilename(filename);
-				dao.insertData("register.kickboardregister", dto);
-			}
 			System.out.println(filename);
 			
 		} catch (Exception e) {
 			logger.warn("{} ", e.getMessage());
 		}
 		
+	}
+
+
+
+	@Override
+	public List<Register> stationlist() throws Exception {
+		 List<Register> list = null;
+		
+		try {
+		list =	dao.selectList("register.stationlist");
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return list;
+	}
+
+	@Override
+	public Register stationInfo(int stNum) throws Exception {
+		Register vo = null;
+		
+		try {
+		vo  =	dao.selectOne("register.stationInfo", stNum);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return vo;
 	}
 	
 	

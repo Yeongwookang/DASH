@@ -1,14 +1,17 @@
 package com.sp.app.register;
 
 import java.io.File;
-
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -33,12 +36,18 @@ public class RegisterController {
 	}
 	
 	@RequestMapping(value = "main3")
-	public String main3() {
+	public String main3(Model model) throws Exception {
+		List<Register> list = service.stationlist();
+		model.addAttribute("list", list);
+		
 		return ".register.main3";
 	}
 	
 	
 	
+	
+	
+
 	@PostMapping("write")
 	public String writeSubmit(Register dto, HttpSession session) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
@@ -68,13 +77,17 @@ public class RegisterController {
 	}
 	
 	@PostMapping("kwrite")
-	public String kwriteSubmit(Register dto,HttpSession session) throws Exception {
+	public String kwriteSubmit(Register dto, HttpSession session, @RequestParam int stNum) throws Exception {
 		String root = session.getServletContext().getRealPath("/");
 		String path = root + "uploads" + File.separator + "photo";
 
 		try {
+			Register vo = service.stationInfo(stNum);
 			
-			service.insertkickboard(dto,path);
+			dto.setX_pos(vo.getX_pos());
+			dto.setY_pos(vo.getY_pos());
+			
+			service.insertkickboard(dto, path);
 		} catch (Exception e) {
 		}
 
