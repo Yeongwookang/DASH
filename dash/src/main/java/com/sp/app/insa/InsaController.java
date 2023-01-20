@@ -215,7 +215,7 @@ public class InsaController {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		List<Insa> list = service.list(map);
+		List<Insa> list = service.list2(map);
 		
 		model.addAttribute("col", col);
 		model.addAttribute("kwd", kwd);

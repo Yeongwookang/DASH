@@ -127,7 +127,7 @@
 		let empNo = $("#empNo").val();
 
 		if (!/^[[0-9_]+$/i.test(empNo)) {
-			let str = "아이디는 5~10자 이내이며, 첫글자는 영문자로 시작해야 합니다.";
+			let str = "아이디는 5~10자 이내이며, 숫자만 가능합니다.";
 			$("#empNo").focus();
 			$("#empNo").parent().find(".help-block").html(str);
 			return;
@@ -192,7 +192,7 @@
 	<div class="d-flex m-auto justify-content-between mt-4"
 		style="width: 90%;">
 		<div class="mt-2 p-2" style="width: 39%;">
-			<div class="card">
+			<div class="card h-100">
 				<div class="card-header bg-main text-white bg-gradient text-start">
 					<blockquote class="blockquote mb-0">
 						<p>전체 사원 목록</p>
@@ -226,14 +226,9 @@
 								</button>
 							</div>
 						</div>
-						<div class="mt-3">
-							<input type="checkbox" value="" id="flexCheckDefault"> <label
-								class="form-check-label" for="flexCheckDefault"> 퇴사자 제외
-							</label>
-						</div>
-
+						
 					</form>
-					<div class="scroll" style="overflow-y: scroll; height: 500px;">
+					<div class="scroll" style="overflow-y: scroll; height: 800px;">
 						<table class="table table-hover">
 							<thead>
 								<tr>
@@ -391,22 +386,6 @@
 								</div>
 
 
-								<div class="row g-2 mt-3">
-									<div class="col-sm-15 input-group">
-										<label class="col-sm-3 col-form-label" for="empNo">사&nbsp;&nbsp;&nbsp;번</label>
-										
-										<div class="col-3 ps-1">
-											<c:if test="${mode=='main'}">
-												<button type="button" class="btn btn-sub"
-													onclick="empNoCheck();">중복검사</button>
-											</c:if>
-										</div>
-									</div>
-								</div>
-
-
-
-
 								<div class="row g-2 mt-2">
 									<div class="col-sm-15 input-group">
 										<label class="col-sm-3 col-form-label" for="name">이&nbsp;&nbsp;&nbsp;름</label>
@@ -543,7 +522,7 @@
 						</div>
 
 						<div class="row mt-2">
-							<label class="col-sm-2 col-form-label" for="pwd2">비밀번호 확인</label>
+							<label class="col-sm-2 col-form-label" for="pwd2">비밀번호확인</label>
 							<div class="col-sm-5">
 								<input type="password" name="pwd2" id="pwd2"
 									class="form-control" autocomplete="off" placeholder="비밀번호 확인">
