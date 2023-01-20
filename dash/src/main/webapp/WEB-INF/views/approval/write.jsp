@@ -11,7 +11,7 @@ function search(page){
 	let query = "condition="+condition+"&keyword="+keyword+"&current_page="+page;
 	let url = "${pageContext.request.contextPath}/approval/empSearch";
 	
-	
+	console.log(page);
 	const fn = function(data){
 		$(".searched").remove();
 		//리스트 등록
@@ -36,8 +36,9 @@ function search(page){
 			$(".sendInfo").remove();
 			
 			$(".sendList").append(out);
-				
+			
 			i++;
+			
 			
 		}
 		
@@ -208,13 +209,13 @@ function update_document(){
         		<div><span style="font-weight: bold">부서, 팀, 이름, 제목</span>으로 검색이 가능합니다.</div>
         	</div>
         	<div class="d-flex">
-        	<select class="form-select me-2" id="condition">
+        	<select class="form-select me-2" id="condition_tl">
 	      		<option value="dep">부서</option>
 	      		<option value="team">팀</option>
 	      		<option value="name">이름</option>
 	      		<option value="title">제목</option>
 	      	</select>
-        	<input class="form-control" id="keyword">
+        	<input class="form-control" id="keyword_tl">
         	<button type="button" class="btn btn-sub ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
         	</div>
         </div>
@@ -228,7 +229,7 @@ function update_document(){
 
 
 <!-- Modal -->
-<div class="modal fade text-center" id="empSearch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newApprovalLabel" aria-hidden="true">
+<div class="modal fade text-center" id="empSearch" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="empSearchLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
