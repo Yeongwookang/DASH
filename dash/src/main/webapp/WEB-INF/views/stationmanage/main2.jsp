@@ -157,7 +157,7 @@ function createMarker(data) {
 		// 인포윈도우에 표시할 내용
 		});
 		
-		var imgSrc = "${pageContext.request.contextPath}/resources/images/x_station.png";
+		var imgSrc = "${pageContext.request.contextPath}/resources/images/C.png";
 		if(positions[i].img) {
 	    	imgSrc = "${pageContext.request.contextPath}/resources/images/"+positions[i].img;
 	    }
