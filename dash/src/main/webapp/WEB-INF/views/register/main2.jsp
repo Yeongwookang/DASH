@@ -78,67 +78,64 @@ function sendChOk() {
 
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
-		<span>| 충전소 등록</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>충전소 등록</span>
+	</div>
 
 
-
-		<form class="mt-4" name="stationchForm" id="stationchForm" method="post"
-			enctype="multipart/form-data">
-			<div class="d-flex justify-content-start">
-				<div class="table-form1">
-					<div class="img-viewer1 ms-3 me-4"></div>
-					<input type="file" name="imageFilenameFile" id="imageFilenameFile1"
-						accept="image/*" class="form-control" style="display: none;">
-				</div>
-				<table class="table text-center align-middle"
-					style="font-size: 16px; height: 325px;">
-					<tr>
-						<td class="col-sm-2" scope="row">충전소명</td>
-						<td><input type="text" name="name" class="form-control"
-							value="${dto.name}" placeholder="충전소명"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-2" scope="row">경도</td>
-						<td><input type="text" name="x_pos" class="form-control"
-							value="${dto.x_pos}" placeholder="경도"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-2" scope="row">위도</td>
-						<td><input type="text" name="y_pos" class="form-control"
-							value="${dto.y_pos}" placeholder="위도"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-2" scope="row">충전 최대수량</td>
-						<td><input type="text" name="LEFTQTY" class="form-control"
-							value="${dto.LEFTQTY}" placeholder="충전 최대수량"></td>
-					</tr>
-					<tr>
-						<td class="col-sm-2" scope="row">주소</td>
-						<td><input type="text" name="addr" class="form-control"
-							value="${dto.addr}" placeholder="주소"></td>
-					</tr>
-				</table>
-			</div>
-			<table class="table table-borderless">
-				<tr>
-					<td class="text-center">
-						<button type="button" class="btn btn-main"
-							onclick="sendChOk();">
-							등록하기&nbsp;<i class="bi bi-check2"></i>
-						</button>
-						<button type="reset" class="btn btn-sub">다시입력</button>
-						<button type="button" class="btn btn-sub"
-							onclick="location.href='${pageContext.request.contextPath}/stationmanage/main';">
+<form class="mt-4" name="stationchForm" id="stationchForm" method="post"
+	enctype="multipart/form-data">
+		<table class="table text-center align-middle"
+			style="font-size: 16px; height: 325px;">
+		<tr>
+			<td rowspan="6" style="width:359px; padding: 0;">
+			<div class="table-form1">
+		<div class="img-viewer1"></div>
+		<input type="file" name="imageFilenameFile" id="imageFilenameFile1"
+			accept="image/*" class="form-control" style="display: none;">
+			</div></td>
+			<td class="col-sm-2" scope="row">충전소명</td>
+			<td><input type="text" name="name" class="form-control"
+				value="${dto.name}" placeholder="충전소명"></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2" scope="row">경도</td>
+			<td><input type="text" name="x_pos" class="form-control"
+				value="${dto.x_pos}" placeholder="경도"></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2" scope="row">위도</td>
+			<td><input type="text" name="y_pos" class="form-control"
+				value="${dto.y_pos}" placeholder="위도"></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2" scope="row">충전 최대수량</td>
+			<td><input type="text" name="LEFTQTY" class="form-control"
+				value="${dto.LEFTQTY}" placeholder="충전 최대수량"></td>
+		</tr>
+		<tr>
+			<td class="col-sm-2" scope="row">주소</td>
+			<td><input type="text" name="addr" class="form-control"
+				value="${dto.addr}" placeholder="주소"></td>
+		</tr>
+	</table>
+		</form>
+<table class="table table-borderless">
+	<tr>
+		<td class="text-center">
+			<button type="button" class="btn btn-main"
+				onclick="sendChOk();">
+				등록하기&nbsp;<i class="bi bi-check2"></i>
+			</button>
+			<button type="reset" class="btn btn-sub">다시입력</button>
+			<button type="button" class="btn btn-sub"
+				onclick="location.href='${pageContext.request.contextPath}/stationmanage/main';">
 							등록취소&nbsp;<i class="bi bi-x"></i>
 						</button>
 					</td>
 				</tr>
 			</table>
-		</form>
-	</div>
-
 </div>
 
 

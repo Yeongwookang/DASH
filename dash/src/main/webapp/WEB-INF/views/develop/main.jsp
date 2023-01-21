@@ -12,11 +12,11 @@
 </script>
 
 
-<div class="m-auto  card mt-5 mb-5 p-4">
-<div class="text-start fs-4 ml-2 mb-4">
-	<span>| 유지보수</span>
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
+	<span>유지보수</span>
 </div>
-	<div class="mx-5">
+	<div class="mt-4">
 		<div class="col-6 text-center">
 			<form class="row" name="searchForm"
 				action="${pageContext.request.contextPath}/develop/main"

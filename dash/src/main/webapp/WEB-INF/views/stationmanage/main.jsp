@@ -40,11 +40,11 @@ $(function(){
 });
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4 mt-4">
-		<span>| 충전소·대여소 현황</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>충전소·대여소 현황</span>
 	</div>
-	<div class="m-auto" style="width:80%">
+	<div class="mt-4">
 		<nav>
 			<div class="nav nav-tabs" id="nav-tab" role="tablist">
 				<button class="nav-link text-black " id="nav-home-tab"
@@ -66,7 +66,7 @@ $(function(){
 			</div>
 		</div>
 		
-		<div class="d-flex justify-content-end mt-3 mb-4">
+		<div class="d-flex justify-content-end mt-4">
 		<button type="button" class="btn bg-sub text-center "  onclick="location.href='${pageContext.request.contextPath}/register/main'">대여소 등록</button>
 		</div>
 	</div>	

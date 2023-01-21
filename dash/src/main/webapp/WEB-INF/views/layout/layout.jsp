@@ -49,15 +49,15 @@
 </head>
 <body>
 <div class="flex-container" style="background:#fff;">
-		<div>
+		<div class="m-auto" style="width:1152px;">
 			<tiles:insertAttribute name="header"/>
 		</div>
 		<div class="sticky-top">
 			<tiles:insertAttribute name="navbar"/>
 		</div>
-		<div class="scroll d-flex m-auto" style="width: 1744px; min-height:80vh; overflow-y: scroll; ">
+		<div class="scroll d-flex m-auto" style="width: 1552px; min-height:80vh; overflow-y: scroll; ">
 				<div style="width: 200px;"></div>
-				<div style="width: 1344px;">
+				<div style="width: 1152px;">
 				<tiles:insertAttribute name="body"/>
 				</div>
 				<div style="width: 200px; position: relative;">
@@ -66,9 +66,10 @@
 		</div>
 
 			
-			
-		<div>
-				<footer><tiles:insertAttribute name="footer"/></footer>
+		<div class="bg-sub">
+			<div class="m-auto" style="width:1152px;">
+					<footer><tiles:insertAttribute name="footer"/></footer>
+			</div>
 		</div>
 </div>
 	<script type="text/javascript">

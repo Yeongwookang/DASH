@@ -176,12 +176,12 @@
 
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="d-flex justify-content-between ps-4 mt-4">
-		<div class="text-start fs-3 ">
-			<span>| 사원관리</span>
+<div style="margin-top: 5rem; margin-bottom: 5rem;">
+	<div class="d-flex justify-content-between align-content-end mt-4">
+		<div class="title">
+			<span>사원관리</span>
 		</div>
-		<div class="pe-3">
+		<div>
 			<button type="button" class="btn btn1 btn-sub"
 				onclick="location.href='${pageContext.request.contextPath}/insa/main';">신규등록</button>
 			<button type="button" class="btn btn1 btn-sub"
@@ -189,9 +189,8 @@
 			<input type="hidden" name=empNoValid id="empNoValid" value="false">
 		</div>
 	</div>
-	<div class="d-flex m-auto justify-content-between mt-4"
-		style="width: 90%;">
-		<div class="mt-2 p-2" style="width: 39%;">
+	<div class="d-flex m-auto justify-content-between mt-4">
+		<div style="width: 39%;">
 			<div class="card h-100">
 				<div class="card-header bg-main text-white bg-gradient text-start">
 					<blockquote class="blockquote mb-0">
@@ -256,7 +255,7 @@
 			</div>
 		</div>
 
-		<div class="mt-2 p-2" style="width: 59%">
+		<div style="width: 59%">
 			<div class="card">
 				<div class="card-header bg-main text-white bg-gradient text-start">
 					<blockquote class="blockquote mb-0">

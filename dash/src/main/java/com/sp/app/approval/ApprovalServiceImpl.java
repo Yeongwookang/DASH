@@ -131,6 +131,20 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 		return result;
 	}
+	
+	@Override
+	public int dataCount_tl(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("approval.dataCount_tl", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		
+		return result;
+	}
+
 
 	@Override
 	public List<Approval> approvalList(Map<String, Object> map) {
@@ -265,6 +279,93 @@ public class ApprovalServiceImpl implements ApprovalService {
 		
 		return result;
 	}
+
+	@Override
+	public void insertTimeline(Approval dto) throws Exception {
+		try {
+			dao.insertData("approval.insertTimeline", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void updateTimeline(Approval dto) throws Exception {
+		try {
+			dao.updateData("approval.updateTimeline", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void updateTimelineAdmin(Approval dto) throws Exception {
+		try {
+			dao.updateData("approval.updateTlAdmin", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public void deleteTimeline(Approval dto) throws Exception {
+		try {
+			dao.insertData("approval.deleteTimeline", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+
+	@Override
+	public Approval readTimeline(Approval dto) {
+		Approval result = null;
+		
+		try {
+			result = dao.selectOne("approval.readTimeline", dto);
+		} catch (Exception e) {
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+		}
+		return result;
+	}
+	
+	@Override
+	public Approval readDocumentTimeline(Approval dto) {
+			Approval result = null;
+		
+		try {
+			result = dao.selectOne("approval.readDocumentTimeline", dto);
+		} catch (Exception e) {
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+		}
+		return result;
+	}
+	
+	@Override
+	public List<Approval> listTimeline(Map<String,Object> map) {
+		List<Approval> result = null;
+		
+		try {
+			result = dao.selectList("approval.listTimeline", map);
+		} catch (Exception e) {
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), map.get("offset"));
+		}
+		return result;
+	}
+
+	@Override
+	public List<Approval> recordTimeline(Approval dto) {
+		List<Approval> result = null;
+		
+		try {
+			result = dao.selectList("approval.recordTimeline", dto);
+		} catch (Exception e) {
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+		}
+		return result;
+	}
+
+	
 	
 	
 }

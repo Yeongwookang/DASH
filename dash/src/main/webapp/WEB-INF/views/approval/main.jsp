@@ -2,118 +2,135 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 mb-4 ps-4 mt-4">
-		<span>| 결재</span>
+<div style="margin-top: 5rem; margin-bottom: 5rem;">
+	<div class="title mt-4">
+		결재
 	</div>
-	<div class="m-auto" style="width:80%">
-		<div class="card">
-			<div class="card-header bg-main text-white bg-gradient fs-5" style="font-weight: bold;">
-				결재 대기 목록
-			</div>
-			<div class="card-body">
-			<c:choose >
-			<c:when test="${not empty approvalList}">
-				<table class="table table-hover text-center">
-					<thead>
-	        			<tr>
-	        				<th>#</th>
-	        				<th style="width: 50%">제목</th>
-	        				<th style="width: 15%">부서 </th>
-	        				<th style="width: 10%">직급</th> 
-	        				<th style="width: 10%">기안자</th>
-	        				<th style="width: 15%">상태</th>
-	        			</tr>
-        			</thead>
-        			<tbody class="sendList">
-        			<c:forEach items="${approvalList}" var="ap" varStatus="status">
-        				<tr>
-        					<th>${status.count}</th>
-        					<td class="title">${ap.title}</td>
-        					<td class="dep">${ap.depName}</td>
-        					<td class="rank">${ap.rankName}</td>
-        					<td class="name">${ap.name}</td>
-        					<td>
-        					<c:choose>
-        						<c:when test="${ap.state == 0 }">기안</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
-        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
-        						<c:otherwise>문의</c:otherwise>
-        					</c:choose>
-        					</td>
-        					<td class="signNum" style="display: none">${ap.signNum}</td>
-        				</tr>
-        			</c:forEach>
-        			</tbody>
-				</table>
-			</c:when>
-			<c:otherwise>
-				<blockquote class="blockquote mt-5 mb-5 text-center text-muted">
-			      <p>" 결재 대기중인 목록이 없습니다 "</p>
-			    </blockquote>
-			</c:otherwise>
-			</c:choose>
-			</div>
+	
+	<hr class="mt-4" style=" margin-bottom: 4rem; border: solid 1px;">
+	<div class="mt-4 row">
+		<div class="col-2" style="font-size: 1.2rem; font-weight: 700;">
+			결재 대기 목록
 		</div>
+		
+		<c:choose >
+		<c:when test="${not empty approvalList}">
+			<div class="col-10">
+			<table class="table table-hover text-center m-0">
+				<thead>
+        			<tr class="bg-main bg-gradient text-white" style="height: 50px;">
+        				<th>#</th>
+        				<th style="width: 50%">제목</th>
+        				<th style="width: 15%">부서 </th>
+        				<th style="width: 10%">직급</th> 
+        				<th style="width: 10%">기안자</th>
+        				<th style="width: 15%">상태</th>
+        			</tr>
+       			</thead>
+       			<tbody class="approvalList">
+       			<c:forEach items="${approvalList}" var="ap" varStatus="status">
+       				<tr>
+       					<th>${status.count}</th>
+       					<td>${ap.title}</td>
+       					<td>${ap.depName}</td>
+       					<td>${ap.rankName}</td>
+       					<td>${ap.name}</td>
+       					<td>
+       					<c:choose>
+       						<c:when test="${ap.state == 0 }">기안</c:when>
+       						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+       						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+       						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+       						<c:otherwise>문의</c:otherwise>
+       					</c:choose>
+       					</td>
+       					<td class="signNum" style="display: none">${ap.signNum}</td>
+       				</tr>
+       			</c:forEach>
+       			</tbody>
+			</table>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="col-10">
+			<div class="border">
+			<blockquote class="blockquote mt-5 mb-5 text-center text-muted">
+		      <p>" 결재 대기중인 목록이 없습니다 "</p>
+		    </blockquote>
+		    </div>
+		    </div>
+		</c:otherwise>
+		</c:choose>
+	</div>
+	
+	<hr style="margin-top: 4rem; margin-bottom: 4rem; border: solid 1px;">
+		
+	<div class="mt-4 row">
+	<div class="col-2"  style="font-size: 1.2rem; font-weight: 700;" >
+		${sessionScope.employee.name}님의 결재
+	</div>
+	<c:choose >
+	<c:when test="${not empty myApprovalList}">
+		<div class="col-10">
+		<table class="table m-0 table-hover text-center">
+			<thead>
+       			<tr class="bg-main bg-gradient text-white" style="height: 50px;">
+       				<th>#</th>
+       				<th style="width: 50%">제목</th>
+       				<th style="width: 15%">부서 </th> 
+       				<th style="width: 10%">직급</th>
+       				<th style="width: 10%">기안자</th>
+       				<th style="width: 15%">상태</th>
+       			</tr>
+      			</thead>
+      			<tbody class="myApprovalList">
+      			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
+      				<tr>
+      					<th>${status.count}</th>
+      					<td>${ap.title}</td>
+      					<td>${ap.depName}</td>
+      					<td>${ap.rankName}</td>
+      					<td>${ap.name}</td>
+      					<td>
+      					<c:choose>
+      						<c:when test="${ap.state == 0 }">기안</c:when>
+      						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
+      						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
+      						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+      						<c:otherwise>문의</c:otherwise>
+      					</c:choose>
+      					</td>
+      					<td style="display: none">${ap.signNum}</td>
+      				</tr>
+      			</c:forEach>
+      			</tbody>
+		</table>
+		<div class="mt-4">${paging}</div>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="col-10">
+		<div class="border">
+			<blockquote class="blockquote mt-5 mb-5 text-center text-muted">
+		      <p>" ${sessionScope.employee.name}님이 작성한 결재가 없습니다 "</p>
+		    </blockquote>
+	    </div>
+	    </div>
+	</c:otherwise>
+	</c:choose>
+	</div>
+	<hr style="margin-top: 4rem; border: solid 1px;">
+			
 
-	<div class="mt-4">
-		<div class="card">
-			<div class="card-header  bg-main text-white bg-gradient text-start fs-5"  style="font-weight: bold;">
-				${sessionScope.employee.name}님의 결재
-			</div>
-			<div class="card-body">
-				<c:choose >
-			<c:when test="${not empty myApprovalList}">
-				<table class="table  table-hover text-center">
-					<thead>
-	        			<tr>
-	        				<th>#</th>
-	        				<th style="width: 50%">제목</th>
-	        				<th style="width: 15%">부서 </th> 
-	        				<th style="width: 10%">직급</th>
-	        				<th style="width: 10%">기안자</th>
-	        				<th style="width: 15%">상태</th>
-	        			</tr>
-        			</thead>
-        			<tbody class="sendList">
-        			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
-        				<tr>
-        					<th>${status.count}</th>
-        					<td class="title">${ap.title}</td>
-        					<td class="dep">${ap.depName}</td>
-        					<td class="rank">${ap.rankName}</td>
-        					<td class="name">${ap.name}</td>
-        					<td>
-        					<c:choose>
-        						<c:when test="${ap.state == 0 }">기안</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
-        						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
-        						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
-        						<c:otherwise>문의</c:otherwise>
-        					</c:choose>
-        					</td>
-        					<td class="signNum" style="display: none">${ap.signNum}</td>
-        				</tr>
-        			</c:forEach>
-        			</tbody>
-				</table>
-			</c:when>
-			<c:otherwise>
-				<blockquote class="blockquote mt-5 mb-5 text-center text-muted">
-			      <p>" ${sessionScope.employee.name}님이 작성한 결재가 없습니다 "</p>
-			    </blockquote>
-			</c:otherwise>
-			</c:choose>
-			</div>
-			<div>${paging}</div>		
-		</div>
-	</div>
-	<div class="mt-4 mb-4 d-flex justify-content-between">	
-			<button class="btn btn-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#timeLine">타임라인</button>
-			<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
-	</div>
+
+
+
+
+<div class="mt-4 mb-4 d-flex justify-content-between">	
+		<button class="btn btn-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#timeLine">타임라인</button>
+		<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 </div>
 </div>
 <!-- Modal -->
@@ -155,5 +172,22 @@
 		let signNum = this.querySelector(".signNum").textContent;
 		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
 	});
+	
+	$(function(){
+		if(${fn:length(approvalList)}<5 && ${fn:length(approvalList)}>0 ){
+			let size = 5-${fn:length(approvalList)};
+			for(let i=0; i<size; i++){
+				$(".approvalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+			}
+		}
+		
+		if(${fn:length(myApprovalList)}<5 && ${fn:length(approvalList)}>0){
+			let size = 5-${fn:length(myApprovalList)};
+			for(let i=0; i<size; i++){
+				$(".myApprovalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
+			}
+		}
+	});
+	
 
 </script>

@@ -66,8 +66,7 @@ function punchOff(){
 		<div class="card p-4 mb-4">
 			<div class="d-flex justify-content-between align-items-center">
 			<div class="d-flex align-items-end" >
-				<span style="font-weight: 700; font-size: 1.2rem;">${msg}</span>
-				<span style="font-weight: 500; font-size: 1.1rem; ">&nbsp;&nbsp;${dayOfWeek}</span>
+				<span class="sales">${msg}</span>
 			</div>
 			<div>
 				<button type="button" class="btn btn-main"  onclick="punchOn();">출근</button>
@@ -75,13 +74,13 @@ function punchOff(){
 				<button type="button" class="btn btn-sub" data-bs-toggle="modal" data-bs-target="#attendance">출퇴근 현황</button>
 			</div>
 			</div>
-			<div class="d-flex justify-content-between mt-3 mb-2 m-auto" style="width:90%">
+			<div class="d-flex justify-content-between mt-4 m-auto w-100">
 				<div class="border-end d-flex flex-column justify-content-center" style="width:47%">
 					<div class="d-flex">
 						<div style="font-weight: bold; color:#495057;">주간근무시간</div>
 						<div style="color:#868e96">&nbsp;${attendance.weekAttend} 시간 / ${attendance.weekMax}시간</div>
 					</div>
-					<div class="d-flex mt-3">
+					<div class="d-flex mt-2">
 						<div style="font-weight: bold;  color:#495057;">잔여근무시간</div>
 						<div class="todayRemain"style="color:#868e96"></div>
 					</div>
@@ -91,7 +90,7 @@ function punchOff(){
 						<div class="me-2" style="font-weight: bold; color:#495057;">오늘 출근 시각 </div>
 						<div id="clockOnTime">${todayPunch.punchOnTime}</div>
 					</div>
-					<div class="d-flex mt-3">
+					<div class="d-flex mt-2">
 						<div class="me-2" style="font-weight: bold; color:#495057;">오늘 퇴근 시각 </div>
 						<div id="clockOffTime">${todayPunch.punchOffTime}</div>
 					</div>
@@ -99,11 +98,11 @@ function punchOff(){
 			</div>
 		</div>
 		<div class="card p-4 mb-4">
-		<div class="d-flex justify-content-between align-items-center">
-			<div class="text-start sales">| 연차 현황</div>
+		<div class="d-flex justify-content-between mb-4">
+			<div class="text-start sales">연차현황</div>
 			<button class="btn btn-sub" type="button" data-bs-toggle="modal" data-bs-target="#holidayHistory">기록</button>
 		</div> 
-			<div class="m-auto mt-3 mb-2" style="width: 90%">
+			<div class="m-auto w-100">
 				<div>
 				<div>연차 (${punDto.leftQty}일 / ${punDto.totalQty}일)</div>
 				<div class="progress">
@@ -119,8 +118,8 @@ function punchOff(){
 			</div>
 		</div>
 			<div class="card p-4 mb-4 " > 
-				<div class="d-flex justify-content-between">
-					<div class="text-start sales">| 공지사항</div>
+				<div class="d-flex justify-content-between mb-4">
+					<div class="text-start sales">공지사항</div>
 					<a href="${pageContext.request.contextPath}/notice/main" class="aTag">바로가기 ></a>
 				</div>
 					<c:choose>
@@ -130,7 +129,7 @@ function punchOff(){
 						    </blockquote>
 					</c:when>
 					<c:otherwise>
-						<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
+						<table class="table table-hover board-list-main m-auto w-100" > 
 							<thead>  
 								<tr class="text-center">
 									<th style="width: 10%">#</th> 
@@ -163,19 +162,19 @@ function punchOff(){
 				</c:choose>
 			</div>
 			<div class="card p-4 mb-4">
-			<div class="d-flex justify-content-between">
-				<div class="text-start sales">| 진행중인 결재</div>
+			<div class="d-flex justify-content-between mb-4">
+				<div class="text-start sales">진행중인 결재</div>
 				<a href="${pageContext.request.contextPath}/approval/main?page=1" class="aTag">바로가기 ></a>
 			</div>
 					<c:choose >
 					<c:when test="${not empty myApprovalList}"> 
-						<table class="table text-center table-hover m-auto board-list-main" style="width: 90%">
+						<table class="table text-center table-hover m-auto board-list-main w-100">
 							<thead>
 			        			<tr>
 			        				<th>#</th>
-			        				<th style="width: 45%">제목</th>
+			        				<th style="width: 43%">제목</th>
 			        				<th style="width: 15%">부서 </th> 
-			        				<th style="width: 8%">직급</th>
+			        				<th style="width: 10%">직급</th>
 			        				<th style="width: 12%">기안자</th>
 			        				<th style="width: 15%">상태</th>
 			        			</tr>
@@ -184,10 +183,10 @@ function punchOff(){
 		        			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
 		        				<tr>
 		        					<th>${status.count}</th>
-		        					<td class="title">${ap.title}</td>
-		        					<td class="dep">${ap.depName}</td>
-		        					<td class="rank">${ap.rankName}</td>
-		        					<td class="name">${ap.name}</td>
+		        					<td>${ap.title}</td>
+		        					<td >${ap.depName}</td>
+		        					<td>${ap.rankName}</td>
+		        					<td>${ap.name}</td>
 		        					<td>
 		        					<c:choose>
 		        						<c:when test="${ap.state == 0 }">기안</c:when>
@@ -216,14 +215,14 @@ function punchOff(){
 			
 			<div style="width:49%">
 			<div class="card p-4 mb-4">
-				<div class="text-start sales">| 일정관리</div> 
+				<div class="text-start sales">일정관리</div> 
 				<div class="mt-4">
 					<div id="calendar"></div>
 				</div>
 			</div>		
 			<div class="card p-4 mb-4" >
-				<div class="d-flex justify-content-between">
-					<div class="text-start sales">| 커뮤니티</div>
+				<div class="d-flex justify-content-between mb-4">
+					<div class="text-start sales">커뮤니티</div>
 					<a href="${pageContext.request.contextPath}/community/main" class="aTag">바로가기 ></a>
 				</div>
 				<c:choose>
@@ -233,7 +232,7 @@ function punchOff(){
 					    </blockquote>
 					</c:when>
 					<c:otherwise>
-						<table class="table table-hover board-list-main m-auto" style="width: 90%"> 
+						<table class="table table-hover board-list-main m-auto w-100"> 
 								<thead>  
 									<tr class="text-center">
 										<th style="width: 20%">#</th> 

@@ -280,35 +280,35 @@ $(function(){
 });
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+		<div class="title mt-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/community/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>
 	</div> 
-	<div class="m-auto mt-4" style="width: 80%">
+	<div class="mt-4">
 		<table class="table community-article"> 
 			<thead>
 				<tr>
 					<td colspan="2" align="left" style="border: none;"> 
-						<div class="communitySubject2 pt-3 ps-3"><span class="categoryName">[${dto.categoryName}]</span>&nbsp;${dto.subject}</div>
+						<div class="communitySubject2"><span class="categoryName">[${dto.categoryName}]</span>&nbsp;${dto.subject}</div>
 					</td>
 				</tr>
 			</thead>		
 			<tbody>
 				<tr class="border-bottom"> 
 					<td align="left"> 
-						<span class="date pe-1 ps-3"> 
+						<span class="date"> 
 							<c:if test="${dto.replyDepCount != 0 }">
 								<span class="answer-complete p-1">답변 완료</span>&nbsp;&nbsp;  
 							</c:if>
-							<i class="fa-regular fa-message"></i>&nbsp;<span id="replyCount${dto.num}"></span>&nbsp;&nbsp;&nbsp;&nbsp;${dto.reg_date}
+							${dto.reg_date}&nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-regular fa-message"></i>&nbsp;<span id="replyCount${dto.num}"></span>
 						</span>
 						<br>
 					</td>
 				</tr>				
 				<tr>
-					<td colspan="2" valign="top" height="200" class="pt-3 pb-3 px-3 ps-4"> 
+					<td colspan="2" valign="top" height="200"> 
 						${dto.content} 
 					</td> 
 				</tr>

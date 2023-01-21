@@ -4,6 +4,66 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <script type="text/javascript">
+function searchTimeline(page){
+	let condition = $("#condition_tl").attr("selected",true).val();
+	let keyword = $("#keyword_tl").val();
+	let query = "condition="+condition+"&keyword="+keyword+"&current_page="+page;
+	let url = "${pageContext.request.contextPath}/approval/timelineSearch";
+
+	const fn_tl = function(data){
+		$(".searched_tl").remove();
+		//리스트 등록
+		let i =1;
+		for(let item of data.tlList){
+			let tlName = item.tlName;
+			let tlNum = item.tlNum;
+			let state = item.state;
+			let max_state = item.max_state;
+			let reg_date = item.reg_date;
+			let empNo = item.empNo;
+			let name = item.empNo;
+			
+			let out = "<tr class='searched_tl'>";
+			out += "<td>"+i+"</td>";
+			out += "<td class='tlNum' style='display=none;'>"+tlNum+"</td>";
+			out += "<td class='tlName'>"+tlName+"</td>";
+			out += "<td class='state'>"+Math.TRUNC(state/max_state)+"</td>";
+			out += "<td class='name'>"+name+"</td>";
+			out += "<td class='empNo' style='display=none;'>"+empNo+"</td>";
+			out += "<td class='reg_date'>"+reg_date+"</td>";
+			out += "</tr>";
+			
+			$(".sendInfo_tl").remove();
+			
+			$(".sendList_tl").append(out);
+			
+			i++;
+			
+			
+		}
+		
+		//페이징 처리 
+		$(".search-page_tl").remove();
+		let total_page= data.total_page;
+		let paginate = "<nav class='search-page_tl' aria-label='Page navigation'><ul class='pagination'>";
+		for(let i=1; i<=total_page;i++){
+			paginate += "<li class='page-item";
+			if(page == i){
+				paginate += " active"
+			}
+			paginate += "'><button type='button' class='page-link timelineSearchBtn' onclick='search("+i+")'>"+i+"</button></li>"	
+		}
+		paginate += "</ul></nav>"
+		$(".paginate_tl").append(paginate);
+
+		$(".sendList_tl").append("<input type='hidden' class='total_page' value='"+data.total_page+"' >");
+		$(".sendList_tl").append("<input type='hidden' class='current_page' value='"+data.current_page+"' >");
+	}
+	ajaxFun(url, "get", query, "JSON", fn_tl);
+};
+</script>
+
+<script type="text/javascript">
 function search(page){
 	var index = 1;
 	let condition = $("#condition").attr("selected",true).val();
@@ -100,6 +160,7 @@ function search(page){
 	ajaxFun(url, "get", query, "JSON", fn);
 };
 </script>
+
 <script type="text/javascript">
 function write_document(){
 	const f = document.approval;
@@ -114,21 +175,22 @@ function update_document(){
 	f.submit();
 }
 </script>
-<div class="m-auto scroll card mt-5 mb-5 p-4" style="overflow-y: scroll;">
-	<div class="fs-3 ps-4 mt-4"><span>| 결재</span></div>
-	<div class="m-auto" style="width: 80%">
-		<div class="ps-5 pe-5 mt-3">
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>결재</span>
+	</div>	
+	<div class="mt-4">
 		<form name="approval" method="POST"  enctype="multipart/form-data">			
-			<div class="mb-2 pt-3 pb-3">
+			<div class="mb-3">
 			<div class="d-flex align-items-center">
-				<div class="w-25 p-2 text-white text-center bg-main fs-4" style="border-radius: 2rem 0 0 0 / 2rem 0 0 0">제목</div>
-				<div class="w-75 fs-5 ms-3 me-3">
+				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">제목</div>
+				<div class="ms-4" style="width: 80%">
 					<input name="title" type="text"  class="form-control" value="${dto.title}">
 				</div>
 			</div>
 			<div class="d-flex align-items-center">
-				<div class="w-25 p-2  text-white text-center bg-main fs-4">기안자</div>
-				<div class="w-75 ms-3 me-3">
+				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">기안자</div>
+				<div class="ms-4" style="width: 80%">
 				<c:if test="${mode == 'write' }">
 					${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
 					<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
@@ -142,15 +204,21 @@ function update_document(){
 			</div>
 			
 			<div class="d-flex align-items-center">
-				<div class="w-25 p-2  text-white text-center bg-main fs-4">타임라인</div>
-				<div class="d-flex w-75 ms-3 me-3">
-					<input type="text" class="form-control" value="${dto.timeLine}" readonly>
+				<div class="p-2 text-white text-center bg-main fs-5" style=" font-weight: bold; width:20%">타임라인</div>
+				<div class="d-flex ms-4" style="width: 80%">
+					<input type="text" class="form-control" name="tlName" value="${tldto.tlName}" readonly>
 					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+					<c:if test="${not empty tldto}">
+					<input type="hidden" name="tlNum" value="${tldto.tlNum}">
+					<input type="hidden" name="state" id="state" value="${tldto.state}">
+					<input type="hidden" name="max_state" id="max_state" value="${tldto.max_state}">
+					<input type="hidden" name="empNo" value="${tldto.empNo}">
+					</c:if>
 				</div>
 			</div>
-			<div class="d-flex align-items-center">
-				<div class="w-25 p-2  text-white text-center bg-main fs-4" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>
-				<div class="w-75 ms-3 me-3">
+			<div class="d-flex align-items-center justify-content-between">
+				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">참조</div>
+				<div class="ms-4" style="width: 80%">
 					<div class="d-flex refList">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
 						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
@@ -164,9 +232,14 @@ function update_document(){
 				</div>
 			</div>
 			</div>		
-			<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
+			
+			<div class="mt-4">
+				<textarea name="content" id="ir1" cols="10" >${dto.content}</textarea>
+			</div>
+
 			
 			<c:if test="${not empty fileList }">
+			<div class="mt-4">
 			<div><h4>파일</h4></div>
 			<c:forEach var="file" items="${fileList}" varStatus="status" >
 			<div class=" d-flex form-control mb-2 justify-content-between">
@@ -174,8 +247,11 @@ function update_document(){
 			<div><button class="btn" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/deleteFile/${file.fileNum}?signNum=${dto.signNum}'"><i class="fa-solid fa-trash-can"></i></button></div>
 			</div>
 			</c:forEach>
+			</div>
 			</c:if>
-			<input class="form-control mt-3" type="file" name="addFiles" accept="approval/*" multiple="multiple" >
+			<div class="mt-4">
+				<input class="form-control" type="file" name="addFiles" accept="approval/*" multiple="multiple" style="border-radius: 0 0 0 0/ 0 0 0 0">
+			</div>
 			
 			<div class="d-flex justify-content-end mt-4">
 				<c:if test="${mode =='update' }">
@@ -189,8 +265,6 @@ function update_document(){
 				</form>
 		</div>
 </div>
-</div>
-
 <!-- Modal -->
 <div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -200,7 +274,7 @@ function update_document(){
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="container-fluid">
+        
         	<div class="alert bg-sub text-center" role="alert">
         		<div>타임라인이란, </div>
         		<div><span style="font-weight: bold">여러 결재를 하나로 묶어 시간순으로 배열하는 것</span>을 의미합니다.</div>
@@ -215,16 +289,36 @@ function update_document(){
 	      		<option value="title">제목</option>
 	      	</select>
         	<input class="form-control" id="keyword_tl">
-        	<button type="button" class="btn btn-sub ms-2" ><i class="fa-solid fa-magnifying-glass"></i></button>
+        	<button type="button" class="btn btn-sub ms-2" id="searchTimeline" onclick="searchTimeline(1);" ><i class="fa-solid fa-magnifying-glass"></i></button>
         	</div>
+       
+      <div class="form-control mt-4">
+       		<table class="table table-hover text-center mt-2">
+       			<thead>
+        			<tr>
+        				<th style="width: 5%">#</th>
+        				<th style="width: 45%">타임라인명</th>
+						<th style="width: 15%">진행률</th>
+	       				<th style="width: 15%">관리자</th>
+	       				<th style="width: 20%">생성일</th>
+        			</tr>
+       			</thead>
+       			<tbody class="sendList_tl">
+       				<tr class="sendInfo_tl"><td colspan="6"><h4 class=" text-center m-5 text-muted">" 검색이 필요합니다 "</h4></td></tr>
+       			</tbody>
+       		</table>
+       		<div class="paginate_tl d-flex justify-content-center">
+       			
+       		</div>
+       	</div>
         </div>
-      </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-main" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-main writeBtn">완료</button>
+      </div>
       </div>
     </div>
   </div>
-</div>
 
 
 <!-- Modal -->
@@ -370,6 +464,11 @@ function ajaxFun(url, method, query, dataType, fn) {
 		
 		let date= y+"-"+m+"-"+day;
 		$(".today").val(date);
-		
+		if(${mode == 'write'}){
+			$("#refcnt").attr("value",'0');
+			$("#state").attr("value",'0');
+			$("#max_state").attr("value",'0');
+		}		
 	});
+	
 </script>

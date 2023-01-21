@@ -81,75 +81,61 @@ function sendOk() {
 
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4 ">
-		<span>| 대여소 등록</span>
-
-
-						
-						<form class="mt-4" id="stationForm" name="stationForm" method="post" enctype="multipart/form-data">
-							<div class="d-flex justify-content-start">
-								    <div class="table-form">
-										<div class="img-viewer ms-3 me-4"></div>
-											<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
-											style="display: None; ">
-										
-									</div>
-								<table class="table text-center align-middle" style="font-size: 16px;">
-									
-									<tr>
-										<td class=" col-sm-2" scope="row">대여소명</td>
-										<td><input type="text" name="name" class="form-control"
-											value="${dto.name}" placeholder="대여소명"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">경도</td>
-										<td><input type="text" name="x_pos" class="form-control"
-											value="${dto.x_pos}" placeholder="경도"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">위도</td>
-										<td><input type="text" name="y_pos" class="form-control"
-											value="${dto.y_pos}" placeholder="위도"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">최대수량</td>
-										<td><input type="text" name="maxQty" class="form-control"
-											value="${dto.maxQty}" placeholder="최대수량"></td>
-									</tr>
-									<tr>
-										<td class=" col-sm-2" scope="row">지역구</td>
-										<td><input type="text" name="zoonName"
-											class="form-control" value="${dto.zoonName}" placeholder="지역구"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">주소</td>
-										<td><input type="text" name="addr" class="form-control"
-											value="${dto.addr}" placeholder="주소"></td>
-									</tr>
-								</table>
-								</div>
-								<table class="table table-borderless">
-									<tr>
-										<td class="text-center">
-											<button type="button" class="btn btn-main"
-												onclick="sendOk();">
-												등록하기&nbsp;<i class="bi bi-check2"></i>
-											</button>
-											<button type="reset" class="btn btn-sub">다시입력</button>
-											<button type="button" class="btn btn-sub"
-												onclick="location.href='${pageContext.request.contextPath}/stationmanage/main';">
-												등록취소&nbsp;<i class="bi bi-x"></i>
-											</button>
-										</td>
-									</tr>
-								</table>
-							</form>
-			</div>
-			
-							
-			
-		</div>
+<div style="margin-top: 5rem; margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>대여소 등록</span>
+	</div>
+	<form class="mt-4" id="stationForm" name="stationForm" method="post" enctype="multipart/form-data">
+		<table class="table text-center w-100" style="font-size: 16px;">
+			<tr>
+				<td rowspan="6" style="width:359px; padding: 0;"><div class="table-form">
+			<div class="img-viewer"></div>
+				<input type="file" name="imageFilenameFile" id="imageFilenameFile" accept="image/*" class="form-control"
+				style="display: None; ">
+		</div></td>
+				<td >대여소명</td>
+				<td><input type="text" name="name" class="form-control"
+					value="${dto.name}" placeholder="대여소명"></td>
+			</tr>
+			<tr>
+				<td >경도</td>
+				<td><input type="text" name="x_pos" class="form-control"
+					value="${dto.x_pos}" placeholder="경도"></td>
+			</tr>
+			<tr>
+				<td >위도</td>
+				<td><input type="text" name="y_pos" class="form-control"
+					value="${dto.y_pos}" placeholder="위도"></td>
+			</tr>
+			<tr>
+				<td >최대수량</td>
+				<td><input type="text" name="maxQty" class="form-control"
+					value="${dto.maxQty}" placeholder="최대수량"></td>
+			</tr>
+			<tr>
+				<td class=" col-sm-2" scope="row">지역구</td>
+				<td><input type="text" name="zoonName"
+					class="form-control" value="${dto.zoonName}" placeholder="지역구"></td>
+			</tr>
+			<tr>
+				<td >주소</td>
+				<td><input type="text" name="addr" class="form-control"
+					value="${dto.addr}" placeholder="주소"></td>
+			</tr>
+		</table>
+	</form>
+	
+	<div class="d-flex justify-content-center mt-4">
+		<button type="button" class="btn btn-main me-2" onclick="sendOk();">
+			등록하기&nbsp;<i class="bi bi-check2"></i>
+		</button>
+		<button type="reset" class="btn btn-sub me-2">다시입력</button>
+		<button type="button" class="btn btn-sub" 
+			onclick="location.href='${pageContext.request.contextPath}/stationmanage/main';">
+			등록취소&nbsp;<i class="bi bi-x"></i>
+		</button>
+	</div>
+</div>
 
 
 <script type="text/javascript">

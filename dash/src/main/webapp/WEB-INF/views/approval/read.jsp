@@ -3,9 +3,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div class="m-auto scroll card mt-5 mb-5 p-5" style="overflow-y: scroll;">
-	<div class="fs-3 mb-4 ps-4"><span>| 결재</span></div>
-	<div class="m-auto" style="width:80%">
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="mt-4 title">
+		<span>결재</span>
+		<hr>
+	</div>
+	<div class="mt-4">
 		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
 				<div class="mb-2 pt-3 pb-3">
 				<div class="d-flex align-items-center">
@@ -20,7 +23,14 @@
 				</div>
 				<div class="d-flex align-items-center">
 					<div class="w-25 p-2  text-white text-center bg-main fs-4">타임라인</div>
-					<div class="w-75 ms-3 me-3"><input type="text" class="form-control" value="${dto.timeLine}" readonly></div>
+					<div class="w-75 ms-3 me-3">
+						<input type="text" class="form-control" name="tlName" value="${tldto.tlName}" readonly>
+						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input type="hidden" name="tlNum" value="${tldto.tlNum}">
+						<input type="hidden" name="state" value="${tldto.state}">
+						<input type="hidden" name="max_state" value="${tldto.max_state}">
+						<input type="hidden" name="empNo" value="${tldto.empNo}">
+					</div>
 				</div>
 				<div class="d-flex align-items-center">
 					<div class="w-25 p-2  text-white text-center bg-main fs-4" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>

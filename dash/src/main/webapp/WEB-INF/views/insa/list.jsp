@@ -27,11 +27,11 @@ form .img-viewer {
 </script>
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 ml-2 mb-4">
-		<span>| 사원 현황</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>사원 현황</span>
 	</div>
-	<div class="mx-5">
+	<div class="mt-4">
 
 		<form class="row" name="searchForm"
 			action="${pageContext.request.contextPath}/insa/list" method="post">

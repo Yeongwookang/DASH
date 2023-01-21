@@ -9,16 +9,16 @@ function searchList() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 공지사항</span>
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
+		<span>공지사항</span>
 	</div>
-	<div class="m-auto mt-4" style="width:80%">
+	<div class="m-auto mt-4">
 		<table class="table table-hover board-list">
 			<thead class="bg-main text-white"> 
-					<tr class="text-center" style="height: 30px;">  
+					<tr class="text-center" style="font-size:1.2rem; height: 50px;">  
 						<th style="width: 10%">순번</th>
-						<th class="text-start ps-5" style="width: 40%">제목</th> 
+						<th style="width: 40%">제목</th> 
 						<th style="width: 15%">작성자</th> 
 						<th style="width: 10%">조회수</th> 
 						<th style="width: 10%">작성일</th>
@@ -69,7 +69,7 @@ function searchList() {
 			</tbody>
 		</table>  
 	
-		<div class="page-navigation paging mt-5 text-center">
+		<div class="page-navigation paging mt-4 text-center">
 			${dataCount == 0 ? "등록된 공지사항이 없습니다." : paging}
 		</div> 
 	

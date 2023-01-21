@@ -1,8 +1,9 @@
 @charset "UTF-8";
 
 .sales {
-	font-size: 18px;
-	font-weight: 600;
+	font-weight: 900;
+	font-size: 1.6rem;
+	
 }
 
 .info {

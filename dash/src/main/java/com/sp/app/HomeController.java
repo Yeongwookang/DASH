@@ -82,7 +82,7 @@ public class HomeController {
             break;
       }
       
-      String msg = year + "." + month + "." + day + "(" + korDayOfWeek + ")";
+      String msg = year + "." + month + "." + day + "&nbsp;(" + korDayOfWeek + ")";
       String s = "즐거운 " + korDayOfWeek + "요일입니다.";
       
       String totalSales = service.totalSales();

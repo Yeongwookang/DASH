@@ -13,13 +13,13 @@ function deleteOk() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/notice/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>
 	</div>
-	<div class="m-auto mt-4" style="width: 80%">
+	<div class="m-auto mt-4">
 		<table class="table"> 
 			<thead>
 				<tr>

@@ -142,6 +142,49 @@ public class ApprovalController {
 				return model;
 		}
 		
+		@GetMapping("timelineSearch")
+		@ResponseBody
+		public Map<String, Object> timelineSearch(HttpServletRequest req, 
+				@RequestParam (defaultValue = "")String keyword,
+				@RequestParam (defaultValue = "dep")String condition,
+				@RequestParam (defaultValue = "1") int current_page
+				) throws Exception {
+			
+				
+				Map<String,Object> map = new HashMap<String, Object>();
+				map.put("keyword",keyword);
+				map.put("condition", condition);
+				
+				
+				int size = 5;
+				int total_page;
+				int dataCount = service.dataCount_tl(map);
+				
+				total_page = myUtil.pageCount(dataCount, size);
+				
+				if(current_page > total_page) {
+					current_page = total_page;
+				}
+				
+				int offset = (current_page - 1) * size;
+				if(offset < 0) offset = 0;
+				
+				map.put("offset", offset);
+				map.put("size", size);
+				
+				
+				List<Approval> listTimeline= service.listTimeline(map);
+				
+				 
+				Map<String, Object> model =  new HashMap<String, Object>();
+				 
+				model.put("page", current_page);
+				model.put("total_page", total_page);
+				model.put("tlList", listTimeline);
+				 
+				return model;
+		}
+		
 		@GetMapping("write")
 		public String writeForm(Model model, HttpServletRequest req)throws Exception{
 			HttpSession session = req.getSession();
@@ -182,6 +225,8 @@ public class ApprovalController {
 			Employee ref2= empService.readEmployee(dto.getRef2());
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
+			Approval tldto = service.readDocumentTimeline(dto);
+			
 			List<Approval> fileList = service.fileList(signNum);
 			
 			model.addAttribute("dto",dto);
@@ -189,6 +234,7 @@ public class ApprovalController {
 			model.addAttribute("ref1",ref1);
 			model.addAttribute("ref2",ref2);
 			model.addAttribute("ref3",ref3);
+			model.addAttribute("tldto", tldto);
 
 
 
@@ -209,12 +255,14 @@ public class ApprovalController {
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
 			List<Approval> fileList = service.fileList(signNum);
+			Approval tldto = service.readDocumentTimeline(dto);
 			
 			model.addAttribute("dto", dto);
 			model.addAttribute("fileList", fileList);
 			model.addAttribute("ref1", ref1);
 			model.addAttribute("ref2", ref2);
 			model.addAttribute("ref3", ref3);
+			model.addAttribute("tldto", tldto);
 			model.addAttribute("mode", "update");
 			
 			return ".approval.write";

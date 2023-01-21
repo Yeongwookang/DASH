@@ -470,18 +470,15 @@ function searchList() {
 </script>
 
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>
-		| 대여소 통계
-		</span>
-	</div>
-	
-	<div class="m-auto mt-4" style="width: 80%;">
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="d-flex justify-content-between mt-4">
+		<div class= "title">
+		대여소 통계
+		</div>
 		<div> 
 			<form name="stationForm">
 				<div class="d-flex justify-content-end">    
-					<select name="selectCondition" id="selectCondition" class="form-select me-2" style="width: 12%">  
+					<select name="selectCondition" id="selectCondition" class="form-select me-2" style="width:40%;">  
 						<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>
 						<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
 						<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
@@ -489,7 +486,7 @@ function searchList() {
 						<option value="5" ${selectDate=="5"?"selected='selected'":""}>성별</option>
 						<option value="6" ${selectDate=="6"?"selected='selected'":""}>이용시간대</option>
 					</select>
-					<select name="selectStation" id="selectStation" class="form-select" style="width: 22%">
+					<select name="selectStation" id="selectStation" class="form-select">
 						<c:forEach var="dto" items="${list}">
 							<option value="${dto.stNum}" ${selectDate=="${dto.stNum}"?"selected='selected'":""}>${dto.name}</option>  
 						</c:forEach>
@@ -498,16 +495,17 @@ function searchList() {
 				</div> 
 			</form>
 		</div>
-		<div class="mt-5"> 
-			<div class="box-container">
-				<div id="title" class="text-center"></div>  
-		   		<div id="chartContainer1" class="box" style="width: 100%; height: 600px;"></div>
-		   		<div id="chartContainer2" class="box" style="width: 100%; height: 600px;"></div> 
-		   		<div id="chartContainer3" class="box" style="width: 100%; height: 600px;"></div> 
-		   		<div id="chartContainer4" class="box" style="width: 100%; height: 600px;"></div>
-		   		<div id="chartContainer5" class="box" style="width: 100%; height: 600px;"></div>  
-		   		<div id="chartContainer6" class="box" style="width: 100%; height: 600px;"></div>    
-			</div>
+	</div>
+	
+	<div class="mt-4">
+		<div class="box-container">
+			<div id="title" class="text-center"></div>  
+	   		<div id="chartContainer1" class="box" style="width: 100%; height: 600px;"></div>
+	   		<div id="chartContainer2" class="box" style="width: 100%; height: 600px;"></div> 
+	   		<div id="chartContainer3" class="box" style="width: 100%; height: 600px;"></div> 
+	   		<div id="chartContainer4" class="box" style="width: 100%; height: 600px;"></div>
+	   		<div id="chartContainer5" class="box" style="width: 100%; height: 600px;"></div>  
+	   		<div id="chartContainer6" class="box" style="width: 100%; height: 600px;"></div>    
 		</div>
 	</div>
 </div> 

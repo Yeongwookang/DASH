@@ -51,56 +51,55 @@ function sendkOk() {
 
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-4 mb-4">
-		<span>| 킥보드 등록</span>
-
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>킥보드 등록</span>
+	</div>	
 						
 
-							<form class="mt-4" name="stationkForm" id="stationkForm" method="post" enctype="multipart/form-data">
-							<div class="d-flex justify-content-start">
-							  <div class="table-form3">
-										<div class="img-viewer3 ms-3 me-4"></div>
-											 <input type="file"
-											name="imageFilenameFile" id="imageFilenameFile3" accept="image/*" class="form-control"
-											style="display: None;">
-								</div>
-								<table class="table text-center align-middle" style="font-size: 16px; height: 300px; ">
-									<tr>
-										<td class="col-sm-2" scope="row">제품명</td>
-										<td><input type="text" name="name" class="form-control"
-											value="${dto.name}" placeholder="제품명"></td>
-									</tr>
-									<tr>
-										<td class="col-sm-2" scope="row">설치 대여소</td>
-										<td>
-											<select name="station" class="form-select">
-												<c:forEach var="dto" items="${list}">
-													<option value="${dto.stNum}">${dto.sname}</option>  
-												</c:forEach>
-											</select>
-										</td>
-									</tr>	
-								</table>
-								</div>
-								<table class="table table-borderless">
-									<tr>
-										<td class="text-center">
-											<button type="button" class="btn btn-main"
-												onclick="sendkOk();">
-												등록하기&nbsp;<i class="bi bi-check2"></i>
-											</button>
-											<button type="reset" class="btn btn-sub">다시입력</button>
-											<button type="button" class="btn btn-sub"
-												onclick="location.href='${pageContext.request.contextPath}/kickmanage/main';">
-												등록취소&nbsp;<i class="bi bi-x"></i>
-											</button>
-										</td>
-									</tr>
-								</table>
-							</form>
+	<form class="mt-4" name="stationkForm" id="stationkForm" method="post" enctype="multipart/form-data">
+	  
+		<table class="table text-center align-middle" style="font-size: 16px; height: 300px; ">
+			<tr>
+				<td rowspan="6" style="width:359px; padding: 0;">
+				<div class="table-form3">
+				<div class="img-viewer3"></div>
+					 <input type="file"
+					name="imageFilenameFile" id="imageFilenameFile3" accept="image/*" class="form-control"
+					style="display: None;">
+				</div></td>
+				<td class="col-sm-2" scope="row">제품명</td>
+				<td><input type="text" name="name" class="form-control"
+					value="${dto.name}" placeholder="제품명"></td>
+			</tr>
+			<tr>
+				<td class="col-sm-2" scope="row">설치 대여소</td>
+				<td>
+					<select name="station" class="form-select">
+						<c:forEach var="dto" items="${list}">
+							<option value="${dto.stNum}">${dto.sname}</option>  
+						</c:forEach>
+					</select>
+				</td>
+			</tr>	
+		</table>
+		<table class="table table-borderless">
+			<tr>
+				<td class="text-center">
+					<button type="button" class="btn btn-main"
+						onclick="sendkOk();">
+						등록하기&nbsp;<i class="bi bi-check2"></i>
+					</button>
+					<button type="reset" class="btn btn-sub">다시입력</button>
+					<button type="button" class="btn btn-sub"
+						onclick="location.href='${pageContext.request.contextPath}/kickmanage/main';">
+						등록취소&nbsp;<i class="bi bi-x"></i>
+					</button>
+				</td>
+			</tr>
+		</table>
+	</form>
 
-</div>
 </div>
 <script type="text/javascript">
 

@@ -3,11 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<div class="d-flex justify-content-between align-items-center p-2">
-	<a class="navbar-brand ps-5" href="${pageContext.request.contextPath}"><img
+<div class="d-flex justify-content-between align-items-center p-2" >
+	<a class="navbar-brand" href="${pageContext.request.contextPath}"><img
 		src="${pageContext.request.contextPath}/resources/images/logo_pink.png"
-		class="logo p-3" style="width: 200px;"> </a>
-	<div class="ps-3 pe-5">
+		class="logo mt-3 mb-3" style="width: 150px;"> </a>
+	<div class="ps-3">
 		<c:if test="${sessionScope.employee.imageFilename != null}">
 			<a class="icon"><img class="rounded-circle"
 				style="width: 2.5rem; height: 2.5rem;"

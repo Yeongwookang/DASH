@@ -14,6 +14,9 @@ public class Approval {
 	private int state;
 	private int max_state;
 	
+	private long tlNum;
+	private String tlName;
+	private long recordNum;
 	
 	private String posName;
 	private String depName;
@@ -41,6 +44,24 @@ public class Approval {
 	
 	
 	
+	public long getTlNum() {
+		return tlNum;
+	}
+	public void setTlNum(long tlNum) {
+		this.tlNum = tlNum;
+	}
+	public String getTlName() {
+		return tlName;
+	}
+	public void setTlName(String tlName) {
+		this.tlName = tlName;
+	}
+	public long getRecordNum() {
+		return recordNum;
+	}
+	public void setRecordNum(long recordNum) {
+		this.recordNum = recordNum;
+	}
 	public String getTimeLine() {
 		return timeLine;
 	}

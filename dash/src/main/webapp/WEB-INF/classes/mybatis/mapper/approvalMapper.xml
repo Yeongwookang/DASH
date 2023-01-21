@@ -38,6 +38,10 @@
 		</where>
 	</select>
 	
+	<select id="dataCount_tl" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) FROM timeline 
+	</select>
+	
 
 	
 	<update id ="insertApproval" parameterType="approval" >
@@ -45,24 +49,39 @@
 			INTO e_document (signNum, title, content, empNo, formnum) 
 			VALUES (#{signNum}, #{title}, #{content}, #{empNo}, 1)
 			
-			INTO doc_record (signNum, reg_date, state, max_state) VALUES(#{signNum}, sysdate, 0, #{refcnt})
-			
-			<if test="ref1 !=null and ref1!=''">
+			INTO doc_record (signNum, reg_date, state, max_state) VALUES(#{signNum}, sysdate, 0, <choose><when test="refcnt!= null and refcnt!=''">#{refcnt}</when><otherwise>0</otherwise></choose>)
+				
+				<if test="ref1 !=null and ref1 !=''">
 				INTO f_approval (signNum, state, empNo) 
 				VALUES (#{signNum}, '대기', #{ref1})
-			</if>
-			
-			<if test="ref2 !=null and ref2!=''">
+				</if>
+				<if test="ref2 !=null and ref2 !=''">
 				INTO s_approval (signNum, state, empNo)
 				VALUES (#{signNum}, '대기', #{ref2})
-			</if>
-			
-			<if test="ref3 !=null and ref3!=''">
+				</if>
+				<if test="ref3 !=null and ref3 !=''">
 				INTO t_approval (signNum, state, empNo)
 				VALUES (#{signNum}, '대기', #{ref3})
-			</if>
-			
+				</if>
+				<if test="tlNum != null and tlNum !=''">
+				INTO timeline_record(recordNum, tlNum, signNum, state) 
+				VALUES(timeline_record_seq.nextval, #{tlNum}, #{signNum}, #{state})
+				</if>
 		SELECT * FROM dual
+	</update>
+	
+	<update id="updateApproval" parameterType="approval">
+		UPDATE
+			(
+				SELECT *  FROM e_document e 
+		LEFT OUTER JOIN employee emp ON emp.empNo = e.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = e.empNO AND pr.state=1
+		LEFT OUTER JOIN position pos ON pos.posNo = pr.posNo
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.posNo
+			)
+			
 	</update>
 	
 	<delete id="deleteApproval">
@@ -166,6 +185,7 @@
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	
 	<update id="approveUpdate" parameterType="map">
 		UPDATE 
 		<choose>
@@ -178,9 +198,9 @@
 		WHERE signNum = #{signNum}
 	</update>
 	
-	
 	<update id="approve" parameterType="Long">
-		UPDATE doc_record SET reg_date = sysdate, state = (SELECT state FROM doc_record WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}
+		UPDATE doc_record SET reg_date = sysdate, state = (SELECT state FROM doc_record 
+		WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}
 	</update>
 	
 	<insert id="insertFile" parameterType="approval">
@@ -202,5 +222,46 @@
 		DELETE FROM e_documentFile WHERE fileNum = #{fileNum}
 	</delete>
 	
+	<select id="listTimeline" parameterType="map" resultType="approval">
+		SELECT tlNum, tlName, tl.state, max_state, tl.empNo, tl.reg_date FROM timeline tl
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = tl.empNo AND pr.state=1
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN position p ON p.posNo = pr.posNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.teamNo
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="readTimeline" parameterType="approval" resultType="approval">
+		SELECT * FROM timeline WHERE tlNum = #{tlNum}
+	</select>
+	
+	<select id="recordTimeline" parameterType="approval" resultType="approval">
+		SELECT * FROM timeline_record WHERE tlNum = #{tlNum}
+	</select>
+	
+	<select id="readDocumentTimeline" parameterType="approval" resultType="approval">
+		SELECT recordNum, tr.tlNum, signNum, tr.state, tlName, max_state,reg_date, empNo FROM timeline_record tr
+		JOIN timeline t ON t.tlNum = tr.tlNum
+		WHERE signNum = #{signNum}
+	</select>
+	
+	<insert id="insertTimeline" parameterType="approval">
+		INSERT INTO timeline (tlNum, tlName, state, max_state, empNo, reg_date) 
+		values(timeline_seq.nextval, #{tlName}, #{state}, #{max_state}, #{empNo}, #{reg_date})
+	</insert>
+	
+	<update id="updateTimeline" parameterType="approval">
+		UPDATE timeline SET tlName= #{tlName}, state = #{state}, max_state=#{max_state}, reg_date = #{reg_date} 
+		WHERE tlNum = #{tlNum}
+	</update>
+	
+	<update id="updateTlAdmin" parameterType="approval">
+		UPDATE timeline SET empNo = #{empNo} WHERE tlNum = #{tlNum}
+	</update>
+	
+	<delete id="deleteTimeLine" parameterType="approval">
+		DELETE FROM timeline WHERE tlNum = #{tlNum}
+	</delete>
 	
 </mapper>

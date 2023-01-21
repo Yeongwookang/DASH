@@ -38,12 +38,12 @@ function check() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 커뮤니티</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>커뮤니티</span>
 	</div>
-	<div class="m-auto mt-4" style="width: 80%;">
-		<div class="box p-2"> 
+	<div class="mt-4">
+		<div class="box alert bg-sub" style="border-radius: 0 0 0 0 / 0 0 0 0"> 
 			* DASH의 사내 커뮤니티는 일반 익명 게시판과는 다릅니다. 단순 직원끼리 이야기를 나누는 익명게시판으로도 이용할 수 있지만 <span class="point">인사팀이나 경영진과의 소통</span>을 할 수 있습니다.<br>
 			* 양식을 <span class="point">모두</span> 작성해 주세요.<br>
 			* 작성 완료한 내용은 <span class="point">수정, 삭제</span>할 수 없습니다.<br>

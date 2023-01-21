@@ -160,48 +160,49 @@ function sendModeldamage() {
 </script>
 
 
-<div class="card mt-5 mb-5 p-4 m-auto">
-	<div class="text-start fs-3 mb-4 ps-4 mt-4">
-		<span>| 킥보드 관리</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>킥보드 관리</span>
 	</div>
-<div class="m-auto mb-3" style="width: 80%">
+<div class="mt-4">
 <div class="d-flex justify-content-between" >
-<form name="searchForm" action="${pageContext.request.contextPath}/kickmanage/main" method="post">
-<div class="d-flex">				
-	<div class="col-auto p-1">
-		<select name="condition" class="form-select">
-			<option value="other">::선택::</option>
-			<option value="normal" ${condition=="normal"?"selected='selected'":""}>정상</option>
-			<option value="repair" ${condition=="repair"?"selected='selected'":""}>수리</option>
-			<option value="damage" ${condition=="damage"?"selected='selected'":""}>파손</option>
-		</select>
+	<div>
+	<form name="searchForm" action="${pageContext.request.contextPath}/kickmanage/main" method="post">
+	<div class="d-flex">				
+		<div class="col-auto p-1">
+			<select name="condition" class="form-select">
+				<option value="other">::선택::</option>
+				<option value="normal" ${condition=="normal"?"selected='selected'":""}>정상</option>
+				<option value="repair" ${condition=="repair"?"selected='selected'":""}>수리</option>
+				<option value="damage" ${condition=="damage"?"selected='selected'":""}>파손</option>
+			</select>
+		</div>
+		<div class="col-auto p-1">
+			<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+		</div>
 	</div>
-	<div class="col-auto p-1">
-		<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+	</form>
 	</div>
-</div>
-</form>
+	<div class="d-flex">
+	<div class="dropdown">
+  		<a class="btn btn-secondary dropdown-toggle btn-sub" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      		 수리
+  		</a>
 
-
-</div>
-<div class="d-flex justify-content-end">
-<div class="dropdown">
-  <a class="btn btn-secondary dropdown-toggle btn-sub" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        수리
-  </a>
-
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href=""  data-bs-toggle="modal"
-			data-bs-target="#exampleModal1">신청</a></li>
-    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
-			data-bs-target="#exampleModal2">입고</a></li>
-    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
-			data-bs-target="#exampleModal3">완료</a></li>
-  </ul>
-</div>
+		  <ul class="dropdown-menu">
+		    <li><a class="dropdown-item" href=""  data-bs-toggle="modal"
+					data-bs-target="#exampleModal1">신청</a></li>
+		    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
+					data-bs-target="#exampleModal2">입고</a></li>
+		    <li><a class="dropdown-item" href="" data-bs-toggle="modal"
+					data-bs-target="#exampleModal3">완료</a></li>
+		  </ul>
+	</div>
+	<div>
 	<button type="button" class="btn btn-sub ms-2" data-bs-toggle="modal"
 				data-bs-target="#exampleModal4">파손</button>
-	
+	</div>				
+	</div>
 </div>
 	<div class="mt-4">
 		<table class="table table-hover board-list">
@@ -231,7 +232,7 @@ function sendModeldamage() {
 		</table>
 
 		<div class="page-navigation">
-			<div class="page-navigation paging mt-5 text-center">
+			<div class="page-navigation paging mt-4 text-center">
 				${dataCount == 0 ? "등록된 킥보드가 없습니다." : paging}</div>
 		</div>
 		

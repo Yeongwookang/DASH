@@ -28,5 +28,15 @@ public interface ApprovalService {
 	public Approval readFile(long fileNum);
 	public void deleteFile(long fileNum, String path) throws Exception;
 	
+	public int dataCount_tl(Map<String, Object> map);
+	public void insertTimeline(Approval dto) throws Exception;
+	public void updateTimeline(Approval dto) throws Exception;
+	public void updateTimelineAdmin(Approval dto) throws Exception;
+	public void deleteTimeline(Approval dto) throws Exception;
+	public Approval readTimeline(Approval dto);
+	public Approval readDocumentTimeline(Approval dto);
+	public List<Approval> listTimeline(Map<String,Object> map);
+	public List<Approval> recordTimeline(Approval dto);
+	
 	
 }

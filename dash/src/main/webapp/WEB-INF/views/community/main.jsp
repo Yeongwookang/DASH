@@ -9,18 +9,38 @@ function searchList() {
 }
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span> 
-		| 커뮤니티&nbsp;&nbsp;<span class="dataCount">${dataCount}건</span> 
-		</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="mt-4">
+	<div class="d-flex justify-content-between">
+		<div class="title" ><span>커뮤니티&nbsp;</span><span class="dataCount">${dataCount}건</span></div>
+			<div class="d-flex align-items-center">
+			<form name="searchForm" action="${pageContext.request.contextPath}/community/main" method="post">
+			<div class="d-flex justify-content-center">   		
+				<div class="me-2">
+					<select name="condition" class="form-select">
+						<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
+						<option value="organization" ${condition=="1"?"selected='selected'":""}>조직 문화</option>
+						<option value="welfare" ${condition=="2"?"selected='selected'":""}>복지 문화</option>
+						<option value="unfair" ${condition=="3"?"selected='selected'":""}>부당 대우</option>
+						<option value="work" ${condition=="4"?"selected='selected'":""}>근무환경</option>
+						<option value="management" ${condition=="5"?"selected='selected'":""}>경영진</option>
+						<option value="other" ${condition=="6"?"selected='selected'":""}>기타</option>
+					</select>
+				</div> 
+				<div >
+					<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
+				</div>
+			</div>
+			</form>
+			</div>
 	</div>
-	<div class="m-auto mt-4" align="center" style="width: 80%;"> 
+	</div>
+	<div class="m-auto mt-4" align="center"> 
 		<table class="table table-hover community-list-table"> 
 			<thead class="bg-main text-white"> 
-					<tr class="text-center" style="height: 30px;">
+					<tr class="text-center" style="font-size:1.2rem; height:50px;">
 						<th>카테고리</th>
-						<th class="text-start">제목</th> 
+						<th>제목</th> 
 						<th>날짜</th>  
 						<th></th>
 					</tr>
@@ -83,34 +103,17 @@ function searchList() {
 			</tbody> 
 		</table>  
 		
-		<div class="page-navigation paging mt-5 text-center">
+		<div class="page-navigation paging mt-4 text-center">
 			${dataCount == 0 ? "등록된 커뮤니티 게시글이 없습니다." : paging}
 		</div> 
-	
-		<form name="searchForm" action="${pageContext.request.contextPath}/community/main" method="post" class="mt-5">
-			<div class="d-flex justify-content-center m-auto">   		
-				<div class="p-1">
-					<select name="condition" class="form-select" style="width: 150px;">
-						<option value="all" ${condition=="all"?"selected='selected'":""}>전체</option>
-						<option value="organization" ${condition=="1"?"selected='selected'":""}>조직 문화</option>
-						<option value="welfare" ${condition=="2"?"selected='selected'":""}>복지 문화</option>
-						<option value="unfair" ${condition=="3"?"selected='selected'":""}>부당 대우</option>
-						<option value="work" ${condition=="4"?"selected='selected'":""}>근무환경</option>
-						<option value="management" ${condition=="5"?"selected='selected'":""}>경영진</option>
-						<option value="other" ${condition=="6"?"selected='selected'":""}>기타</option>
-					</select>
-				</div> 
-				<div class="p-1">
-					<button type="button" class="btn btn-sub" onclick="searchList()"> <i class="bi bi-search"></i> </button>
-				</div>
-			</div>
-		</form>
-
 		<div class="mt-4 mb-4 d-flex justify-content-end">
 			<div> 
 				<button class="btn btn-sub" type="button" onclick="location.href='${pageContext.request.contextPath}/community/write';">작성</button>
 			</div> 
 		</div>
+		
+
+		
 	</div>
 </div>
 

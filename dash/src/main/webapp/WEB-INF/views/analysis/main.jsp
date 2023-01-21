@@ -296,34 +296,34 @@ $(function(){
 
 </script> 
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 통계</span>
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="title mt-4">
+		<span>통계</span>
 	</div>
-	<div class="m-auto mt-4" style="width: 80%;">
-		<div class="d-flex justify-content-center"> 
-			<div class="card me-5" style="width: 30%;">
+		<div class="mt-4">
+		<div class="d-flex justify-content-between"> 
+			<div class="card p-4" style="width: 30%;">
 				<img src="${pageContext.request.contextPath}/resources/images/sales.png" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-				<div class="card-body pb-2" style="height: 180px;">
-					<h5 class="card-title" style="font-size: 19px;">매출 통계</h5> 
+				<div class="card-body p-0 mt-3" style="height: 180px;">
+					<h5 class="card-title">매출 통계</h5> 
 					<p class="card-text" style="font-size: 15px;">매출 통계는, 이용기록의 금액을 기준으로 전체 년·월·일 매출 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/sales" class="aTag">바로가기 ></a>
 				</div> 
 			</div>
 			
-			<div class="card me-5" style="width: 30%;">  
+			<div class="card p-4" style="width: 30%;">  
 				<img src="${pageContext.request.contextPath}/resources/images/user.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-				<div class="card-body pb-2" style="height: 180px;">
-					<h5 class="card-title" style="font-size: 19px;">이용자 통계</h5>
+				<div class="card-body p-0 mt-3" style="height: 180px;">
+					<h5 class="card-title">이용자 통계</h5>
 					<p class="card-text" style="font-size: 15px;">이용자 통계는, 이용자의 기본 정보와 이용기록을 기준으로 전체 연령대·성별·이용시간별 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/user" class="aTag">바로가기 ></a>
 				</div>
 			</div>
 			
-			<div class="card" style="width: 30%;">
+			<div class="card p-4" style="width: 30%;">
 				<img src="${pageContext.request.contextPath}/resources/images/station.jpg" class="card-img-top" alt="..." style="opacity: 0.5; height: 220px;">
-				<div class="card-body pb-2" style="height: 180px;">
-					<h5 class="card-title" style="font-size: 19px;">대여소별 통계</h5>
+				<div class="card-body p-0 mt-3" style="height: 180px;">
+					<h5 class="card-title">대여소별 통계</h5>
 					<p class="card-text" style="font-size: 15px;">대여소별 통계는, 이용자의 기본 정보와 이용기록을 기준으로 대여소별  매출과 이용자 통계를 제공하는 서비스입니다.</p>
 					<a href="${pageContext.request.contextPath}/analysis/station" class="aTag">바로가기 ></a> 
 				</div>
@@ -331,27 +331,27 @@ $(function(){
 		</div>
 	<br><br> 
 	<div class="d-flex justify-content-between">
-		<div class="card " style="width: 49%;">
-			<div class="text-start sales ms-3 mt-3">| 전일 시간대별 인원수</div>
+		<div class="card p-4" style="width: 49%;">
+			<div class="text-start sales">전일 시간대별 인원수</div>
 			<div id="chart-container1" style="height: 300px;"></div>
 		</div>	
-		<div class="card"  style="width: 49%">
-			<div class="text-start sales ms-3 mt-3">| 구별 매출</div>
+		<div class="card p-4"  style="width: 49%">
+			<div class="text-start sales">구별 매출</div>
 			<div id="chart-container2" style="height: 300px;"></div>
 		</div>
 	</div>
 	<br>
 	<div class="d-flex justify-content-between mb-3">
-		<div class="card mt-3" style="width: 100%;">
-			<div class="text-start sales ms-3 mt-3">| 연령대별 이용시간대</div>
+		<div class="card mt-3  p-4" style="width: 100%;">
+			<div class="mb-4 text-start sales">연령대별 이용시간대</div>
 			<div id="chart-container" style="width: 100%; height: 500px;"></div>
 		</div>	
 	</div>
 	<br>
 	<div class="d-flex justify-content-between mb-3">
-		<div class="card" style="width: 32%;"> 
-			<div class="text-start sales ms-3 mt-3" style="font-size: 17px;">| 이용건수 Top 5 대여소</div>
-			<table class="table table-hover h-100 board-list">
+		<div class="card p-4" style="width: 32%;"> 
+			<div class="mb-4 text-start sales">이용건수 Top 5</div>
+			<table class="table table-hover m-0 board-list">
 			<thead>  
 				<tr class="text-center">
 					<th style="width: 10%">#</th> 
@@ -371,9 +371,9 @@ $(function(){
 			</table> 
 		</div>
 		<br>
-		<div class="card" style="width: 32%;"> 
-			<div class="text-start sales ms-3 mt-3" style="font-size: 17px;">| 이용금액 Top 5 대여소</div>	
-			<table class="table table-hover h-100 board-list">
+		<div class="card  p-4" style="width: 32%;"> 
+			<div class="mb-4 text-start sales">이용금액 Top 5</div>	
+			<table class="table table-hover m-0 board-list">
 				<thead>  
 					<tr class="text-center">
 						<th style="width: 10%">#</th> 
@@ -393,9 +393,9 @@ $(function(){
 			</table> 
 		</div>
 		<br>
-		<div class="card" style="width: 32%;">  
-			<div class="text-start sales ms-3 mt-3" style="font-size: 17px;">| 이동거리 Top 5 대여소 [대여 기준]</div>
-			<table class="table table-hover h-100 board-list">
+		<div class="card  p-4" style="width: 32%;">  
+			<div class="mb-4 text-start sales">이동거리 Top 5 [대여 기준]</div>
+			<table class="table table-hover m-0 board-list">
 				<thead>  
 					<tr class="text-center">
 						<th style="width: 10%">#</th> 
@@ -417,9 +417,9 @@ $(function(){
 	</div>
 	<br>
 	<div class="mb-3">
-		<div class="card"> 
-		<div class="text-start sales ms-3 mt-3">| 이용시간 Top 5</div> 
-		<table class="table table-hover h-100 board-list">
+		<div class="card  p-4"> 
+		<div class="mb-4 text-start sales">이용시간 Top 5</div> 
+		<table class="table table-hover m-0 board-list">
 			<thead>  
 				<tr class="text-center">
 					<th style="width: 10%">#</th> 

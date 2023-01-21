@@ -36,11 +36,11 @@ function check() {
 </c:if>
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 공지사항</span>
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
+		<span>공지사항</span>
 	</div>
-	<div class="m-auto mt-4" style="width:80%">
+	<div class="m-auto mt-4">
 		<form name="noticeForm" method="post" enctype="multipart/form-data">
 			<table class="table"> 
 				<tr>

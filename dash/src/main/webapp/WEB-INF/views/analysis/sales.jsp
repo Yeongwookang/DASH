@@ -213,18 +213,15 @@ function searchList() {
 </script>
 
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4"> 
-		<span>
-		| 매출 통계
-		</span>
-	</div>
-	
-	<div class="m-auto mt-4" style="width: 80%;">
+<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+	<div class="d-flex justify-content-between mt-4">
+		<div class="title">
+		매출 통계
+		</div>
 		<div> 
 			<form name="dateForm">
 				<div class="d-flex justify-content-end"> 
-					<select name="selectDate" id="selectDate" class="form-select" style="width: 10%">
+					<select name="selectDate" id="selectDate" class="form-select" >
 						<option value="1" ${selectDate=="1"?"selected='selected'":""}>년</option>  
 						<option value="2" ${selectDate=="2"?"selected='selected'":""}>월</option>
 						<option value="3" ${selectDate=="3"?"selected='selected'":""}>일</option>
@@ -233,11 +230,12 @@ function searchList() {
 				</div> 
 			</form>
 		</div>
-		<div class="mt-4">  
-			<div class="box-container d-flex">     
-		   		<div id="chartContainer" class="box" style="width: 80%; height: 600px;"></div> 
-		   		<div class="scroll mt-5" id="content" style="height: 600px; width: 20%; overflow-y:scroll;"></div>
-			</div>
+	</div>
+		
+	<div class="mt-4">  
+		<div class="box-container d-flex">     
+	   		<div id="chartContainer" class="box" style="width: 80%; height: 600px;"></div> 
+	   		<div class="scroll mt-5" id="content" style="height: 600px; width: 20%; overflow-y:scroll;"></div>
 		</div>
 	</div>
 </div> 

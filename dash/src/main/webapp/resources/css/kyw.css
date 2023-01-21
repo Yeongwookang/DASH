@@ -9,6 +9,16 @@
 .elipsis{
 	text-overflow: ellipsis; overflow: hidden; white-space: nowrap;
 }
+
+.pagination{
+	margin-bottom:0;
+}
+
+.title{
+	font-weight: 900;
+	font-size: 2.5rem;
+}
+
 .nav-box{
 	text-overflow: ellipsis;
 	color: white;
@@ -17,7 +27,7 @@
 	font-weight: bold;
 }
 .nav-item{
-	margin-right: 1.3rem;
+	margin-right: 1.5rem;
 }
 .dropdown-item>a{
 	text-overflow: ellipsis;
@@ -138,4 +148,4 @@ a{
   --bs-btn-disabled-bg: #FFE1E1;
   --bs-btn-disabled-border-color: #FFE1E1;
 }
-#sidebar{position:absolute;width:170px;left:1rem;}
+#sidebar{position:absolute;width:170px;left:1.8rem;}
