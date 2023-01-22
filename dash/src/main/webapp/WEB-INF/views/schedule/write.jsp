@@ -127,15 +127,16 @@ $(function(){
 });
 </script>
 
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 일정</span>
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
+		<span>일정</span>
 	</div>
-	<div class="m-auto mt-4" style="width:80%">
+	
+	<div class="m-auto pb-5">
 		<form name="scheduleForm" method="post">
 			<table class="table mt-5 write-form">
 				<tr>
-					<td class="col-2" scope="row" style="border-top: none;">제 목</td>
+					<td class="col-3" scope="row" style="border-top: none;">제 목</td>
 					<td>
 						<div class="row">
 							<div class="col">
@@ -147,7 +148,7 @@ $(function(){
 				</tr>
 
 				<tr>
-					<td class="col-2" scope="row">일정분류</td>
+					<td class="col-3" scope="row">일정분류</td>
 					<td>
 						<div class="row">
 							<div class="col-5">
@@ -164,7 +165,7 @@ $(function(){
 				</tr>
 
 				<tr>
-					<td class="col-2" scope="row">색 상</td>
+					<td class="col-3" scope="row">색 상</td>
 					<td>
 						<div class="row">
 							<div class="col-5">
@@ -188,7 +189,7 @@ $(function(){
 				</tr>
 
 				<tr>
-					<td class="col-2" scope="row">종일일정</td>
+					<td class="col-3" scope="row">종일일정</td>
 					<td class="py-3">
 						<div class="row">
 							<div class="col">
@@ -201,7 +202,7 @@ $(function(){
 				</tr>
 
 					<tr>
-					<td class="col-2" scope="row">시작일자</td>
+					<td class="col-3" scope="row">시작일자</td>
 					<td>
 						<div class="row">
 							<div class="col-5 pe-0">
@@ -217,7 +218,7 @@ $(function(){
 				</tr>
 
 					<tr>
-					<td class="col-2" scope="row">종료일자</td>
+					<td class="col-3" scope="row">종료일자</td>
 					<td>
 						<div class="row">
 							<div class="col-5 pe-0">
@@ -233,7 +234,7 @@ $(function(){
 				</tr>
 				
 				<tr>
-					<td class="col-2" scope="row">일정반복</td>
+					<td class="col-3" scope="row">일정반복</td>
 					<td>
 						<div class="row">
 							<div class="col-5 pe-0">
@@ -253,7 +254,7 @@ $(function(){
 				</tr>
 
 				<tr>
-					<td class="col-2" scope="row">메 모</td>
+					<td class="col-3" scope="row">메 모</td>
 					<td>
 						<textarea name="memo" id="form-memo" class="form-control" style="height: 90px;">${dto.memo}</textarea>
 					</td>

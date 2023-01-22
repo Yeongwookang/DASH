@@ -150,9 +150,6 @@ public class HomeController {
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto",punDto);
       
-      int scdcount = scdService.scheduleCount(info.getEmpNo());
-      model.addAttribute("scdcount", scdcount);
-      
       return ".mainLayout";
    }
    

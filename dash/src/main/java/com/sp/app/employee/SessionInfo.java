@@ -14,6 +14,9 @@ public class SessionInfo {
 	private String teamName;
 	private String imageFilename;
 	
+	private int scdcount;
+	private int msgcount;
+	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -79,6 +82,18 @@ public class SessionInfo {
 	}
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
+	}
+	public int getScdcount() {
+		return scdcount;
+	}
+	public void setScdcount(int scdcount) {
+		this.scdcount = scdcount;
+	}
+	public int getMsgcount() {
+		return msgcount;
+	}
+	public void setMsgcount(int msgcount) {
+		this.msgcount = msgcount;
 	}
 	
 	

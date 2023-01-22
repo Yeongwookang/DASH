@@ -19,12 +19,20 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 import com.sp.app.employee.Employee;
 import com.sp.app.employee.EmployeeService;
 import com.sp.app.employee.SessionInfo;
+import com.sp.app.message.MessageService;
+import com.sp.app.schedule.ScheduleService;
 
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
 	
 	@Autowired
 	private EmployeeService service;
+	
+	@Autowired
+	private ScheduleService scdService;
+	
+	@Autowired
+	private MessageService msgService;
 	
 	private String defaultUrl;
 	
@@ -57,6 +65,12 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		info.setImageFilename(employee.getImageFilename());
 		
 		session.setAttribute("employee", info);
+		
+		int scdcount = scdService.scheduleCount(employee.getEmpNo());
+		info.setScdcount(scdcount);
+		
+		int msgcount = msgService.newMessageCount(employee.getEmpNo());
+		info.setMsgcount(msgcount);
 		
 		// redirect 설정
 		resultRedirectStrategy(request, response, authentication);

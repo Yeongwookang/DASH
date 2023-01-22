@@ -58,3 +58,5 @@
 
 .reply-answer { display: none; }
 .reply-answer textarea { width:98%; height: 75px; resize: none; }
+
+.msg-list-table tr {height: 40px;}

@@ -8,21 +8,19 @@
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.css">
-<div class="m-auto card mt-5 mb-5 p-4">
-	<div class="d-flex justify-content-between">
-		<div class="text-start fs-3 ps-4 mt-4">
-			<span>| 일정</span>
-		</div> 
-		
-		<div class="mt-5 me-5 text-end">
-			<a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="font-size: 18px;">
-				+ 카테고리 추가
-			</a>
-		</div>
+<div style="margin-top: 5rem;">
+	<div class="title mt-4">
+		<span>일정</span>
 	</div>
-	<div class="m-auto mt-4" style="width:80%">
+	
+	<div class="m-auto pb-5"> 
 		<div class="row">
-			<div class="col px-2">
+			<div class="text-end mt-1 mb-1">
+				<a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+					+ 카테고리 추가
+				</a>
+			</div>
+			<div class="col">
 				<div id="calendar"></div>
 			</div>
 		</div>
@@ -35,7 +33,7 @@
 <!-- 좌측 카테고리 관리 오프캔버스 -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	<div class="offcanvas-header">
-		<h5 class="offcanvas-title" id="offcanvasExampleLabel"><i class="fa-solid fa-gear"></i> 일정 설정</h5>
+		<h5 class="offcanvas-title" id="offcanvasExampleLabel">일정 설정</h5>
 		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<div class="offcanvas-body">
@@ -75,14 +73,6 @@
 				</div>
 			</c:forEach>
 		</div>
-		
-		<c:if test="${listCategory.size() > 0}">
-			<div class="row">
-				<div class="col pt-1 text-end">
-					<button type="button" class="btn btnCategorySearch" title="검색"><i class="bi bi-search"></i></button>
-				</div>
-			</div>
-		</c:if>
 		
 	</div>
 </div>

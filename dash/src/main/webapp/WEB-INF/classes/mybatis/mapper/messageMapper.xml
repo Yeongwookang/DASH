@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="message">
+
+	<select id="listEmployee" parameterType="map" resultType="com.sp.app.message.Message">
+		SELECT e.empNo, name, depName, posName, rankName 
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+        JOIN position p ON pr.posNo = p.posNo
+		<where>
+			e.empNo != #{empNo} AND pr.state = 1
+			AND
+			<if test="keyword != null and keyword != '' ">
+				INSTR(${condition}, #{keyword}) &gt; 0
+			</if>
+		</where>
+		ORDER BY name
+	</select>
+	
+	<sql id="where-list">
+		<if test="condition=='senderName' or condition=='receiverName'">
+			INSTR(name, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='senderEmpNo' or condition=='receiverEmpNo'">
+			${condition}=#{keyword}
+		</if>
+		<if test="condition=='content'">
+			INSTR(content, #{keyword}) &gt; 0
+		</if>
+		<if test="condition=='sendDay'">
+			( TO_CHAR(sendDay, 'YYYYMMDD') = #{keyword}
+		          OR TO_CHAR(sendDay, 'YYYY-MM-DD') = #{keyword} )
+		</if>
+	</sql>
+	
+	<insert id="insertMessage" parameterType="com.sp.app.message.Message">
+		INSERT INTO message(num, content, senderEmpNo, receiverEmpNo,
+			sendDay, identifyDay, sendDelete, receiveDelete)
+		VALUES (message_seq.NEXTVAL, #{content}, #{senderEmpNo}, #{receiverEmpNo},
+			SYSDATE, #{identifyDay, jdbcType=VARCHAR}, 'N', 'N')
+	</insert>
+	
+	<select id="dataCountReceive" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM message m
+		JOIN employee e ON m.senderEmpNo = e.empNo
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND receiverEmpNo = #{empNo}
+			AND receiveDelete = 'N'
+		</where>
+	</select>
+	
+	<select id="listReceive" parameterType="map" resultType="com.sp.app.message.Message">
+		SELECT num, content, senderEmpNo, name senderName,
+			TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay, NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay,
+			sendDelete, receiveDelete
+		FROM message m
+		JOIN employee e ON m.senderEmpNo = e.empNo
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND receiverEmpNo = #{empNo}
+			AND receiveDelete = 'N'
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="dataCountSend" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM message m
+		JOIN employee e ON m.receiverEmpNo = e.empNo
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND senderEmpNo = #{empNo}
+			AND sendDelete = 'N'
+		</where>
+	</select>
+	
+	<select id="listSend" parameterType="map" resultType="com.sp.app.message.Message">
+		SELECT num, content, receiverEmpNo, name receiverName,
+			TO_CHAR(sendDay, 'YYYY-MM-DD HH24:MI:SS') sendDay, NVL2(identifyDay, TO_CHAR(identifyDay, 'YYYY-MM-DD HH24:MI:SS'), null) identifyDay,
+			sendDelete, receiveDelete
+		FROM message m
+		JOIN employee e ON m.receiverEmpNo = e.empNo
+		<where>
+			<if test="keyword != null and keyword != ''">
+				<include refid="where-list"/>
+			</if>
+			AND senderEmpNo = #{empNo}
+			AND sendDelete = 'N'
+		</where>
+		ORDER BY num DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+	
+	<select id="readReceive" parameterType="Long" resultType="com.sp.app.message.Message">
+		SELECT num, content, senderEmpNo, name senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM message m
+		JOIN employee e ON m.senderEmpNo = e.empNo
+		WHERE num = #{num}
+	</select>
+	
+	<select id="readSend" parameterType="Long" resultType="com.sp.app.message.Message">
+		SELECT num, content, receiverEmpNo, name receiverName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM message m
+		JOIN employee e ON m.receiverEmpNo = e.empNo
+		WHERE num = #{num}
+	</select>
+	
+	<select id="readReplyReceive" parameterType="Long" resultType="com.sp.app.message.Message">
+		SELECT num, content, senderEmpNo, name senderName,
+			sendDay, identifyDay, sendDelete, receiveDelete
+		FROM message m
+		JOIN employee e ON m.receiverEmpNo = e.empNo
+		WHERE num = #{num} AND receiveDelete = 'N'
+	</select>
+	
+	<delete id="updateIdentifyDay" parameterType="Long">
+		UPDATE message SET identifyDay = SYSDATE
+		WHERE num = #{num} AND identifyDay IS NULL
+	</delete>
+	
+	<update id="updateDeleteState" parameterType="map">
+		UPDATE message SET ${field1} = 'Y'
+		WHERE num IN 
+			<foreach item="num" index="index" collection="numList"
+					open="(" separator="," close=")">
+				#{num}
+			</foreach>
+	</update>
+	
+	<delete id="deleteMessage" parameterType="map">
+		DELETE FROM message
+		WHERE ${field2} = 'Y' AND
+			num IN 
+				<foreach item="num" index="index" collection="numList"
+						open="(" separator="," close=")">
+					#{num}
+				</foreach>
+	</delete>
+	
+	<select id="newMessageCount" parameterType="String" resultType="Integer">
+		SELETE NVL(COUNT(*), 0)
+		FROM message
+		WHERE identifyDay IS NULL AND receiverId = #{empNo}
+	</select>
+	
+</mapper>
