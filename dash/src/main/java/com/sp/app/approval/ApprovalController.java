@@ -225,7 +225,7 @@ public class ApprovalController {
 			Employee ref2= empService.readEmployee(dto.getRef2());
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
-			Approval tldto = service.readDocumentTimeline(dto);
+			Approval tldto = service.readTimelineRecord(signNum);
 			
 			List<Approval> fileList = service.fileList(signNum);
 			
@@ -255,7 +255,7 @@ public class ApprovalController {
 			Employee ref3= empService.readEmployee(dto.getRef3());
 			
 			List<Approval> fileList = service.fileList(signNum);
-			Approval tldto = service.readDocumentTimeline(dto);
+			Approval tldto = service.readTimelineRecord(signNum);
 			
 			model.addAttribute("dto", dto);
 			model.addAttribute("fileList", fileList);
@@ -362,6 +362,63 @@ public class ApprovalController {
 			}
 			
 			return "redirect:/approval/update/"+signNum;
+		}
+		
+		@RequestMapping(value = "timeline")
+		public String timeline(Model model, 
+				HttpServletRequest req, 
+				@RequestParam(value = "page", defaultValue = "1") int current_page ) throws Exception {
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			HttpSession session = req.getSession();
+			SessionInfo info = (SessionInfo)session.getAttribute("employee");
+			if(info == null) {
+				return "redirect:/employee/login";
+			}
+			map.put("empNo",info.getEmpNo());
+			
+			List<Approval> approvalList = service.approvalList(map);
+			
+			
+			int size = 5;
+			
+			int total_page;
+			int dataCount = service.myApprovalCount(map);
+			
+			total_page = myUtil.pageCount(dataCount, size);
+			
+			if(current_page > total_page) {
+				current_page = total_page;
+			}
+			
+			int offset = (current_page - 1) * size;
+			if(offset < 0) offset = 0;
+			
+			map.put("offset", offset);
+			map.put("size", size);
+			
+			
+			String cp = req.getContextPath();
+			
+			String list_url = cp+"/approval/main";
+			String paging = myUtil.paging(current_page, total_page, list_url);
+			
+			
+			
+			List<Approval> myApprovalList = service.myApprovalList(map);
+			
+			
+			model.addAttribute("approvalList", approvalList);
+			model.addAttribute("myApprovalList", myApprovalList);
+			model.addAttribute("page", current_page);
+			model.addAttribute("dataCount", dataCount);
+			model.addAttribute("size", size);
+			model.addAttribute("total_page", total_page);
+			model.addAttribute("paging", paging);
+			
+			
+		      return ".approval.main";
 		}
 }
 

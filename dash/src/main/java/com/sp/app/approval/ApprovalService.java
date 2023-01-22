@@ -33,8 +33,11 @@ public interface ApprovalService {
 	public void updateTimeline(Approval dto) throws Exception;
 	public void updateTimelineAdmin(Approval dto) throws Exception;
 	public void deleteTimeline(Approval dto) throws Exception;
+	
+	public Approval readTimelineRecord(long signNum);
+	
+	public int countTimeline(Map<String, Object> map);
 	public Approval readTimeline(Approval dto);
-	public Approval readDocumentTimeline(Approval dto);
 	public List<Approval> listTimeline(Map<String,Object> map);
 	public List<Approval> recordTimeline(Approval dto);
 	

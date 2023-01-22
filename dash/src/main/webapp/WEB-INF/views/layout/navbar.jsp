@@ -17,11 +17,17 @@
 				</a>
 			</li>
 			
-			<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/approval/main?page=1">
-					<i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span>
-				</a>
+			<li class="dropdown nav-item">
+				<a class="nav-link dropdown-toggle nav-box" id="approvalMenu" 
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">결재</span></a>
+				<ul class="dropdown-menu" aria-labelledby="approvalMenu">
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/approval/main?page=1">
+						<span> 결재관리</span></a></li>
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/approval/timeline"><span> 타임라인관리</span></a></li>
+				</ul>
 			</li>
 			<li class="nav-item">
 				<a class="nav-link nav-box"
@@ -40,17 +46,17 @@
 			
 			<c:if test="${sessionScope.employee.depNo==1}">
 			<li class= "dropdown nav-item">
-						<a class="nav-link dropdown-toggle nav-box"
-							id="insaMenu" data-bs-toggle="dropdown"
-							aria-expanded="false">
-							<i class="bi bi-people-fill"></i><span class="ms-3">인사</span></a>
-						<ul class="dropdown-menu" aria-labelledby="insaMenu">
-							<li class="dropdown-item"><a
-								href="${pageContext.request.contextPath}/insa/main">
-								<span> 사원 관리</span></a></li>
-							<li class="dropdown-item"><a
-								href="${pageContext.request.contextPath}/insa/vacation"><span> 연차 관리</span></a></li>
-						</ul>
+				<a class="nav-link dropdown-toggle nav-box"
+					id="insaMenu" data-bs-toggle="dropdown"
+					aria-expanded="false">
+					<i class="bi bi-people-fill"></i><span class="ms-3">인사</span></a>
+				<ul class="dropdown-menu" aria-labelledby="insaMenu">
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/insa/main">
+						<span> 사원 관리</span></a></li>
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/insa/vacation"><span> 연차 관리</span></a></li>
+				</ul>
 			</li>
 			</c:if>
 					

@@ -17,6 +17,9 @@ public class Approval {
 	private long tlNum;
 	private String tlName;
 	private long recordNum;
+	private int tlState;
+	private int tlMax_state;
+	private String tlEmpNo;
 	
 	private String posName;
 	private String depName;
@@ -225,6 +228,24 @@ public class Approval {
 	}
 	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
+	}
+	public int getTlState() {
+		return tlState;
+	}
+	public void setTlState(int tlState) {
+		this.tlState = tlState;
+	}
+	public int getTlMax_state() {
+		return tlMax_state;
+	}
+	public void setTlMax_state(int tlMax_state) {
+		this.tlMax_state = tlMax_state;
+	}
+	public String getTlEmpNo() {
+		return tlEmpNo;
+	}
+	public void setTlEmpNo(String tlEmpNo) {
+		this.tlEmpNo = tlEmpNo;
 	}
 	
 	

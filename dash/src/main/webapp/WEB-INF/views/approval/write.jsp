@@ -206,13 +206,13 @@ function update_document(){
 			<div class="d-flex align-items-center">
 				<div class="p-2 text-white text-center bg-main fs-5" style=" font-weight: bold; width:20%">타임라인</div>
 				<div class="d-flex ms-4" style="width: 80%">
-					<input type="text" class="form-control" name="tlName" value="${tldto.tlName}" readonly>
+					<input type="text" class="form-control" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
 					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
 					<c:if test="${not empty tldto}">
-					<input type="hidden" name="tlNum" value="${tldto.tlNum}">
-					<input type="hidden" name="state" id="state" value="${tldto.state}">
-					<input type="hidden" name="max_state" id="max_state" value="${tldto.max_state}">
-					<input type="hidden" name="empNo" value="${tldto.empNo}">
+					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
+					<input type="hidden" name="tlState" id="tlState" value="${tldto.state}" readonly>
+					<input type="hidden" name="tlMax_state" id="tlMax_state" value="${tldto.max_state}" readonly>
+					<input type="hidden" name="tlEmpNo" id="tlEmpNo" value="${tldto.empNo}" readonly>
 					</c:if>
 				</div>
 			</div>
@@ -389,34 +389,6 @@ function update_document(){
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-function ajaxFun(url, method, query, dataType, fn) {
-	$.ajax({
-		type:method,
-		url:url,
-		data:query,
-		dataType:dataType,
-		success:function(data) {
-			fn(data);
-		},
-		beforeSend:function(jqXHR) {
-			jqXHR.setRequestHeader("AJAX", true);
-		},
-		error:function(jqXHR) {
-			if(jqXHR.status === 403) {
-				login();
-				return false;
-			} else if(jqXHR.status === 400) {
-				alert('요청 처리가 실패 했습니다.');
-				return false;
-			}
-	    	
-			console.log(jqXHR.responseText);
-		}
-	});
-}
-</script>
 
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/resources/vendor/ckeditor5/translations/ko.js"></script>

@@ -1,6 +1,7 @@
 package com.sp.app.approval;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +27,6 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public void insertApproval(Approval dto, String path) throws Exception {
 		try {
-			
-			
 			long signNum = dao.selectOne("approval.approvalSeq");
 			dto.setSignNum(signNum);
 			dao.insertData("approval.insertApproval", dto);
@@ -58,12 +57,41 @@ public class ApprovalServiceImpl implements ApprovalService {
 	@Override
 	public void updateApproval(Approval dto, String path) throws Exception {
 		try {
-			long signNum = dto.getSignNum();
-			deleteApproval(signNum, path);
 			
-			signNum = dao.selectOne("approval.approvalSeq");
-			dto.setSignNum(signNum);
-			dao.insertData("approval.insertApproval", dto);
+			Map<String,Object> refMap = new HashMap<String, Object>();
+			
+			refMap.put("signNum", dto.getSignNum());
+			
+			dao.deleteData("approval.deleteReference", refMap);
+			
+			refMap.put("ref1", dto.getRef1());
+			refMap.put("ref2", dto.getRef2());
+			refMap.put("ref3", dto.getRef3());
+			refMap.put("refcnt", dto.getRefcnt());
+			
+			dao.insertData("approval.insertReference", refMap);
+			
+			Map<String, Object> updateMap = new HashMap<String, Object>();
+			updateMap.put("title", dto.getTitle());
+			updateMap.put("content", dto.getContent());
+			updateMap.put("empNo", dto.getEmpNo());
+			updateMap.put("formNum", dto.getFormNum());
+			updateMap.put("signNum", dto.getSignNum());
+			
+			dao.updateData("approval.updateApproval", updateMap);
+			
+			long tlNum = dto.getTlNum();
+			
+			if(tlNum==0) {
+				dao.deleteData("approval.deleteTimelineRecord", dto.getSignNum());
+			} else {
+				Map<String, Object> tlMap = new HashMap<String, Object>();
+				tlMap.put("signNum", dto.getSignNum());
+				tlMap.put("tlNum", dto.getTlNum());
+				tlMap.put("state", dto.getTlState());
+				
+				dao.updateData("approval.updateTimelineRecord", tlMap);
+			}
 			
 			if(! dto.getAddFiles().isEmpty()) {
 				for(MultipartFile mf : dto.getAddFiles()) {
@@ -330,13 +358,13 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 	
 	@Override
-	public Approval readDocumentTimeline(Approval dto) {
+	public Approval readTimelineRecord(long signNum) {
 			Approval result = null;
 		
 		try {
-			result = dao.selectOne("approval.readDocumentTimeline", dto);
+			result = dao.selectOne("approval.readTimelineRecord", signNum);
 		} catch (Exception e) {
-			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), signNum);
 		}
 		return result;
 	}
@@ -361,6 +389,18 @@ public class ApprovalServiceImpl implements ApprovalService {
 			result = dao.selectList("approval.recordTimeline", dto);
 		} catch (Exception e) {
 			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+		}
+		return result;
+	}
+
+	@Override
+	public int countTimeline(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("approval.countTimeline", map);
+		} catch (Exception e) {
+			logger.warn("{} 에러가 발생했습니다. offset: {}, size: {}", e.getMessage(), map.get("offset"), map.get("size"));
 		}
 		return result;
 	}
