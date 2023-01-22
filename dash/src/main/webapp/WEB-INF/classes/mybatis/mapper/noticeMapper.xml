@@ -147,7 +147,7 @@
 	</delete>
 	
 	<select id="listNoticeMain" resultType="com.sp.app.notice.Notice">
-		SELECT n.num, notice, n.empNo, name, subject, TO_CHAR(n.reg_date, 'YYYY-MM-DD') reg_date
+		SELECT n.num, notice, n.empNo, name, subject, n.reg_date
 		FROM notice n
 		JOIN employee e ON n.empNo = e.empNo
 		ORDER BY num DESC 

@@ -215,7 +215,7 @@ function punchOff(){
 			
 			<div style="width:49%">
 			<div class="card p-4 mb-4">
-				<div class="text-start sales">일정관리</div> 
+				<div class="text-start sales">일정</div> 
 				<div class="mt-4">
 					<div id="calendar"></div>
 				</div>
@@ -264,7 +264,7 @@ function punchOff(){
 												<td class="communityDate">${vo.reg_date}</td>
 											</tr>
 										</c:if>
-									</c:forEach>
+									</c:forEach> 
 								</tbody>
 						</table>
 					</c:otherwise>
@@ -325,15 +325,6 @@ function punchOff(){
 						<td class="table-light col-2 align-middle">메모</td>
 						<td>
 							<p class="form-control-plaintext view-memo"></p>
-						</td>
-					</tr>
-				</table>
-				
-				<table class="table table-borderless">
-					<tr>
-						<td class="text-end">
-							<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
-			    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
 						</td>
 					</tr>
 				</table>

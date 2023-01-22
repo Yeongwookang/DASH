@@ -129,7 +129,7 @@ $(function(){
 
 <div class="m-auto card mt-5 mb-5 p-4">
 	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 일정관리</span>
+		<span>| 일정</span>
 	</div>
 	<div class="m-auto mt-4" style="width:80%">
 		<form name="scheduleForm" method="post">

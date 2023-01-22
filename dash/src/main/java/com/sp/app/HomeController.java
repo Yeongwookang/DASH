@@ -1,6 +1,8 @@
 package com.sp.app;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -28,6 +30,7 @@ import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
 import com.sp.app.punching.Punching;
 import com.sp.app.punching.PunchingService;
+import com.sp.app.schedule.ScheduleService;
 
 @Controller
 public class HomeController {
@@ -47,6 +50,9 @@ public class HomeController {
    
    @Autowired
    private PunchingService punService;
+   
+   @Autowired
+   private ScheduleService scdService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
@@ -121,6 +127,18 @@ public class HomeController {
       List<Notice> list = noService.listNoticeMain();
       List<Notice> listTop = noService.listNoticeTopMain();
       
+      Date endDate = new Date();
+	  long gap;
+	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	  for(Notice dto : list) {
+		  Date startDate = sdf.parse(dto.getReg_date());
+		
+		  gap = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000);
+		  dto.setGap(gap);
+		
+		  dto.setReg_date(dto.getReg_date().substring(0, 10));
+	  }
+      
       List<Community> listCommunity = coService.listCommunityMain();
       
       
@@ -131,6 +149,9 @@ public class HomeController {
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto",punDto);
+      
+      int scdcount = scdService.scheduleCount(info.getEmpNo());
+      model.addAttribute("scdcount", scdcount);
       
       return ".mainLayout";
    }

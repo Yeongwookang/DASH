@@ -129,4 +129,16 @@ public class ScheduleServiceImpl implements ScheduleService {
 			throw e;
 		}
 	}
+
+	@Override
+	public int scheduleCount(String empNo) {
+		int count = 0;
+		
+		try {
+			count = dao.selectOne("schedule.scheduleCount", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return count;
+	}
 }

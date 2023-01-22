@@ -89,7 +89,11 @@
 	
 	<delete id="deleteCategory" parameterType="map">
 		DELETE FROM scheduleCategory WHERE categoryNum=#{categoryNum} AND empNo=#{empNo}
-	</delete>	
+	</delete>
+	
+	<select id="scheduleCount" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM schedule WHERE sday = SYSDATE AND empNo = #{empNo}
+	</select>
 	
 	
 </mapper>

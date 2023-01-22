@@ -28,8 +28,7 @@
 
 /* 글 쓰기 폼 */
 .write-form tr>td { vertical-align: middle; }
-.write-form p { line-height: 200%; }
-.write-form tr:first-child { border-top: 2px solid #212529; }
+.write-form p { line-height: 200%; } 
 .write-form tr>td:first-child { text-align: center; }
 .write-form tr>td:nth-child(2) { padding-left: 10px; }
 .write-form textarea { height: 170px; resize : none; }

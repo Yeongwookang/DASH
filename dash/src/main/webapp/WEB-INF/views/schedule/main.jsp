@@ -9,16 +9,19 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.css">
 <div class="m-auto card mt-5 mb-5 p-4">
-	<div class="text-start fs-3 ps-4 mt-4">
-		<span>| 일정관리</span>
+	<div class="d-flex justify-content-between">
+		<div class="text-start fs-3 ps-4 mt-4">
+			<span>| 일정</span>
+		</div> 
+		
+		<div class="mt-5 me-5 text-end">
+			<a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample" style="font-size: 18px;">
+				+ 카테고리 추가
+			</a>
+		</div>
 	</div>
 	<div class="m-auto mt-4" style="width:80%">
 		<div class="row">
-			<div class="col-sm-1 px-0 text-center">
-				<a class="btn" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-					<i class="bi bi-layout-text-sidebar-reverse" style="font-size : 25px;"></i>
-				</a>
-			</div>
 			<div class="col px-2">
 				<div id="calendar"></div>
 			</div>
@@ -32,14 +35,14 @@
 <!-- 좌측 카테고리 관리 오프캔버스 -->
 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
 	<div class="offcanvas-header">
-		<h5 class="offcanvas-title" id="offcanvasExampleLabel"><i class="bi bi-gear-wide-connected"></i> 내 캘린더 설정</h5>
+		<h5 class="offcanvas-title" id="offcanvasExampleLabel"><i class="fa-solid fa-gear"></i> 일정 설정</h5>
 		<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
 	</div>
 	<div class="offcanvas-body">
 		<div class="row">
 			<div class="col">
 				<button class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-					카테고리 추가 <i class="bi bi-plus-lg"></i>
+					 <i class="bi bi-plus-lg"></i>&nbsp;카테고리 
 				</button>
 			</div>
 			<div class="col-auto text-end">
@@ -52,7 +55,7 @@
 		  <div class="card card-body">
 		  	<div class="input-group">
 				<input type="text" id="category-input" class="form-control">
-				<button type="button" class="btn btn-outline-success btnCategoryAddOk"><i class="bi bi-save"></i></button>
+				<button type="button" class="btn btn-main btnCategoryAddOk"><i class="bi bi-save"></i></button>
 			</div>
 		  </div>
 		</div>
@@ -138,8 +141,8 @@
 				<table class="table table-borderless">
 					<tr>
 						<td class="text-end">
-							<button type="button" class="btn btn-outline-primary btnScheduleUpdate">일정 수정</button>
-			    			<button type="button" class="btn btn-outline-danger btnScheduleDelete">일정 삭제</button>
+							<button type="button" class="btn btn-sub btnScheduleUpdate">일정 수정</button>
+			    			<button type="button" class="btn btn-sub btnScheduleDelete">일정 삭제</button>
 						</td>
 					</tr>
 				</table>
