@@ -38,7 +38,7 @@ function check() {
 }
 </script>
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>커뮤니티</span>
 	</div>

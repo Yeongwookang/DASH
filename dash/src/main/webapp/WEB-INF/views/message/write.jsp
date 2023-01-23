@@ -191,7 +191,7 @@ $(function(){
 });
 </script>
 
-<div style="margin-top: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>쪽지</span>
 	</div>

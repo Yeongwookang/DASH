@@ -35,11 +35,12 @@ public class Employee {
 	private String registerEmpNo;
 	private String reg_date;
 	
-	
 	private long categoryNum;
 	private String categoryName;
 
 	private String imageFilename;
+	
+	private String adminEmpNo;
 
 	public String getEmpNo() {
 		return empNo;
@@ -311,6 +312,14 @@ public class Employee {
 
 	public void setImageFilename(String imageFilename) {
 		this.imageFilename = imageFilename;
+	}
+
+	public String getAdminEmpNo() {
+		return adminEmpNo;
+	}
+
+	public void setAdminEmpNo(String adminEmpNo) {
+		this.adminEmpNo = adminEmpNo;
 	}
 	
 	

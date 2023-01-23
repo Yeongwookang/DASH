@@ -17,6 +17,8 @@ public class SessionInfo {
 	private int scdcount;
 	private int msgcount;
 	
+	private String adminEmpNo;
+	
 	public String getEmpNo() {
 		return empNo;
 	}
@@ -94,6 +96,12 @@ public class SessionInfo {
 	}
 	public void setMsgcount(int msgcount) {
 		this.msgcount = msgcount;
+	}
+	public String getAdminEmpNo() {
+		return adminEmpNo;
+	}
+	public void setAdminEmpNo(String adminEmpNo) {
+		this.adminEmpNo = adminEmpNo;
 	}
 	
 	

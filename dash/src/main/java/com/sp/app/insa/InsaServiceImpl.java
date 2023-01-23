@@ -225,5 +225,105 @@ public class InsaServiceImpl implements InsaService {
 		
 		return bcrypt.matches(pwd, dto.getPwd());
 	}
+
+
+	@Override
+	public void insertEmployeeState(Insa dto) throws Exception {
+		try {
+			dao.insertData("insa.insertEmployeeState", dto);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+			throw e;
+		}
+		
+	}
+
+
+	@Override
+	public List<Insa> listEmployeeState(String empNo) {
+		List<Insa> list = null;
+		
+		try {
+			list = dao.selectList("insa.listEmployeeState", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return list;
+	}
+
+
+	@Override
+	public Insa readEmployeeState(String empNo) {
+		Insa dto = null;
+		
+		try {
+			dto = dao.selectOne("insa.readEmployeeState", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return dto;
+	}
+
+
+	@Override
+	public void updateEmployeeEnabled(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("insa.updateEmployeeEnabled", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+			throw e;
+		}
+	}
+
+
+	@Override
+	public int authorityDataCount(Map<String, Object> map) {
+		int result = 0;
+		
+		try {
+			result = dao.selectOne("insa.authorityDataCount", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return result;
+	}
+
+
+	@Override
+	public List<Insa> listAuthority(Map<String, Object> map) {
+		List<Insa> list = null;
+		
+		try {
+			list = dao.selectList("insa.listAuthority", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return list;
+	}
+
+
+	@Override
+	public Insa readAuthority(String empNo) {
+		Insa dto = null;
+		
+		try {
+			dto = dao.selectOne("insa.readAuthority", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return dto;
+	}
+
+
+	@Override
+	public void updateFailureCountReset(String empNo) throws Exception {
+		try {
+			dao.updateData("insa.updateFailureCountReset", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+			throw e;
+		}
+		
+	}
 	
 }

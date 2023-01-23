@@ -56,6 +56,12 @@
 						<span> 사원 관리</span></a></li>
 					<li class="dropdown-item"><a
 						href="${pageContext.request.contextPath}/insa/vacation"><span> 연차 관리</span></a></li>
+						
+					<c:if test="${sessionScope.employee.adminEmpNo == sessionScope.employee.empNo}">
+						<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/insa/authority/list">
+						<span> 권한 관리</span></a></li>
+					</c:if>
 				</ul>
 			</li>
 			</c:if>

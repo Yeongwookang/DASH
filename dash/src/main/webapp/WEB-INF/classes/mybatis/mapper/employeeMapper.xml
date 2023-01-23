@@ -16,24 +16,7 @@
 		WHERE empNo = #{empNo}
 	</update>
 	
-	<!-- 사원 등록 -->
-	<insert id="insertEmployee" parameterType="com.sp.app.employee.Employee">
-		INSERT INTO employee(empNo, pwd, name, imageFilename, birth, email, addr, tel, enabled, register_date, modify_date, failure_cnt, startDate) 
-		VALUES (#{empNo}, #{pwd}, #{name}, #{imageFilename, jdbcType=VARCHAR}, #{birth}, #{email}, #{addr}, #{tel}, 1, SYSDATE, SYSDATE, 0, SYSDATE) 
-    </insert>
-	
-	<!-- 권한 추가-->
-    <insert id="insertAuthority" parameterType="com.sp.app.employee.Employee">
-    	INSERT INTO employeeAuthority(empNo, authority)
-    		VALUES(#{empNo}, #{authority})
-    </insert>
-    
-    <!-- 권한 수정 -->
-    <update id="updateAuthority" parameterType="com.sp.app.employee.Employee">
-    	UPDATE employeeAuthority SET authority = #{authority} WHERE empNo = #{empNo}
-    </update>
-    
-    <!-- 사원정보 조회 -->
+	<!-- 사원정보 조회 -->
     <select id="readEmployee" parameterType="String" resultType="com.sp.app.employee.Employee">
 		SELECT e.empNo, name, pwd, imageFilename, TO_CHAR(birth, 'YYYY-MM-DD') birth, email, tel, zip, addr1, addr2, enabled, 
 			failure_cnt, register_date, modify_date, last_login, pr.depNo, depName, pr.posNo, posName, pr.rankNo, rankName, pr.teamNo, teamName
@@ -46,27 +29,11 @@
 		WHERE e.empNo = #{empNo} AND pr.state = 1
 	</select>
 	
-	<!-- 사원정보 수정  --> 
-    <update id="updateEmployeeEnabled" parameterType="map">
+	<!-- 계정 비활성화 -->
+	<update id="updateEmployeeEnabled" parameterType="map">
 		UPDATE employee SET enabled=#{enabled} WHERE empNo=#{empNo}
     </update>
-    
-    <update id="updateEmployee1" parameterType="com.sp.app.employee.Employee">
-		UPDATE employee SET pwd=#{pwd}, modify_date=SYSDATE
-		WHERE empNo=#{empNo}
-    </update>
-    
-    <update id="updateEmployee2" parameterType="com.sp.app.employee.Employee">
-		UPDATE employee SET imageFilename=#{imageFilename, jdbcType=VARCHAR}, birth=#{birth, jdbcType=VARCHAR}, 
-			tel=#{tel, jdbcType=VARCHAR}, email=#{email, jdbcType=VARCHAR}, 
-		WHERE empNo=#{empNo}
-    </update>
-    
-    <!-- 사원정보 삭제  -->    
-    <delete id="deleteEmployee" parameterType="String">
-		DELETE FROM employee WHERE empNo=#{empNo}
-    </delete>
-    
+	
     <!-- 패스워드 실패 / 사원 상태 -->
     <select id="checkFailureCount" parameterType="String" resultType="Integer">
     	SELECT NVL(failure_cnt, 0) failure_cnt
@@ -101,6 +68,10 @@
 		JOIN person_record pr ON e.empNo = pr.empNo
 		JOIN department p ON p.depNo = pr.depNo
 		WHERE e.empNo = #{empNo} AND pr.state =  1
+	</select>
+	
+	<select id="adminEmpNo" resultType="com.sp.app.employee.Employee">
+		SELECT empNo adminEmpNo FROM employeeauthority WHERE authority = 'ROLE_ADMIN'
 	</select>
 
 </mapper>

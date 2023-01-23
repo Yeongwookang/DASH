@@ -97,11 +97,7 @@
 	</select>
 	
 	
-	<!-- 사원정보 수정  --> 
-    <update id="updateEmployeeEnabled" parameterType="map">
-		UPDATE employee SET enabled=#{enabled} WHERE empNo=#{empNo}
-    </update>
-    
+	<!-- 사원정보 수정  -->   
     <update id="updateInsa1" parameterType="com.sp.app.insa.Insa">
 		UPDATE employee SET pwd=#{pwd}, modify_date=SYSDATE, enabled = 1
 		WHERE empNo=#{empNo}
@@ -128,7 +124,6 @@
    
     
     <!-- 파일 -->
-    
     <insert id="insertFile" parameterType="com.sp.app.insa.Insa">
 		INSERT INTO insaFile(fileNum, empNo, imageFilename, originalFilename, fileSize)
 		VALUES(insaFile_seq.NEXTVAL, #{empNo}, #{imageFilename}, #{originalFilename}, #{fileSize})
@@ -159,6 +154,91 @@
 			</if>
 		</where>
 	</select>
+	
+	
+	
+	
+	
+	
+	<update id="updateEmployeeEnabled" parameterType="map">
+		UPDATE employee SET enabled=#{enabled} WHERE empNo=#{empNo}
+    </update>
+    
+	<insert id="insertEmployeeState" parameterType="com.sp.app.insa.Insa">
+		INSERT INTO employeeState(num, empNo, stateCode, memo, registerEmpNo, reg_date)
+		VALUES (employeeState_seq.NEXTVAL, #{empNo}, #{stateCode}, #{memo}, #{registerEmpNo}, SYSDATE)
+	</insert>
+	
+	<select id="listEmployeeState" parameterType="String" resultType="com.sp.app.insa.Insa">
+		SELECT num, empNo, stateCode, memo, registerEmpNo, reg_date
+		FROM employeeState
+		WHERE empNo = #{empNo}
+		ORDER BY num DESC
+	</select>
+
+	<select id="readEmployeeState" parameterType="String" resultType="com.sp.app.insa.Insa">
+		SELECT num, empNo, stateCode, memo, registerEmpNo, reg_date
+		FROM employeeState
+		WHERE empNo = #{empNo}
+		ORDER BY num DESC
+		FETCH FIRST 1 ROWS ONLY
+	</select>
+	
+	<sql id="authority-list">
+		<choose>
+			<when test="condition=='empNo'">
+				INSTR(e.empNo, #{keyword}) &gt;= 1
+			</when>
+			<otherwise>
+				INSTR(${condition}, #{keyword}) &gt;= 1
+			</otherwise>
+		</choose>
+	</sql>
+	
+	<select id="authorityDataCount" parameterType="map" resultType="Integer">
+		SELECT COUNT(*)
+		FROM employee e
+		JOIN person_record pr ON pr.empNo = e.empNo
+		JOIN department d ON d.depNo = pr.depNo
+		<where>
+			state = 1
+			<if test="keyword!=null and keyword!='' ">
+				AND <include refid="authority-list"/>
+			</if>
+			<if test="enabled!=''">
+				AND enabled = #{enabled}
+			</if>
+		</where> 
+    </select>
+    
+	<select id="listAuthority" parameterType="map" resultType="com.sp.app.insa.Insa">
+		SELECT e.empNo, name, depName, register_date, modify_date, last_login, enabled
+		FROM employee e
+		JOIN person_record pr ON pr.empNo = e.empNo
+		JOIN department d ON d.depNo = pr.depNo
+		<where>
+			state = 1 
+			<if test="keyword!=null and keyword!='' ">
+				AND <include refid="authority-list"/>
+			</if>
+			<if test="enabled!=''">
+				AND enabled = #{enabled}
+			</if>
+		</where> 
+		ORDER BY register_date DESC
+		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
+	</select>
+
+	<select id="readAuthority" parameterType="String" resultType="com.sp.app.insa.Insa">
+		SELECT empNo, name, enabled, register_date, modify_date, last_login
+		FROM employee e
+		WHERE empNo = #{empNo}
+	</select>
+
+	<update id="updateFailureCountReset" parameterType="String">
+		UPDATE employee SET failure_cnt = 0
+		WHERE empNo = #{empNo}
+	</update>
 
 
 </mapper>

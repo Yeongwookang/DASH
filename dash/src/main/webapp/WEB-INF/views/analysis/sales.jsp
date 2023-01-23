@@ -213,7 +213,7 @@ function searchList() {
 </script>
 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="d-flex justify-content-between mt-4">
 		<div class="title">
 		매출 통계

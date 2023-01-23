@@ -296,7 +296,7 @@ $(function(){
 
 </script> 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>통계</span>
 	</div>

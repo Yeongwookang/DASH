@@ -1,5 +1,6 @@
 package com.sp.app.employee;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -213,6 +214,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw e;
 		}
 	}
+
+	@Override
+	public List<Employee> adminEmpNo() {
+		List<Employee> list = null;
+		
+		try {
+			list = dao.selectList("employee.adminEmpNo");
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return list;
+	}
+
+	
 
 
 	

@@ -43,6 +43,42 @@ public class Insa {
 		private String postName;
 		private String teamName;
 		
+		private int num;
+		private int stateCode;
+		private String memo;
+		private String reg_date;
+		
+		public int getNum() {
+			return num;
+		}
+		public void setNum(int num) {
+			this.num = num;
+		}
+		public int getStateCode() {
+			return stateCode;
+		}
+		public void setStateCode(int stateCode) {
+			this.stateCode = stateCode;
+		}
+		public String getMemo() {
+			return memo;
+		}
+		public void setMemo(String memo) {
+			this.memo = memo;
+		}
+		public String getReg_date() {
+			return reg_date;
+		}
+		public void setReg_date(String reg_date) {
+			this.reg_date = reg_date;
+		}
+		public String getRegisterEmpNo() {
+			return registerEmpNo;
+		}
+		public void setRegisterEmpNo(String registerEmpNo) {
+			this.registerEmpNo = registerEmpNo;
+		}
+		private String registerEmpNo;
 		
 		public String getEmpNo() {
 			return empNo;
@@ -262,8 +298,5 @@ public class Insa {
 		public void setFileSize(long fileSize) {
 			this.fileSize = fileSize;
 		}
-		
-		
-		
 
 }

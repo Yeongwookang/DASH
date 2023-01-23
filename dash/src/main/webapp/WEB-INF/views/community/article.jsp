@@ -280,8 +280,8 @@ $(function(){
 });
 </script>
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
-		<div class="title mt-4">
+<div>
+	<div class="title mt-4">
 		<span>
 			<button type="button" class="btn text-white" onclick="location.href='${pageContext.request.contextPath}/community/main?${query}';"><img src="${pageContext.request.contextPath}/resources/images/left2.png" style="width: 18px;"></button>
 		</span>

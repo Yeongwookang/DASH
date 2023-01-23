@@ -1,5 +1,6 @@
 package com.sp.app.employee;
 
+import java.util.List;
 import java.util.Map;
 
 public interface EmployeeService {
@@ -26,4 +27,6 @@ public interface EmployeeService {
 	public void updateFailureCountReset(String empNo) throws Exception;
 	public void updateEmployeeEnabled(Map<String, Object> map) throws Exception;
 	public void insertEmployeeState(Employee dto) throws Exception;
+	
+	public List<Employee> adminEmpNo();
 }

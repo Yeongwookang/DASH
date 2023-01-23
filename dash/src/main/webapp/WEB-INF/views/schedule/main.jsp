@@ -8,7 +8,7 @@
 </style>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.css">
-<div style="margin-top: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>일정</span>
 	</div>

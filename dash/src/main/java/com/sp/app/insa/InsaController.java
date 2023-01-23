@@ -3,6 +3,7 @@ package com.sp.app.insa;
 
 import java.io.File;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -227,6 +228,122 @@ public class InsaController {
 		model.addAttribute("list", list);
 		
 		return ".insa.list";
+	}
+	
+	@RequestMapping(value = "authority/list")
+	public String authorityList(@RequestParam(value = "page", defaultValue = "1") int current_page,
+			@RequestParam(defaultValue = "empNo") String condition,
+			@RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "") String enabled,
+			HttpServletRequest req,
+			Model model) throws Exception {
+		
+		String cp = req.getContextPath();
+
+		int size = 10;
+		int total_page = 0;
+		int dataCount = 0;
+
+		if (req.getMethod().equalsIgnoreCase("GET")) {
+			keyword = URLDecoder.decode(keyword, "utf-8");
+		}
+
+		// 전체 페이지 수
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("enabled", enabled);
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+
+		dataCount = service.dataCount(map);
+		if (dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
+
+		if (total_page < current_page) {
+			current_page = total_page;
+		}
+
+		int offset = (current_page - 1) * size;
+		if(offset < 0) offset = 0;
+
+		map.put("offset", offset);
+		map.put("size", size);
+
+		List<Insa> list = service.listAuthority(map);
+
+		String query = "";
+		String listUrl = cp + "/insa/authority/list";
+
+		if (keyword.length() != 0) {
+			query = "condition=" + condition + "&keyword=" + URLEncoder.encode(keyword, "utf-8");
+		}
+
+		if (enabled.length() != 0) {
+			if (query.length() != 0)
+				query = query + "&enabled=" + enabled;
+			else
+				query = "enabled=" + enabled;
+		}
+
+		if (query.length() != 0) {
+			listUrl = listUrl + "?" + query;
+		}
+
+		String paging = myUtil.paging(current_page, total_page, listUrl);
+
+		model.addAttribute("list", list);
+		model.addAttribute("page", current_page);
+		model.addAttribute("dataCount", dataCount);
+		model.addAttribute("size", size);
+		model.addAttribute("total_page", total_page);
+		model.addAttribute("paging", paging);
+		model.addAttribute("enabled", enabled);
+		model.addAttribute("condition", condition);
+		model.addAttribute("keyword", keyword);
+
+		return ".insa.authorityList";
+	}
+	
+	@RequestMapping(value = "authority/detail")
+	public String authorityDetail(@RequestParam String empNo, Model model) throws Exception {
+		Insa dto = service.readAuthority(empNo);
+		Insa employeeState = service.readEmployeeState(empNo);
+		List<Insa> listState = service.listEmployeeState(empNo);
+
+		model.addAttribute("dto", dto);
+		model.addAttribute("employeeState", employeeState);
+		model.addAttribute("listState", listState);
+
+		return "insa/authorityDetail";
+	}
+
+	@RequestMapping(value = "authority/updateEmployeeState", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updateInsaState(Insa dto) throws Exception {
+
+		String state = "true";
+		try {
+			Map<String, Object> map = new HashMap<>();
+			map.put("empNo", dto.getEmpNo());
+			if (dto.getStateCode() == 0) {
+				map.put("enabled", 1);
+			} else {
+				map.put("enabled", 0);
+			}
+			service.updateEmployeeEnabled(map);
+
+			service.insertEmployeeState(dto);
+
+			if (dto.getStateCode() == 0) {
+				service.updateFailureCountReset(dto.getEmpNo());
+			}
+		} catch (Exception e) {
+			state = "false";
+		}
+
+		Map<String, Object> model = new HashMap<>();
+		model.put("state", state);
+		return model;
 	}
 	
 	

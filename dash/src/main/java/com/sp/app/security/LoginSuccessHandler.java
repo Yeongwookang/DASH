@@ -1,6 +1,7 @@
 package com.sp.app.security;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -64,13 +65,18 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		info.setRankName(employee.getRankName());
 		info.setImageFilename(employee.getImageFilename());
 		
-		session.setAttribute("employee", info);
-		
 		int scdcount = scdService.scheduleCount(employee.getEmpNo());
 		info.setScdcount(scdcount);
 		
 		int msgcount = msgService.newMessageCount(employee.getEmpNo());
 		info.setMsgcount(msgcount);
+		
+		List<Employee> adminList = service.adminEmpNo();
+		for(Employee dto : adminList) {			
+			info.setAdminEmpNo(dto.getAdminEmpNo());
+		}
+		
+		session.setAttribute("employee", info);
 		
 		// redirect 설정
 		resultRedirectStrategy(request, response, authentication);

@@ -67,7 +67,7 @@ $(function() {
 });
 </script>
 
-<div style="margin-top: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>쪽지</span>
 	</div>
@@ -98,7 +98,7 @@ $(function() {
 				<form name="listForm" method="post">
 					<table class="table table-hover msg-list-table">
 						<thead class="bg-main text-white">
-							<tr>
+							<tr class="text-center">
 								<th style="width: 5%;"><input type="checkbox" name="chkAll" id="chkAll" class="form-check-input"></th>
 								<th style="width: 30%;" class="text-center">내용</th>
 								<th style="width: 10%;">${menuItem=="receive"?"발신자":"수신자"}</th>
@@ -109,7 +109,7 @@ $(function() {
 						
 						<tbody>
 							<c:forEach var="dto" items="${list}">
-								<tr>
+								<tr class="text-center">
 									<td><input type="checkbox" name="nums" value="${dto.num}" class="form-check-input"></td>
 									<td class="left ellipsis">
 										<span>
