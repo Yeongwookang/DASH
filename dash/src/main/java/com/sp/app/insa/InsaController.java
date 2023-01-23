@@ -254,7 +254,7 @@ public class InsaController {
 		map.put("condition", condition);
 		map.put("keyword", keyword);
 
-		dataCount = service.dataCount(map);
+		dataCount = service.authorityDataCount(map);
 		if (dataCount != 0) {
 			total_page = myUtil.pageCount(dataCount, size);
 		}

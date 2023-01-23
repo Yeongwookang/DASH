@@ -58,7 +58,9 @@ function detailedEmployee(empNo) {
 				$(".ui-dialog-buttonset").find("button").addClass("btn");
 				$(".ui-dialog-buttonset").find("button").addClass("btn-main");
 		  },
-		  title: "사원 상세 정보",
+		  open:function(){
+			  jQuery(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		  },
 		  height: 550,
 		  width: 800,
 		  close: function(event, ui) {
@@ -106,6 +108,19 @@ function employeeStateDetaileView() {
 		  maxHeight: 450,
 		  width: 750,
 		  title: '계정 상태 상세',
+		  buttons: {
+		       " 닫기 " : function() {
+		    	   $(this).dialog("close");
+		       }
+		  },
+		  create: function(){
+				$(".ui-dialog-titlebar-close").addClass("btn-close");
+				$(".ui-dialog-buttonset").find("button").addClass("btn");
+				$(".ui-dialog-buttonset").find("button").addClass("btn-main");
+		  },
+		  open:function(){
+			  jQuery(this).parents(".ui-dialog:first").find(".ui-dialog-titlebar").remove();
+		  },
 		  close: function(event, ui) {
 			   $(this).dialog("destroy"); // 이전 대화상자가 남아 있으므로 필요
 		  }
