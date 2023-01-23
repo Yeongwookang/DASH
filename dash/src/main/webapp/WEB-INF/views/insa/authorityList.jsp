@@ -53,6 +53,11 @@ function detailedEmployee(empNo) {
 		    	   $(this).dialog("close");
 		       }
 		  },
+		  create: function(){
+				$(".ui-dialog-titlebar-close").addClass("btn-close");
+				$(".ui-dialog-buttonset").find("button").addClass("btn");
+				$(".ui-dialog-buttonset").find("button").addClass("btn-main");
+		  },
 		  title: "사원 상세 정보",
 		  height: 550,
 		  width: 800,
