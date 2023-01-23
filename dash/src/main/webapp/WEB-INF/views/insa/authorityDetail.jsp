@@ -71,7 +71,7 @@
 	  
 			<c:if test="${listState.size()==0}">
 				<tr align="center" style="border: none;">
-					<td colspan="3">등록된 정보가 없습니다.</td>
+					<td colspan="3" style="border: none; margin-top: 10px;">등록된 정보가 없습니다.</td>
 				</tr>  
 			</c:if>
 		</tbody>
