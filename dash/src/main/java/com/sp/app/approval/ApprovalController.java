@@ -418,7 +418,7 @@ public class ApprovalController {
 			model.addAttribute("paging", paging);
 			
 			
-		      return ".approval.main";
+		      return ".approval.timeline";
 		}
 }
 
