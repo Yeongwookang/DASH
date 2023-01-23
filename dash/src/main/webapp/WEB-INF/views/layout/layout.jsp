@@ -82,7 +82,7 @@
 		<div class="sticky-top">
 			<tiles:insertAttribute name="navbar"/>
 		</div>
-		<div class="scroll d-flex m-auto" style="width: 1552px; min-height:80vh; overflow-y: scroll; ">
+		<div class="scroll d-flex m-auto" style="width: 1552px; min-height:80vh; overflow-y: scroll;  padding-top: 3rem; padding-bottom: 3rem; ">
 				<div style="width: 200px;"></div>
 				<div style="width: 1152px;">
 				<tiles:insertAttribute name="body"/>

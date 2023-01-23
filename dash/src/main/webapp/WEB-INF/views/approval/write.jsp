@@ -175,7 +175,7 @@ function update_document(){
 	f.submit();
 }
 </script>
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>결재</span>
 	</div>	

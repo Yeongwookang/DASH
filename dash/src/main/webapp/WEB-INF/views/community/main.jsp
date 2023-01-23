@@ -9,7 +9,7 @@ function searchList() {
 }
 </script>
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="mt-4">
 	<div class="d-flex justify-content-between">
 		<div class="title" ><span>커뮤니티&nbsp;</span><span class="dataCount">${dataCount}건</span></div>

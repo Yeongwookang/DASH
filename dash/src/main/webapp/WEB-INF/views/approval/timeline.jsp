@@ -4,13 +4,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<div style="margin-top: 5rem; margin-bottom: 5rem;">
-	<div class="d-flex justify-content-between">
-		<div class="title mt-4">
+<div>
+	<div class="d-flex justify-content-between mt-4">
+		<div class="title">
 			타임라인 관리
 		</div>
 
-		<form class="d-flex align-items-end">
+		<form class="d-flex align-items-center">
 			<div class="me-2">
 			<select class="form-select">
 				<option>이름</option>
@@ -77,10 +77,13 @@
 						</div>
 						</td>
 						<td style="width:10%">관리자</td>
-						<td style="width:20%"></td>
-						<td style="width:10%"><i class="fa-solid fa-gear"></i></td>
+						<td style="width:20%" data-empNo=""></td>
+						<td style="width:10%">
+							<i class="fa-solid fa-gear"></i>
+						</td>
 					</tr>
 				</table>
+					<div class="ps-3 pe-3"> 내용</div>
 				</div>
 			</div>
 		</div>

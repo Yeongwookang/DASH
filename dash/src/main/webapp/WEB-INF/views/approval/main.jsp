@@ -6,7 +6,7 @@
 
 <div style="margin-top: 5rem; margin-bottom: 5rem;">
 	<div class="title mt-4">
-		결재
+		결재관리
 	</div>
 	
 	<hr class="mt-4" style=" margin-bottom: 4rem; border: solid 1px;">

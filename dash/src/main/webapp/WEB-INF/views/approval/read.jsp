@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="mt-4 title">
 		<span>결재</span>
 		<hr>
