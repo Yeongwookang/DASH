@@ -152,9 +152,9 @@
 	</delete>
 	
 	<select id="newMessageCount" parameterType="String" resultType="Integer">
-		SELETE NVL(COUNT(*), 0)
+		SELECT NVL(COUNT(*), 0)
 		FROM message
-		WHERE identifyDay IS NULL AND receiverId = #{empNo}
+		WHERE identifyDay IS NULL AND receiverEmpNo = #{empNo}
 	</select>
 	
 </mapper>
