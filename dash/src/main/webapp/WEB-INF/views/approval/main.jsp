@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<div style="margin-top: 5rem; margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		결재관리
 	</div>

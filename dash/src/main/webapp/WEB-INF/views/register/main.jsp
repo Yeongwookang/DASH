@@ -81,7 +81,7 @@ function sendOk() {
 
 
 
-<div style="margin-top: 5rem; margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>대여소 등록</span>
 	</div>

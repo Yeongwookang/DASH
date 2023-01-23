@@ -78,7 +78,7 @@ function sendChOk() {
 
 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>충전소 등록</span>
 	</div>

@@ -40,7 +40,7 @@ $(function(){
 });
 </script>
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>충전소·대여소 현황</span>
 	</div>

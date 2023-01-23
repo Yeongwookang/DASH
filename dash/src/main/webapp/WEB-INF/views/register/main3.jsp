@@ -51,7 +51,7 @@ function sendkOk() {
 
 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>킥보드 등록</span>
 	</div>	

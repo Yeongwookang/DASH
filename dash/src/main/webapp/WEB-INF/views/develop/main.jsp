@@ -12,7 +12,7 @@
 </script>
 
 
-<div style="margin-top: 5rem;">
+<div>
 	<div class="title mt-4">
 	<span>유지보수</span>
 </div>

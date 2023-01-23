@@ -27,7 +27,7 @@ form .img-viewer {
 </script>
 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>사원 현황</span>
 	</div>

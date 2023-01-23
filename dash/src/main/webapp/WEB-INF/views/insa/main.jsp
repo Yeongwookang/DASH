@@ -176,7 +176,7 @@
 
 
 
-<div style="margin-top: 5rem; margin-bottom: 5rem;">
+<div>
 	<div class="d-flex justify-content-between align-content-end mt-4">
 		<div class="title">
 			<span>사원관리</span>

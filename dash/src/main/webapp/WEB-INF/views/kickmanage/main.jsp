@@ -160,7 +160,7 @@ function sendModeldamage() {
 </script>
 
 
-<div style="margin-top: 5rem;  margin-bottom: 5rem;">
+<div>
 	<div class="title mt-4">
 		<span>킥보드 관리</span>
 	</div>
