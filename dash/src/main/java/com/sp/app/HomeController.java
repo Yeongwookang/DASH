@@ -155,6 +155,7 @@ public class HomeController {
       Map<String, Object> punmap = new HashMap<String, Object>();
       punmap.put("empNo", info.getEmpNo());
       	
+      
       List<Punching> clockList = punService.listPunchclock(punmap);
 		
 	  model.addAttribute("clockList", clockList);

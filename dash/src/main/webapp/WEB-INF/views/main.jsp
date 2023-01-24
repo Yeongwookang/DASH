@@ -611,7 +611,7 @@ function searchList() {
 		       			</c:when>
 		       			<c:otherwise>
 		       				<div class="mt-2">
-		       					<table class="table hover-table">
+		       					<table class="table hover-table text-center">
 		       						<thead>
 				       					<tr>
 				       						<th>#</th>
@@ -622,7 +622,7 @@ function searchList() {
 			       					<tbody>
 			       						<c:forEach items="${clockList}" var="dto" varStatus="status">
 			       							<tr>
-			       								<td></td>
+			       								<td>${status.count}</td>
 			       								<td>${dto.clock_time}</td>
 			       								<td>${dto.punch_kind}</td>
 			       							</tr>

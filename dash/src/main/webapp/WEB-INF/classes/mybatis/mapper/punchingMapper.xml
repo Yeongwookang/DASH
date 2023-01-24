@@ -75,10 +75,10 @@
 			<if test="condition != null and condition != ''">
 				AND <include refid="where-list"/>
 			</if>
-			<if test="std != null and std = '' ">
+			<if test="std != null and std != '' ">
 				AND clock_time &gt;= TO_DATE(#{std}, 'YYYY-MM-DD')
 			</if>
-			<if test="end != null and end = ''">
+			<if test="end != null and end != ''">
 				AND clock_time &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
 			</if>
 		</where>

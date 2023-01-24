@@ -129,59 +129,11 @@
 
 
 <div class="mt-4 mb-4 d-flex justify-content-between">	
-		<button class="btn btn-sub bg-gradient" type="button" data-bs-toggle="modal" data-bs-target="#timeLine">타임라인</button>
 		<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 </div>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">타임라인</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="container-fluid">
-        	<div class="alert bg-sub text-center" role="alert">
-        		<div>타임라인이란, </div>
-        		<div><span style="font-weight: bold">여러 결재를 하나로 묶어 시간순으로 배열하는 것</span>을 의미합니다.</div>
-        		<div>프로젝트 단위의 결재를 처리하는데 용이하며,</div>
-        		<div><span style="font-weight: bold">제목, 관리자명, 사번</span>으로 검색이 가능합니다.</div>
-        	</div>
-        	<div class="d-flex">
-        	<select class="form-select me-2" id="condition_tl">
-	      		<option value="title">제목</option>
-	      		<option value="empNo">사번</option>
-	      		<option value="name">관리자명</option>
-	      	</select>
-        	<input class="form-control" id="keyword_tl">
-        	<button type="button" class="btn btn-main ms-2 searchTimeline" ><i class="fa-solid fa-magnifying-glass"></i></button>
-        	</div>
-        	<div class="mt-4">
-        		<table class="table hover-table text-center">
-        			<thead>
-        				<tr>
-        					<th>#</th>
-        					<th style="width:60%">타임라인명</th>
-        					<th>진행률</th>
-        					<th>관리자</th>
-        				</tr>
-        			</thead>
-        			<tbody class="timeLineResult">
-        			</tbody>
-        		
-        		</table>
-        	
-        	</div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sub" data-bs-dismiss="modal">취소</button>
-      </div>
-    </div>
-  </div>
-</div>
+
+
 <script type="text/javascript">
 	$(".sendList").children().click(function(){
 		let signNum = this.querySelector(".signNum").textContent;
