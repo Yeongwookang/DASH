@@ -157,6 +157,27 @@ public class HomeController {
       Map<String, Object> punmap = new HashMap<String, Object>();
       punmap.put("empNo", info.getEmpNo());
       punmap.put("condition", condition);
+      
+      if(std == "") {
+    	  Calendar punCal = Calendar.getInstance();
+          
+          int y = punCal.get(Calendar.YEAR);
+          int m = punCal.get(Calendar.MONTH)+1;
+          int d = punCal.get(Calendar.DATE);
+          
+          std = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+      }
+      
+      if(end == "") {
+    	  Calendar punCal = Calendar.getInstance();
+          
+          int y = punCal.get(Calendar.YEAR);
+          int m = punCal.get(Calendar.MONTH)+1;
+          int d = punCal.get(Calendar.DATE);
+          
+          end = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+      }
+      
       punmap.put("std", std);
       punmap.put("end", end);
 			
