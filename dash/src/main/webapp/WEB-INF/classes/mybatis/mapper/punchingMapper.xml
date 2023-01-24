@@ -68,7 +68,31 @@
 	</delete>
 	
 	<select id="listPunchclock"  parameterType="map" resultType="com.sp.app.punching.Punching">
-	SELECT clockNo, empNo, clock_time, punch_kind FROM punch_clock WHERE empNo = #{empNo}
+		SELECT clockNo, empNo, clock_time, punch_kind 
+		FROM punch_clock 
+		<where>
+			empNo = #{empNo}
+			<if test="punch_kind != null">
+				AND <include refid="punch_kind"/>
+			</if>
+			<if test="date1 != null">
+				AND clock_time &gt;= TO_DATE(#{date1}, 'YYYY-MM-DD')
+			</if>
+			<if test="date2 != null">
+				AND clock_time &lt;= TO_DATE(#{date2}, 'YYYY-MM-DD')
+			</if>
+		</where>
 	</select>
+	
+	<sql id="punch_kind">
+		<choose>
+			<when test="punch_kind == '0' ">
+             	punch_kind = '출근'
+			</when>
+			<when test="punch_kind == '1' ">
+             	punch_kind = '퇴근'
+			</when>
+		</choose>
+	</sql>
 	
 </mapper>
