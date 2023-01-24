@@ -589,14 +589,14 @@ $(function(){
 	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/listPunchclock" method="POST">
 		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
 			     		<select class="form-select me-2" name="condition" style="width: 100px;">
-			     			<option value="punchOn">출근</option>
-			     			<option value="punchOn">출근</option>
-			     			<option value="punchOff">퇴근</option>
+			     			<option value="other">선택</option>
+			     			<option value="punchOn" ${condition=="punchOn"?"selected='selected'":""}>출근</option>
+			     			<option value="punchOff" ${condition=="punchOff"?"selected='selected'":""}>퇴근</option>
 			     		</select>
 			     		<input class="form-control me-2" name="startDate" type="date">
 			     		<span class="me-2">~</span>
 			     		<input class="form-control me-2" name="endDate" type="date">
-			     		<button class="btn btn-main"><i class="fa-solid fa-magnifying-glass"></i></button>
+			     		<button class="btn btn-main" onclick="searchList()"><i class="fa-solid fa-magnifying-glass"></i></button>
 		    		</div>
 	     		</form>
 	       		<div class="m-auto">
