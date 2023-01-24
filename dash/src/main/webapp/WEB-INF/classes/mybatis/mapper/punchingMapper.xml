@@ -75,10 +75,10 @@
 			<if test="condition != null">
 				AND <include refid="where-list"/>
 			</if>
-			<if test="startDate != null and startDate = '' ">
+			<if test="std != null and std = '' ">
 				AND clock_time &gt;= TO_DATE(#{clock_time}, 'YYYY-MM-DD')
 			</if>
-			<if test="endDate != null and endDate = ''">
+			<if test="edt != null and edt = ''">
 				AND clock_time &lt;= TO_DATE(#{clock_time}, 'YYYY-MM-DD')
 			</if>
 		</where>
@@ -86,10 +86,10 @@
 	
 	<sql id="where-list">
 		<choose>
-			<when test="punch_kind == '0' ">
+			<when test="condition == '0' ">
              	punch_kind = '출근'
 			</when>
-			<when test="punch_kind == '1' ">
+			<when test="condition == '1' ">
              	punch_kind = '퇴근'
 			</when>
 		</choose>

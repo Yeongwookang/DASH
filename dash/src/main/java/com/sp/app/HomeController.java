@@ -58,8 +58,10 @@ public class HomeController {
    @Autowired
    private MessageService msgService;
 
-   @RequestMapping(value = "/", method = RequestMethod.GET)
-   public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
+   @RequestMapping(value = "/")
+   public String home(Locale locale, HttpServletRequest req, Model model,
+		   @RequestParam(defaultValue = "other") String condition, 
+		   @RequestParam(defaultValue = "") String std, @RequestParam(defaultValue = "") String edt) throws Exception {
       Calendar cal = Calendar.getInstance();
       
       int year = cal.get(Calendar.YEAR);
@@ -153,6 +155,19 @@ public class HomeController {
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto", punDto);
+      
+      Map<String, Object> punmap = new HashMap<String, Object>();
+      punmap.put("empNo", info.getEmpNo());
+      punmap.put("condition", condition);
+      punmap.put("std", std);
+      punmap.put("edt", edt);
+			
+      List<Punching> clockList = punService.listPunchclock(punmap);
+		
+	  model.addAttribute("clockList", clockList);
+	  model.addAttribute("condition", condition);
+	  model.addAttribute("std", std);
+	  model.addAttribute("edt", edt);
       
       return ".mainLayout";
    }

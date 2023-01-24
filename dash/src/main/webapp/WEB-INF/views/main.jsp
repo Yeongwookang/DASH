@@ -572,10 +572,9 @@ $(function(){
 
 
 function searchList() {
-	const f = document.searchForm;
+	const f = document.dayoffSearchForm;
 	f.submit();
 }
-
 </script>
 
 <!-- 출퇴근 기록 Modal -->
@@ -593,16 +592,16 @@ function searchList() {
         </div>
          <div class="card mt-4 p-4">
 	       	<div>
-	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/listPunchclock" method="post">
+	 			<form name="dayoffSearchForm" action="${pageContext.request.contextPath}/" method="post">
 		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
 			     		<select class="form-select me-2" name="condition" style="width: 100px;">
 			     			<option value="other">선택</option>
 			     			<option value="punchOn" ${condition=="punchOn"?"selected='selected'":""}>출근</option>
 			     			<option value="punchOff" ${condition=="punchOff"?"selected='selected'":""}>퇴근</option>
 			     		</select>
-			     		<input class="form-control me-2" name="startDate" type="date">
+			     		<input class="form-control me-2" name="std" type="date">
 			     		<span class="me-2">~</span>
-			     		<input class="form-control me-2" name="endDate" type="date">
+			     		<input class="form-control me-2" name="edt" type="date">
 			     		<button class="btn btn-main" onclick="searchList()"><i class="fa-solid fa-magnifying-glass"></i></button>
 		    		</div>
 	     		</form>

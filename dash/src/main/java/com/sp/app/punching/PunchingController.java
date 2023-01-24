@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.MyUtil;
 import com.sp.app.employee.SessionInfo;
@@ -77,6 +78,7 @@ public class PunchingController {
 		}
 		
 		@RequestMapping(value = "listPunchclock")
+		@ResponseBody
 		public String list(Model model, @RequestParam(defaultValue = "other") String condition, 
 				@RequestParam(defaultValue = "") String startDate, @RequestParam(defaultValue = "") String endDate, 
 				HttpServletRequest req ) {
@@ -100,7 +102,7 @@ public class PunchingController {
 			model.addAttribute("startDate", startDate);
 			model.addAttribute("endDate", endDate);
 			
-			return "redirect:/";
+			return ".mainLayout";
 		}
 		
 		
