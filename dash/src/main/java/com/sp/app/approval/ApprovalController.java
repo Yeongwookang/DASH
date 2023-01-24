@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,7 @@ import com.sp.app.employee.SessionInfo;
 @Controller("approval.approvalController")
 @RequestMapping(value = "/approval/*")
 public class ApprovalController {
-	   
+		private Logger logger = LoggerFactory.getLogger(this.getClass());
 		@Autowired
 		private ApprovalService service;
 		
@@ -183,6 +185,19 @@ public class ApprovalController {
 				model.put("tlList", listTimeline);
 				 
 				return model;
+		}
+		
+		
+		@PostMapping("timelineInsert")
+		public String timelineInsert( @RequestParam Map<String, Object> map
+				) throws Exception {
+			
+			try {
+				service.insertTimeline(map);
+			} catch (Exception e) {
+				logger.warn("{} 가 발생했습니다. parameter: {}",e.getMessage(), map);
+			}
+			return "redirect:/approval/timeline";
 		}
 		
 		@GetMapping("write")
@@ -365,60 +380,57 @@ public class ApprovalController {
 		}
 		
 		@RequestMapping(value = "timeline")
-		public String timeline(Model model, 
-				HttpServletRequest req, 
-				@RequestParam(value = "page", defaultValue = "1") int current_page ) throws Exception {
-			
-			Map<String, Object> map = new HashMap<String, Object>();
+		public String timeline(Model model, HttpServletRequest req) throws Exception {
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo)session.getAttribute("employee");
 			if(info == null) {
 				return "redirect:/employee/login";
 			}
-			map.put("empNo",info.getEmpNo());
 			
-			List<Approval> approvalList = service.approvalList(map);
+			Map<String,Object> map = new HashMap<String, Object>();
+			map.put("keyword", "");
+			map.put("condition", "dep");
 			
 			
 			int size = 5;
-			
 			int total_page;
-			int dataCount = service.myApprovalCount(map);
+			int dataCount = service.dataCount_tl(map);
 			
 			total_page = myUtil.pageCount(dataCount, size);
 			
-			if(current_page > total_page) {
-				current_page = total_page;
-			}
-			
-			int offset = (current_page - 1) * size;
-			if(offset < 0) offset = 0;
+			int offset=0;
 			
 			map.put("offset", offset);
 			map.put("size", size);
 			
 			
-			String cp = req.getContextPath();
-			
-			String list_url = cp+"/approval/main";
-			String paging = myUtil.paging(current_page, total_page, list_url);
+			List<Approval> listTimeline= service.listTimeline(map);
 			
 			
-			
-			List<Approval> myApprovalList = service.myApprovalList(map);
-			
-			
-			model.addAttribute("approvalList", approvalList);
-			model.addAttribute("myApprovalList", myApprovalList);
-			model.addAttribute("page", current_page);
-			model.addAttribute("dataCount", dataCount);
-			model.addAttribute("size", size);
+			 
 			model.addAttribute("total_page", total_page);
-			model.addAttribute("paging", paging);
+			model.addAttribute("timelineList", listTimeline);
 			
-			
-		      return ".approval.timeline";
+		    return ".approval.timeline";
 		}
+		
+		@GetMapping("readTimeline")
+		@ResponseBody
+		public Map<String, Object> readTimeline(HttpServletRequest req, 
+				@RequestParam long tlNum
+				) throws Exception {
+			
+			
+				Approval dto= service.readTimeline(tlNum);
+				
+				 
+				Map<String, Object> model =  new HashMap<String, Object>();
+				 
+				model.put("dto",dto);
+				 
+				return model;
+		}
+		
 }
 

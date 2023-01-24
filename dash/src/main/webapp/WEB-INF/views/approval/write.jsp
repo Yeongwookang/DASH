@@ -17,19 +17,16 @@ function searchTimeline(page){
 		for(let item of data.tlList){
 			let tlName = item.tlName;
 			let tlNum = item.tlNum;
-			let state = item.state;
-			let max_state = item.max_state;
 			let reg_date = item.reg_date;
 			let empNo = item.empNo;
-			let name = item.empNo;
+			let name = item.name;
 			
-			let out = "<tr class='searched_tl'>";
+			let out = "<tr class='searched_tl "+tlNum+"'>";
 			out += "<td>"+i+"</td>";
-			out += "<td class='tlNum' style='display=none;'>"+tlNum+"</td>";
-			out += "<td class='tlName'>"+tlName+"</td>";
-			out += "<td class='state'>"+Math.TRUNC(state/max_state)+"</td>";
+			out += "<td class='tlNum' style='display:none;'>"+tlNum+"</td>";
+			out += "<td class='tlName elipsis'>"+tlName+"</td>";
 			out += "<td class='name'>"+name+"</td>";
-			out += "<td class='empNo' style='display=none;'>"+empNo+"</td>";
+			out += "<td class='empNo' style='display:none;'>"+empNo+"</td>";
 			out += "<td class='reg_date'>"+reg_date+"</td>";
 			out += "</tr>";
 			
@@ -37,8 +34,12 @@ function searchTimeline(page){
 			
 			$(".sendList_tl").append(out);
 			
+			$("."+tlNum).click(function(){
+				$("#tlNum").val(tlNum);
+				$("#tlName").val(tlName);
+				$("#timeLine").modal("hide");
+			});
 			i++;
-			
 			
 		}
 		
@@ -208,12 +209,7 @@ function update_document(){
 				<div class="d-flex ms-4" style="width: 80%">
 					<input type="text" class="form-control" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
 					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
-					<c:if test="${not empty tldto}">
 					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
-					<input type="hidden" name="tlState" id="tlState" value="${tldto.state}" readonly>
-					<input type="hidden" name="tlMax_state" id="tlMax_state" value="${tldto.max_state}" readonly>
-					<input type="hidden" name="tlEmpNo" id="tlEmpNo" value="${tldto.empNo}" readonly>
-					</c:if>
 				</div>
 			</div>
 			<div class="d-flex align-items-center justify-content-between">
@@ -286,7 +282,7 @@ function update_document(){
 	      		<option value="dep">부서</option>
 	      		<option value="team">팀</option>
 	      		<option value="name">이름</option>
-	      		<option value="title">제목</option>
+	      		<option value="tlName">제목</option>
 	      	</select>
         	<input class="form-control" id="keyword_tl">
         	<button type="button" class="btn btn-sub ms-2" id="searchTimeline" onclick="searchTimeline(1);" ><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -298,9 +294,8 @@ function update_document(){
         			<tr>
         				<th style="width: 5%">#</th>
         				<th style="width: 45%">타임라인명</th>
-						<th style="width: 15%">진행률</th>
 	       				<th style="width: 15%">관리자</th>
-	       				<th style="width: 20%">생성일</th>
+	       				<th style="width: 35%">생성일</th>
         			</tr>
        			</thead>
        			<tbody class="sendList_tl">
@@ -314,7 +309,6 @@ function update_document(){
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sub" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-main writeBtn">완료</button>
       </div>
       </div>
     </div>

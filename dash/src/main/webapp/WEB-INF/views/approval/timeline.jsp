@@ -10,15 +10,16 @@
 			타임라인 관리
 		</div>
 
-		<form class="d-flex align-items-center">
+		<form class="d-flex align-items-center" name="timelineSearch">
 			<div class="me-2">
-			<select class="form-select">
-				<option>이름</option>
-				<option>관리자</option>
+			<select class="form-select" name="condition">
+				<option value="dep">부서</option>
+				<option value="name">이름</option>
+				<option value="empNo">사번</option>
 			</select>
 			</div>
 			<div class=" me-2">
-			<input type="text" class="form-control">
+			<input type="text" class="form-control" name="keyword">
 			</div>
 			<div>
 			<button type="button" class="btn btn-main searchTimeline" ><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -45,18 +46,29 @@
 								<th>관리자</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
-							<tr><td></td><td></td><td></td></tr>
+						<tbody class="timelineList">
+							<c:choose>
+							<c:when test="${not empty timelineList}">
+								<c:forEach items="${timelineList}" var="tl" varStatus="status">
+									<tr class="searched" onclick="readTimeline(${tl.tlNum});">
+										<td>${status.count}</td>
+										<td>${tl.tlName}</td>
+										<td>${tl.name}</td>
+									</tr>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							<tr class="empty-line"><td></td><td></td><td></td></tr>
+							</c:otherwise>
+							</c:choose>
 						</tbody>
 					</table>
 				</div>
@@ -66,33 +78,49 @@
 				<div class="ms-2 me-2 scroll" style="overflow-y:scroll;">
 				<table class="table table-hover text-center">
 					<tr>
-						<td style="width:10%">제목</td>
-						<td colspan="4"></td>
+						<td class="fw-bold" style="width:10%">번호</td>
+						<td style="width:10%" id="tlNum"></td>
+						<td class="fw-bold" style="width:10%">제목</td>
+						<td colspan="4" id="tlName"></td>
 					</tr>
 					<tr>
-						<td>진행률</td>
-						<td style="width:50%">
+					
+						<td class="fw-bold" style="width:10%">진행률</td>
+						<td style="width:20%">
 						<div class="progress">
-						  <div class="bg-main  progress-bar-striped progress-bar-animated" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+						  <div id="progress" class="bg-main progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
 						</div>
 						</td>
-						<td style="width:10%">관리자</td>
-						<td style="width:20%" data-empNo=""></td>
+						
+						<td class="fw-bold" style="width:10%">등록일</td>
+						<td id="reg_date"></td>
+						
+						<td class="fw-bold" style="width:10%">관리자</td>
+						<td style="width:20%" id="admin"></td>
 						<td style="width:10%">
-							<i class="fa-solid fa-gear"></i>
+						<div class="dropdown admin-dropdown" style="display:none">
+						  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+						   <i class="fa-solid fa-gear"></i>
+						  </button>
+						  <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+						    <li><button class="dropdown-item" type="button">삭제</button></li>
+						    <li><button class="dropdown-item" type="button">관리자 위임</button></li>
+						  </ul>
+						</div>
+							
 						</td>
 					</tr>
 				</table>
 				
-				<div class="ps-3 pe-3" style="min-height: 20rem;"> 내용</div>
+				<div class="ps-3 pe-3" style="min-height: 20rem;" id="content"></div>
 				
 				<div>
-				<table class="table table-hover text-center">
-				<tr><td>하위 문서</td></tr>
+				<table class="table table-hover text-center border-top">
+				<tr class="text-start"><td class="ps-3 fw-bold">하위 문서</td></tr>
 				<tr><td>
-				<div class="d-flex justify-content-evenly text-center">
-					<div>
-					<div class="bg-sub bg-gradient p-2">기안</div>
+				<div class="d-flex justify-content-evenly text-center mt-4 mb-4" id="subDocument">
+					<div >
+					<div class="bg-sub bg-gradient p-2 fw-bold rounded">기안</div>
 					<div style="max-width: 9rem">
 						<ul class="list-group" >
 							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
@@ -101,7 +129,7 @@
 					</div>
 					
 					<div>
-					<div>1차결재</div>
+					<div  class="bg-sub bg-gradient p-2 fw-bold  rounded">1차결재</div>
 					<div style="max-width: 9rem">
 						<ul class="list-group" >
 							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
@@ -110,7 +138,7 @@
 					</div>
 					
 					<div>
-					<div>2차결재</div>
+					<div class="bg-sub bg-gradient p-2 fw-bold rounded">2차결재</div>
 					<div style="max-width: 9rem">
 						<ul class="list-group" >
 							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
@@ -119,7 +147,7 @@
 					</div>
 					
 					<div>
-					<div>결재완료</div>
+					<div class="bg-sub bg-gradient p-2 fw-bold rounded">결재완료</div>
 					<div style="max-width: 9rem">
 						<ul class="list-group" >
 							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
@@ -144,102 +172,145 @@
 <div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">타임라인</h5>
+      <div class="modal-header bg-main bg-gradient sales text-white">
+        <h5 class="modal-title" id="staticBackdropLabel">타임라인 생성</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <div class="container-fluid">
-        	<div class="alert bg-sub text-center" role="alert">
-        		<div>타임라인이란, </div>
-        		<div><span style="font-weight: bold">여러 결재를 하나로 묶어 시간순으로 배열하는 것</span>을 의미합니다.</div>
-        		<div>프로젝트 단위의 결재를 처리하는데 용이하며,</div>
-        		<div><span style="font-weight: bold">제목, 관리자명, 사번</span>으로 검색이 가능합니다.</div>
-        	</div>
-        	<div class="d-flex">
-        	<select class="form-select me-2" id="condition_tl">
-	      		<option value="title">제목</option>
-	      		<option value="empNo">사번</option>
-	      		<option value="name">관리자명</option>
-	      	</select>
-        	<input class="form-control" id="keyword_tl">
-        	<button type="button" class="btn btn-main ms-2 searchTimeline" ><i class="fa-solid fa-magnifying-glass"></i></button>
-        	</div>
-        	<div class="mt-4">
-        		<table class="table hover-table text-center">
-        			<thead>
-        				<tr>
-        					<th>#</th>
-        					<th style="width:60%">타임라인명</th>
-        					<th>진행률</th>
-        					<th>관리자</th>
-        				</tr>
-        			</thead>
-        			<tbody class="timeLineResult">
-        			</tbody>
-        		
+        	<form name="insertTimeline">
+        		<table class="table table-hover">
+        			<tr>
+        				<th style="width:20%">제목</th>
+        				<td colspan="3"><input type="text" name="tlName" class="form-control"></td>
+        			</tr>
+        			<tr>
+        				<th style="width:20%">총 단계</th>
+        				<td style="width:30%">
+	        				<select class="form-select" name="max_state">
+			        			<option>1</option>
+			        			<option>2</option>
+			        			<option>3</option>
+			        		</select>
+		        		</td>
+        				<th style="width:20%">관리자명</th>
+        				<td style="width:30%">
+        					<input type="text" value="${sessionScope.employee.name}" class="form-control" readonly>
+        				</td>
+        				<td style="display:none;">
+	        				<input type="hidden" name="empNo" value="${sessionScope.employee.empNo}" readonly>
+	        			</td>
+        			</tr>
+        			<tr>
+        				<th colspan="4">내용</th>
+        			</tr>
+        			<tr>
+        				<td colspan="4"><textarea name="content" rows="10" class="form-control"></textarea></td>
+        			</tr>
         		</table>
-        	
-        	</div>
+        	</form>
         </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sub" data-bs-dismiss="modal">취소</button>
+      	<button type="button" class="btn btn-main timelineReg">등록</button>
       </div>
     </div>
   </div>
 </div>
 <script type="text/javascript">
-	$(".sendList").children().click(function(){
-		let signNum = this.querySelector(".signNum").textContent;
-		location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
-	});
-	
+	function readTimeline(tlNum){
+		let url ="${pageContext.request.contextPath}/approval/readTimeline";
+		let query="tlNum="+tlNum;
+		
+		const fn=function(data){
+			$(".readContent").remove();
+			$("#progress").attr("style","width:0%;");
+			$("#progress").attr("aria-valuenow","0");
+			$("#admin").attr("data-empNo","");
+			
+			let item = data.dto;
+			
+			$("#progress").attr("style","");
+			$("#progress").attr("aria-valuenow","");
+			$("#admin").append("<div class='readContent'>"+item.name+"</div>");
+			$("#admin").attr("data-empNo",item.empNo);
+			$("#tlName").append("<div class='readContent'>"+item.tlName+"</div>");
+			$("#tlNum").append("<div class='readContent'>"+item.tlNum+"</div>");
+			$("#content").append("<div class='readContent'>"+item.content+"</div>");
+			$("#reg_date").append("<div class='readContent'>"+item.reg_date+"</div>")
+		};
+		
+		ajaxFun(url, "GET", query, "JSON", fn);
+		
+	}
+</script>
+<script type="text/javascript">
 	$(function(){
-		if(${fn:length(approvalList)}<5 && ${fn:length(approvalList)}>0 ){
-			let size = 5-${fn:length(approvalList)};
+		let num= Number("${fn:length(approvalList)}");
+		if(num<5 && num>0 ){
+			let size = 5-num;
 			for(let i=0; i<size; i++){
 				$(".approvalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 			}
 		}
 		
-		if(${fn:length(myApprovalList)}<5 && ${fn:length(approvalList)}>0){
-			let size = 5-${fn:length(myApprovalList)};
+		let myNum = Number("${fn:length(myApprovalList)}");
+		if(myNum<5 && myNum>0){
+			let size = 5-myNum;
 			for(let i=0; i<size; i++){
 				$(".myApprovalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 			}
 		}
 	});
 	
-	$(".searchTimeline").click(function){
-		let url = "${pageContext.request.contextPath}/approval/searchTimeline";
-		let condition = $("#condition_tl").val;
-		let keyword = $("#keyword_tl").val;
-		let query = "condition="+condition+"&keyword="+keyword;
+	
+	
+	$(".timelineReg").click(function(){
+		const f = document.insertTimeline;
+		
+		if(f.tlName.value===''){
+			alert('타임라인 제목을 기입해주세요.');
+			f.tlName.focus();
+			return;
+		}
+		
+		if(f.content.value===''){
+			alert('이름을 기입해주세요.');
+			f.tlName.focus();
+			return;
+		}
+		
+		
+		f.action="${pageContext.request.contextPath}/approval/timelineInsert";
+		f.method="POST";
+		f.submit();
+		
+	});
+	
+	$(".searchTimeline").click(function(){
+		const f1 = document.timelineSearch;
+		let condition=f1.condition.value;
+		let keyword=f1.keyword.value;
+		let url = "${pageContext.request.contextPath}/approval/timelineSearch";
+		let query ="condition="+condition+"&keyword="+keyword+"&page=1";
 		
 		const fn = function(data){
-			for(let item of data.listTimeline){
-				let tlNum = item.tlNum;
-				let tlName = item.tlName;
-				let tlState = item.state;
-				let tlMax_state = item.max_state;
-				let tlEmpNo = item.empNo;
+			$(".searched").remove();
+			
+			for(const [index, item] of data.tlList.entries()){
+				let out= "<tr class='searched' onclick='readTimeline("+item.tlNum+")'>";
+				out+= "<td>"+Number(index+1)+"</td>";
+				out+= "<td>"+item.tlName+"</td>";
+				out+= "<td>"+item.name+"</td>";
+				out+= "</tr>";
 				
-				let out="<tr class='searched "+tlNum+"'>";
-				out +="<td class='tlEmpNo'><input style='display:none' type='text' value="+empNo+"></td>";
-				out +="<td class='tlState'>"+Math.round(tlState/tlMax_state)+"%</td>";
-				out +="<td class='tlName'>"+tlName+"</td>";
-				out +="</tr>"
-				
-				$(".timelineResult").append(out);	
-				$(".searched ."+tlNum).click(function(){
-					alert('메롱');
-				});
+				$(".timelineList").append(out);
 			}
 		};
 		
-		ajaxFun(url, "get", query, "JSON", fn);
-	}
+		ajaxFun(url, "GET", query, "JSON", fn);
+	});
 	
 
 </script>

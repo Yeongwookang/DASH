@@ -309,9 +309,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void insertTimeline(Approval dto) throws Exception {
+	public void insertTimeline(Map<String, Object> map) throws Exception {
 		try {
-			dao.insertData("approval.insertTimeline", dto);
+			dao.insertData("approval.insertTimeline", map);
 		} catch (Exception e) {
 			throw e;
 		}
@@ -319,40 +319,40 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void updateTimeline(Approval dto) throws Exception {
+	public void updateTimeline(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("approval.updateTimeline", dto);
+			dao.updateData("approval.updateTimeline", map);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public void updateTimelineAdmin(Approval dto) throws Exception {
+	public void updateTimelineAdmin(Map<String, Object> map) throws Exception {
 		try {
-			dao.updateData("approval.updateTlAdmin", dto);
+			dao.updateData("approval.updateTlAdmin", map);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public void deleteTimeline(Approval dto) throws Exception {
+	public void deleteTimeline(Map<String, Object> map) throws Exception {
 		try {
-			dao.insertData("approval.deleteTimeline", dto);
+			dao.insertData("approval.deleteTimeline", map);
 		} catch (Exception e) {
 			throw e;
 		}
 	}
 
 	@Override
-	public Approval readTimeline(Approval dto) {
+	public Approval readTimeline(long tlNum) {
 		Approval result = null;
 		
 		try {
-			result = dao.selectOne("approval.readTimeline", dto);
+			result = dao.selectOne("approval.readTimeline", tlNum);
 		} catch (Exception e) {
-			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), dto.getTlNum());
+			logger.warn("{} 에러가 발생했습니다. 파라미터: {}", e.getMessage(), tlNum);
 		}
 		return result;
 	}

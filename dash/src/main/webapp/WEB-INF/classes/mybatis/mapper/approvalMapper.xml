@@ -18,6 +18,12 @@
 		<if test="condition=='team'">
 			INSTR(teamName, #{keyword}) &gt;= 1
 		</if>
+		<if test="condition=='empNo'">
+			INSTR(empNo,#{keyword}) &gt;= 1
+		</if>
+		<if test="condition=='tlName'">
+			INSTR(tlName,#{keyword}) &gt;= 1
+		</if>
 	</sql>
 	
 	<select id="approvalSeq" resultType="Long">
@@ -270,17 +276,31 @@
 	</select>
 	
 	<select id="listTimeline" parameterType="map" resultType="approval">
-		SELECT tlNum, tlName, tl.state, max_state, tl.empNo FROM timeline tl
+		SELECT tlNum, tlName, tl.state, max_state, tl.empNo, e.name, TO_CHAR(tl.reg_date,'YYYY-MM-DD')reg_date FROM timeline tl
+		LEFT OUTER JOIN employee e ON e.empNo = tl.empNo
 		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = tl.empNo AND pr.state=1
 		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
 		LEFT OUTER JOIN position p ON p.posNo = pr.posNo
 		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
 		LEFT OUTER JOIN team ON team.teamNo = pr.teamNo
+		<where>
+			<if test="keyword !=null and keyword !=''">
+				<include refid="where-list"/>
+			</if>
+		</where>
+		ORDER BY pr.posNo, tlNum DESC
 		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<select id="readTimeline" parameterType="Long" resultType="approval">
-		SELECT * FROM timeline WHERE tlNum = #{tlNum}
+		SELECT tlNum, tlName, tl.state, tl.max_state, tl.empNo, TO_CHAR(tl.reg_date,'YYYY-MM-DD')reg_date, e.name, tl.content FROM timeline tl
+		LEFT OUTER JOIN employee e ON e.empNo = tl.empNo
+		LEFT OUTER JOIN PERSON_RECORD pr ON pr.empNo = tl.empNo AND pr.state=1
+		LEFT OUTER JOIN rank ON rank.rankNo = pr.rankNo
+		LEFT OUTER JOIN position p ON p.posNo = pr.posNo
+		LEFT OUTER JOIN department dep ON dep.depNo = pr.depNo
+		LEFT OUTER JOIN team ON team.teamNo = pr.teamNo
+		WHERE tlNum = #{tlNum}
 	</select>
 	
 	<select id="recordTimeline" parameterType="approval" resultType="approval">
@@ -288,12 +308,12 @@
 	</select>
 	
 	<insert id="insertTimeline" parameterType="map">
-		INSERT INTO timeline (tlNum, tlName, state, max_state, empNo, reg_date) 
-		values(timeline_seq.nextval, #{tlName}, #{state}, #{max_state}, #{empNo}, #{reg_date})
+		INSERT INTO timeline (tlNum, tlName, state, max_state, empNo, reg_date, content) 
+		values(timeline_seq.nextval, #{tlName}, 0, #{max_state}, #{empNo}, sysdate, #{content})
 	</insert>
 	
 	<update id="updateTimeline" parameterType="map">
-		UPDATE timeline SET tlName= #{tlName}, state = #{state}, max_state=#{max_state}, reg_date = #{reg_date} 
+		UPDATE timeline SET tlName= #{tlName}, state = #{state}, max_state=#{max_state}, reg_date = #{reg_date}, content=#{content}
 		WHERE tlNum = #{tlNum}
 	</update>
 	

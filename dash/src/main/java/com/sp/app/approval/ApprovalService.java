@@ -29,15 +29,15 @@ public interface ApprovalService {
 	public void deleteFile(long fileNum, String path) throws Exception;
 	
 	public int dataCount_tl(Map<String, Object> map);
-	public void insertTimeline(Approval dto) throws Exception;
-	public void updateTimeline(Approval dto) throws Exception;
-	public void updateTimelineAdmin(Approval dto) throws Exception;
-	public void deleteTimeline(Approval dto) throws Exception;
+	public void insertTimeline(Map<String, Object> map) throws Exception;
+	public void updateTimeline(Map<String, Object> map) throws Exception;
+	public void updateTimelineAdmin(Map<String, Object> map) throws Exception;
+	public void deleteTimeline(Map<String, Object> map) throws Exception;
 	
 	public Approval readTimelineRecord(long signNum);
 	
 	public int countTimeline(Map<String, Object> map);
-	public Approval readTimeline(Approval dto);
+	public Approval readTimeline(long tlNum);
 	public List<Approval> listTimeline(Map<String,Object> map);
 	public List<Approval> recordTimeline(Approval dto);
 	
