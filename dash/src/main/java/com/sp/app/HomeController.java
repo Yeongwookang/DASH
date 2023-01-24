@@ -148,7 +148,7 @@ public class HomeController {
       model.addAttribute("listTop", listTop);
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
-      model.addAttribute("punDto",punDto);
+      model.addAttribute("punDto", punDto);
       
       return ".mainLayout";
    }

@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="punching">
-	<select parameterType="map" resultType="com.sp.app.punching.Punching" id="clockOnTime">
+	<select id="clockOnTime" parameterType="map" resultType="com.sp.app.punching.Punching" >
 		select p.empNo, name, TO_CHAR(clock_time,'YYYY-MM-DD HH24:MI:SS') punchOnTime, punch_kind FROM punch_clock p 
 		JOIN employee e ON e.empNo = p.empNo
 		WHERE p.empNo = #{empNo} 
@@ -15,7 +15,7 @@
 		(punch_clock_seq.NEXTVAL, #{empNo},'출근')
 	</insert>
 	
-	<select parameterType="map" resultType="com.sp.app.punching.Punching" id="clockOffTime">
+	<select  id="clockOffTime" parameterType="map" resultType="com.sp.app.punching.Punching">
 		select p.empNo, name, TO_CHAR(clock_time, 'YYYY-MM-DD HH24:MI:SS') punchOffTime, punch_kind FROM punch_clock p 
 		JOIN employee e ON e.empNo = p.empNo
 		WHERE p.empNo = #{empNo} 

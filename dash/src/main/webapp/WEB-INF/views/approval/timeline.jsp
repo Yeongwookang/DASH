@@ -33,7 +33,7 @@
         		<div>프로젝트 단위의 결재를 처리하는데 용이하며, </div>
         		<div>타임라인은 <span style="font-weight: bold">이름과 관리자</span>로 검색이 가능합니다.</div>
         </div>
-		<div class="d-flex justify-content-between mt-4" style="height: 500px;">
+		<div class="d-flex justify-content-between mt-4" style="height: 700px;">
 			<div class="card h-100" style="width:34%;">
 				<div class="card-header bg-main bg-gradient text-white sales">타임라인</div>
 				<div class="ms-2 me-2 scroll" style="overflow-y:scroll;">
@@ -83,7 +83,53 @@
 						</td>
 					</tr>
 				</table>
-					<div class="ps-3 pe-3"> 내용</div>
+				
+				<div class="ps-3 pe-3" style="min-height: 20rem;"> 내용</div>
+				
+				<div>
+				<table class="table table-hover text-center">
+				<tr><td>하위 문서</td></tr>
+				<tr><td>
+				<div class="d-flex justify-content-evenly text-center">
+					<div>
+					<div class="bg-sub bg-gradient p-2">기안</div>
+					<div style="max-width: 9rem">
+						<ul class="list-group" >
+							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
+						</ul>
+					</div>
+					</div>
+					
+					<div>
+					<div>1차결재</div>
+					<div style="max-width: 9rem">
+						<ul class="list-group" >
+							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
+						</ul>
+					</div>
+					</div>
+					
+					<div>
+					<div>2차결재</div>
+					<div style="max-width: 9rem">
+						<ul class="list-group" >
+							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
+						</ul>
+					</div>
+					</div>
+					
+					<div>
+					<div>결재완료</div>
+					<div style="max-width: 9rem">
+						<ul class="list-group" >
+							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
+						</ul>
+					</div>
+					</div>
+					
+				</div>
+				</td></tr>
+				</table></div>	
 				</div>
 			</div>
 		</div>

@@ -7,10 +7,11 @@
 function punchOn(){
 	if(confirm("${sessionScope.employee.name}님 출근하시겠습니까?")){
 		
-		if(${empty todayPunch.punchOnTime}){
+		if("${todayPunch.punchOnTime}"==="-"){
 			location.href='${pageContext.request.contextPath}/punching/punchOn';
 		} else{
 			alert('이미 출근했습니다.');
+			return;
 		}
 	}
 }
@@ -21,14 +22,21 @@ function punchOff(){
 		let date = new Date("${todayPunch.punchOnTime}");
 		date.setTime(date.getTime()+9*60*60*1000);
 		
+		if("${todayPunch.punchOnTime}"==="-"){
+			alert('${sessionScope.employee.name}님은 출근하지 않았습니다.');
+			return;
+		}
+		
 		if((new Date()-date)>=0){
-			if(${empty todayPunch.punchOffTime}){
+			if("${todayPunch.punchOffTime}"==="-"){
 				location.href='${pageContext.request.contextPath}/punching/punchOff';
 			} else{
-				alert("이미 퇴근했습니다.");
+				alert("${sessionScope.employee.name}님은 이미 퇴근했습니다.");
+				return;
 			}
 		} else{
-			alert("아직은 퇴근할 수 없습니다.");
+			alert("${sessionScope.employee.name}님은 아직은 퇴근할 수 없습니다.");
+			return;
 		}
 	}
 }
@@ -81,7 +89,7 @@ function punchOff(){
 						<div style="color:#868e96">&nbsp;${attendance.weekAttend} 시간 / ${attendance.weekMax}시간</div>
 					</div>
 					<div class="d-flex mt-2">
-						<div style="font-weight: bold;  color:#495057;">잔여근무시간</div>
+						<div style="font-weight: bold;  color:#495057;">잔여근무시간&nbsp;</div>
 						<div class="todayRemain"style="color:#868e96"></div>
 					</div>
 				</div>
@@ -359,8 +367,12 @@ function punchOff(){
 	});
 	
 	$(function(){
-		$("#dayoff").attr("aria-valuenow",${punDto.leftQty}/${punDto.totalQty}*100);
-		$("#dayoff").attr("style", "width:"+${punDto.leftQty}/${punDto.totalQty}*100+"%");
+		let totalQty = Number("${punDto.totalQty}");
+		let leftQty = Number("${punDto.leftQty}");
+		let p = Math.round(leftQty/totalQty);
+		
+		$("#dayoff").attr("aria-valuenow",leftQty/totalQty*100);
+		$("#dayoff").attr("style", "width:"+leftQty/totalQty*100+"%");
 	});
 
 

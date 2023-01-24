@@ -204,7 +204,7 @@
 		}
 	});
 	
-	$(".searchTimeline").click(function){
+	$(".searchTimeline").click(function(){
 		let url = "${pageContext.request.contextPath}/approval/searchTimeline";
 		let condition = $("#condition_tl").val;
 		let keyword = $("#keyword_tl").val;
@@ -232,7 +232,7 @@
 		};
 		
 		ajaxFun(url, "get", query, "JSON", fn);
-	}
+	});
 	
 
 </script>
