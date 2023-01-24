@@ -135,6 +135,21 @@ public class PunchingServiceImpl implements PunchingService {
 		
 	}
 
+	@Override
+	public List<Punching> listPunchclock(Map<String, Object> map) {
+		
+		List<Punching> clockList = null;
+		
+		try {
+			clockList = dao.selectList("punching.listPunchclock", map);
+		} catch (Exception e) {
+			logger.warn("{} 가 발생했습니다.", e.getMessage());
+		}
+		
+		
+		return clockList;
+	}
+
 
 	
 }

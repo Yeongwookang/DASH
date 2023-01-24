@@ -42,7 +42,7 @@ function punchOff(){
 }
 </script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
-	<div class="m-auto mt-5 mb-5">
+	<div class="m-auto mb-5">
 	<div id="carouselExampleIndicators" class="carousel slide border mb-4 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
 	  <div class="carousel-indicators">
 	    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -584,7 +584,56 @@ $(function(){
       		<div>출퇴근을 한 기록을 볼 수 있습니다.</div>
         	<div>출퇴근 기록은 <span style="font-weight: bold">출근, 퇴근의 필터와 날짜</span>로 검색할 수 있습니다.</div>
         </div>
-        ...
+         <div class="card mt-4 p-4">
+	       	<div>
+	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/listPunchclock" method="POST">
+		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
+			     		<select class="form-select me-2" name="condition" style="width: 100px;">
+			     			<option value="punchOn">출근</option>
+			     			<option value="punchOn">출근</option>
+			     			<option value="punchOff">퇴근</option>
+			     		</select>
+			     		<input class="form-control me-2" name="startDate" type="date">
+			     		<span class="me-2">~</span>
+			     		<input class="form-control me-2" name="endDate" type="date">
+			     		<button class="btn btn-main"><i class="fa-solid fa-magnifying-glass"></i></button>
+		    		</div>
+	     		</form>
+	       		<div class="m-auto">
+		       		<c:choose>
+		       			<c:when test="${empty clockList}">
+		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       			</c:when>
+		       			<c:otherwise>
+		       				<div class="mt-2">
+		       					<table class="table hover-table">
+		       						<thead>
+				       					<tr>
+				       						<th>#</th>
+				       						<th>일자</th>
+				       						<th>구분</th>
+				       					</tr>
+			       					</thead>
+			       					<tbody>
+			       						<c:forEach items="${clockList}" var="dto" varStatus="status">
+			       							<tr>
+			       								<td></td>
+			       								<td>${dto.clock_time}</td>
+			       								<td>${dto.punch_kind}</td>
+			       							</tr>
+			       						</c:forEach>
+		       						</tbody>
+		       					</table>
+		       				</div>
+		       			</c:otherwise>
+		       		</c:choose>
+	       		</div>
+	      	</div>
+       </div>
+        
+        
+        
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-main" data-bs-dismiss="modal">닫기</button>        

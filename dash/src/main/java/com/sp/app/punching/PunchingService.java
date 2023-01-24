@@ -15,4 +15,7 @@ public interface PunchingService {
 	public void updateDayoff(Punching pun)throws Exception;
 	public void deleteDayoff(String empNo)throws Exception;
 	public void updateWorkDays(String empNo) throws Exception;
+	
+	public List<Punching> listPunchclock(Map<String, Object> map);
+	
 }

@@ -66,4 +66,9 @@
 	<delete id="deleteDayoff" parameterType="com.sp.app.punching.Punching">
 		DELETE FROM Dayoff WHERE empNo = #{empNo}
 	</delete>
+	
+	<select id="listPunchclock"  parameterType="map" resultType="com.sp.app.punching.Punching">
+	SELECT clockNo, empNo, clock_time, punch_kind FROM punch_clock WHERE empNo = #{empNo}
+	</select>
+	
 </mapper>
