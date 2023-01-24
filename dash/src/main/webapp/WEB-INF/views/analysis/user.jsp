@@ -35,7 +35,7 @@ function searchList() {
 				var option;
 				
 				$("#content").html("<div id='title'>이용자 나이별  현황  <br><br></div>이용자 연령별 현황은 기존 이용자 정보를 기준으로 하여 " 
-						+ ageData[0] + "부터 " + ageData[ageData.length - 1] + "까지의  각 연령대별 이용자 수를 종합한 자료입니다. " + ageData[0] + "과 " + ageData[1] + "이 각각 " + valueData[0] + "명으로 가장 많이 이용하고 있었습니다.");
+						+ ageData[0] + "부터 " + ageData[ageData.length - 1] + "까지의  각 연령대별 이용자 수를 종합한 자료입니다. " + ageData[1] + "이 " + valueData[1] + "명으로 가장 많이 이용하고 있었습니다.");
 				 
 				option = {
 				  tooltip: {
@@ -133,8 +133,8 @@ function searchList() {
 				var myChart = echarts.init(chartDom);
 				var option;
 				
-				$("#content").html("<div id='title'>이용자 시간대별  현황  <br><br></div>이용시간대별 현황은 기존 이용자 정보와 이용기록을 기준으로 하여  종합한 자료입니다. 가장 많이 이용한 시간대는 12~13시, 14~15시, 17~18시로 각각" 
-						+ data.useTime.t12 + "명을 기록했습니다.");
+				$("#content").html("<div id='title'>이용자 시간대별  현황  <br><br></div>이용시간대별 현황은 기존 이용자 정보와 이용기록을 기준으로 하여  종합한 자료입니다. 가장 많이 이용한 시간대는 10~11시로 " 
+						+ data.useTime.t10 + "명을 기록했습니다.");
 				 
 				option = {
 				  tooltip: {

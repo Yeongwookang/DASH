@@ -163,10 +163,10 @@ function selectStateChange() {
 		<table class="table table-hover board-list-authority">
 			<thead class="bg-main text-white"> 
 				<tr class="text-center" style="font-size:1.2rem; height: 50px;"> 
-					<th width="15%;">사원코드</th>
-					<th width="15%;">이름</th>
+					<th width="10%;">순번</th>
+					<th width="20%;">사원코드</th>
+					<th width="20%;">이름</th>
 					<th width="20%;">등록일</th>
-					<th width="20%;">수정일</th>
 					<th width="20%;">최근 로그인</th>
 					<th width="10%;">상태</th>
 				</tr>
@@ -174,11 +174,11 @@ function selectStateChange() {
 			
 			<tbody>
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr class="hover text-center" onclick="detailedEmployee('${dto.empNo}');"> 
+					<tr class="hover text-center" onclick="detailedEmployee('${dto.empNo}');">
+						<td>${dataCount - (page-1) * size - status.index}</td>
 						<td>${dto.empNo}</td>
 						<td>${dto.name}</td>
 						<td>${dto.register_date}</td>
-						<td>${dto.modify_date}</td>
 						<td>${dto.last_login}</td>
 						<td>${dto.enabled==1?"활성":"잠금"}</td> 
 					</tr>
@@ -190,7 +190,7 @@ function selectStateChange() {
 			${dataCount == 0 ? "등록된 사원이 없습니다." : paging}
 		</div>
 				
-		<table class="table table-borderless mb-5">
+		<table class="table table-borderless mb-5 mt-5">
 			<tr>
 				<td align="left" width="100">
 					<button type="button" class="btn btn-sub" onclick="location.href='${pageContext.request.contextPath}/insa/authority/list';"><i class="bi bi-arrow-counterclockwise"></i></button>

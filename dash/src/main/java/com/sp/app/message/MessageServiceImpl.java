@@ -151,19 +151,5 @@ public class MessageServiceImpl implements MessageService {
 		
 		return result;
 	}
-
-	@Override
-	public int employeeCount(Map<String, Object> map) {
-		int result = 0;
-		
-		try {
-			result = dao.selectOne("message.employeeCount", map);
-		} catch (Exception e) {
-			logger.warn("{} ", e.getMessage());
-		}
-		
-		return result;
-	}
-	
 	
 }

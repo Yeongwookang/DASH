@@ -56,7 +56,7 @@ function searchList() {
 					moneyData.push(money); 
 				}
 				$("#content").html("<div id='title'>년별 매출 현황  <br><br></div>년별 매출 현황은 현재 년도를 기준으로 하여 " 
-						+ yearData[0] + "부터 " + yearData[4] + "까지의 5개년별 매출을 종합한 자료입니다. " + yearData[0] + "부터 " + yearData[2] + "까지의 매출은 존재하지 않았으나, " + yearData[3] + "에 " + moneyData[3].toLocaleString() + "원의 년 매출이 발생하였습니다.");
+						+ yearData[0] + "부터 " + yearData[4] + "까지의 5개년별 매출을 종합한 자료입니다. " + yearData[0] + "에는 매출은 존재하지 않았으나, " + yearData[3] + "에 " + moneyData[3].toLocaleString() + "원의 년 최고 매출이 발생하였습니다.");
 				  
 				var chartDom = document.getElementById('chartContainer');
 				var myChart = echarts.init(chartDom);
@@ -110,7 +110,7 @@ function searchList() {
 					moneyData.push(money);  
 				}
 				$("#content").html("<div id='title'>월별 매출 현황  <br><br></div>월별 매출 현황은 현재 월을 기준으로 하여 " 
-						+ monthData[0] + "부터 " + monthData[11] + "까지의 12개월별 매출을 종합한 자료입니다. 월 매출이 가장 낮은 월은 " + monthData[11] + "로 " + moneyData[11] + "원의 매출이 발생하였습니다. 월 매출이 가장 높은 월은 " + monthData[10] + "로 " + moneyData[10] + "원의 매출이 발생하였습니다.");
+						+ monthData[0] + "부터 " + monthData[11] + "까지의 12개월별 매출을 종합한 자료입니다. 월 매출이 가장 낮은 월은 " + monthData[0] + "로 " + moneyData[0] + "원의 매출이 발생하였습니다. 월 매출이 가장 높은 월은 " + monthData[10] + "로 " + moneyData[10] + "원의 매출이 발생하였습니다.");
 				  
 				var chartDom = document.getElementById('chartContainer');
 				var myChart = echarts.init(chartDom);
