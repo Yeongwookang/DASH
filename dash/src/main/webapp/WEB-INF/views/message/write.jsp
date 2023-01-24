@@ -266,7 +266,7 @@ $(function(){
 					<div class="col-auto p-1">
 						<select name="condition" id="condition" class="form-select">
 							<option value="name">이름</option>
-							<option value="empNo">사원번호</option>
+							<option value="e.empNo">사원번호</option>
 							<option value="depName">부서</option>
 							<option value="rankName">직급</option>
 							<option value="posName">직책</option>
