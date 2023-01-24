@@ -21,6 +21,7 @@
 			<form class="row" name="searchForm"
 				action="${pageContext.request.contextPath}/develop/main"
 				method="post">
+				
 				<div class="col-auto p-1">
 					<select name="condition" class="form-select">
 						<option selected value="all">검색</option>
@@ -38,19 +39,16 @@
 					<input type="text" name="keyword" value="${keyword}" class="form-control">
 				</div>
 				<div class="col-auto p-1">
-					<button type="button" class="btn btn-light" onclick="searchList()">
+					<button type="button" class="btn btn-sub" onclick="searchList()">
 						<i class="bi bi-search"></i>
 					</button>
 				</div>
-				<div class="col">
-					<button type="button" class="btn btn-light"
-						onclick="location.href='${pageContext.request.contextPath}/develop/main';">새로고침</button>
-				</div>
+				
 			</form>
 		</div>
 
 		<table class="table table text-center mt-3">
-			<thead>
+			<thead class="bg-main text-white">
 				<tr>
 					<th scope="col">구분</th>
 					<th scope="col">결재번호</th>
@@ -85,6 +83,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
 	</div>
 </div>
 
