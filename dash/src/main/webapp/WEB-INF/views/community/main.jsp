@@ -56,7 +56,7 @@ function searchList() {
 										<a href="${articleUrl}&num=${dto.num}" class="text-reset underline communitySubject">
 											${dto.subject}&nbsp;&nbsp;
 											<c:if test="${dto.replyDepCount != 0 }">
-												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
+												<span class="answer-complete2 p-1">답변 완료</span>&nbsp;&nbsp;
 											</c:if>
 											<i class="fa-regular fa-message" id="msg"></i>&nbsp;<span id="msg">${dto.replyCount}</span>
 										</a>
@@ -71,7 +71,7 @@ function searchList() {
 										<a href="#" class="text-reset underline communitySubject">
 											비공개 게시글입니다.&nbsp;<span class="lockIcon"><i class="fa-solid fa-lock"></i></span>
 											<c:if test="${dto.replyDepCount != 0 }">
-												&nbsp;&nbsp;<span class="answer-complete2 p-1">답변 완료</span>
+												<span class="answer-complete2 p-1">답변 완료</span>&nbsp;&nbsp;
 											</c:if>
 											</a>
 									</td> 

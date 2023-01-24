@@ -136,6 +136,44 @@ public class MapController {
 	    return model;
     }
 	
+	@RequestMapping(value = "bikeCount_6months")
+    @ResponseBody
+    public Map<String, Object> bikeCount_6months() throws Exception {
+	   
+	    List<BikeCount_6months> bikeCount_6months = filterService.list_bikeCount_6months();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("bikeCount_6months", bikeCount_6months);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "bikeCount_quarter")
+    @ResponseBody
+    public Map<String, Object> bikeCount_quarter() throws Exception {
+	   
+	    List<BikeCount_quarter> bikeCount_quarter = filterService.list_bikeCount_quarter();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("bikeCount_quarter", bikeCount_quarter);
+	   
+	    return model;
+    }
+	
+	@RequestMapping(value = "bikeCount_month")
+    @ResponseBody
+    public Map<String, Object> bikeCount_month() throws Exception {
+	   
+	    List<BikeCount_month> bikeCount_month = filterService.list_bikeCount_month();
+	   
+	    Map<String, Object> model =  new HashMap<String, Object>();
+	    
+	    model.put("bikeCount_month", bikeCount_month);
+	   
+	    return model;
+    }
 	
 	
 }

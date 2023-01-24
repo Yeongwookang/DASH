@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<h3 style="font-size: 18px; padding-top: 10px;"><i class="fa-solid fa-angles-right"></i> 사원 정보</h3>
+<h3 style="font-size: 18px; padding-top: 30px; padding-left: 20px;"><i class="fa-solid fa-angles-right"></i> 사원 정보</h3>
 <table class="table td-border mx-auto my-10" style="width: 99%;">
 	<tr>
 		<td class="wp-15 text-center bg-sub">사원코드</td>
@@ -22,9 +22,9 @@
 </table>
 
 <form id="deteailedEmployeeForm" name="deteailedEmployeeForm" method="post">
-	<h3 style="font-size: 18px; padding-top: 10px;"><i class="fa-solid fa-angles-right"></i> 상태 변경</h3>
+	<h3 style="font-size: 18px; padding-top: 30px; padding-left: 20px;"><i class="fa-solid fa-angles-right"></i> 상태 변경</h3>
 	
-	<table class="table td-border mx-auto my-5">
+	<table class="table td-border mx-auto">
 		<tr>
 			<td class="wp-15 text-center bg-sub">계정 상태</td> 
 			<td class="ps-5">
@@ -53,7 +53,7 @@
 <div id="employeeStateDetaile" style="display: none; font-family: 'Pretendard-Regular';">
 	<table class="table table-border mx-auto my-10">
 		<thead>
-			<tr class="bg-light">
+			<tr style="height: 20px;">
 				<th width="50%;" class="text-center">내용</th>
 				<th width="20%;" class="text-center">담당자</th>
 				<th width="30%;" class="text-center">등록일</th>
@@ -62,7 +62,7 @@
 		
 		<tbody>
 			<c:forEach var="vo" items="${listState}">
-				<tr>
+				<tr style="height: 20px;">
 					<td class="text-center">${vo.memo} (${vo.stateCode})</td>
 					<td class="text-center">${vo.registerEmpNo}</td>
 					<td class="text-center">${vo.reg_date}</td>
@@ -71,7 +71,7 @@
 	  
 			<c:if test="${listState.size()==0}">
 				<tr align="center" style="border: none;">
-					<td colspan="3">등록된 정보가 없습니다.</td>
+					<td colspan="3" style="border: none; margin-top: 10px;">등록된 정보가 없습니다.</td>
 				</tr>  
 			</c:if>
 		</tbody>

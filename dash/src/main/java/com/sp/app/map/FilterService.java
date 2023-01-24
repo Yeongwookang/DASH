@@ -10,4 +10,8 @@ public interface FilterService {
 	public List<People_6months> list_people_6months();
 	public List<People_month> list_people_month();
 	public List<People_quarter> list_people_quarter();
+	
+	public List<BikeCount_6months> list_bikeCount_6months();
+	public List<BikeCount_quarter> list_bikeCount_quarter();
+	public List<BikeCount_month> list_bikeCount_month();
 }

@@ -6,6 +6,8 @@ import java.util.Map;
 
 public interface MessageService {
 	public List<Message> listEmployee(Map<String, Object> map);
+	public int employeeCount(Map<String, Object> map);
+	
 	public void insertMessage(Message dto) throws Exception;
 	
 	public int dataCountReceive(Map<String, Object> map);

@@ -16,8 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
@@ -26,6 +29,7 @@ import com.sp.app.approval.ApprovalService;
 import com.sp.app.community.Community;
 import com.sp.app.community.CommunityService;
 import com.sp.app.employee.SessionInfo;
+import com.sp.app.message.MessageService;
 import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
 import com.sp.app.punching.Punching;
@@ -52,7 +56,7 @@ public class HomeController {
    private PunchingService punService;
    
    @Autowired
-   private ScheduleService scdService;
+   private MessageService msgService;
 
    @RequestMapping(value = "/", method = RequestMethod.GET)
    public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
@@ -152,6 +156,18 @@ public class HomeController {
       
       return ".mainLayout";
    }
+   
+    @PostMapping(value = "newMessageCount")
+	@ResponseBody
+	public Map<String, Object> newMessageCount(HttpSession session){
+    	SessionInfo info = (SessionInfo)session.getAttribute("employee");
+		int count = msgService.newMessageCount(info.getEmpNo());
+		
+		Map<String, Object> model = new HashMap<String, Object>();
+		
+		model.put("count", count);
+		return model;
+	} 
    
    
 }

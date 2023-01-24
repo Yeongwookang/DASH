@@ -84,5 +84,42 @@ public class FilterMongoOperations {
 		}
 		return people_quarter;
 	}
+	
+	public List<BikeCount_6months> bikeCount_6months() {
+		List<BikeCount_6months> bikeCount_6months = null;
+		
+		try {
+			bikeCount_6months = mongo.findAll(BikeCount_6months.class);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return bikeCount_6months;
+	}
+	
+	public List<BikeCount_month> bikeCount_month() {
+		List<BikeCount_month> bikeCount_month = null;
+		
+		try {
+			bikeCount_month = mongo.findAll(BikeCount_month.class);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return bikeCount_month;
+	}
+	
+	public List<BikeCount_quarter> bikeCount_quarter() {
+		List<BikeCount_quarter> bikeCount_quarter = null;
+		
+		try {
+			bikeCount_quarter = mongo.findAll(BikeCount_quarter.class);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return bikeCount_quarter;
+	}
+	
 
 }
