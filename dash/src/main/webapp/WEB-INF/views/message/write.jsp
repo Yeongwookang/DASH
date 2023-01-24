@@ -104,25 +104,27 @@ $(function(){
 			return false;
 		}
 		
+		listEmployee(condition, keyword);
+		
+	});
+	
+	function listEmployee(condition, keyword){
 		let url = "${pageContext.request.contextPath}/message/listEmployee"; 
 		let query = "condition="+condition+"&keyword="+encodeURIComponent(keyword);
 		
 		const fn = function(data){
 			$(".dialog-receiver-list ul").empty();
-			console.log(data.listEmployee);
+			// console.log(data.listEmployee);
 			searchListEmployee(data);
 		};
 		ajaxFun(url, "get", query, "json", fn);
-	});
+	}
 	
 	function searchListEmployee(data) {
 		let s;
 		for(let i=0; i<data.listEmployee.length; i++) {
 			let empNo = data.listEmployee[i].empNo;
 			let name = data.listEmployee[i].name;
-			let depName = data.listEmployee[i].depName;
-			let rankName = data.listEmployee[i].rankName;
-			let posName = data.listEmployee[i].posName;
 			
 			s = "<li><input type='checkbox' class='form-check-input' data-empNo='"+empNo+"' title='"+empNo+"'> <span>"+ empNo + "&nbsp;" + name + "</span></li>";
 			$(".dialog-receiver-list ul").append(s);
@@ -215,7 +217,7 @@ $(function(){
 							<td>
 								<div class="row mt-4"> 
 									<div class="col-auto pe-0">
-										<button type="button" class="btn btnReceiverDialog">+ 추가</button>
+										<button type="button" class="btn btnReceiverDialog btn-main">+ 추가</button>
 									</div>
 									<div class="col">
 										<div class="forms-receiver-name"></div>
@@ -279,7 +281,8 @@ $(function(){
 				</div>
 				<div class="row p-1">
 					<div class="border p-1 dialog-receiver-list">
-						<ul></ul>
+						<ul>
+						</ul>
 					</div>
 				</div>
 			</div>

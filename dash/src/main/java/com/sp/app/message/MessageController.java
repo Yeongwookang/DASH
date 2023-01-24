@@ -109,7 +109,7 @@ public class MessageController {
 	
 	@GetMapping("write")
 	public String writeForm(Model model) throws Exception {
-
+		
 		return ".message.write";
 	}
 	

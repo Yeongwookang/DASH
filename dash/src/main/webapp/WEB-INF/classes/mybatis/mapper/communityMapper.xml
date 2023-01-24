@@ -145,7 +145,6 @@
 		) a ON r.replyNum = a.answer
 		WHERE num = #{num} AND r.answer = 0 AND state = 1 AND depNo = 1
 		ORDER BY r.replyNum DESC
-		OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
 	<delete id="deleteReply" parameterType="map">

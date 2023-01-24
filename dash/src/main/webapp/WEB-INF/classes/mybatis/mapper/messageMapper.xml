@@ -12,12 +12,26 @@
         JOIN position p ON pr.posNo = p.posNo
 		<where>
 			e.empNo != #{empNo} AND pr.state = 1
-			AND
 			<if test="keyword != null and keyword != '' ">
-				INSTR(${condition}, #{keyword}) &gt; 0
+				AND INSTR(${condition}, #{keyword}) &gt; 0
 			</if>
 		</where>
 		ORDER BY name
+	</select>
+	
+	<select id="employeeCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0) 
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+        JOIN position p ON pr.posNo = p.posNo
+		<where>
+			e.empNo != #{empNo} AND pr.state = 1
+			<if test="keyword != null and keyword != '' ">
+				AND INSTR(${condition}, #{keyword}) &gt; 0
+			</if>
+		</where>
 	</select>
 	
 	<sql id="where-list">

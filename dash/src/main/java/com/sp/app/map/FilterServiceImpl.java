@@ -82,4 +82,40 @@ public class FilterServiceImpl implements FilterService {
 		return list_people_6months;
 	}
 
+	@Override
+	public List<BikeCount_6months> list_bikeCount_6months() {
+		List<BikeCount_6months> list_bikeCount_6months = null;
+
+		try {
+			list_bikeCount_6months = filterMongo.bikeCount_6months();
+		} catch (Exception e) {
+		}
+
+		return list_bikeCount_6months;
+	}
+
+	@Override
+	public List<BikeCount_quarter> list_bikeCount_quarter() {
+		List<BikeCount_quarter> list_bikeCount_quarter = null;
+
+		try {
+			list_bikeCount_quarter = filterMongo.bikeCount_quarter();
+		} catch (Exception e) {
+		}
+
+		return list_bikeCount_quarter;
+	}
+
+	@Override
+	public List<BikeCount_month> list_bikeCount_month() {
+		List<BikeCount_month> list_bikeCount_month = null;
+
+		try {
+			list_bikeCount_month = filterMongo.bikeCount_month();
+		} catch (Exception e) {
+		}
+
+		return list_bikeCount_month;
+	}
+
 }
