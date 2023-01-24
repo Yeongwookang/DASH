@@ -20,6 +20,7 @@ function searchTimeline(page){
 			let reg_date = item.reg_date;
 			let empNo = item.empNo;
 			let name = item.name;
+			let tlState = item.tlState;
 			
 			let out = "<tr class='searched_tl "+tlNum+"'>";
 			out += "<td>"+i+"</td>";
@@ -27,6 +28,7 @@ function searchTimeline(page){
 			out += "<td class='tlName elipsis'>"+tlName+"</td>";
 			out += "<td class='name'>"+name+"</td>";
 			out += "<td class='empNo' style='display:none;'>"+empNo+"</td>";
+			out += "<td class='state' style='display:none;'>"+tlState+"</td>";
 			out += "<td class='reg_date'>"+reg_date+"</td>";
 			out += "</tr>";
 			
@@ -37,6 +39,7 @@ function searchTimeline(page){
 			$("."+tlNum).click(function(){
 				$("#tlNum").val(tlNum);
 				$("#tlName").val(tlName);
+				$("#tlState").val(tlState);
 				$("#timeLine").modal("hide");
 			});
 			i++;
@@ -210,6 +213,7 @@ function update_document(){
 					<input type="text" class="form-control" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
 					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
 					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
+					<input type="hidden" name="tlState" id="tlState" value="${tldto.tlState}" readonly>
 				</div>
 			</div>
 			<div class="d-flex align-items-center justify-content-between">
@@ -418,7 +422,7 @@ function update_document(){
 		}
 		
 		$("#refcnt").val($(".sendTo tr").length);
-		$("#newApproval").modal('hide');
+		$("#empSearch").modal("hide");
 		
 	});
 	

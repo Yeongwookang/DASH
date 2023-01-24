@@ -19,7 +19,7 @@
 			INSTR(teamName, #{keyword}) &gt;= 1
 		</if>
 		<if test="condition=='empNo'">
-			INSTR(empNo,#{keyword}) &gt;= 1
+			INSTR(e.empNo,#{keyword}) &gt;= 1
 		</if>
 		<if test="condition=='tlName'">
 			INSTR(tlName,#{keyword}) &gt;= 1
