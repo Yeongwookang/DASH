@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +33,6 @@ import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
 import com.sp.app.punching.Punching;
 import com.sp.app.punching.PunchingService;
-import com.sp.app.schedule.ScheduleService;
 
 @Controller
 public class HomeController {
@@ -58,8 +56,10 @@ public class HomeController {
    @Autowired
    private MessageService msgService;
 
-   @RequestMapping(value = "/", method = RequestMethod.GET)
-   public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
+   @RequestMapping(value = "/")
+   public String home(Locale locale, HttpServletRequest req, Model model,
+		   @RequestParam(defaultValue = "") String condition, 
+		   @RequestParam(defaultValue = "") String std, @RequestParam(defaultValue = "") String end) throws Exception {
       Calendar cal = Calendar.getInstance();
       
       int year = cal.get(Calendar.YEAR);
@@ -153,6 +153,40 @@ public class HomeController {
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto", punDto);
+      
+      Map<String, Object> punmap = new HashMap<String, Object>();
+      punmap.put("empNo", info.getEmpNo());
+      punmap.put("condition", condition);
+      
+      if(std == "") {
+    	  Calendar punCal = Calendar.getInstance();
+          
+          int y = punCal.get(Calendar.YEAR);
+          int m = punCal.get(Calendar.MONTH)+1;
+          int d = punCal.get(Calendar.DATE);
+          
+          std = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+      }
+      
+      if(end == "") {
+    	  Calendar punCal = Calendar.getInstance();
+          
+          int y = punCal.get(Calendar.YEAR);
+          int m = punCal.get(Calendar.MONTH)+1;
+          int d = punCal.get(Calendar.DATE);
+          
+          end = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
+      }
+      
+      punmap.put("std", std);
+      punmap.put("end", end);
+			
+      List<Punching> clockList = punService.listPunchclock(punmap);
+		
+	  model.addAttribute("clockList", clockList);
+	  model.addAttribute("condition", condition);
+	  model.addAttribute("std", std);
+	  model.addAttribute("end", end);
       
       return ".mainLayout";
    }

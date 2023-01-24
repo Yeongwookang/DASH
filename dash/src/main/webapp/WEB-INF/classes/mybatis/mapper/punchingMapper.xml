@@ -66,4 +66,33 @@
 	<delete id="deleteDayoff" parameterType="com.sp.app.punching.Punching">
 		DELETE FROM Dayoff WHERE empNo = #{empNo}
 	</delete>
+	
+	<select id="listPunchclock"  parameterType="map" resultType="com.sp.app.punching.Punching">
+		SELECT clockNo, empNo, clock_time, punch_kind 
+		FROM punch_clock 
+		<where>
+			empNo = #{empNo}
+			<if test="condition != null and condition != ''">
+				AND <include refid="where-list"/>
+			</if>
+			<if test="std != null and std = '' ">
+				AND clock_time &gt;= TO_DATE(#{std}, 'YYYY-MM-DD')
+			</if>
+			<if test="end != null and end = ''">
+				AND clock_time &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+			</if>
+		</where>
+	</select>
+	
+	<sql id="where-list">
+		<choose>
+			<when test="condition == '0' ">
+             	punch_kind = '출근'
+			</when>
+			<when test="condition == '1' ">
+             	punch_kind = '퇴근'
+			</when>
+		</choose>
+	</sql>
+	
 </mapper>

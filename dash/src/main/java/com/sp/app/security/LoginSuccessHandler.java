@@ -32,9 +32,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 	@Autowired
 	private ScheduleService scdService;
 	
-	@Autowired
-	private MessageService msgService;
-	
 	private String defaultUrl;
 	
 	private RequestCache requestCache = new HttpSessionRequestCache(); // 로그인 전 상태를 가지고 있는 객체
@@ -67,9 +64,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		
 		int scdcount = scdService.scheduleCount(employee.getEmpNo());
 		info.setScdcount(scdcount);
-		
-		int msgcount = msgService.newMessageCount(employee.getEmpNo());
-		info.setMsgcount(msgcount);
 		
 		List<Employee> adminList = service.adminEmpNo();
 		for(Employee dto : adminList) {			
