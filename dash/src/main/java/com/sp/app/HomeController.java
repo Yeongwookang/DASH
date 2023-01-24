@@ -57,9 +57,7 @@ public class HomeController {
    private MessageService msgService;
 
    @RequestMapping(value = "/")
-   public String home(Locale locale, HttpServletRequest req, Model model,
-		   @RequestParam(defaultValue = "") String condition, 
-		   @RequestParam(defaultValue = "") String std, @RequestParam(defaultValue = "") String end) throws Exception {
+   public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
       Calendar cal = Calendar.getInstance();
       
       int year = cal.get(Calendar.YEAR);
@@ -156,38 +154,11 @@ public class HomeController {
       
       Map<String, Object> punmap = new HashMap<String, Object>();
       punmap.put("empNo", info.getEmpNo());
-      punmap.put("condition", condition);
-      
-      if(std == "") {
-    	  Calendar punCal = Calendar.getInstance();
-          
-          int y = punCal.get(Calendar.YEAR);
-          int m = punCal.get(Calendar.MONTH)+1;
-          int d = punCal.get(Calendar.DATE);
-          
-          std = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
-      }
-      
-      if(end == "") {
-    	  Calendar punCal = Calendar.getInstance();
-          
-          int y = punCal.get(Calendar.YEAR);
-          int m = punCal.get(Calendar.MONTH)+1;
-          int d = punCal.get(Calendar.DATE);
-          
-          end = Integer.toString(y) + "-" + Integer.toString(m) + "-" + Integer.toString(d);
-      }
-      
-      punmap.put("std", std);
-      punmap.put("end", end);
-			
+      	
       List<Punching> clockList = punService.listPunchclock(punmap);
 		
 	  model.addAttribute("clockList", clockList);
-	  model.addAttribute("condition", condition);
-	  model.addAttribute("std", std);
-	  model.addAttribute("end", end);
-      
+	  
       return ".mainLayout";
    }
    
@@ -201,7 +172,8 @@ public class HomeController {
 		
 		model.put("count", count);
 		return model;
-	} 
+	}
+    
    
    
 }

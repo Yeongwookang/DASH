@@ -598,9 +598,9 @@ function searchList() {
 			     			<option value="0" ${condition=="punchOn"?"selected='selected'":""}>출근</option>
 			     			<option value="1" ${condition=="punchOff"?"selected='selected'":""}>퇴근</option>
 			     		</select>
-			     		<input class="form-control me-2" name="std" type="date" id="std" value="2023-01-25"> 
+			     		<input class="form-control me-2" name="std" type="date" id="std"> 
 			     		<span class="me-2">~</span>
-			     		<input class="form-control me-2" name="end" type="date" id="end" value="2023-01-25">
+			     		<input class="form-control me-2" name="end" type="date" id="end">
 			     		<button class="btn btn-main" onclick="searchList()"><i class="fa-solid fa-magnifying-glass"></i></button>
 		    		</div>
 	     		</form>
