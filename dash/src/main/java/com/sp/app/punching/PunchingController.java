@@ -76,9 +76,10 @@ public class PunchingController {
 			return "redirect:/";
 		}
 		
-		
-		@PostMapping("listPunchclock")
-		public String list(Model model, @RequestParam(defaultValue = "other") String condition, HttpServletRequest req ) {
+		@RequestMapping(value = "listPunchclock")
+		public String list(Model model, @RequestParam(defaultValue = "other") String condition, 
+				@RequestParam(defaultValue = "") String startDate, @RequestParam(defaultValue = "") String endDate, 
+				HttpServletRequest req ) {
 			
 			HttpSession session = req.getSession();
 			SessionInfo info = (SessionInfo)session.getAttribute("employee");
@@ -86,22 +87,18 @@ public class PunchingController {
 				return "redirect:/employee/login";
 			}
 			
-			Punching pun =  new Punching();
-			pun.setEmpNo(info.getEmpNo());
-			
 			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("empNo", info.getEmpNo());
 			map.put("condition", condition);
+			map.put("startDate", startDate);
+			map.put("endDate", endDate);
 				
-			List<Punching> clockList = null;
-			
-	
-			clockList = service.listPunchclock(map);
+			List<Punching> clockList = service.listPunchclock(map);
 			
 			model.addAttribute("clockList", clockList);
 			model.addAttribute("condition", condition);
-			
-			
-			
+			model.addAttribute("startDate", startDate);
+			model.addAttribute("endDate", endDate);
 			
 			return "redirect:/";
 		}

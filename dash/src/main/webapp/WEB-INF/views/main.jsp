@@ -569,6 +569,13 @@ $(function(){
 		ajaxFun(url, "post", query, "json", fn);
 	});
 });
+
+
+function searchList() {
+	const f = document.searchForm;
+	f.submit();
+}
+
 </script>
 
 <!-- 출퇴근 기록 Modal -->
@@ -586,7 +593,7 @@ $(function(){
         </div>
          <div class="card mt-4 p-4">
 	       	<div>
-	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/listPunchclock" method="POST">
+	 			<form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/listPunchclock" method="post">
 		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
 			     		<select class="form-select me-2" name="condition" style="width: 100px;">
 			     			<option value="other">선택</option>
@@ -602,7 +609,7 @@ $(function(){
 	       		<div class="m-auto">
 		       		<c:choose>
 		       			<c:when test="${empty clockList}">
-		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       				<div class="fs-4 text-muted p-4 text-center"> " 내역이 없습니다. " </div>
 		       			</c:when>
 		       			<c:otherwise>
 		       				<div class="mt-2">
