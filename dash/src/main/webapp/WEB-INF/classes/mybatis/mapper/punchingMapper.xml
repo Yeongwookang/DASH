@@ -72,13 +72,13 @@
 		FROM punch_clock 
 		<where>
 			empNo = #{empNo}
-			<if test="condition != null">
+			<if test="condition != null and condition != ''">
 				AND <include refid="where-list"/>
 			</if>
 			<if test="std != null and std = '' ">
 				AND clock_time &gt;= TO_DATE(#{clock_time}, 'YYYY-MM-DD')
 			</if>
-			<if test="edt != null and edt = ''">
+			<if test="end != null and end = ''">
 				AND clock_time &lt;= TO_DATE(#{clock_time}, 'YYYY-MM-DD')
 			</if>
 		</where>

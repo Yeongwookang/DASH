@@ -18,7 +18,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -34,7 +33,6 @@ import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
 import com.sp.app.punching.Punching;
 import com.sp.app.punching.PunchingService;
-import com.sp.app.schedule.ScheduleService;
 
 @Controller
 public class HomeController {
@@ -60,8 +58,8 @@ public class HomeController {
 
    @RequestMapping(value = "/")
    public String home(Locale locale, HttpServletRequest req, Model model,
-		   @RequestParam(defaultValue = "other") String condition, 
-		   @RequestParam(defaultValue = "") String std, @RequestParam(defaultValue = "") String edt) throws Exception {
+		   @RequestParam(defaultValue = "") String condition, 
+		   @RequestParam(defaultValue = "") String std, @RequestParam(defaultValue = "") String end) throws Exception {
       Calendar cal = Calendar.getInstance();
       
       int year = cal.get(Calendar.YEAR);
@@ -160,14 +158,14 @@ public class HomeController {
       punmap.put("empNo", info.getEmpNo());
       punmap.put("condition", condition);
       punmap.put("std", std);
-      punmap.put("edt", edt);
+      punmap.put("end", end);
 			
       List<Punching> clockList = punService.listPunchclock(punmap);
 		
 	  model.addAttribute("clockList", clockList);
 	  model.addAttribute("condition", condition);
 	  model.addAttribute("std", std);
-	  model.addAttribute("edt", edt);
+	  model.addAttribute("end", end);
       
       return ".mainLayout";
    }

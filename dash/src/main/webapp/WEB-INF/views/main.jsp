@@ -146,7 +146,6 @@ function punchOff(){
 								</tr>
 							</thead>
 							<tbody> 
-						
 								<c:forEach var="dto" items="${listTop}" begin="0" end="1">
 									<tr class="text-center"> 
 										<td><span class="badge bg-danger">공지</span></td> 
@@ -155,8 +154,7 @@ function punchOff(){
 										</td>
 										<td class="communityDate">${dto.reg_date}</td>
 									</tr>
-								</c:forEach>
-									
+								</c:forEach>	
 								<c:forEach var="dto" items="${list}" varStatus="status" begin="0" end="2">
 									<tr class="text-center">  
 										<td>${status.index + 1}</td>
@@ -595,13 +593,13 @@ function searchList() {
 	 			<form name="dayoffSearchForm" action="${pageContext.request.contextPath}/" method="post">
 		    		<div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
 			     		<select class="form-select me-2" name="condition" style="width: 100px;">
-			     			<option value="other">선택</option>
-			     			<option value="punchOn" ${condition=="punchOn"?"selected='selected'":""}>출근</option>
-			     			<option value="punchOff" ${condition=="punchOff"?"selected='selected'":""}>퇴근</option>
+			     			<option value="">선택</option>
+			     			<option value="0" ${condition=="punchOn"?"selected='selected'":""}>출근</option>
+			     			<option value="1" ${condition=="punchOff"?"selected='selected'":""}>퇴근</option>
 			     		</select>
 			     		<input class="form-control me-2" name="std" type="date">
 			     		<span class="me-2">~</span>
-			     		<input class="form-control me-2" name="edt" type="date">
+			     		<input class="form-control me-2" name="end" type="date">
 			     		<button class="btn btn-main" onclick="searchList()"><i class="fa-solid fa-magnifying-glass"></i></button>
 		    		</div>
 	     		</form>
@@ -687,7 +685,7 @@ function searchList() {
 	       		<div class="m-auto">
 		       		<c:choose>
 		       			<c:when test="${empty dayoffList}">
-		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       				<div class="fs-4 text-muted p-4 text-center"> " 내역이 없습니다. " </div>
 		       			</c:when>
 		       			<c:otherwise>
 		       				<div class="mt-2">
@@ -737,7 +735,7 @@ function searchList() {
 	       		<div class="m-auto">
 		       		<c:choose>
 		       			<c:when test="${empty svList}">
-		       				<div class="fs-4 text-muted p-4"> " 내역이 없습니다. " </div>
+		       				<div class="fs-4 text-muted p-4 text-center"> " 내역이 없습니다. " </div>
 		       			</c:when>
 		       			<c:otherwise>
 		       				<div class="mt-2">
