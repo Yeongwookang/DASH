@@ -14,7 +14,7 @@ function punchOn(){
          return;
       }
    }
-}
+} 
 
 function punchOff(){
    if(confirm("${sessionScope.employee.name}님 퇴근하시겠습니까?"))
