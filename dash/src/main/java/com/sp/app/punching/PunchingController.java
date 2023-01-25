@@ -16,13 +16,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sp.app.common.MyUtil;
 import com.sp.app.employee.SessionInfo;
-;
+import com.sp.app.notice.Notice;
+
 
 @Controller("punching.punchingController")
 @RequestMapping(value = "/punching/*")
@@ -79,38 +78,40 @@ public class PunchingController {
          
          return "redirect:/";
       }
-      
-      @RequestMapping(value = "listPunchclock")
-      @ResponseBody
-      public String list(Model model, @RequestParam(defaultValue = "other") String condition, 
-            @RequestParam(defaultValue = "") String startDate, @RequestParam(defaultValue = "") String endDate, 
-            HttpServletRequest req ) {
-         
-         HttpSession session = req.getSession();
-         SessionInfo info = (SessionInfo)session.getAttribute("employee");
-         if(info == null) {
-            return "redirect:/employee/login";
-         }
-         
-         Map<String, Object> map = new HashMap<String, Object>();
-         map.put("empNo", info.getEmpNo());
-         map.put("condition", condition);
-         map.put("startDate", startDate);
-         map.put("endDate", endDate);
-            
-         List<Punching> clockList = service.listPunchclock(map);
-         
-         model.addAttribute("clockList", clockList);
-         model.addAttribute("condition", condition);
-         model.addAttribute("startDate", startDate);
-         model.addAttribute("endDate", endDate);
-         
-         return ".mainLayout";
-      }
    
-      @RequestMapping(value = "listSday")
-      public String listSday(Model model) throws Exception{
-         return "punching/sday";
-      }
+      @GetMapping(value = "write")
+  	public String writeForm(Model model) throws Exception {
+  		
+  		model.addAttribute("mode", "write");
+  		
+  		return ".punching.write";
+  	}
+  	
+  	@PostMapping(value = "write")
+  	public String writeSubmit(Punching dto, HttpSession session) throws Exception {
+  		
+  		SessionInfo info = (SessionInfo) session.getAttribute("employee");
+
+  		try {
+  
+  			dto.setEmpNo(info.getEmpNo());
+  			
+  			Punching read = service.readVacation(info.getEmpNo());
+  			if(read == null) {
+  				dto.setTotalQty(dto.getGainQty());
+  				dto.setLeftQty(dto.getGainQty());
+  				service.insertVacation(dto);
+  				service.insertGainVacation(dto);
+  			} else {
+  				dto.setTotalQty(dto.getGainQty());
+  				service.updateVacation(dto);
+  				service.insertGainVacation(dto);
+  			}
+  			
+  		} catch (Exception e) {
+  		}
+  		
+  		return "redirect:/punching/write";
+  	}
 }
 

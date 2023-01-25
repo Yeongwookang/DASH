@@ -114,12 +114,23 @@
       </choose>
    </sql>
    
-   <insert id="gainVacation"
-      parameterType="com.sp.app.punching.Punching">
-      INSERT INTO gainSpecialVacation (gainNum, gainQty,gainDate, expireDate, content, g.empNo) VALUES
-      (gainNum_seq.NEXTVAL,DAYS(TO_DATE(#{expireDate}, 'YYYY-MM-DD')) - DAYS(TO_DATE(#{gainDate}, 'YYYY-MM-DD'))AS gainQty,
-      #{gainDate}, #{expireDate}, #{content},#{empNo})
+   <insert id="insertGainVacation" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO gainSpecialVacation (gainNum, gainQty, gainDate, expireDate, content, empNo) 
+      VALUES(gainspecialvacation_seq.NEXTVAL, #{gainQty}, SYSDATE, TO_DATE(#{expireDate}, 'YYYY-MM-DD'), #{content}, #{empNo})
    </insert>
+   
+   <insert id="insertVacation" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO specialVacation (empNo, totalQty, leftQty) 
+      VALUES(#{empNo}, #{totalQty}, #{leftQty})
+   </insert>
+   
+   <select id="readVacation" parameterType="String" resultType="com.sp.app.punching.Punching">
+   		SELECT empNo, totalQty, leftQty FROM specialVacation WHERE empNo = #{empNo}
+   </select>
+   
+   <update id="updateVacation" parameterType="com.sp.app.punching.Punching">
+   		UPDATE specialVacation SET totalQty = totalQty + #{totalQty}, leftQty = leftQty + #{totalQty} WHERE empNo = #{empNo}
+   </update>
    
    
    
