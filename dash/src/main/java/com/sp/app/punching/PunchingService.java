@@ -23,5 +23,7 @@ public interface PunchingService {
    public void insertVacation(Punching dto)throws Exception;
    public Punching readVacation(String empNo);
    public void updateVacation(Punching dto) throws Exception;
+   public List<Punching> listGainVacation(Map<String, Object> map);
+   public int dataCountGainVacation(Map<String, Object> map);
    
 }

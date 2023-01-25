@@ -137,7 +137,6 @@ public class PunchingServiceImpl implements PunchingService {
 
    @Override
    public List<Punching> listPunchclock(Map<String, Object> map) {
-      
       List<Punching> clockList = null;
       
       try {
@@ -203,6 +202,30 @@ public class PunchingServiceImpl implements PunchingService {
 			 throw e;
 	    }
 		
+	}
+
+	@Override
+	public List<Punching> listGainVacation(Map<String, Object> map) {
+		  List<Punching> listGainVacation = null;
+	      
+	      try {
+	    	  listGainVacation = dao.selectList("punching.listGainVacation", map);
+	      } catch (Exception e) {
+	    	  logger.warn("{} ", e.getMessage());
+	      }
+	      
+	      return listGainVacation;
+	}
+
+	@Override
+	public int dataCountGainVacation(Map<String, Object> map) {
+		int result = 0;
+        try {
+           result = dao.selectOne("punching.dataCountGainVacation", map);
+        } catch (Exception e) {
+    	    logger.warn("{} ", e.getMessage());
+        }
+        return result;
 	}
 
 }
