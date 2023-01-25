@@ -150,6 +150,34 @@ public class PunchingServiceImpl implements PunchingService {
 		return clockList;
 	}
 
+	@Override
+	public void insertSday(Punching dto) throws Exception {
+		try {
+			dao.insertData("punching.insertsDay", dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
+	@Override
+	public void updateSday(Punching dto) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void deleteSday(int gainNo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Punching> sDay(Map<String, Object> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 	
 }

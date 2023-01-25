@@ -95,4 +95,13 @@
 		</choose>
 	</sql>
 	
+	<insert id="gainVacation"
+		parameterType="com.sp.app.punching.Punching">
+		INSERT INTO gainSpecialVacation (gainNum, gainQty,gainDate, expireDate, content, g.empNo) VALUES
+		(gainNum_seq.NEXTVAL,DAYS(TO_DATE(#{expireDate}, 'YYYY-MM-DD')) - DAYS(TO_DATE(#{gainDate}, 'YYYY-MM-DD'))AS gainQty,
+		#{gainDate}, #{expireDate}, #{content},#{empNo})
+	</insert>
+	
+	
+	
 </mapper>

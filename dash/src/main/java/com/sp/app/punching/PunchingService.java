@@ -18,4 +18,11 @@ public interface PunchingService {
 	
 	public List<Punching> listPunchclock(Map<String, Object> map);
 	
+	
+	public void insertSday(Punching dto)throws Exception;
+	public void updateSday(Punching dto)throws Exception;
+	public void deleteSday(int gainNo)throws Exception;
+	
+	public List<Punching> sDay(Map<String, Object> map);
+	
 }

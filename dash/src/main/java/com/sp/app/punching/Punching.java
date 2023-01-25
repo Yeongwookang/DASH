@@ -14,6 +14,15 @@ public class Punching {
 	private int qty;
 	private String date; 
 	
+	private int leftsQty;
+	private int gainNum;
+	private int gainQty;
+	private String gainDate;
+	private String expireDate;
+	private String content;
+	
+	
+	
 	public long getClockNo() {
 		return clockNo;
 	}
@@ -86,6 +95,44 @@ public class Punching {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
+	public int getLeftsQty() {
+		return leftsQty;
+	}
+	public void setLeftsQty(int leftsQty) {
+		this.leftsQty = leftsQty;
+	}
+	public int getGainNum() {
+		return gainNum;
+	}
+	public void setGainNum(int gainNum) {
+		this.gainNum = gainNum;
+	}
+	public int getGainQty() {
+		return gainQty;
+	}
+	public void setGainQty(int gainQty) {
+		this.gainQty = gainQty;
+	}
+	public String getGainDate() {
+		return gainDate;
+	}
+	public void setGainDate(String gainDate) {
+		this.gainDate = gainDate;
+	}
+	public String getExpireDate() {
+		return expireDate;
+	}
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
 	
 	
 }

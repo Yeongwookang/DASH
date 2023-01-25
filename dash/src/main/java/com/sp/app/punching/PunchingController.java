@@ -1,5 +1,6 @@
 package com.sp.app.punching;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,11 +16,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sp.app.common.MyUtil;
 import com.sp.app.employee.SessionInfo;
+;
 
 @Controller("punching.punchingController")
 @RequestMapping(value = "/punching/*")
@@ -104,7 +107,10 @@ public class PunchingController {
 			
 			return ".mainLayout";
 		}
-		
-		
+	
+		@RequestMapping(value = "listSday")
+		public String listSday(Model model) throws Exception{
+			return "punching/sday";
+		}
 }
 
