@@ -23,11 +23,10 @@
 				</div>
 				<div class="d-flex align-items-center">
 					<div class="w-25 p-2  text-white text-center bg-main fs-4">타임라인</div>
-					<div class="w-75 ms-3 me-3">
+					<div class="d-flex w-75 ms-3 me-3">
 						<input type="text" class="form-control" name="tlName" value="${tldto.tlName}" readonly>
-						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine"><i class="fa-solid fa-magnifying-glass"></i></button>
 						<input type="hidden" name="tlNum" value="${tldto.tlNum}">
-						<input type="hidden" name="state" value="${tldto.state}">
 						<input type="hidden" name="max_state" value="${tldto.max_state}">
 						<input type="hidden" name="empNo" value="${tldto.empNo}">
 					</div>

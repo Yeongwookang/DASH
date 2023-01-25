@@ -486,7 +486,6 @@ function update_document(){
 			$("#tlNum").attr("value",'0');
 		}	
 		
-		$("#dayOffmode").
 		
 	});
 	

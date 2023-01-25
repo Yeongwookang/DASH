@@ -31,7 +31,7 @@
        			</thead>
        			<tbody class="approvalList">
        			<c:forEach items="${approvalList}" var="ap" varStatus="status">
-       				<tr>
+       				<tr onclick="location.href='${pageContext.request.contextPath}/approval/read/${ap.signNum}'">
        					<th>${status.count}</th>
        					<td>${ap.title}</td>
        					<td>${ap.depName}</td>
@@ -87,7 +87,7 @@
       			</thead>
       			<tbody class="myApprovalList">
       			<c:forEach items="${myApprovalList}" var="ap" varStatus="status">
-      				<tr>
+      				<tr onclick="location.href='${pageContext.request.contextPath}/approval/read/${ap.signNum}'">
       					<th>${status.count}</th>
       					<td>${ap.title}</td>
       					<td>${ap.depName}</td>
@@ -141,15 +141,15 @@
 	});
 	
 	$(function(){
-		if(${fn:length(approvalList)}<5 && ${fn:length(approvalList)}>0 ){
+		if(Number("${fn:length(approvalList)}")<5 && Number("${fn:length(approvalList)}>0") ){
 			let size = 5-${fn:length(approvalList)};
 			for(let i=0; i<size; i++){
 				$(".approvalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 			}
 		}
 		
-		if(${fn:length(myApprovalList)}<5 && ${fn:length(approvalList)}>0){
-			let size = 5-${fn:length(myApprovalList)};
+		if(Number("${fn:length(myApprovalList)}")<5 && Number("${fn:length(approvalList)}")>0){
+			let size = 5-Number("${fn:length(myApprovalList)}");
 			for(let i=0; i<size; i++){
 				$(".myApprovalList").append("<tr><td></td><td></td><td></td><td></td><td></td><td></td></tr>");
 			}
