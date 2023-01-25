@@ -114,13 +114,65 @@
       </choose>
    </sql>
    
-   <insert id="gainVacation"
-      parameterType="com.sp.app.punching.Punching">
-      INSERT INTO gainSpecialVacation (gainNum, gainQty,gainDate, expireDate, content, g.empNo) VALUES
-      (gainNum_seq.NEXTVAL,DAYS(TO_DATE(#{expireDate}, 'YYYY-MM-DD')) - DAYS(TO_DATE(#{gainDate}, 'YYYY-MM-DD'))AS gainQty,
-      #{gainDate}, #{expireDate}, #{content},#{empNo})
+   <insert id="insertGainVacation" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO gainSpecialVacation (gainNum, gainQty, gainDate, expireDate, content, empNo) 
+      VALUES(gainspecialvacation_seq.NEXTVAL, #{gainQty}, SYSDATE, TO_DATE(#{expireDate}, 'YYYY-MM-DD'), #{content}, #{empNo})
    </insert>
    
+   <insert id="insertVacation" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO specialVacation (empNo, totalQty, leftQty) 
+      VALUES(#{empNo}, #{totalQty}, #{leftQty})
+   </insert>
    
+   <select id="readVacation" parameterType="String" resultType="com.sp.app.punching.Punching">
+   		SELECT empNo, totalQty, leftQty FROM specialVacation WHERE empNo = #{empNo}
+   </select>
+   
+   <update id="updateVacation" parameterType="com.sp.app.punching.Punching">
+   		UPDATE specialVacation SET totalQty = totalQty + #{totalQty}, leftQty = leftQty + #{totalQty} WHERE empNo = #{empNo}
+   </update>
+   
+   <update id="updateVacation2" parameterType="com.sp.app.punching.Punching">
+   		UPDATE specialVacation SET totalQty = totalQty + #{totalQty}, leftQty = leftQty + #{totalQty} WHERE empNo = #{empNo}
+   </update>
+   
+   <select id="listGainVacation" parameterType="map" resultType="com.sp.app.punching.Punching">
+	   	SELECT gainNum, gainQty, TO_CHAR(gainDate, 'YYYY-MM-DD') gainDate, TO_CHAR(expireDate, 'YYYY-MM-DD') expireDate, content, empNo 
+	   	FROM gainSpecialVacation
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-vacationList"/>
+			</if>
+		</where>
+		ORDER BY gainNum DESC
+	    OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY 
+   </select>
+   
+    <select id="dataCountGainVacation" parameterType="map" resultType="Integer">
+	   	SELECT NVL(COUNT(*), 0)
+		FROM gainSpecialVacation
+		<where>
+			<if test="keyword != null and keyword != '' ">
+				<include refid="where-vacationList"/>
+			</if>
+		</where>
+   </select>
+   
+   <sql id="where-vacationList">
+		<if test="condition == 'content'">
+			DBMS_LOB.INSTR(content, #{keyword}) &gt; 0
+		</if>
+		<if test="condition == 'empNo'">
+			empNo = #{keyword}
+		</if>
+		<if test="condition == 'gainDate'">
+			(TO_CHAR(gainDate, 'YYYY-MM-DD') = #{keyword}
+			OR TO_CHAR(gainDate, 'YYYYMMDD') = #{keyword})
+		</if>
+		<if test="condition == 'expireDate'">
+			(TO_CHAR(gainDate, 'YYYY-MM-DD') = #{keyword}
+			OR TO_CHAR(gainDate, 'YYYYMMDD') = #{keyword})
+		</if>
+	</sql>
    
 </mapper>

@@ -137,13 +137,12 @@ public class PunchingServiceImpl implements PunchingService {
 
    @Override
    public List<Punching> listPunchclock(Map<String, Object> map) {
-      
       List<Punching> clockList = null;
       
       try {
          clockList = dao.selectList("punching.listPunchclock", map);
       } catch (Exception e) {
-         logger.warn("{} 가 발생했습니다.", e.getMessage());
+    	  logger.warn("{} ", e.getMessage());
       }
       
       
@@ -156,37 +155,77 @@ public class PunchingServiceImpl implements PunchingService {
       try {
          result = dao.selectOne("punching.punchClockDataCount", map);
       } catch (Exception e) {
-         logger.warn("{} 가 발생했습니다.", e.getMessage());
+    	  logger.warn("{} ", e.getMessage());
       }
       return result;
    }
 
-
-   public void insertSday(Punching dto) throws Exception {
+   @Override
+   public void insertGainVacation(Punching dto) throws Exception {
       try {
-         dao.insertData("punching.insertsDay", dto);
+         dao.insertData("punching.insertGainVacation", dto);
       } catch (Exception e) {
-         e.printStackTrace();
+    	  logger.warn("{} ", e.getMessage());
+		  throw e;
+      }
+      
+   }
+   
+   @Override
+   public void insertVacation(Punching dto) throws Exception {
+      try {
+         dao.insertData("punching.insertVacation", dto);
+      } catch (Exception e) {
+    	  logger.warn("{} ", e.getMessage());
+		  throw e;
       }
       
    }
 
-   @Override
-   public void updateSday(Punching dto) throws Exception {
-      // TODO Auto-generated method stub
-      
-   }
+	@Override
+	public Punching readVacation(String empNo) {
+		Punching dto = null;
+		try {
+			dto = dao.selectOne("punching.readVacation", empNo);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+		}
+		return dto;
+	}
 
-   @Override
-   public void deleteSday(int gainNo) throws Exception {
-      // TODO Auto-generated method stub
-      
-   }
+	@Override
+	public void updateVacation(Punching dto) throws Exception {
+		try {
+	         dao.updateData("punching.updateVacation", dto);
+	    } catch (Exception e) {
+	    	 logger.warn("{} ", e.getMessage());
+			 throw e;
+	    }
+		
+	}
 
-   @Override
-   public List<Punching> sDay(Map<String, Object> map) {
-      // TODO Auto-generated method stub
-      return null;
-   }
+	@Override
+	public List<Punching> listGainVacation(Map<String, Object> map) {
+		  List<Punching> listGainVacation = null;
+	      
+	      try {
+	    	  listGainVacation = dao.selectList("punching.listGainVacation", map);
+	      } catch (Exception e) {
+	    	  logger.warn("{} ", e.getMessage());
+	      }
+	      
+	      return listGainVacation;
+	}
+
+	@Override
+	public int dataCountGainVacation(Map<String, Object> map) {
+		int result = 0;
+        try {
+           result = dao.selectOne("punching.dataCountGainVacation", map);
+        } catch (Exception e) {
+    	    logger.warn("{} ", e.getMessage());
+        }
+        return result;
+	}
 
 }

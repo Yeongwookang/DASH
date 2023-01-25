@@ -19,10 +19,11 @@ public interface PunchingService {
    public List<Punching> listPunchclock(Map<String, Object> map);
    public int punchClockDataCount(Map<String, Object> map);
    
-   public void insertSday(Punching dto)throws Exception;
-   public void updateSday(Punching dto)throws Exception;
-   public void deleteSday(int gainNo)throws Exception;
-   
-   public List<Punching> sDay(Map<String, Object> map);
+   public void insertGainVacation(Punching dto)throws Exception;
+   public void insertVacation(Punching dto)throws Exception;
+   public Punching readVacation(String empNo);
+   public void updateVacation(Punching dto) throws Exception;
+   public List<Punching> listGainVacation(Map<String, Object> map);
+   public int dataCountGainVacation(Map<String, Object> map);
    
 }

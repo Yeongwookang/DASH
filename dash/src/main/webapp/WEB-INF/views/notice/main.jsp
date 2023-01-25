@@ -28,7 +28,7 @@ function searchList() {
 			</thead>
 			<tbody>
 				<c:forEach var="dto" items="${noticeList}">
-					<tr class="text-center"> 
+					<tr class="text-center" style="height: 60px;"> 
 						<td class="align-middle"><span class="badge bg-danger">공지</span></td> 
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>
@@ -48,7 +48,7 @@ function searchList() {
 				</c:forEach>
 					
 				<c:forEach var="dto" items="${list}" varStatus="status">
-					<tr class="text-center">  
+					<tr class="text-center" style="height: 60px;">  
 						<td class="align-middle">${dataCount - (page-1) * size - status.index}</td>
 						<td class="subject ps-5 align-middle text-start">
 							<a href="${articleUrl}&num=${dto.num}" class="text-reset underline">${dto.subject}</a>&nbsp;<c:if test="${dto.gap<1}"><span><img src="${pageContext.request.contextPath}/resources/images/new.png" style="width: 14px;"></span></c:if>
