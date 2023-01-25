@@ -11,7 +11,7 @@
             L_NO_TOUCH = false;
             L_DISABLE_3D = false;
     </script>
-	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/logo_1.png" />
+	<link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/resources/images/logo_3.png" />
 	<title>DASH</title>
 	<style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
     <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
