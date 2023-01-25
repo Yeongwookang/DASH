@@ -105,7 +105,7 @@ public class PunchingController {
   			} else {
   				dto.setTotalQty(dto.getGainQty());
   				service.updateVacation(dto);
-  				service.insertGainVacation(dto);
+  				service.insertGainVacation(dto); 
   			}
   			
   		} catch (Exception e) {
