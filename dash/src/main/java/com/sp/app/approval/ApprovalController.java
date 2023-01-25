@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sp.app.common.FileManager;
 import com.sp.app.common.MyUtil;
@@ -213,9 +214,33 @@ public class ApprovalController {
 		
 		@PostMapping("write")
 		public String writeSubmit(
-				Approval dto,
+				@RequestParam String title,
+				@RequestParam String empNo,
+				@RequestParam(defaultValue = "0") long tlNum,
+				@RequestParam String ref1,
+				@RequestParam String ref2,
+				@RequestParam String ref3,
+				@RequestParam int refcnt,
+				@RequestParam String content,
+				@RequestParam List<MultipartFile> addFiles,
+				@RequestParam String type,
 				HttpSession session
 				) throws Exception{
+			
+			Approval dto = new Approval();
+			dto.setTitle(title);
+			dto.setEmpNo(empNo);
+			if(tlNum!=0) {
+				dto.setTlNum(tlNum);
+			}
+			dto.setRef1(ref1);
+			dto.setRef2(ref2);
+			dto.setRef3(ref3);
+			dto.setRefcnt(refcnt);
+			dto.setContent(content);
+			dto.setAddFiles(addFiles);
+			dto.setType(type);
+			
 			
 			String root = session.getServletContext().getRealPath("/");
 			String path = root + "uploads" + File.separator + "approval";

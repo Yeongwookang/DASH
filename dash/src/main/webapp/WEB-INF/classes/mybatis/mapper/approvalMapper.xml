@@ -71,8 +71,8 @@
 				VALUES (#{signNum}, '대기', #{ref3})
 				</if>
 				<if test="tlNum != null and tlNum !=''">
-				INTO timeline_record(recordNum, tlNum, signNum, state) 
-				VALUES(timeline_record_seq.nextval, #{tlNum}, #{signNum}, #{state})
+				INTO timeline_record(recordNum, tlNum, signNum) 
+				VALUES(timeline_record_seq.nextval, #{tlNum}, #{signNum})
 				</if>
 		SELECT * FROM dual
 	</update>

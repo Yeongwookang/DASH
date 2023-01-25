@@ -315,10 +315,16 @@ L.Control.Home= L.Control.extend({
 
 </script>
 <script type="text/javascript">
+
+var rad;
+var month;
+var cus;
+
 $(".radFilter").click(function(){
 	if($(".radFilter.active").length > 1){
 		$(".radFilter.active").removeClass("active");
 		$(this).addClass("active");
+		rad= this.value;
 	} 	
 });
 
@@ -326,6 +332,7 @@ $(".monthFilter").click(function(){
 	if($(".monthFilter.active").length > 1){
 		$(".monthFilter.active").removeClass("active");
 		$(this).addClass("active");
+		month=this.value;
 	} 	
 });
 
@@ -333,8 +340,11 @@ $(".cusFilter").click(function(){
 	if($(".cusFilter.active").length > 1){
 		$(".cusFilter.active").removeClass("active");
 		$(this).addClass("active");
+		cus=this.value;
 	} 	
 });
+
+
 </script>
 
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/vendor/bootstrap5/js/bootstrap.bundle.min.js"></script>

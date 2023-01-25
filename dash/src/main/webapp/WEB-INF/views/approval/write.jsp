@@ -39,7 +39,6 @@ function searchTimeline(page){
 			$("."+tlNum).click(function(){
 				$("#tlNum").val(tlNum);
 				$("#tlName").val(tlName);
-				$("#tlState").val(tlState);
 				$("#timeLine").modal("hide");
 			});
 			i++;
@@ -218,20 +217,20 @@ function update_document(){
 }
 </script>
 <div>
+<form name="approval" method="POST"  enctype="multipart/form-data">			
 	<div class="d-flex justify-content-between align-items-center mt-4">
 		<div class="title">
 			<span>결재 작성</span>
 		</div>
 		<div>
-			<select class="form-select">
-				<option>일반결재</option>
-				<option>비용처리</option>
-				<option>휴가사용</option>
+			<select name="type" class="form-select">
+				<option value="normal">일반결재</option>
+				<option value="bill">비용처리</option>
+				<option id="dayOffmode" value="dayoff">휴가사용</option>
 			</select>
 		</div>
 	</div>	
 	<div class="mt-4">
-		<form name="approval" method="POST"  enctype="multipart/form-data">			
 			<div class="mb-3">
 			<div class="d-flex align-items-center">
 				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">제목</div>
@@ -249,7 +248,7 @@ function update_document(){
 				<c:if test="${mode == 'update'}">
 					${dto.depName}&nbsp;${dto.name}
 					<input name= "empNo" type="hidden" value="${dto.empNo}">
-					<input name="signNum" type="hidden" value="${dto.signNum }">
+					<input name="signNum" type="hidden" value="${dto.signNum}">
 				</c:if>
 				</div>
 			</div>
@@ -260,7 +259,6 @@ function update_document(){
 					<input type="text" class="form-control me-2" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
 					<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
 					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
-					<input type="hidden" name="tlState" id="tlState" value="${tldto.tlState}" readonly>
 				</div>
 			</div>
 			<div class="d-flex align-items-center justify-content-between">
@@ -309,8 +307,8 @@ function update_document(){
 			<button class="btn btn-main" type="button" onclick="write_document();">결재</button>
 			</c:if>
 				</div>
-				</form>
 		</div>
+	</form>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="timeLine" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="timeLineLabel" aria-hidden="true">
@@ -481,11 +479,15 @@ function update_document(){
 		
 		let date= y+"-"+m+"-"+day;
 		$(".today").val(date);
-		if(${mode == 'write'}){
+		if("${mode}" == "write"){
 			$("#refcnt").attr("value",'0');
 			$("#state").attr("value",'0');
 			$("#max_state").attr("value",'0');
-		}		
+			$("#tlNum").attr("value",'0');
+		}	
+		
+		$("#dayOffmode").
+		
 	});
 	
 </script>
