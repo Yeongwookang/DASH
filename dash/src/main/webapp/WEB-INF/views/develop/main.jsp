@@ -65,7 +65,7 @@
 					<tr>
 						<th>${status.count}</th>
 						<td class="signNum">${dto.signNum}</td>
-						<td class="title">${dto.title}</td>
+						<td style="text-align: left">${dto.title}</td>
 						<td class="dep">${dto.depName}</td>
 						<td class="name">${dto.name}</td>
 						<td class="reg_date">${dto.reg_date}</td>
