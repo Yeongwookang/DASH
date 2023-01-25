@@ -169,22 +169,23 @@ function search(page){
 function write_document(){
 	const f = document.approval;
 	
-	if(f.title.value==""){
+	if(f.title.value.trim()==""){
 		alert('제목이 없습니다.')
 		f.title.focus();
 		return;
 	}
 	
-	if(f.refcnt.value==""){
+	if(f.refcnt.value.trim()==""){
 		alert('참조한 인원이 없습니다.')
 		f.refcnt.focus();
 		return;
 	}
 	
-	if(f.content.value==""){
-		alert('내용이 없습니다.')
+	str = editor.getData().trim();
+	if( !str || str === "<p><br></p>" ) {
+		alert("내용을 입력하세요.");
 		f.content.focus();
-		return;
+		return false;
 	}
 	
 	f.action = "${pageContext.request.contextPath}/approval/write"
@@ -193,22 +194,23 @@ function write_document(){
 function update_document(){
 	const f = document.approval;
 	
-	if(f.title.value==""){
+	if(f.title.value.trim()==""){
 		alert('제목이 없습니다.')
 		f.title.focus();
 		return;
 	}
 	
-	if(f.refcnt.value==""){
+	if(f.refcnt.value.trim()==""){
 		alert('참조한 인원이 없습니다.')
 		f.refcnt.focus();
 		return;
 	}
 	
-	if(f.content.value==""){
-		alert('내용이 없습니다.')
+	str = editor.getData().trim();
+	if( !str || str === "<p><br></p>" ) {
+		alert("내용을 입력하세요.");
 		f.content.focus();
-		return;
+		return false;
 	}
 	
 	f.action = "${pageContext.request.contextPath}/approval/update"
