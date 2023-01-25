@@ -405,6 +405,21 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return result;
 	}
 
+	@Override
+	public Map<String, Object> readSubdocument(long tlNum) {
+		Map<String, Object> map = null;
+		try {
+			map = new HashMap<String, Object>();
+			map.put("list0", dao.selectList("approval.subDocumentList0",tlNum));
+			map.put("list1", dao.selectList("approval.subDocumentList1",tlNum));
+			map.put("list2", dao.selectList("approval.subDocumentList2",tlNum));
+			map.put("list3", dao.selectList("approval.subDocumentList3",tlNum));
+		} catch (Exception e) {
+			logger.warn("{}가 발생했습니다. 파라미터: {}", e.getMessage(), tlNum);
+		}
+		return map;
+	}
+
 	
 	
 	

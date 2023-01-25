@@ -325,4 +325,29 @@
 		DELETE FROM timeline WHERE tlNum = #{tlNum}
 	</delete>
 	
+	<select id="subDocumentList0" parameterType="Long" resultType="approval">
+		SELECT recordNum, tlNum, tr.signNum, dr.state, dr.max_state, title FROM timeline_record tr
+		JOIN e_document e ON e.signNum = tr.signNum
+		JOIN doc_record dr ON dr.signNum = tr.signNum
+		WHERE dr.state = 0 AND dr.state != dr.max_state AND tlNum = #{tlNum}
+	</select>
+	<select id="subDocumentList1" parameterType="Long" resultType="approval">
+		SELECT recordNum, tlNum, tr.signNum, dr.state, dr.max_state, title FROM timeline_record tr
+		JOIN e_document e ON e.signNum = tr.signNum
+		JOIN doc_record dr ON dr.signNum = tr.signNum
+		WHERE dr.state = 1 AND tlNum = #{tlNum}
+	</select>
+	<select id="subDocumentList2" parameterType="Long" resultType="approval">
+		SELECT recordNum, tlNum, tr.signNum, dr.state, dr.max_state, title FROM timeline_record tr
+		JOIN e_document e ON e.signNum = tr.signNum
+		JOIN doc_record dr ON dr.signNum = tr.signNum
+		WHERE dr.state = 2 AND tlNum = #{tlNum}
+	</select>
+	<select id="subDocumentList3" parameterType="Long" resultType="approval">
+		SELECT recordNum, tlNum, tr.signNum, dr.state, dr.max_state, title FROM timeline_record tr
+		JOIN e_document e ON e.signNum = tr.signNum
+		JOIN doc_record dr ON dr.signNum = tr.signNum
+		WHERE dr.state = dr.max_state AND tlNum = #{tlNum}
+	</select>
+	
 </mapper>

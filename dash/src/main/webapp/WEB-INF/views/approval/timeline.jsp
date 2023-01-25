@@ -119,41 +119,7 @@
 				<tr class="text-start"><td class="ps-3 fw-bold">하위 문서</td></tr>
 				<tr><td>
 				<div class="d-flex justify-content-evenly text-center mt-4 mb-4" id="subDocument">
-					<div >
-					<div class="bg-sub bg-gradient p-2 fw-bold rounded">기안</div>
-					<div style="max-width: 9rem">
-						<ul class="list-group" >
-							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
-						</ul>
-					</div>
-					</div>
-					
-					<div>
-					<div  class="bg-sub bg-gradient p-2 fw-bold  rounded">1차결재</div>
-					<div style="max-width: 9rem">
-						<ul class="list-group" >
-							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
-						</ul>
-					</div>
-					</div>
-					
-					<div>
-					<div class="bg-sub bg-gradient p-2 fw-bold rounded">2차결재</div>
-					<div style="max-width: 9rem">
-						<ul class="list-group" >
-							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
-						</ul>
-					</div>
-					</div>
-					
-					<div>
-					<div class="bg-sub bg-gradient p-2 fw-bold rounded">결재완료</div>
-					<div style="max-width: 9rem">
-						<ul class="list-group" >
-							<li class="list-group-item list-group-item-action elipsis"> 1단계 문서 asdasdasd </li>
-						</ul>
-					</div>
-					</div>
+					<div class='noSubdocument'>하위문서가 없습니다.</div>
 					
 				</div>
 				</td></tr>
@@ -242,6 +208,71 @@
 		};
 		
 		ajaxFun(url, "GET", query, "JSON", fn);
+		
+		url = "${pageContext.request.contextPath}/approval/readSubdocument";
+		const fn1 = function(data){
+			$(".subDocumentSearched").remove();
+			console.log(data);
+			if(data.lists.list0.length != 0){				
+				$(".noSubdocument").remove();
+				let out ="<div class='subDocumentSearched'>";
+				out +="<div class='bg-sub bg-gradient p-2 fw-bold rounded'>기안</div>"
+				out +="<div style='max-width:9rem'>"
+				out +="<ul class='list-group'>";
+				for(let item of data.lists.list0){
+					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+				}
+				out+="</ul></div></div>"
+				
+				$("#subDocument").append(out);
+			}
+			
+			if(data.lists.list1.length != 0){
+				$(".noSubdocument").remove();
+				let out ="<div class='subDocumentSearched'>";
+				out +="<div class='bg-sub bg-gradient p-2 fw-bold rounded'>1차 결재</div>"
+				out +="<div style='max-width:9rem'>"
+				out +="<ul class='list-group'>";
+				for(let item of data.lists.list1){
+					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+				}
+				out+="</ul></div></div>"
+				
+				$("#subDocument").append(out);
+			}
+			
+			if(data.lists.list2.length != 0){
+				$(".noSubdocument").remove();
+				let out ="<div class='subDocumentSearched'>";
+				out+="<div class='bg-sub bg-gradient p-2 fw-bold rounded'>2차 결재</div>"
+				out+="<div style='max-width:9rem'>"
+				out+="<ul class='list-group'>";
+				for(let item of data.lists.list2){
+					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+				}
+				out+="</ul></div></div>"
+				
+				$("#subDocument").append(out);
+			}
+			
+			
+			if(data.lists.list3.length != 0){
+				$(".noSubdocument").remove();
+				let out ="<div class='subDocumentSearched'>";
+				out+="<div class='bg-sub bg-gradient p-2 fw-bold rounded'>결재 완료</div>"
+				out+="<div style='max-width:9rem'>"
+				out+="<ul class='list-group'>";
+				for(let item of data.lists.list3){
+					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+				}
+				out+="</ul></div></div>"
+				
+				$("#subDocument").append(out);
+			}
+			
+		};
+		
+		ajaxFun(url, "GET", query, "JSON", fn1);
 		
 	}
 </script>

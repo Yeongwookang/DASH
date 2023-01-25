@@ -169,19 +169,64 @@ function search(page){
 function write_document(){
 	const f = document.approval;
 	
+	if(f.title.value==""){
+		alert('제목이 없습니다.')
+		f.title.focus();
+		return;
+	}
+	
+	if(f.refcnt.value==""){
+		alert('참조한 인원이 없습니다.')
+		f.refcnt.focus();
+		return;
+	}
+	
+	if(f.content.value==""){
+		alert('내용이 없습니다.')
+		f.content.focus();
+		return;
+	}
 	
 	f.action = "${pageContext.request.contextPath}/approval/write"
 	f.submit();
 }
 function update_document(){
 	const f = document.approval;
+	
+	if(f.title.value==""){
+		alert('제목이 없습니다.')
+		f.title.focus();
+		return;
+	}
+	
+	if(f.refcnt.value==""){
+		alert('참조한 인원이 없습니다.')
+		f.refcnt.focus();
+		return;
+	}
+	
+	if(f.content.value==""){
+		alert('내용이 없습니다.')
+		f.content.focus();
+		return;
+	}
+	
 	f.action = "${pageContext.request.contextPath}/approval/update"
 	f.submit();
 }
 </script>
 <div>
-	<div class="title mt-4">
-		<span>결재</span>
+	<div class="d-flex justify-content-between align-items-center mt-4">
+		<div class="title">
+			<span>결재 작성</span>
+		</div>
+		<div>
+			<select class="form-select">
+				<option>일반결재</option>
+				<option>비용처리</option>
+				<option>휴가사용</option>
+			</select>
+		</div>
 	</div>	
 	<div class="mt-4">
 		<form name="approval" method="POST"  enctype="multipart/form-data">			
@@ -210,8 +255,8 @@ function update_document(){
 			<div class="d-flex align-items-center">
 				<div class="p-2 text-white text-center bg-main fs-5" style=" font-weight: bold; width:20%">타임라인</div>
 				<div class="d-flex ms-4" style="width: 80%">
-					<input type="text" class="form-control" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
-					<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+					<input type="text" class="form-control me-2" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
+					<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
 					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
 					<input type="hidden" name="tlState" id="tlState" value="${tldto.tlState}" readonly>
 				</div>
@@ -222,12 +267,12 @@ function update_document(){
 					<div class="d-flex refList">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
 						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
-						<input type="text" class="form-control me-1" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
+						<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
 						<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
 						<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
 						<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
 						<input type="hidden" name="refcnt" id="refcnt" value="${dto.max_state}" readonly>
-						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#empSearch" ><i class="fa-solid fa-plus"></i></button>
+						<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#empSearch" ><i class="fa-solid fa-plus"></i></button>
 					</div>
 				</div>
 			</div>

@@ -432,5 +432,22 @@ public class ApprovalController {
 				return model;
 		}
 		
+		@GetMapping("readSubdocument")
+		@ResponseBody
+		public Map<String, Object> readSubdocument(HttpServletRequest req, 
+				@RequestParam long tlNum
+				) throws Exception {
+			
+			
+				Map<String,Object> map= service.readSubdocument(tlNum);
+				
+				 
+				Map<String, Object> model =  new HashMap<String, Object>();
+				 
+				model.put("lists", map);
+				 
+				return model;
+		}
+		
 }
 

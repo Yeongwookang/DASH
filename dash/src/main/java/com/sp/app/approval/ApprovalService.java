@@ -40,6 +40,7 @@ public interface ApprovalService {
 	public Approval readTimeline(long tlNum);
 	public List<Approval> listTimeline(Map<String,Object> map);
 	public List<Approval> recordTimeline(Approval dto);
+	public Map<String, Object> readSubdocument(long tlNum);
 	
 	
 }

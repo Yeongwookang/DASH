@@ -128,7 +128,7 @@
 
 
 
-<div class="mt-4 mb-4 d-flex justify-content-between">	
+<div class="mt-4 mb-4 d-flex justify-content-end">	
 		<button class="btn btn-sub bg-gradient" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/write'">신규 결재</button>
 </div>
 </div>
