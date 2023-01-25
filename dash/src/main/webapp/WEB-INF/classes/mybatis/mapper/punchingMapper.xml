@@ -2,106 +2,125 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="punching">
-	<select id="clockOnTime" parameterType="map" resultType="com.sp.app.punching.Punching" >
-		select p.empNo, name, TO_CHAR(clock_time,'YYYY-MM-DD HH24:MI:SS') punchOnTime, punch_kind FROM punch_clock p 
-		JOIN employee e ON e.empNo = p.empNo
-		WHERE p.empNo = #{empNo} 
-		AND punch_kind = '출근'
-		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
-	</select>
-	
-	<insert id="insertClockOn" parameterType="com.sp.app.punching.Punching">
-		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
-		(punch_clock_seq.NEXTVAL, #{empNo},'출근')
-	</insert>
-	
-	<select  id="clockOffTime" parameterType="map" resultType="com.sp.app.punching.Punching">
-		select p.empNo, name, TO_CHAR(clock_time, 'YYYY-MM-DD HH24:MI:SS') punchOffTime, punch_kind FROM punch_clock p 
-		JOIN employee e ON e.empNo = p.empNo
-		WHERE p.empNo = #{empNo} 
-		AND punch_kind = '퇴근'
-		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
-	</select>
-	
-	<insert id="insertClockOff" parameterType="com.sp.app.punching.Punching">
-		INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
-		(punch_clock_seq.NEXTVAL, #{empNo},'퇴근')
-	</insert>
-	<delete id="deleteClockOn" parameterType="com.sp.app.punching.Punching">
-		DELETE FROM punch_clock 
-		WHERE empNo =  #{empNo} 
-		AND punch_kind = '출근'
-		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')   
-	</delete>
-	<delete id="deleteClockOff" parameterType="com.sp.app.punching.Punching">
-		DELETE FROM punch_clock 
-		WHERE empNo =  #{empNo} 
-		AND punch_kind = '퇴근'
-		AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD') 
-	</delete>
-	<select id="readDayoff" parameterType="String" resultType="com.sp.app.punching.Punching">
-		SELECT * FROM DAYOFF WHERE empNo= #{empNo}
-	</select>
-	
-	<update id="insertDayoff" parameterType="com.sp.app.punching.Punching">
-		INSERT INTO Dayoff (empNo, leftQty, totalQty, reqDays, workDays)
-		SELECT empNo, CASE	WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14 ELSE 0 END as leftQty,
-				CASE WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14 ELSE 0 END as totalQty,
-				TO_date((TO_CHAR(EXTRACT(YEAR FROM sysdate))||'1231'),'YYYYMMDD') - TO_date( TO_CHAR(EXTRACT(YEAR FROM sysdate)-1)||'1231','YYYYMMDD') as reqDays,
-				'0' as workDays
-		FROM employee 
-		WHERE empNo = #{empNo}
-	</update>
-	<update id="updateDayoff" parameterType="com.sp.app.punching.Punching">
-		UPDATE Dayoff 
-		SET workDays = #{workDays}, leftQty = #{leftQty}, 
-			reqDays= #{reqDays}, workDays=#{workDays}, totalQty = #{totalQty} 
-		WHERE empNo = #{empNo}
-	</update>
-	
-	<update id="updateWorkDays" parameterType="com.sp.app.punching.Punching">
-		UPDATE Dayoff SET workDays = workDays+1 WHERE empNo = #{empNo}
-	</update>
-	
-	<delete id="deleteDayoff" parameterType="com.sp.app.punching.Punching">
-		DELETE FROM Dayoff WHERE empNo = #{empNo}
-	</delete>
-	
-	<select id="listPunchclock"  parameterType="map" resultType="com.sp.app.punching.Punching">
-		SELECT clockNo, empNo, clock_time, punch_kind 
-		FROM punch_clock 
-		<where>
-			empNo = #{empNo}
-			<if test="condition != null and condition != ''">
-				AND <include refid="where-list"/>
-			</if>
-			<if test="std != null and std != '' ">
-				AND clock_time &gt;= TO_DATE(#{std}, 'YYYY-MM-DD')
-			</if>
-			<if test="end != null and end != ''">
-				AND clock_time &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
-			</if>
-		</where>
-	</select>
-	
-	<sql id="where-list">
-		<choose>
-			<when test="condition == '0' ">
-             	punch_kind = '출근'
-			</when>
-			<when test="condition == '1' ">
-             	punch_kind = '퇴근'
-			</when>
-		</choose>
-	</sql>
-	
-	<insert id="gainVacation"
-		parameterType="com.sp.app.punching.Punching">
-		INSERT INTO gainSpecialVacation (gainNum, gainQty,gainDate, expireDate, content, g.empNo) VALUES
-		(gainNum_seq.NEXTVAL,DAYS(TO_DATE(#{expireDate}, 'YYYY-MM-DD')) - DAYS(TO_DATE(#{gainDate}, 'YYYY-MM-DD'))AS gainQty,
-		#{gainDate}, #{expireDate}, #{content},#{empNo})
-	</insert>
-	
-	
-	
+   <select id="clockOnTime" parameterType="map" resultType="com.sp.app.punching.Punching" >
+      select p.empNo, name, TO_CHAR(clock_time,'YYYY-MM-DD HH24:MI:SS') punchOnTime, punch_kind FROM punch_clock p 
+      JOIN employee e ON e.empNo = p.empNo
+      WHERE p.empNo = #{empNo} 
+      AND punch_kind = '출근'
+      AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
+   </select>
+   
+   <insert id="insertClockOn" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
+      (punch_clock_seq.NEXTVAL, #{empNo},'출근')
+   </insert>
+   
+   <select  id="clockOffTime" parameterType="map" resultType="com.sp.app.punching.Punching">
+      select p.empNo, name, TO_CHAR(clock_time, 'YYYY-MM-DD HH24:MI:SS') punchOffTime, punch_kind FROM punch_clock p 
+      JOIN employee e ON e.empNo = p.empNo
+      WHERE p.empNo = #{empNo} 
+      AND punch_kind = '퇴근'
+      AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')
+   </select>
+   
+   <insert id="insertClockOff" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO punch_clock (clockNo, empNo, punch_kind) VALUES
+      (punch_clock_seq.NEXTVAL, #{empNo},'퇴근')
+   </insert>
+   <delete id="deleteClockOn" parameterType="com.sp.app.punching.Punching">
+      DELETE FROM punch_clock 
+      WHERE empNo =  #{empNo} 
+      AND punch_kind = '출근'
+      AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD')   
+   </delete>
+   <delete id="deleteClockOff" parameterType="com.sp.app.punching.Punching">
+      DELETE FROM punch_clock 
+      WHERE empNo =  #{empNo} 
+      AND punch_kind = '퇴근'
+      AND TO_CHAR(clock_time, 'YYYY-MM-DD') = TO_CHAR(sysdate, 'YYYY-MM-DD') 
+   </delete>
+   <select id="readDayoff" parameterType="String" resultType="com.sp.app.punching.Punching">
+      SELECT * FROM DAYOFF WHERE empNo= #{empNo}
+   </select>
+   
+   <update id="insertDayoff" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO Dayoff (empNo, leftQty, totalQty, reqDays, workDays)
+      SELECT empNo, CASE   WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14 ELSE 0 END as leftQty,
+            CASE WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14 ELSE 0 END as totalQty,
+            TO_date((TO_CHAR(EXTRACT(YEAR FROM sysdate))||'1231'),'YYYYMMDD') - TO_date( TO_CHAR(EXTRACT(YEAR FROM sysdate)-1)||'1231','YYYYMMDD') as reqDays,
+            '0' as workDays
+      FROM employee 
+      WHERE empNo = #{empNo}
+   </update>
+   <update id="updateDayoff" parameterType="com.sp.app.punching.Punching">
+      UPDATE Dayoff 
+      SET workDays = #{workDays}, leftQty = #{leftQty}, 
+         reqDays= #{reqDays}, workDays=#{workDays}, totalQty = #{totalQty} 
+      WHERE empNo = #{empNo}
+   </update>
+   
+   <update id="updateWorkDays" parameterType="com.sp.app.punching.Punching">
+      UPDATE Dayoff SET workDays = workDays+1 WHERE empNo = #{empNo}
+   </update>
+   
+   <delete id="deleteDayoff" parameterType="com.sp.app.punching.Punching">
+      DELETE FROM Dayoff WHERE empNo = #{empNo}
+   </delete>
+   
+   <select id="listPunchclock"  parameterType="map" resultType="com.sp.app.punching.Punching">
+      SELECT clockNo, empNo, clock_time, punch_kind 
+      FROM punch_clock 
+      <where>
+         empNo = #{empNo}
+         <if test="condition != null and condition != ''">
+            <include refid="where-list"/>
+         </if>
+         <if test="std != null and std != '' ">
+            AND clock_time &gt;= TO_DATE(#{std}, 'YYYY-MM-DD')
+         </if>
+         <if test="end != null and end != ''">
+            AND clock_time &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+         </if>
+      </where>
+      ORDER BY clockNo DESC
+      OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY 
+   </select>
+   
+   <select id="punchClockDataCount"  parameterType="map" resultType="Integer">
+      SELECT NVL(COUNT(*), 0)
+      FROM punch_clock 
+      <where>
+         empNo = #{empNo}
+         <if test="condition != null and condition != ''">
+            <include refid="where-list"/>
+         </if>
+         <if test="std != null and std != '' ">
+            AND clock_time &gt;= TO_DATE(#{std}, 'YYYY-MM-DD')
+         </if>
+         <if test="end != null and end != ''">
+            AND clock_time &lt;= TO_DATE(#{end}, 'YYYY-MM-DD')
+         </if>
+      </where>
+   </select>
+   
+   <sql id="where-list">
+      <choose>
+         <when test="condition == 'punchOn' ">
+                AND punch_kind = '출근'
+         </when>
+         <when test="condition == 'punchOff' ">
+                AND punch_kind = '퇴근'
+         </when>
+      </choose>
+   </sql>
+   
+   <insert id="gainVacation"
+      parameterType="com.sp.app.punching.Punching">
+      INSERT INTO gainSpecialVacation (gainNum, gainQty,gainDate, expireDate, content, g.empNo) VALUES
+      (gainNum_seq.NEXTVAL,DAYS(TO_DATE(#{expireDate}, 'YYYY-MM-DD')) - DAYS(TO_DATE(#{gainDate}, 'YYYY-MM-DD'))AS gainQty,
+      #{gainDate}, #{expireDate}, #{content},#{empNo})
+   </insert>
+   
+   
+   
 </mapper>

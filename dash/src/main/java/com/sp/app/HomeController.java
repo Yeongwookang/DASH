@@ -11,11 +11,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,6 +24,7 @@ import com.sp.app.analysis.Analysis;
 import com.sp.app.analysis.AnalysisService;
 import com.sp.app.approval.Approval;
 import com.sp.app.approval.ApprovalService;
+import com.sp.app.common.MyUtil;
 import com.sp.app.community.Community;
 import com.sp.app.community.CommunityService;
 import com.sp.app.employee.SessionInfo;
@@ -36,8 +36,8 @@ import com.sp.app.punching.PunchingService;
 
 @Controller
 public class HomeController {
-   private Logger logger = LoggerFactory.getLogger(this.getClass());
-	
+   // private Logger logger = LoggerFactory.getLogger(this.getClass());
+   
    @Autowired
    private AnalysisService service;
    
@@ -55,6 +55,9 @@ public class HomeController {
    
    @Autowired
    private MessageService msgService;
+   
+   @Autowired
+   private MyUtil myUtil;
 
    @RequestMapping(value = "/")
    public String home(Locale locale, HttpServletRequest req, Model model) throws Exception {
@@ -130,16 +133,16 @@ public class HomeController {
       List<Notice> listTop = noService.listNoticeTopMain();
       
       Date endDate = new Date();
-	  long gap;
-	  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	  for(Notice dto : list) {
-		  Date startDate = sdf.parse(dto.getReg_date());
-		
-		  gap = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000);
-		  dto.setGap(gap);
-		
-		  dto.setReg_date(dto.getReg_date().substring(0, 10));
-	  }
+     long gap;
+     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+     for(Notice dto : list) {
+        Date startDate = sdf.parse(dto.getReg_date());
+      
+        gap = (endDate.getTime() - startDate.getTime()) / (24 * 60 * 60 * 1000);
+        dto.setGap(gap);
+      
+        dto.setReg_date(dto.getReg_date().substring(0, 10));
+     }
       
       List<Community> listCommunity = coService.listCommunityMain();
       
@@ -151,29 +154,67 @@ public class HomeController {
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto", punDto);
-      
-      Map<String, Object> punmap = new HashMap<String, Object>();
-      punmap.put("empNo", info.getEmpNo());
-      	
-      
-      List<Punching> clockList = punService.listPunchclock(punmap);
-		
-	  model.addAttribute("clockList", clockList);
-	  
+     
       return ".mainLayout";
    }
    
     @PostMapping(value = "newMessageCount")
-	@ResponseBody
-	public Map<String, Object> newMessageCount(HttpSession session){
-    	SessionInfo info = (SessionInfo)session.getAttribute("employee");
-		int count = msgService.newMessageCount(info.getEmpNo());
-		
-		Map<String, Object> model = new HashMap<String, Object>();
-		
-		model.put("count", count);
-		return model;
-	}
+   @ResponseBody
+   public Map<String, Object> newMessageCount(HttpSession session){
+       SessionInfo info = (SessionInfo)session.getAttribute("employee");
+      int count = msgService.newMessageCount(info.getEmpNo());
+      
+      Map<String, Object> model = new HashMap<String, Object>();
+      
+      model.put("count", count);
+      return model;
+   }
+    
+    @GetMapping(value = "/listPunchclock")
+   public String listPunchclock(HttpSession session, 
+         @RequestParam(defaultValue = "") String condition,
+         @RequestParam(defaultValue = "") String std,
+         @RequestParam(defaultValue = "") String end,
+         @RequestParam(value = "pageNo", defaultValue = "1") int current_page,
+         Model model){
+       
+       SessionInfo info = (SessionInfo)session.getAttribute("employee");
+       Map<String, Object> punmap = new HashMap<String, Object>();
+        punmap.put("empNo", info.getEmpNo());
+        punmap.put("condition", condition);
+        punmap.put("std", std);
+        punmap.put("end", end);
+        
+        int size = 5;
+      int total_page = 0;
+      int dataCount = 0;
+      
+      dataCount = punService.punchClockDataCount(punmap);
+      total_page = myUtil.pageCount(dataCount, size);
+      if(current_page < total_page) {
+         current_page = total_page;
+      }
+      
+      int offset = (current_page - 1) * size;
+      if(offset < 0) offset = 0;
+      
+      punmap.put("offset", offset);
+      punmap.put("size", size);
+      
+      
+      String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+      
+      List<Punching> clockList = punService.listPunchclock(punmap);
+      
+      model.addAttribute("size", size);
+      model.addAttribute("clockList", clockList);
+      model.addAttribute("pageNo", current_page);
+      model.addAttribute("dataCount", dataCount);
+      model.addAttribute("total_page", total_page);
+      model.addAttribute("paging", paging);
+      
+         return "punch";
+   }
     
    
    
