@@ -106,7 +106,7 @@
 				<li class="dropdown nav-item">
 				<a class="nav-link dropdown-toggle nav-box" id="approvalMenu" 
 					data-bs-toggle="dropdown" aria-expanded="false">
-					<i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">추천 순위</span></a>
+					<i class="fa-solid fa-ranking-star"></i><span class="ms-3">추천 순위</span></a>
 				<ul class="dropdown-menu" aria-labelledby="approvalMenu">
 					<li class="dropdown-item"><a
 						href="${pageContext.request.contextPath}/map/6/allDetail">

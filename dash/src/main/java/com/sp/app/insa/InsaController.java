@@ -191,11 +191,13 @@ public class InsaController {
 		
 		
 		int size = 10;
+		int total_page = 0;
+		int dataCount = 0;
 		
-		int total_page;
-		int dataCount = service.dataCount(map);
-		
-		total_page = myUtil.pageCount(dataCount, size);
+		dataCount = service.dataCount(map);
+		if(dataCount != 0) {
+			total_page = myUtil.pageCount(dataCount, size);
+		}
 		
 		if(current_page > total_page) {
 			current_page = total_page;
@@ -207,16 +209,21 @@ public class InsaController {
 		map.put("offset", offset);
 		map.put("size", size);
 		
-		
 		String cp = req.getContextPath();
 		
-		String list_url = cp+"/insa/list";
-		String paging = myUtil.paging(current_page, total_page, list_url);
-		
-		map.put("offset", offset);
-		map.put("size", size);
-		
 		List<Insa> list = service.list2(map);
+		
+		String list_url = cp+"/insa/list";
+		String query = "";
+		if(kwd.length() != 0) {
+			query = "col=" + col + "&kwd=" + URLEncoder.encode(kwd, "utf-8");
+		}
+		
+		if(query.length() != 0) {
+			list_url = cp + "/insa/list?" + query;
+		}
+		
+		String paging = myUtil.paging(current_page, total_page, list_url);
 		
 		model.addAttribute("col", col);
 		model.addAttribute("kwd", kwd);

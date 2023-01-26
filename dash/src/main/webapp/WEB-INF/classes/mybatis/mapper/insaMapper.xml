@@ -96,6 +96,22 @@
         OFFSET #{offset} ROWS FETCH FIRST #{size} ROWS ONLY
 	</select>
 	
+	<select id="dataCount" parameterType="map" resultType="Integer">
+		SELECT NVL(COUNT(*), 0)
+		FROM employee e
+		JOIN person_record pr ON e.empNo = pr.empNo
+		JOIN department d ON pr.depNo = d.depNo
+        JOIN position p ON pr.posNo = p.posNo
+        JOIN rank r ON pr.rankNo = r.rankNo
+        JOIN team t ON pr.teamNo = t.teamNo
+		<where>
+            <if test= "kwd != null and kwd != '' ">
+                <include refid="where-list"/>
+            </if>
+			AND pr.state =  1
+		</where>
+	</select>
+	
 	
 	<!-- 사원정보 수정  -->   
     <update id="updateInsa1" parameterType="com.sp.app.insa.Insa">
@@ -144,16 +160,7 @@
 		DELETE FROM insaFile WHERE fileNum = #{fileNum}
 	</delete>
     
-  
-    <select id="dataCount" parameterType="map" resultType="Integer">
-		SELECT NVL(COUNT(*), 0)
-		FROM employee
-		<where>
-			<if test="col != null">
-				<include refid="where-list"/>
-			</if>
-		</where>
-	</select>
+ 
 	
 	
 	
