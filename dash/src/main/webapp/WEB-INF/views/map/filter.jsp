@@ -156,9 +156,9 @@ L.Control.Filter = L.Control.extend({
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main monthFilter text-white me-2">3개월</button>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main monthFilter text-white">1개월</button>';
 	    el.innerHTML += '<hr>';
-	    el.innerHTML += '<p class="mb-2">DASH</p>';
+	    el.innerHTML += '<p class="mb-2">기준</p>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="dash" autocomplete="off" class="btn btn-main cusFilter text-white me-2">DASH</button>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="traffic" autocomplete="off" class="btn btn-main cusFilter text-white me-2">유동인구</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="traffic" autocomplete="off" class="btn btn-main cusFilter text-white pe-1 ps-1 me-2">유동인구</button>';
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="bike" autocomplete="off" class="btn btn-main cusFilter text-white">따릉이</button>';
 
 	    return el;
