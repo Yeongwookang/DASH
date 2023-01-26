@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -242,14 +244,53 @@ public class MapController {
 	    return model;
     }
 	
-	@RequestMapping(value = "meter2")
-    @ResponseBody
-    public Map<String, Object> meter2(){
-		Map<String, Object> model =  new HashMap<String, Object>();
-		List<M100_all_6months> M100_6_dash = meterService.M100_all_6months();
-	    
-	    model.put("100_6_dash", M100_6_dash);
-	    return model;
+	@RequestMapping(value = "{menuItem}/allDetail")
+	public String allDetail(@PathVariable String menuItem, Model model) {
+		
+		if(menuItem.equals("1")) {
+			List<All_month> all_month = filterService.list_all_month();
+			model.addAttribute("list", all_month);
+		} else if(menuItem.equals("3")) {
+			List<All_quarter> all_quarter = filterService.list_all_quarter();
+			model.addAttribute("list", all_quarter);
+		} else {
+			List<All_6months> all_6months = filterService.list_all_6months();
+			model.addAttribute("list", all_6months);
+		}
+		
+		return ".map.allDetail";
+	}
+	
+	@RequestMapping(value = "{menuItem}/trafficDetail")
+	public String trafficDetail(@PathVariable String menuItem, Model model) {	
+		if(menuItem.equals("1")) {
+			List<People_month> people_month = filterService.list_people_month();
+			model.addAttribute("list", people_month);
+		} else if(menuItem.equals("3")) {
+			List<People_quarter> people_quarter = filterService.list_people_quarter();
+			model.addAttribute("list", people_quarter);
+		} else {
+			List<People_6months> people_6months = filterService.list_people_6months();
+			model.addAttribute("list", people_6months);
+		}
+		
+		return ".map.trafficDetail";
+	}
+	
+	@RequestMapping(value = "{menuItem}/bikeDetail")
+	public String bikeDetail(@PathVariable String menuItem, Model model) {
+		if(menuItem.equals("1")) {
+			List<BikeCount_month> bikeCount_month = filterService.list_bikeCount_month();
+			model.addAttribute("list", bikeCount_month);
+		} else if(menuItem.equals("3")) {
+			List<BikeCount_quarter> bikeCount_quarter = filterService.list_bikeCount_quarter();
+			model.addAttribute("list", bikeCount_quarter);
+		} else {
+			List<BikeCount_6months> bikeCount_6months = filterService.list_bikeCount_6months();
+			model.addAttribute("list", bikeCount_6months);
+		}
+		
+		return ".map.bikeDetail";
 	}
 	
 	@RequestMapping(value = "all_month")
