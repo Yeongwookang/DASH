@@ -28,8 +28,6 @@ function check() {
 	    return;
 	}
 	
-	alert(f.empNo.value);
-	
     str = f.gainQty.value.trim();
     if(!str) {
         alert("획득일수를 입력하세요.");
