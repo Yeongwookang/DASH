@@ -92,7 +92,7 @@
 	</delete>
 	
 	<select id="scheduleCount" parameterType="String" resultType="Integer">
-		SELECT COUNT(*) FROM schedule WHERE sday = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND empNo = #{empNo}
+		SELECT COUNT(*) FROM schedule WHERE SYSDATE between TO_DATE(sday,'YYYY-MM-DD') AND TO_DATE(eday, 'YYYY-MM-DD') AND empNo = #{empNo}
 	</select>
 	
 	
