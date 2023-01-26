@@ -190,7 +190,7 @@
 		SELECT (endDate-startDate) as qty, reg_date, vacationType as content FROM vacation v
 		JOIN E_DOCUMENT e ON e.signNum = v.signNum
 		JOIN doc_record dr ON dr.signNum = v.signNum
-		WHERE empNo= #{empNo};
+		WHERE empNo= #{empNo}
    	</select>
    	<select id="countUsedVacation" parameterType="map" resultType="Integer">
    		SELECT NVL(SUM(endDate-startDate),0) from vacation v
