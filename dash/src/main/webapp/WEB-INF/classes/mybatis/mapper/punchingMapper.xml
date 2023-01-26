@@ -52,6 +52,13 @@
       FROM employee 
       WHERE empNo = #{empNo}
    </update>
+   <insert id="insertGainDayoff" parameterType="com.sp.app.punching.Punching">
+      INSERT INTO gainDayoff (empNo, gainNum, gainQty, gainDate)
+      SELECT empNo, gainDayoff_seq.NEXTVAL, 
+      CASE WHEN EXTRACT(YEAR FROM sysDate) - EXTRACT(YEAR FROM startDate)+1 &gt; 1 THEN EXTRACT(YEAR FROM sysDate)-EXTRACT(YEAR FROM startDate)+14 ELSE 0 END as gainQty, SYSDATE
+      FROM employee 
+      WHERE empNo = #{empNo}
+   </insert>
    <update id="updateDayoff" parameterType="com.sp.app.punching.Punching">
       UPDATE Dayoff 
       SET workDays = #{workDays}, leftQty = #{leftQty}, 

@@ -69,6 +69,7 @@ public class PunchingController {
          
          try {
             if(service.readDayOff(info.getEmpNo())==null) {
+               service.insertGainDayoff(pun);
                service.insertDayoff(pun);
             } 
             service.punchOff(pun);
@@ -172,8 +173,8 @@ public class PunchingController {
   			if(read == null) {
   				dto.setTotalQty(dto.getGainQty());
   				dto.setLeftQty(dto.getGainQty());
-  				service.insertVacation(dto);
   				service.insertGainVacation(dto);
+  				service.insertVacation(dto);
   			} else {
   				dto.setTotalQty(dto.getGainQty());
   				service.updateVacation(dto);

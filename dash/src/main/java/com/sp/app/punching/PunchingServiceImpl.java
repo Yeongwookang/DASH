@@ -228,4 +228,14 @@ public class PunchingServiceImpl implements PunchingService {
         return result;
 	}
 
+	@Override
+	public void insertGainDayoff(Punching pun) throws Exception {
+		try {
+	         dao.updateData("punching.insertGainDayoff", pun);
+	    } catch (Exception e) {
+	         throw e;
+	    }
+		
+	}
+
 }
