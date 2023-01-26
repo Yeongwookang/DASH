@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service("filter.filterMongoOperations")
@@ -47,6 +49,48 @@ public class FilterMongoOperations {
 			e.printStackTrace();
 		}
 		return all_quarter;
+	}
+	
+	public All_6months readAll_6months(String _id) {
+		All_6months dto=null;
+		
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("_id").is(_id));
+			dto = mongo.findOne(query, All_6months.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+	public All_month readAll_month(String _id) {
+		All_month dto=null;
+		
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("_id").is(_id));
+			dto = mongo.findOne(query, All_month.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
+	}
+	
+	public All_quarter readAll_quarter(String _id) {
+		All_quarter dto=null;
+		
+		try {
+			Query query = new Query();
+			query.addCriteria(Criteria.where("_id").is(_id));
+			dto = mongo.findOne(query, All_quarter.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return dto;
 	}
 	
 	public List<People_6months> people_6months() {

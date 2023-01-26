@@ -14,4 +14,8 @@ public interface FilterService {
 	public List<BikeCount_6months> list_bikeCount_6months();
 	public List<BikeCount_quarter> list_bikeCount_quarter();
 	public List<BikeCount_month> list_bikeCount_month();
+	
+	public All_6months readAll_6months(String _id);
+	public All_month readAll_month(String _id);
+	public All_quarter readAll_quarter(String _id);
 }

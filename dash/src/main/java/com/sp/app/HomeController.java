@@ -186,7 +186,7 @@ public class HomeController {
       return model;
    }
     
-    @GetMapping(value = "/listPunchclock")
+   @GetMapping(value = "/listPunchclock")
    public String listPunchclock(HttpSession session, 
          @RequestParam(defaultValue = "") String condition,
          @RequestParam(defaultValue = "") String std,
@@ -196,40 +196,40 @@ public class HomeController {
        
        SessionInfo info = (SessionInfo)session.getAttribute("employee");
        Map<String, Object> punmap = new HashMap<String, Object>();
-        punmap.put("empNo", info.getEmpNo());
-        punmap.put("condition", condition);
-        punmap.put("std", std);
-        punmap.put("end", end);
+       punmap.put("empNo", info.getEmpNo());
+       punmap.put("condition", condition);
+       punmap.put("std", std);
+       punmap.put("end", end);
         
-        int size = 5;
-      int total_page = 0;
-      int dataCount = 0;
+       int size = 5;
+       int total_page = 0;
+       int dataCount = 0;
       
-      dataCount = punService.punchClockDataCount(punmap);
-      total_page = myUtil.pageCount(dataCount, size);
-      if(current_page < total_page) {
-         current_page = total_page;
-      }
+       dataCount = punService.punchClockDataCount(punmap);
+       total_page = myUtil.pageCount(dataCount, size);
+       if(current_page < total_page) {
+          current_page = total_page;
+       }
       
-      int offset = (current_page - 1) * size;
-      if(offset < 0) offset = 0;
+       int offset = (current_page - 1) * size;
+       if(offset < 0) offset = 0;
       
-      punmap.put("offset", offset);
-      punmap.put("size", size);
+       punmap.put("offset", offset);
+       punmap.put("size", size);
       
       
-      String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
+       String paging = myUtil.pagingMethod(current_page, total_page, "listPage");
       
-      List<Punching> clockList = punService.listPunchclock(punmap);
+       List<Punching> clockList = punService.listPunchclock(punmap);
       
-      model.addAttribute("size", size);
-      model.addAttribute("clockList", clockList);
-      model.addAttribute("pageNo", current_page);
-      model.addAttribute("dataCount", dataCount);
-      model.addAttribute("total_page", total_page);
-      model.addAttribute("paging", paging);
+       model.addAttribute("size", size);
+       model.addAttribute("clockList", clockList);
+       model.addAttribute("pageNo", current_page);
+       model.addAttribute("dataCount", dataCount);
+       model.addAttribute("total_page", total_page);
+       model.addAttribute("paging", paging);
       
-         return "punch";
+       return "punch";
    }
     
    
