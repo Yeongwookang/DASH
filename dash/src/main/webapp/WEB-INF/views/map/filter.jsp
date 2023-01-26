@@ -61,8 +61,7 @@
   </div>
    
 <script>            
-var arr = [];
-var jsO = [];
+
 var subway = [];
 var station = [];
 
@@ -128,18 +127,7 @@ layer_control = L.control.layers(
 		{"autoZIndex": true, "collapsed": true, "position": "topright"}
 		).addTo(map_1);
 
-function geo_json_onEachFeature(feature, layer) {
-	layer.on({
-	});
-};
-var geo_json = L.geoJson(null, {
-    onEachFeature: geo_json_onEachFeature,
-});
 
-function geo_json_add (data, name) {
-geo_json.addData(data);
-layer_control.addOverlay(geo_json, name);
-}
 
 
 
@@ -202,9 +190,8 @@ L.Control.Home= L.Control.extend({
 	$(function(){
 		let url = "${pageContext.request.contextPath}/map/subway";
 		
-
 		const fn2 = function(data){
-
+	
 			for(item of data.list){
 				let obj;
 				obj = {"역사_ID": item["id"], "역사명": item["name"], "위도": item["lat"], "경도": item["lon"], "주소": item["addr"], "구": item["district"]}
@@ -216,15 +203,28 @@ L.Control.Home= L.Control.extend({
 			stations.addTo(map_1);
 		}
 		
-		ajaxFun(url,"get",null,"json",fn2);
+		ajaxFun(url, "get", null, "json", fn2);
 		
 	});
+
 	
+
+	function onEachFeature(feature, layer) {
+	    // does this feature have a property named popupContent?
+	    if (feature.properties && feature.properties.popupContent) {
+	        layer.bindPopup(feature.properties.popupContent);
+	    }
+	}
+var json;
 function searchPolygon(rad, month, cus){
 	let url= "${pageContext.request.contextPath}/map/meter";
-	let query = "rad="+rad+"&month="+month+"&cus="+cus;
+	let query = "rad="+rad+"&month="+month+"&condition="+cus;
+	
 	const fn =function (data) {
 		console.log(data);
+		
+		let arr=[];
+		
 		for(item of data[rad+"_"+month+"_"+cus]){
 			let obj; 
 			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
@@ -232,16 +232,20 @@ function searchPolygon(rad, month, cus){
 			
 		};
 		
-		jsO = {
-	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-	   				"features": arr
-	   			};
 		
 		let name = rad+", "+month+", "+cus;
-		geo_json_add (jsO, name);
+		if(json!=null){
+			layer_control.removeLayer(json);
+			map_1.removeLayer(json);
+		}
+		json = L.geoJSON(arr, {onEachFeature: onEachFeature})
+		
+		layer_control.addOverlay(json, name);
+		json.addTo(map_1);
+		
 	}
 
-	ajaxFun(url,"get", query,"json",fn);
+	ajaxFun(url, "get", query, "json",fn);
 }	
 
 	
@@ -281,6 +285,7 @@ $(".cusFilter").click(function(){
 $(".btn-main").click(function(){
 	if($(".radFilter.active").length === 1 && $(".monthFilter.active").length ===1 && $(".cusFilter.active").length===1){
 		searchPolygon(rad,month,cus);
+		console.log(rad+":"+month+":"+cus);
 	}
 });
 
