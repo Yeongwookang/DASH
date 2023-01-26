@@ -92,7 +92,7 @@
 	</delete>
 	
 	<select id="scheduleCount" parameterType="String" resultType="Integer">
-		SELECT COUNT(*) FROM schedule WHERE sday = SYSDATE AND empNo = #{empNo}
+		SELECT COUNT(*) FROM schedule WHERE sday = TO_CHAR(SYSDATE, 'YYYY-MM-DD') AND empNo = #{empNo}
 	</select>
 	
 	

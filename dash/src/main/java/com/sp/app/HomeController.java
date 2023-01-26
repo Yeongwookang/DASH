@@ -33,6 +33,7 @@ import com.sp.app.notice.Notice;
 import com.sp.app.notice.NoticeService;
 import com.sp.app.punching.Punching;
 import com.sp.app.punching.PunchingService;
+import com.sp.app.schedule.ScheduleService;
 
 @Controller
 public class HomeController {
@@ -55,6 +56,9 @@ public class HomeController {
    
    @Autowired
    private MessageService msgService;
+   
+   @Autowired
+   private ScheduleService schService;
    
    @Autowired
    private MyUtil myUtil;
@@ -158,7 +162,7 @@ public class HomeController {
       return ".mainLayout";
    }
    
-    @PostMapping(value = "newMessageCount")
+   @PostMapping(value = "newMessageCount")
    @ResponseBody
    public Map<String, Object> newMessageCount(HttpSession session){
        SessionInfo info = (SessionInfo)session.getAttribute("employee");
@@ -167,6 +171,18 @@ public class HomeController {
       Map<String, Object> model = new HashMap<String, Object>();
       
       model.put("count", count);
+      return model;
+   }
+   
+   @PostMapping(value = "scheduleCount")
+   @ResponseBody
+   public Map<String, Object> scheduleCount(HttpSession session){
+      SessionInfo info = (SessionInfo)session.getAttribute("employee");
+      int schcount = schService.scheduleCount(info.getEmpNo());
+      
+      Map<String, Object> model = new HashMap<String, Object>();
+      
+      model.put("schcount", schcount);
       return model;
    }
     

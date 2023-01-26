@@ -19,7 +19,6 @@
 				src="${pageContext.request.contextPath}/resources/images/profile2.png"></a>
 		</c:if> 
 		<span class="dep me-4">${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}</span>
-		<a class="icon me-4" title="알림설정"><i class="fa-regular fa-bell fa-lg"></i></a>
 		<a class="icon me-4" title="쪽지" href="${pageContext.request.contextPath}/message/receive/main"><i class="fa-regular fa-envelope fa-lg"></i></a>
 		<a class="icon" href="${pageContext.request.contextPath}/employee/logout"
 			title="로그아웃"><i class="fa-solid fa-arrow-right-from-bracket fa-lg"></i></a>

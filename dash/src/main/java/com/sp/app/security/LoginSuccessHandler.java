@@ -20,16 +20,12 @@ import org.springframework.security.web.savedrequest.SavedRequest;
 import com.sp.app.employee.Employee;
 import com.sp.app.employee.EmployeeService;
 import com.sp.app.employee.SessionInfo;
-import com.sp.app.schedule.ScheduleService;
 
 
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler{
 	
 	@Autowired
 	private EmployeeService service;
-	
-	@Autowired
-	private ScheduleService scdService;
 	
 	private String defaultUrl;
 	
@@ -60,9 +56,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 		info.setRankNo(employee.getRankNo());
 		info.setRankName(employee.getRankName());
 		info.setImageFilename(employee.getImageFilename());
-		
-		int scdcount = scdService.scheduleCount(employee.getEmpNo());
-		info.setScdcount(scdcount);
 		
 		List<Employee> adminList = service.adminEmpNo();
 		for(Employee dto : adminList) {			
