@@ -222,6 +222,7 @@ function dayoffMode(){
 	let out ="<div class='dayoffMode d-flex align-items-center'>";
 	out += "<div class='p-2 text-white text-center bg-main fs-5 fw-bold' style='width:20%'>휴가</div>"
 	out += "<div class='ms-4 d-flex align-items-center' style='width:80%'>";
+	out += "<div class='me-2 w-25'><select class='form-select' name='vacationType'><option value='dayoff'>연차</option><option value='vacation'>특별휴가</option></select></div>"
 	out += "<input class='form-control' type='date' name='startDate'>";
 	out += "<span class='ms-2 me-2'>~</span><input class='form-control' type='date' name='endDate'>";
 	out += "</div>";

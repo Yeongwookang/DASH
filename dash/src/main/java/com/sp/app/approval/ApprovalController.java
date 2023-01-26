@@ -224,6 +224,9 @@ public class ApprovalController {
 				@RequestParam String content,
 				@RequestParam List<MultipartFile> addFiles,
 				@RequestParam String type,
+				@RequestParam String startDate,
+				@RequestParam String endDate,
+				@RequestParam String vacationType,
 				HttpSession session
 				) throws Exception{
 			
@@ -240,10 +243,9 @@ public class ApprovalController {
 			dto.setContent(content);
 			dto.setAddFiles(addFiles);
 			dto.setType(type);
-			
-			if(type.equals("dayoff")) {
-				service.insertEvacation(dto);
-			}
+			dto.setStartDate(startDate);
+			dto.setEndDate(endDate);
+			dto.setVacationType(vacationType);
 			
 			
 			String root = session.getServletContext().getRealPath("/");
@@ -328,7 +330,7 @@ public class ApprovalController {
 		public String approve(@RequestParam Map<String, Object> map
 				) throws Exception{
 			String signNum = (String)map.get("signNum");
-			map.put("signNum",Long.parseLong(signNum));
+			map.put("signNum", Long.parseLong(signNum));
 			service.approveUpdate(map);
 			service.approve(map);
 			

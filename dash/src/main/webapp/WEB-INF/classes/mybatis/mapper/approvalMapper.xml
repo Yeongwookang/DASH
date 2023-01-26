@@ -74,6 +74,10 @@
 				INTO timeline_record(recordNum, tlNum, signNum) 
 				VALUES(timeline_record_seq.nextval, #{tlNum}, #{signNum})
 				</if>
+				<if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+				INTO vacation(vacationNum, signNum, startDate, endDate, vacationType)
+   				VALUES(vacation_seq.NEXTVAL, #{signNum}, #{startDate}, #{endDate}, #{vacationType})
+				</if>
 		SELECT * FROM dual
 	</update>
 	
@@ -371,5 +375,6 @@
    		INSERT INTO vacation(vacationNum, signNum, startDate, endDate, vacationType)
    			VALUES(vacation_seq.NEXTVAL, #{signNum}, #{startDate}, #{endDate}, #{vacationType})
    	</insert>
+   	
 	
 </mapper>
