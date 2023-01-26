@@ -2,7 +2,21 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<script type="text/javascript">
+function approvalApprove(){
+	const f = document.approve;
+	f.action = "${pageContext.request.contextPath}/approval/approve";
+	
+	f.submit();
+}
 
+function approvalReject(){
+	const f = document.approve;
+	f.action = "${pageContext.request.contextPath}/approval/reject";
+	
+	f.submit();
+}
+</script>
 <div>
 	<div class="mt-4 title">
 		<span>결재</span>
@@ -66,27 +80,13 @@
 				<input type="hidden" value="${dto.state}" name="state">
 				<input type="hidden" value="${dto.signNum}" name="signNum">			
 			<c:if test="${sessionScope.employee.empNo == dto.ref1 || sessionScope.employee.empNo == dto.ref2 || sessionScope.employee.empNo == dto.ref3}">
-				<button class="btn btn-sub bg-gradient me-2" type="button" onclick="reject();">반려</button>
-				<button class="btn btn-main bg-gradient me-2" type="button" onclick="approve();">결재</button>
+				<button class="btn btn-sub bg-gradient me-2" type="button" onclick="approvalReject();">반려</button>
+				<button class="btn btn-main bg-gradient me-2" type="button" onclick="approvalApprove();">결재</button>
 			</c:if>
 			</form>
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-function approve(){
-	const f = document.approve;
-	f.action = "${pageContext.request.contextPath}/approval/approve";
-	
-	f.submit();
-}
 
-function reject(){
-	const f = document.approve;
-	f.action = "${pageContext.request.contextPath}/approval/reject";
-	
-	f.submit();
-}
-</script>
 
 
