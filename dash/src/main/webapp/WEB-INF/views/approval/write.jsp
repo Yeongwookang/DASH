@@ -232,50 +232,50 @@ function update_document(){
 	</div>	
 	<div class="mt-4">
 			<div class="mb-3">
-			<div class="d-flex align-items-center">
-				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">제목</div>
-				<div class="ms-4" style="width: 80%">
-					<input name="title" type="text"  class="form-control" value="${dto.title}">
-				</div>
-			</div>
-			<div class="d-flex align-items-center">
-				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">기안자</div>
-				<div class="ms-4" style="width: 80%">
-				<c:if test="${mode == 'write' }">
-					${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
-					<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
-				</c:if>
-				<c:if test="${mode == 'update'}">
-					${dto.depName}&nbsp;${dto.name}
-					<input name= "empNo" type="hidden" value="${dto.empNo}">
-					<input name="signNum" type="hidden" value="${dto.signNum}">
-				</c:if>
-				</div>
-			</div>
-			
-			<div class="d-flex align-items-center">
-				<div class="p-2 text-white text-center bg-main fs-5" style=" font-weight: bold; width:20%">타임라인</div>
-				<div class="d-flex ms-4" style="width: 80%">
-					<input type="text" class="form-control me-2" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
-					<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
-					<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
-				</div>
-			</div>
-			<div class="d-flex align-items-center justify-content-between">
-				<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">참조</div>
-				<div class="ms-4" style="width: 80%">
-					<div class="d-flex refList">
-						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
-						<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
-						<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
-						<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
-						<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
-						<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
-						<input type="hidden" name="refcnt" id="refcnt" value="${dto.max_state}" readonly>
-						<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#empSearch" ><i class="fa-solid fa-plus"></i></button>
+				<div class="d-flex align-items-center">
+					<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">제목</div>
+					<div class="ms-4" style="width: 80%">
+						<input name="title" type="text"  class="form-control" value="${dto.title}">
 					</div>
 				</div>
-			</div>
+				<div class="d-flex align-items-center">
+					<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">기안자</div>
+					<div class="ms-4" style="width: 80%">
+					<c:if test="${mode == 'write' }">
+						${sessionScope.employee.depName}&nbsp;${sessionScope.employee.name}
+						<input name= "empNo" type="hidden" value="${sessionScope.employee.empNo}" >
+					</c:if>
+					<c:if test="${mode == 'update'}">
+						${dto.depName}&nbsp;${dto.name}
+						<input name= "empNo" type="hidden" value="${dto.empNo}">
+						<input name="signNum" type="hidden" value="${dto.signNum}">
+					</c:if>
+					</div>
+				</div>
+				
+				<div class="d-flex align-items-center">
+					<div class="p-2 text-white text-center bg-main fs-5" style=" font-weight: bold; width:20%">타임라인</div>
+					<div class="d-flex ms-4" style="width: 80%">
+						<input type="text" class="form-control me-2" name="tlName" id="tlName" value="${tldto.tlName}" readonly>
+						<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#timeLine" ><i class="fa-solid fa-magnifying-glass"></i></button>
+						<input type="hidden" name="tlNum" id="tlNum" value="${tldto.tlNum}" readonly>
+					</div>
+				</div>
+				<div class="d-flex align-items-center justify-content-between">
+					<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">참조</div>
+					<div class="ms-4" style="width: 80%">
+						<div class="d-flex refList">
+							<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
+							<input type="text" class="form-control me-2" id="ref2name" value="${ref2.depName}&nbsp;${ref2.name}" readonly>
+							<input type="text" class="form-control me-2" id="ref3name" value="${ref3.depName}&nbsp;${ref3.name}" readonly>
+							<input type="hidden" name="ref1" id="ref1" value="${dto.ref1}" readonly>
+							<input type="hidden" name="ref2" id="ref2" value="${dto.ref2}" readonly>
+							<input type="hidden" name="ref3" id="ref3" value="${dto.ref3}" readonly>
+							<input type="hidden" name="refcnt" id="refcnt" value="${dto.max_state}" readonly>
+							<button type="button" class="btn btn-main " data-bs-toggle="modal" data-bs-target="#empSearch" ><i class="fa-solid fa-plus"></i></button>
+						</div>
+					</div>
+				</div>
 			</div>		
 			
 			<div class="mt-4">

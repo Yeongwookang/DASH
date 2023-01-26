@@ -441,6 +441,16 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return map;
 	}
 
+	@Override
+	public void insertEvacation(Approval dto) throws Exception {
+		try {
+			dao.insertData("approval.insertEvacation", dto);
+		} catch (Exception e) {
+			throw e;
+		}
+		
+	}
+
 	
 	
 	

@@ -241,6 +241,10 @@ public class ApprovalController {
 			dto.setAddFiles(addFiles);
 			dto.setType(type);
 			
+			if(type.equals("dayoff")) {
+				service.insertEvacation(dto);
+			}
+			
 			
 			String root = session.getServletContext().getRealPath("/");
 			String path = root + "uploads" + File.separator + "approval";

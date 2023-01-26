@@ -44,5 +44,7 @@ public interface ApprovalService {
 	public List<Approval> recordTimeline(Approval dto);
 	public Map<String, Object> readSubdocument(long tlNum);
 	
+	public void insertEvacation(Approval dto) throws Exception;
+	
 	
 }

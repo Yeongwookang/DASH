@@ -192,6 +192,7 @@
 		JOIN doc_record dr ON dr.signNum = v.signNum
 		WHERE empNo= #{empNo}
    	</select>
+   	
    	<select id="countUsedVacation" parameterType="map" resultType="Integer">
    		SELECT NVL(SUM(endDate-startDate),0) from vacation v
 		JOIN e_document e ON v.signNum = e.signNum

@@ -21,8 +21,6 @@ public class Punching {
 	private String expireDate;
 	private String content;
 	
-	
-	
 	public long getClockNo() {
 		return clockNo;
 	}

@@ -366,4 +366,9 @@
 		WHERE dr.state = dr.max_state AND tlNum = #{tlNum}
 	</select>
 	
+	<insert id="insertEvacation" parameterType="approval">
+   		INSERT INTO vacation(vacationNum, signNum, startDate, endDate, vacationType)
+   			VALUES(vacation_seq.NEXTVAL, #{signNum}, #{startDate}, #{endDate}, #{vacationType})
+   	</insert>
+	
 </mapper>

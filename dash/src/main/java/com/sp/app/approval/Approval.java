@@ -49,6 +49,7 @@ public class Approval {
 	
 	private String startDate;
 	private String endDate;
+	private String vacationType;
 	
 	public String getStartDate() {
 		return startDate;
@@ -267,6 +268,12 @@ public class Approval {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getVacationType() {
+		return vacationType;
+	}
+	public void setVacationType(String vacationType) {
+		this.vacationType = vacationType;
 	}
 	
 	
