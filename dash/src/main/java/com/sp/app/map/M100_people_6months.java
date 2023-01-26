@@ -4,8 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 // 컬렉션(테이블명)
-@Document(collection = "500m")
-public class Meter3 {
+@Document(collection = "100m_people_6months")
+public class M100_people_6months {
 	@Id
 	private String _id;
 	private String type;

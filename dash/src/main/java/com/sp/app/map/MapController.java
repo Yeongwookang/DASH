@@ -43,16 +43,83 @@ public class MapController {
     @ResponseBody
     public Map<String, Object> meter() throws Exception {
 	   
-	    List<Meter> list_100 = meterService.listMeter();
+	    List<M100_all_6months> M100_6_dash = meterService.M100_all_6months();
+	    List<M100_all_month> M100_1_dash = meterService.M100_all_month();	    
+	    List<M100_all_quarter> M100_3_dash = meterService.M100_all_quarter();
 	    
-	    List<Meter2> list_300 = meterService.listMeter2();	    
-	    List<Meter3> list_500 = meterService.listMeter3();
+	    List<M100_bike_6months> M100_6_bike = meterService.M100_bike_6months();
+	    List<M100_bike_month> M100_1_bike = meterService.M100_bike_month();	    
+	    List<M100_bike_quarter> M100_3_bike = meterService.M100_bike_quarter();
+	    
+	    List<M100_people_6months> M100_6_traffic = meterService.M100_people_6months();
+	    List<M100_people_month> M100_1_traffic = meterService.M100_people_month();	    
+	    List<M100_people_quarter> M100_3_traffic = meterService.M100_people_quarter();
+	    
+
+
+	    List<M300_all_6months> M300_6_dash = meterService.M300_all_6months();
+	    List<M300_all_month> M300_1_dash = meterService.M300_all_month();	    
+	    List<M300_all_quarter> M300_3_dash = meterService.M300_all_quarter();
+	    
+	    List<M300_bike_6months> M300_6_bike = meterService.M300_bike_6months();
+	    List<M300_bike_month> M300_1_bike = meterService.M300_bike_month();	    
+	    List<M300_bike_quarter> M300_3_bike = meterService.M300_bike_quarter();
+	    
+	    List<M300_people_6months> M300_6_traffic = meterService.M300_people_6months();
+	    List<M300_people_month> M300_1_traffic = meterService.M300_people_month();	    
+	    List<M300_people_quarter> M300_3_traffic = meterService.M300_people_quarter();
+	    
+	    
+	    
+	    List<M500_all_6months> M500_6_dash = meterService.M500_all_6months();
+	    List<M500_all_month> M500_1_dash = meterService.M500_all_month();	    
+	    List<M500_all_quarter> M500_3_dash = meterService.M500_all_quarter();
+	    
+	    List<M500_bike_6months> M500_6_bike = meterService.M500_bike_6months();
+	    List<M500_bike_month> M500_1_bike = meterService.M500_bike_month();	    
+	    List<M500_bike_quarter> M500_3_bike = meterService.M500_bike_quarter();
+	    
+	    List<M500_people_6months> M500_6_traffic = meterService.M500_people_6months();
+	    List<M500_people_month> M500_1_traffic = meterService.M500_people_month();	    
+	    List<M500_people_quarter> M500_3_traffic = meterService.M500_people_quarter();
 	   
 	    Map<String, Object> model =  new HashMap<String, Object>();
 	    
-	    model.put("list_100", list_100);
-	    model.put("list_300", list_300);
-	    model.put("list_500", list_500);
+	    model.put("100_6_dash", M100_6_dash);
+	    model.put("100_1_dash", M100_1_dash);
+	    model.put("100_3_dash", M100_3_dash);
+	    
+	    model.put("100_6_bike", M100_6_bike);
+	    model.put("100_1_bike", M100_1_bike);
+	    model.put("100_3_bike", M100_3_bike);
+	    
+	    model.put("100_6_traffic", M100_6_traffic);
+	    model.put("100_1_traffic", M100_1_traffic);
+	    model.put("100_3_traffic", M100_3_traffic);
+	    
+	    model.put("300_6_dash", M300_6_dash);
+	    model.put("300_1_dash", M300_1_dash);
+	    model.put("300_3_dash", M300_3_dash);
+	    
+	    model.put("300_6_bike", M300_6_bike);
+	    model.put("300_1_bike", M300_1_bike);
+	    model.put("300_3_bike", M300_3_bike);
+	    
+	    model.put("300_6_traffic", M300_6_traffic);
+	    model.put("300_1_traffic", M300_1_traffic);
+	    model.put("300_3_traffic", M300_3_traffic);
+	    
+	    model.put("500_6_dash", M500_6_dash);
+	    model.put("500_1_dash", M500_1_dash);
+	    model.put("500_3_dash", M500_3_dash);
+	    
+	    model.put("500_6_bike", M500_6_bike);
+	    model.put("500_1_bike", M500_1_bike);
+	    model.put("500_3_bike", M500_3_bike);
+	    
+	    model.put("500_6_traffic", M500_6_traffic);
+	    model.put("500_1_traffic", M500_1_traffic);
+	    model.put("500_3_traffic", M500_3_traffic);
 	   
 	    return model;
     }
