@@ -331,6 +331,19 @@ public class ApprovalController {
 			return "redirect:/approval/main";
 		}
 		
+		
+		@PostMapping("reject")
+		public String reject(@RequestParam Map<String, Object> map
+				) throws Exception{
+			String signNum = (String)map.get("signNum");
+			map.put("signNum",Long.parseLong(signNum));
+			service.rejectUpdate(map);
+			service.reject(map);
+			
+			return "redirect:/approval/main";
+		}
+		
+		
 		@GetMapping("delete/{signNum}")
 		public String deleteFile(@PathVariable long signNum, HttpServletResponse resp,
 				HttpSession session) throws Exception {

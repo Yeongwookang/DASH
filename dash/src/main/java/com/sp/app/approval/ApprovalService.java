@@ -11,6 +11,8 @@ public interface ApprovalService {
 	public void deleteApproval(long signNum, String path) throws Exception;
 	public void approve(Map<String, Object> map) throws Exception;
 	public void approveUpdate(Map<String, Object> map) throws Exception;
+	public void reject(Map<String, Object> map) throws Exception;
+	public void rejectUpdate(Map<String, Object> map) throws Exception;
 	
 	public List<Employee> empList(Map<String, Object> map);
 	

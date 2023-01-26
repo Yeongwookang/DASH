@@ -256,6 +256,27 @@ public class ApprovalServiceImpl implements ApprovalService {
 			throw e;
 		}
 	}
+	
+	@Override
+	public void reject(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("approval.reject", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+			throw e;
+		}
+		
+	}
+
+	@Override
+	public void rejectUpdate(Map<String, Object> map) throws Exception {
+		try {
+			dao.updateData("approval.rejectUpdate", map);
+		} catch (Exception e) {
+			logger.warn("{} ", e.getMessage());
+			throw e;
+		}
+	}
 
 	@Override
 	public List<Approval> fileList(long signNum) {

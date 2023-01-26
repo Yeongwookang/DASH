@@ -6,23 +6,23 @@
 <div>
 	<div class="mt-4 title">
 		<span>결재</span>
-		<hr>
+		<hr class="mt-4 mb-4" style="border: solid 1px;">
 	</div>
-	<div class="mt-4">
+	<div>
 		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
-				<div class="mb-2 pt-3 pb-3">
+				<div class="mb-4">
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2 text-white text-center bg-main fs-4" style="border-radius: 2rem 0 0 0 / 2rem 0 0 0">제목</div>
+					<div class="w-25 p-2 text-white text-center bg-main fs-4 fw-bold" style="border-radius: 2rem 0 0 0 / 2rem 0 0 0">제목</div>
 					<div class="w-75 fs-5 ms-3 me-3">${dto.title }</div>
 				</div>
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2  text-white text-center bg-main fs-4">기안자</div>
+					<div class="w-25 p-2  text-white text-center bg-main fs-4 fw-bold">기안자</div>
 					<div class="w-75 ms-3 me-3"> ${dto.depName}&nbsp;${dto.name}
 						 <input name= "empNo" type="hidden" value="${dto.empNo}" >
 					</div>
 				</div>
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2  text-white text-center bg-main fs-4">타임라인</div>
+					<div class="w-25 p-2  text-white text-center bg-main fs-4 fw-bold">타임라인</div>
 					<div class="d-flex w-75 ms-3 me-3">
 						<input type="text" class="form-control" name="tlName" value="${tldto.tlName}" readonly>
 						<button type="button" class="btn btn-main ms-2" data-bs-toggle="modal" data-bs-target="#timeLine"><i class="fa-solid fa-magnifying-glass"></i></button>
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2  text-white text-center bg-main fs-4" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>
+					<div class="w-25 p-2  text-white text-center bg-main fs-4 fw-bold" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>
 					<div class="w-75 ms-3 me-3">
 						<div class="d-flex">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>
@@ -55,18 +55,38 @@
 					</div>
 				</c:forEach>
 			</c:if>
+			
+		<hr class="mt-4 mb-4" style="border: solid 1px;">
 		<div class="d-flex justify-content-end mt-4">
 			<c:if test="${sessionScope.employee.empNo == dto.empNo && dto.state < 1}">
 				<button class="btn btn-sub bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/update/${dto.signNum}'">수정</button>
+				<button class="btn btn-main bg-gradient me-2" type="button" onclick="location.href='${pageContext.request.contextPath}/approval/delete/${dto.signNum}'">삭제</button>
 			</c:if>
-			<form method="POST" action="${pageContext.request.contextPath}/approval/approve" name="approve">
+			<form method="POST" name="approve">
 				<input type="hidden" value="${dto.state}" name="state">
 				<input type="hidden" value="${dto.signNum}" name="signNum">			
 			<c:if test="${sessionScope.employee.empNo == dto.ref1 || sessionScope.employee.empNo == dto.ref2 || sessionScope.employee.empNo == dto.ref3}">
-				<button class="btn btn-main bg-gradient me-2" type="submit">결재</button>
+				<button class="btn btn-sub bg-gradient me-2" type="button" onclick="reject();">반려</button>
+				<button class="btn btn-main bg-gradient me-2" type="button" onclick="approve();">결재</button>
 			</c:if>
 			</form>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function approve(){
+	const f = document.approve;
+	f.action = "${pageContext.request.contextPath}/approval/approve";
+	
+	f.submit();
+}
+
+function reject(){
+	const f = document.approve;
+	f.action = "${pageContext.request.contextPath}/approval/reject";
+	
+	f.submit();
+}
+</script>
+
 

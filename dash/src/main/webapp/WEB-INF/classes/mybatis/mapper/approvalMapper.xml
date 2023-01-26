@@ -246,6 +246,22 @@
 		WHERE signNum = #{signNum})+1 WHERE signNum=#{signNum}
 	</update>
 	
+	<update id="rejectUpdate" parameterType="map">
+		UPDATE 
+		<choose>
+			<when test="state == 0"> f_approval</when>
+			<when test="state == 1"> s_approval</when>
+			<when test="state == 2"> t_approval</when>
+			<otherwise> dual</otherwise>
+		</choose>
+		SET reg_date = sysdate, state='반려' 
+		WHERE signNum = #{signNum}
+	</update>
+	
+	<update id="reject" parameterType="Long">
+		UPDATE doc_record SET reg_date = sysdate, state = -1 WHERE signNum=#{signNum}
+	</update>
+	
 	<insert id="insertFile" parameterType="approval">
 		INSERT INTO e_documentFile(fileNum, signNum, saveFilename, originalFilename, fileSize)
 		VALUES(e_documentFile_seq.nextval, #{signNum}, #{saveFilename}, #{originalFilename}, #{fileSize})
