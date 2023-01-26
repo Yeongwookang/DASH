@@ -98,10 +98,24 @@
 				</a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link nav-box"
-					href="${pageContext.request.contextPath}/map/main">
-					<i class="fa-solid fa-map-location-dot"></i><span class="ms-3">추천</span> 
-				</a>
+					<a class="nav-link nav-box"
+						href="${pageContext.request.contextPath}/map/main">
+						<i class="fa-solid fa-map-location-dot"></i><span class="ms-3">추천</span> 
+					</a>
+				</li>
+				<li class="dropdown nav-item">
+				<a class="nav-link dropdown-toggle nav-box" id="approvalMenu" 
+					data-bs-toggle="dropdown" aria-expanded="false">
+					<i class="fa-lg fa-regular fa-folder"></i><span class="ms-3">추천 순위</span></a>
+				<ul class="dropdown-menu" aria-labelledby="approvalMenu">
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/map/6/allDetail">
+						<span> 종합</span></a></li>
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/map/6/trafficDetail"><span> 유동인구</span></a></li>
+					<li class="dropdown-item"><a
+						href="${pageContext.request.contextPath}/map/6/bikeDetail"><span> 따릉이</span></a></li>
+				</ul>
 			</li>
 			</c:if>
 			<c:if test="${sessionScope.employee.depNo==4}">
