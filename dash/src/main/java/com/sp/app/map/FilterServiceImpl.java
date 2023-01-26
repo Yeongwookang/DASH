@@ -118,4 +118,37 @@ public class FilterServiceImpl implements FilterService {
 		return list_bikeCount_month;
 	}
 
+	@Override
+	public All_6months readAll_6months(String _id) {
+		All_6months readAll_6months = null;
+		
+		try {
+			readAll_6months = filterMongo.readAll_6months(_id);
+		} catch (Exception e) {
+		}
+		return readAll_6months;
+	}
+
+	@Override
+	public All_month readAll_month(String _id) {
+		All_month readAll_month = null;
+		
+		try {
+			readAll_month = filterMongo.readAll_month(_id);
+		} catch (Exception e) {
+		}
+		return readAll_month;
+	}
+
+	@Override
+	public All_quarter readAll_quarter(String _id) {
+		All_quarter readAll_quarter = null;
+		
+		try {
+			readAll_quarter = filterMongo.readAll_quarter(_id);
+		} catch (Exception e) {
+		}
+		return readAll_quarter;
+	}
+
 }

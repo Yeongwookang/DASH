@@ -45,13 +45,13 @@ $(function(){
    <div class="m-auto mt-4"> 
       <ul class="nav nav-tabs" id="myTab" role="tablist">
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-receive" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="6" style="color: black;">6개월</button>
+            <button class="nav-link" id="tab-6" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="6" style="color: black;">6개월</button>
          </li>
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="3" style="color: black;">3개월</button>
+            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="3" style="color: black;">3개월</button>
          </li>
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="1" style="color: black;">1개월</button>
+            <button class="nav-link" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="1" style="color: black;">1개월</button>
          </li>
       </ul>
          

@@ -261,6 +261,24 @@ public class MapController {
 		return ".map.allDetail";
 	}
 	
+	@RequestMapping(value = "{menuItem}/allDetail/score")
+	@ResponseBody
+	public String allDetailScore(@PathVariable String menuItem, @RequestParam String _id, Model model) {
+		
+		if(menuItem.equals("1")) {
+			All_month all_month = filterService.readAll_month(_id);
+			model.addAttribute("dto", all_month);
+		} else if(menuItem.equals("3")) {
+			All_quarter all_quarter = filterService.readAll_quarter(_id);
+			model.addAttribute("dto", all_quarter);
+		} else {
+			All_6months all_6months = filterService.readAll_6months(_id);
+			model.addAttribute("dto", all_6months);
+		}
+		
+		return ".map.allDetail";
+	}
+	
 	@RequestMapping(value = "{menuItem}/trafficDetail")
 	public String trafficDetail(@PathVariable String menuItem, Model model) {	
 		if(menuItem.equals("1")) {

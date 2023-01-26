@@ -45,13 +45,13 @@ $(function(){
    <div class="m-auto mt-4"> 
       <ul class="nav nav-tabs" id="myTab" role="tablist">
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-receive" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="6" style="color: black;">6개월</button>
+            <button class="nav-link" id="tab-6" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="receive" aria-selected="true" data-tab="6" style="color: black;">6개월</button>
          </li>
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="3" style="color: black;">3개월</button>
+            <button class="nav-link" id="tab-3" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="3" style="color: black;">3개월</button>
          </li>
          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="tab-send" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="1" style="color: black;">1개월</button>
+            <button class="nav-link" id="tab-1" data-bs-toggle="tab" data-bs-target="#nav-content" type="button" role="tab" aria-controls="send" aria-selected="true" data-tab="1" style="color: black;">1개월</button>
          </li>
       </ul>
          
@@ -62,11 +62,10 @@ $(function(){
                   <thead class="bg-main text-white">
                      <tr class="text-center">
                         <th style="width: 5%;">순위</th> 
-                        <th style="width: 10%;">역사ID</th>
                         <th style="width: 15%;">역사명</th>
                         <th style="width: 15%;">호선</th>
                         <th style="width: 25%;">주소</th>
-                        <th style="width: 15%;">분석 날짜</th>
+                        <th style="width: 20%;">분석 날짜</th>
                         <th style="width: 20%;">승하차 인원</th> 
                      </tr>  
                   </thead>
@@ -75,7 +74,6 @@ $(function(){
                      <c:forEach var="dto" items="${list}" varStatus="status">
                         <tr class="text-center">
                            <td>${status.index + 1}</td>
-                           <td>${dto._id }</td>
                            <td>${dto.name}</td>
                            <td>${dto.line}</td>
                            <td>${dto.addr}</td>
