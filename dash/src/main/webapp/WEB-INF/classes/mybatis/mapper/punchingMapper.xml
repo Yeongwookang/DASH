@@ -131,7 +131,7 @@
       VALUES(#{empNo}, #{totalQty}, #{leftQty})
    </insert>
    
-   <select id="readVacation" parameterType="String" resultType="com.sp.app.punching.Punching">
+   <select id="readVacation" parameterType="map" resultType="com.sp.app.punching.Punching">
    		SELECT empNo, totalQty, leftQty FROM specialVacation WHERE empNo = #{empNo}
    </select>
    
@@ -181,5 +181,21 @@
 			OR TO_CHAR(gainDate, 'YYYYMMDD') = #{keyword})
 		</if>
 	</sql>
-   
+	
+   	<select id="userHistoryVacation" parameterType="map" resultType="com.sp.app.punching.Punching">
+   		SELECT gainQty as qty, gainDate as reg_date, '연차 획득' as content FROM gainDayoff WHERE empNo = #{empNo}
+		UNION ALL
+		SELECT gainQty as qty, gainDate as reg_date, content FROM gainSpecialVacation WHERE empNo = #{empNo}
+		UNION ALL
+		SELECT (endDate-startDate) as qty, reg_date, vacationType as content FROM vacation v
+		JOIN E_DOCUMENT e ON e.signNum = v.signNum
+		JOIN doc_record dr ON dr.signNum = v.signNum
+		WHERE empNo= #{empNo};
+   	</select>
+   	<select id="countUsedVacation" parameterType="map" resultType="Integer">
+   		SELECT NVL(SUM(endDate-startDate),0) from vacation v
+		JOIN e_document e ON v.signNum = e.signNum
+		where empNo= #{empNo}
+   	</select>
+   	
 </mapper>

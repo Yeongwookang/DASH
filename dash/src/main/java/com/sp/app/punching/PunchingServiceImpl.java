@@ -238,4 +238,41 @@ public class PunchingServiceImpl implements PunchingService {
 		
 	}
 
+	@Override
+	public Punching readVacation(Map<String, Object> map) {
+		Punching result = null;
+		
+		try {
+			result = dao.selectOne("punching.readVacation", map);
+		} catch (Exception e) {
+			logger.warn("{}", e.getMessage());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Punching> userHistoryVacation(Map<String, Object> map) {
+		List<Punching> result = null;
+		
+		try {
+			result = dao.selectList("punching.userHistoryVacation", map);
+		} catch (Exception e) {
+			logger.warn("{}", e.getMessage());
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int countUsedVacation(Map<String, Object> map) {
+		int result = 0;
+		try {
+			result = dao.selectOne("punching.countUsedVacation", map);
+		} catch (Exception e) {
+			logger.warn("{}", e.getMessage());
+		}
+		return result;
+	}
+
 }

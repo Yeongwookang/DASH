@@ -118,6 +118,15 @@ public class HomeController {
       map.put("empNo",info.getEmpNo());
       
       Punching punching = punService.todayPunch(map);
+      Punching vacation = punService.readVacation(map);
+      if(vacation == null) {
+    	  vacation = new Punching();
+    	  vacation.setLeftQty(0);
+    	  vacation.setTotalQty(0);
+      }
+      
+      int usedVacationCount = punService.countUsedVacation(map);
+      List<Punching> userHistoryVacation = punService.userHistoryVacation(map);
       
       map.put("offset",0);
       map.put("size",5);
@@ -158,7 +167,10 @@ public class HomeController {
       model.addAttribute("listCommunity", listCommunity);
       model.addAttribute("todayPunch", punching);
       model.addAttribute("punDto", punDto);
-     
+      model.addAttribute("vacation",vacation);
+      model.addAttribute("usedCount",usedVacationCount);
+      model.addAttribute("dayoffList", userHistoryVacation);
+      
       return ".mainLayout";
    }
    

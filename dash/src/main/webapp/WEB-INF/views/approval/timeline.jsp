@@ -3,7 +3,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-
+<script type="text/javascript">
+function linkapproval(signNum){
+	location.href="${pageContext.request.contextPath}/approval/read/"+signNum;
+}
+</script>
 <div>
 	<div class="d-flex justify-content-between mt-4">
 		<div class="title">
@@ -220,7 +224,7 @@
 				out +="<div style='max-width:9rem'>"
 				out +="<ul class='list-group'>";
 				for(let item of data.lists.list0){
-					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+					out+="<li onclick='linkapproval("+item.signNum+")' class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
 				}
 				out+="</ul></div></div>"
 				
@@ -234,7 +238,7 @@
 				out +="<div style='max-width:9rem'>"
 				out +="<ul class='list-group'>";
 				for(let item of data.lists.list1){
-					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+					out+="<li onclick='linkapproval("+item.signNum+")' class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
 				}
 				out+="</ul></div></div>"
 				
@@ -248,7 +252,7 @@
 				out+="<div style='max-width:9rem'>"
 				out+="<ul class='list-group'>";
 				for(let item of data.lists.list2){
-					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+					out+="<li onclick='linkapproval("+item.signNum+")' class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
 				}
 				out+="</ul></div></div>"
 				
@@ -263,7 +267,7 @@
 				out+="<div style='max-width:9rem'>"
 				out+="<ul class='list-group'>";
 				for(let item of data.lists.list3){
-					out+="<li class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
+					out+="<li onclick='linkapproval("+item.signNum+")' class='list-group-item list-group-item-action elipsis'>"+item.title+"</li>";
 				}
 				out+="</ul></div></div>"
 				

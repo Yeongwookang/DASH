@@ -42,7 +42,7 @@ function punchOff(){
 }
 </script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/vendor/fullcalendar5/lib/main.min.css">
-   <div class="m-auto mb-5">
+   <div class="m-auto">
    <div id="carouselExampleIndicators" class="carousel slide border mb-4 rounded" data-bs-ride="carousel" style="height: 10rem; background: #ffffff">
      <div class="carousel-indicators">
        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -118,7 +118,7 @@ function punchOff(){
             </div>
             </div>
             <div class="mt-3">
-               <div>특별휴가 (0일 / 0일)</div>
+	           <div>특별휴가 (${vacation.leftQty}일 / ${vacation.totalQty}일)</div>
                <div class="progress">
                  <div class="progress-bar bg-main  progress-bar-striped progress-bar-animated" role="progressbar" id="specialVacation" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                </div>
@@ -651,25 +651,21 @@ function listPage(page){
       <div class="modal-body">
       <div class="alert bg-sub text-center" role="alert">
          <div>연차나 특별휴가를 얻고 사용한 기록을 볼 수 있습니다.</div>
-         <div>연차 기록은 <span style="font-weight: bold">획득, 사용의 필터와 날짜</span>로 검색할 수 있습니다.</div>
+         <div>연차 기록은 <span style="font-weight: bold">날짜</span>로 검색할 수 있습니다.</div>
       </div>
 
          <div class="d-flex justify-content-center align-items-center mt-4">
             <div class="rounded bg-main p-2 text-white" style="font-weight: bold">잔여 휴가</div>
-            <div class="ms-3 me-3">10일</div>
+            <div class="ms-3 me-3">${vacation.leftQty+punDto.leftQty}일</div>
             <div class="rounded bg-main p-2 text-white" style="font-weight: bold">전체 휴가</div>
-            <div class="ms-3 me-3">20일</div>
+            <div class="ms-3 me-3">${vacation.totalQty+punDto.leftQty}일</div>
             <div class="rounded bg-main p-2 text-white" style="font-weight: bold">사용 휴가</div>
-            <div class="ms-3 me-3">30일</div>
+            <div class="ms-3 me-3">${usedCount}일</div>
          </div>
        <div class="card mt-4 p-4">
              <div>
              <form name="dayoffSearch" action="${pageContext.request.contextPath}/punching/dayoffSearch" method="POST">
                 <div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
-                    <select class="form-select me-2" name="condition" style="width: 100px;">
-                       <option value="gain">획득</option>
-                       <option value="use">사용</option>
-                    </select>
                     <input class="form-control me-2" name="startDate" type="date">
                     <span class="me-2">~</span>
                     <input class="form-control me-2" name="endDate" type="date">
@@ -701,56 +697,6 @@ function listPage(page){
                                         <td>${dto.qty}</td>
                                         <td>${dto.date}</td>
                                         <td>${dto.leftQty}</td>
-                                     </tr>
-                                  </c:forEach>
-                               </tbody>
-                            </table>
-                         </div>
-                      </c:otherwise>
-                   </c:choose>
-                </div>
-            </div>
-       </div>
-       
-       <div class="card mt-4 p-4">
-             <div>
-             <form name="svSearch" action="${pageContext.request.contextPath}/punching/svSearch" method="POST">
-                <div class="d-flex justify-content-center align-items-center pb-2 border-bottom ">
-                    <select class="form-select me-2" name="condition" style="width: 100px;">
-                       <option value="gain">획득</option>
-                       <option value="use">사용</option>
-                    </select>
-                    <input class="form-control me-2" name="startDate" type="date">
-                    <span class="me-2">~</span>
-                    <input class="form-control me-2" name="endDate" type="date">
-                    <button class="btn btn-main"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-              </form>
-                <div class="m-auto">
-                   <c:choose>
-                      <c:when test="${empty svList}">
-                         <div class="fs-4 text-muted p-4 text-center"> " 내역이 없습니다. " </div>
-                      </c:when>
-                      <c:otherwise>
-                         <div class="mt-2">
-                            <table class="table hover-table">
-                               <thead>
-                                  <tr>
-                                     <th>#</th>
-                                     <th style="width:50%">사유</th>
-                                     <th>수량</th>
-                                     <th>일자</th>
-                                     <th>잔여 연차</th>
-                                  </tr>
-                               </thead>
-                               <tbody>
-                                  <c:forEach items="${specialVacationList}" var="sv" varStatus="sv_status">
-                                     <tr>
-                                        <td>${sv_status.index}</td>
-                                        <td>${sv.content}</td>
-                                        <td>${sv.qty}</td>
-                                        <td>${sv.date}</td>
-                                        <td>${sv.leftQty}</td>
                                      </tr>
                                   </c:forEach>
                                </tbody>

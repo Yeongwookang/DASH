@@ -26,5 +26,8 @@ public interface PunchingService {
    public void updateVacation(Punching dto) throws Exception;
    public List<Punching> listGainVacation(Map<String, Object> map);
    public int dataCountGainVacation(Map<String, Object> map);
+   public Punching readVacation(Map<String, Object> map);
+   public int countUsedVacation(Map<String, Object> map);
+   public List<Punching> userHistoryVacation(Map<String, Object> map);
    
 }
