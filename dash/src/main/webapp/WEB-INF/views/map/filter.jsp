@@ -197,9 +197,9 @@ L.Control.Filter = L.Control.extend({
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main monthFilter text-white">1개월</button>';
 	    el.innerHTML += '<hr>';
 	    el.innerHTML += '<p class="mb-2">DASH</p>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준1</button>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="2" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준2</button>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main cusFilter text-white">기준3</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main cusFilter text-white me-2">종합</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="2" autocomplete="off" class="btn btn-main cusFilter text-white me-2" style="font-size:16px;">유동인구</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main cusFilter text-white">따릉이 이용건수</button>';
 
 	    return el;
 	  },
