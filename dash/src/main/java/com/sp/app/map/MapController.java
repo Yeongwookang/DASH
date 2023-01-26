@@ -243,6 +243,16 @@ public class MapController {
 	    return model;
     }
 	
+	@RequestMapping(value = "meter2")
+    @ResponseBody
+    public Map<String, Object> meter2(){
+		Map<String, Object> model =  new HashMap<String, Object>();
+		List<M100_all_6months> M100_6_dash = meterService.M100_all_6months();
+	    
+	    model.put("100_6_dash", M100_6_dash);
+	    return model;
+	}
+	
 	@RequestMapping(value = "all_month")
     @ResponseBody
     public Map<String, Object> all_month() throws Exception {

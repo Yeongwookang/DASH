@@ -80,6 +80,7 @@
 			}
 		});
 	}
+	
 	</script>
 </head>
 <body>
@@ -107,6 +108,11 @@
 			</div>
 		</div>
 </div>
+
+<div id="loadingLayout" style="display:none; position: absolute; left: 0; top:0; width: 100%; height: 100%; z-index: 9000; background: #eee;">
+	<div class="loader"></div>
+</div>
+
 	<script type="text/javascript">
 		$(document).ready(function(){
 			  var currentPosition = parseInt($("#sidebar").css("top"));
