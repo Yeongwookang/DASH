@@ -12,7 +12,7 @@
 		<form name="approval" method="POST" action="${pageContext.request.contextPath}/approval/write" enctype="multipart/form-data">
 				<div class="mb-4">
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2 text-white text-center bg-main fs-4 fw-bold" style="border-radius: 2rem 0 0 0 / 2rem 0 0 0">제목</div>
+					<div class="w-25 p-2 text-white text-center bg-main fs-4 fw-bold">제목</div>
 					<div class="w-75 fs-5 ms-3 me-3">${dto.title }</div>
 				</div>
 				<div class="d-flex align-items-center">
@@ -32,7 +32,7 @@
 					</div>
 				</div>
 				<div class="d-flex align-items-center">
-					<div class="w-25 p-2  text-white text-center bg-main fs-4 fw-bold" style="border-radius: 0 0 0 2rem / 0 0 0 2rem">참 조</div>
+					<div class="w-25 p-2  text-white text-center bg-main fs-4 fw-bold">참 조</div>
 					<div class="w-75 ms-3 me-3">
 						<div class="d-flex">
 						<input type="text" class="form-control me-2" id="ref1name" value="${ref1.depName}&nbsp;${ref1.name}" readonly>

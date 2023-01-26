@@ -138,7 +138,7 @@ var geo_json = L.geoJson(null, {
 
 function geo_json_add (data, name) {
 geo_json.addData(data);
-layer_control.addOverlay(geo_json_100, name);
+layer_control.addOverlay(geo_json, name);
 }
 
 
@@ -200,9 +200,7 @@ L.Control.Home= L.Control.extend({
 	
 	
 	$(function(){
-		let url = "";
-		
-		url = "${pageContext.request.contextPath}/map/subway";
+		let url = "${pageContext.request.contextPath}/map/subway";
 		
 
 		const fn2 = function(data){
@@ -219,12 +217,14 @@ L.Control.Home= L.Control.extend({
 		}
 		
 		ajaxFun(url,"get",null,"json",fn2);
+		
 	});
 	
-function search(rad, month, cus){
+function searchPolygon(rad, month, cus){
 	let url= "${pageContext.request.contextPath}/map/meter";
-	
+	let query = "rad="+rad+"&month="+month+"&cus="+cus;
 	const fn =function (data) {
+		console.log(data);
 		for(item of data[rad+"_"+month+"_"+cus]){
 			let obj; 
 			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
@@ -241,9 +241,7 @@ function search(rad, month, cus){
 		geo_json_add (jsO, name);
 	}
 
-	ajaxFun(url,"get", null,"json",fn);
-	
-	
+	ajaxFun(url,"get", query,"json",fn);
 }	
 
 	
@@ -282,7 +280,7 @@ $(".cusFilter").click(function(){
 
 $(".btn-main").click(function(){
 	if($(".radFilter.active").length === 1 && $(".monthFilter.active").length ===1 && $(".cusFilter.active").length===1){
-		alert("거리: "+rad+", 날짜: "+month+", 기준: "+cus );
+		searchPolygon(rad,month,cus);
 	}
 });
 
