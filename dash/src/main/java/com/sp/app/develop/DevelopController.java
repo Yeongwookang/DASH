@@ -1,8 +1,6 @@
 package com.sp.app.develop;
 
-import java.io.File;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sp.app.common.FileManager;
 import com.sp.app.common.MyUtil;
 import com.sp.app.employee.SessionInfo;
 
@@ -29,9 +26,6 @@ public class DevelopController {
 
 	@Autowired
 	private DevelopService service;
-
-	@Autowired
-	private FileManager fileManager;
 	
 	@Autowired
 	private MyUtil myUtil;
