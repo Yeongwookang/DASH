@@ -139,7 +139,7 @@ function punchOff(){
                <c:otherwise>
                   <table class="table table-hover board-list-main m-auto w-100" > 
                      <thead>  
-                        <tr class="text-center">
+                        <tr class="text-center bg-main text-white">
                            <th style="width: 10%">#</th> 
                            <th style="width: 60%">제목</th>
                            <th style="width: 30%">날짜</th>  
@@ -176,7 +176,7 @@ function punchOff(){
                <c:when test="${not empty myApprovalList}"> 
                   <table class="table text-center table-hover m-auto board-list-main w-100">
                      <thead>
-                          <tr>
+                          <tr class=" bg-main text-white">
                              <th>#</th>
                              <th style="width: 43%">제목</th>
                              <th style="width: 15%">부서 </th> 
@@ -240,7 +240,7 @@ function punchOff(){
                <c:otherwise>
                   <table class="table table-hover board-list-main m-auto w-100"> 
                         <thead>  
-                           <tr class="text-center">
+                           <tr class="text-center bg-main text-white">
                               <th style="width: 20%">#</th> 
                               <th style="width: 55%">제목</th>
                               <th style="width: 25%">날짜</th>  

@@ -113,7 +113,8 @@
 	</update>
 	
 	<select id="readTimelineRecord" parameterType="Long" resultType="approval">
-		SELECT recordNum, tlNum, signNum, state FROM timeline_record 
+		SELECT recordNum, tr.tlNum, signNum, tlName FROM timeline_record tr
+		JOIN timeline tl ON tl.tlNum = tr.tlNum 
 		WHERE signNum= #{signNum}	
 	</select>
 	

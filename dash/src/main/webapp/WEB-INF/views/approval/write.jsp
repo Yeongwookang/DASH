@@ -215,6 +215,30 @@ function update_document(){
 	f.action = "${pageContext.request.contextPath}/approval/update"
 	f.submit();
 }
+function normalMode(){
+	$(".dayoffMode").remove();
+}
+function dayoffMode(){
+	let out ="<div class='dayoffMode d-flex align-items-center'>";
+	out += "<div class='p-2 text-white text-center bg-main fs-5 fw-bold' style='width:20%'>휴가</div>"
+	out += "<div class='ms-4 d-flex align-items-center' style='width:80%'>";
+	out += "<input class='form-control' type='date' name='startDate'>";
+	out += "<span class='ms-2 me-2'>~</span><input class='form-control' type='date' name='endDate'>";
+	out += "</div>";
+	out += "</div>";
+	$(".form-box").append(out);
+}
+
+$(function(){
+	$("#type").change(function(){
+		if($("#type option:selected").val() == "dayoff"){
+			dayoffMode();
+		} else {
+			normalMode();
+		}
+	});
+	
+});
 </script>
 <div>
 <form name="approval" method="POST"  enctype="multipart/form-data">			
@@ -223,15 +247,15 @@ function update_document(){
 			<span>결재 작성</span>
 		</div>
 		<div>
-			<select name="type" class="form-select">
+			<select name="type" id="type" class="form-select">
 				<option value="normal">일반결재</option>
 				<option value="bill">비용처리</option>
-				<option id="dayOffmode" value="dayoff">휴가사용</option>
+				<option value="dayoff">휴가사용</option>
 			</select>
 		</div>
 	</div>	
 	<div class="mt-4">
-			<div class="mb-3">
+			<div class="mb-3 form-box">
 				<div class="d-flex align-items-center">
 					<div class="p-2 text-white text-center bg-main fs-5" style="font-weight: bold; width:20%">제목</div>
 					<div class="ms-4" style="width: 80%">
