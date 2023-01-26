@@ -55,7 +55,7 @@
 						href="${pageContext.request.contextPath}/insa/main">
 						<span> 사원 관리</span></a></li>
 					<li class="dropdown-item"><a
-						href="${pageContext.request.contextPath}/punching/main"><span> 연차 관리</span></a></li>
+						href="${pageContext.request.contextPath}/punching/main"><span> 휴가 관리</span></a></li>
 						
 					<c:if test="${sessionScope.employee.adminEmpNo == sessionScope.employee.empNo}">
 						<li class="dropdown-item"><a
