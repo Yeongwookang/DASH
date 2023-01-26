@@ -60,45 +60,41 @@
   <div class="folium-map" id="map_1">
   </div>
    
-<script>         
-function ajaxFun(url, method, query, dataType, fn) {
-   	$.ajax({
-   		type:method,
-   		url:url,
-   		data:query,
-   		dataType:dataType,
-   		success:function(data) {
-   			fn(data);
-   		},
-   		beforeSend:function(jqXHR) {
-   			jqXHR.setRequestHeader("AJAX", true);
-   		},
-   		error:function(jqXHR) {
-   			if(jqXHR.status === 403) {
-   				login();
-   				return false;
-   			} else if(jqXHR.status === 400) {
-   				alert("요청 처리가 실패 했습니다.");
-   				return false;
-   			}
-   	    	
-   			console.log(jqXHR.responseText);
-   		}
-   	});
-   }
-   
-var arr_100=[];
-var arr_300=[];
-var arr_500=[];
-var jsO_100;
-var jsO_300;
-var jsO_500;
+<script>            
+var arr = [];
+var jsO = [];
 var subway = [];
 var station = [];
 
+var rad;
+var month;
+var cus;
 
-
-
+function ajaxFun(url, method, query, dataType, fn) {
+	$.ajax({
+		type:method,
+		url:url,
+		data:query,
+		dataType:dataType,
+		success:function(data) {
+			fn(data);
+		},
+		beforeSend:function(jqXHR) {
+			jqXHR.setRequestHeader("AJAX", true);
+		},
+		error:function(jqXHR) {
+			if(jqXHR.status === 403) {
+				login();
+				return false;
+			} else if(jqXHR.status === 400) {
+				alert('요청 처리가 실패 했습니다.');
+				return false;
+			}
+	    	
+			console.log(jqXHR.responseText);
+		}
+	});
+}
 
 
 var map_1 = L.map(
@@ -132,53 +128,17 @@ layer_control = L.control.layers(
 		{"autoZIndex": true, "collapsed": true, "position": "topright"}
 		).addTo(map_1);
 
-function geo_json_100_onEachFeature(feature, layer) {
-layer.on({
-});
+function geo_json_onEachFeature(feature, layer) {
+	layer.on({
+	});
 };
-var geo_json_100 = L.geoJson(null, {
-    onEachFeature: geo_json_100_onEachFeature,
-
+var geo_json = L.geoJson(null, {
+    onEachFeature: geo_json_onEachFeature,
 });
 
-function geo_json_100_add (data) {
-geo_json_100
-    .addData(data);
-layer_control.addOverlay(geo_json_100,"100m");
-}
-
-
-
-
-function geo_json_300_onEachFeature(feature, layer) {
-	layer.on({
-	});
-	};
-var geo_json_300 = L.geoJson(null, {
-    onEachFeature: geo_json_300_onEachFeature,
-
-});
-
-function geo_json_300_add (data) {
-geo_json_300.addData(data);
-layer_control.addOverlay(geo_json_300,"300m");
-}
-
-
-	
-function geo_json_500_onEachFeature(feature, layer) {
-	layer.on({
-	});
-	};
-var geo_json_500 = L.geoJson(null, {
-    onEachFeature: geo_json_500_onEachFeature,
-
-});
-
-function geo_json_500_add (data) {
-geo_json_500
-    .addData(data);
-layer_control.addOverlay(geo_json_500,"500m");
+function geo_json_add (data, name) {
+geo_json.addData(data);
+layer_control.addOverlay(geo_json_100, name);
 }
 
 
@@ -197,9 +157,9 @@ L.Control.Filter = L.Control.extend({
 	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main monthFilter text-white">1개월</button>';
 	    el.innerHTML += '<hr>';
 	    el.innerHTML += '<p class="mb-2">DASH</p>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="1" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준1</button>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="2" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준2</button>';
-	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="3" autocomplete="off" class="btn btn-main cusFilter text-white">기준3</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="dash" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준1</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="traffic" autocomplete="off" class="btn btn-main cusFilter text-white me-2">기준2</button>';
+	    el.innerHTML += '<button type="button" data-bs-toggle="button" value="bike" autocomplete="off" class="btn btn-main cusFilter text-white">기준3</button>';
 
 	    return el;
 	  },
@@ -259,74 +219,47 @@ L.Control.Home= L.Control.extend({
 		}
 		
 		ajaxFun(url,"get",null,"json",fn2);
-		
-		url= "${pageContext.request.contextPath}/map/meter";
-		
-		const fn =function (data) {
-			for(item of data.list_100){
-				let obj; 
-				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-				arr_100.push(obj); 
-				
-			};
-			
-			jsO_100 = {
-		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-		   				"features": arr_100
-		   			};
-			
-			for(item of data.list_300){
-				let obj; 
-				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-				arr_300.push(obj); 
-				
-			};
-			
-			jsO_300 = {
-		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-		   				"features": arr_300
-		   			};
-			
-			for(item of data.list_500){
-				let obj; 
-				obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
-				arr_500.push(obj); 
-				
-			};
-			
-			jsO_500 = {
-		 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-		   				"features": arr_500
-		   		};
-			
-			geo_json_100_add (jsO_100);
-			//geo_json_300_add (jsO_300);
-			//geo_json_500_add (jsO_500);
-		}
-
-		ajaxFun(url,"get",null,"json",fn);
-		
-		
-		
 	});
 	
+function search(rad, month, cus){
+	let url= "${pageContext.request.contextPath}/map/meter";
 	
+	const fn =function (data) {
+		for(item of data[rad+"_"+month+"_"+cus]){
+			let obj; 
+			obj = { "type" : item["type"], "properties" : item["properties"], "geometry":item["geometry"] };  	
+			arr.push(obj); 
+			
+		};
+		
+		jsO = {
+	 				"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+	   				"features": arr
+	   			};
+		
+		let name = rad+", "+month+", "+cus;
+		geo_json_add (jsO, name);
+	}
+
+	ajaxFun(url,"get", null,"json",fn);
+	
+	
+}	
 
 	
 
 </script>
 <script type="text/javascript">
 
-var rad;
-var month;
-var cus;
+
 
 $(".radFilter").click(function(){
 	if($(".radFilter.active").length > 1){
 		$(".radFilter.active").removeClass("active");
 		$(this).addClass("active");
 		rad= this.value;
-	} 	
+	}
+	rad= this.value;
 });
 
 $(".monthFilter").click(function(){
@@ -334,7 +267,8 @@ $(".monthFilter").click(function(){
 		$(".monthFilter.active").removeClass("active");
 		$(this).addClass("active");
 		month=this.value;
-	} 	
+	} 
+	month=this.value;
 });
 
 $(".cusFilter").click(function(){
@@ -342,9 +276,15 @@ $(".cusFilter").click(function(){
 		$(".cusFilter.active").removeClass("active");
 		$(this).addClass("active");
 		cus=this.value;
-	} 	
+	} 
+	cus=this.value;
 });
 
+$(".btn-main").click(function(){
+	if($(".radFilter.active").length === 1 && $(".monthFilter.active").length ===1 && $(".cusFilter.active").length===1){
+		alert("거리: "+rad+", 날짜: "+month+", 기준: "+cus );
+	}
+});
 
 </script>
 
