@@ -681,22 +681,18 @@ function listPage(page){
                          <div class="mt-2">
                             <table class="table hover-table">
                                <thead>
-                                  <tr>
+                                  <tr class="text-center">
                                      <th>#</th>
                                      <th style="width:50%">사유</th>
                                      <th>수량</th>
-                                     <th>일자</th>
-                                     <th>잔여 연차</th>
                                   </tr>
                                </thead>
                                <tbody>
                                   <c:forEach items="${dayoffList}" var="dto" varStatus="status">
-                                     <tr>
-                                        <td>${status.index}</td>
+                                     <tr class="text-center m-auto">
+                                        <td>${status.count}</td>
                                         <td>${dto.content}</td>
                                         <td>${dto.qty}</td>
-                                        <td>${dto.date}</td>
-                                        <td>${dto.leftQty}</td>
                                      </tr>
                                   </c:forEach>
                                </tbody>

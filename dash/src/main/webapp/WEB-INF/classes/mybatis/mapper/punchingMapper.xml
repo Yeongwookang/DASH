@@ -183,14 +183,19 @@
 	</sql>
 	
    	<select id="userHistoryVacation" parameterType="map" resultType="com.sp.app.punching.Punching">
-   		SELECT gainQty as qty, gainDate as reg_date, '연차 획득' as content FROM gainDayoff WHERE empNo = #{empNo}
+   		SELECT gainQty as qty, gainDate as reg_date, '연차 획득' as content, leftQty FROM gainDayoff gd
+   		JOIN dayoff d on gd.empNo = d.empNo
+   		WHERE d.empNo = #{empNo}
 		UNION ALL
-		SELECT gainQty as qty, gainDate as reg_date, content FROM gainSpecialVacation WHERE empNo = #{empNo}
+		SELECT gainQty as qty, gainDate as reg_date, content, leftQty FROM gainSpecialVacation gv
+		JOIN specialVacation sv ON sv.empNo = gv.empNo  
+		WHERE gv.empNo = #{empNo}
 		UNION ALL
-		SELECT (endDate-startDate) as qty, reg_date, vacationType as content FROM vacation v
+		SELECT (endDate-startDate) as qty, reg_date, vacationType, leftQty as content FROM vacation v
 		JOIN E_DOCUMENT e ON e.signNum = v.signNum
 		JOIN doc_record dr ON dr.signNum = v.signNum
-		WHERE empNo= #{empNo}
+		JOIN dayoff d ON d.empNo = e.empNo
+		WHERE e.empNo= #{empNo}
    	</select>
    	
    	<select id="countUsedVacation" parameterType="map" resultType="Integer">
