@@ -128,6 +128,12 @@ public class HomeController {
       int usedVacationCount = punService.countUsedVacation(map);
       List<Punching> userHistoryVacation = punService.userHistoryVacation(map);
       
+
+	  for(Punching dto : userHistoryVacation) {
+		  dto.setContent(dto.getContent().replaceAll("<p>", ""));
+		  dto.setContent(dto.getContent().replaceAll("</p>", ""));
+	  }
+      
       map.put("offset",0);
       map.put("size",5);
       List<Approval> myApprovalList = apService.myApprovalList(map);

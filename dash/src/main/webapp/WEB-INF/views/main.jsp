@@ -691,7 +691,7 @@ function listPage(page){
                                   <c:forEach items="${dayoffList}" var="dto" varStatus="status">
                                      <tr class="text-center m-auto">
                                         <td>${status.count}</td>
-                                        <td>${dto.content}</td>
+                                        <td class="align-middle">${dto.content}</td>
                                         <td>${dto.qty}</td>
                                      </tr>
                                   </c:forEach>
