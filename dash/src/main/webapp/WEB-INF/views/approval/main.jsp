@@ -98,7 +98,7 @@
       						<c:when test="${ap.state == 0 }">기안</c:when>
       						<c:when test="${ap.state < ap.max_state && ap.state == 1 }">1차 승인</c:when>
       						<c:when test="${ap.state < ap.max_state && ap.state == 2 }">2차 승인</c:when>
-      						<c:when test="${ap.state< ap.max_state }">결재 완료</c:when>
+      						<c:when test="${ap.state == ap.max_state }">결재 완료</c:when>
       						<c:otherwise>문의</c:otherwise>
       					</c:choose>
       					</td>
