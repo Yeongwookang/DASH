@@ -173,8 +173,8 @@ public class PunchingController {
   			if(read == null) {
   				dto.setTotalQty(dto.getGainQty());
   				dto.setLeftQty(dto.getGainQty());
-  				service.insertGainVacation(dto);
   				service.insertVacation(dto);
+  				service.insertGainVacation(dto);
   			} else {
   				dto.setTotalQty(dto.getGainQty());
   				service.updateVacation(dto);
